@@ -1,103 +1,1149 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>티스토리 업로드 자동화? :: EduArt Engineer Archive</title>
-    <meta name="description" content="티스토리 업로드 자동화? - 자동화 시스템으로 처리된 디지털 아카이브">
-    <style>
-        :root{
-            --bg:#f4e5c9;--ui:#cd853f;--ui-2:#daa520;
-            --ink:#2a2a2a;--card:#fff9ee;
-        }
-        body{
-            margin:0;padding:20px;background:var(--bg);color:var(--ink);
-            font-family:system-ui,-apple-system,sans-serif;line-height:1.65;
-        }
-        .container{max-width:800px;margin:0 auto}
-        .header{
-            background:linear-gradient(135deg,#f8edd6,#fbe1b0);
-            border:2px solid var(--ui);border-radius:16px;
-            padding:20px;margin-bottom:20px;
-            box-shadow:0 6px 20px rgba(0,0,0,.08);
-        }
-        .badge{
-            display:inline-block;font-weight:700;font-size:12px;
-            padding:.25rem .5rem;border-radius:999px;
-            background:var(--ui);color:#fff;margin:4px 8px 4px 0;
-        }
-        .badge.auto{background:var(--ui-2)}
-        h1{margin:10px 0;font-size:1.6rem;color:#3a2b1a}
-        .content{
-            background:var(--card);border:1px solid var(--ui-2);
-            border-radius:14px;padding:20px;margin:20px 0;
-        }
-        .back-btn{
-            display:inline-block;padding:8px 16px;
-            background:var(--ui);color:#fff;text-decoration:none;
-            border-radius:8px;margin-bottom:20px;
-        }
-        .automation-info{
-            background:#e8f5e8;border:1px solid #4caf50;
-            border-radius:8px;padding:12px;margin:16px 0;
-        }
-        footer{text-align:center;margin:30px 0;color:#6b563e;font-size:.9rem}
-        ul{padding-left:20px}
-        li{margin:8px 0}
-        .meta{color:#666;font-size:.9rem}
-    </style>
-</head>
-<body>
-    <div class="container">
-        <a href="/archive/" class="back-btn">← 아카이브로 돌아가기</a>
+                                                                                <head>
+                <script type="text/javascript">if (!window.T) { window.T = {} }
+window.T.config = {"TOP_SSL_URL":"https://www.tistory.com","PREVIEW":false,"ROLE":"guest","PREV_PAGE":"","NEXT_PAGE":"","BLOG":{"id":7993480,"name":"dtslib1k","title":"중년작가지망생 EduArt Engineer","isDormancy":false,"nickName":"중년작가지망생","status":"open","profileStatus":"normal"},"NEED_COMMENT_LOGIN":true,"COMMENT_LOGIN_CONFIRM_MESSAGE":"이 블로그는 로그인한 사용자에게만 댓글 작성을 허용했습니다. 지금 로그인하시겠습니까?","LOGIN_URL":"https://www.tistory.com/auth/login/?redirectUrl=https://dtslib1k.tistory.com/188","DEFAULT_URL":"https://dtslib1k.tistory.com","USER":{"name":null,"homepage":null,"id":0,"profileImage":null},"SUBSCRIPTION":{"status":"none","isConnected":false,"isPending":false,"isWait":false,"isProcessing":false,"isNone":true},"IS_LOGIN":false,"HAS_BLOG":false,"IS_SUPPORT":false,"IS_SCRAPABLE":false,"TOP_URL":"http://www.tistory.com","JOIN_URL":"https://www.tistory.com/member/join","PHASE":"prod","ROLE_GROUP":"visitor"};
+window.T.entryInfo = {"entryId":188,"isAuthor":false,"categoryId":1256804,"categoryLabel":"설정 (System Lab)/티스토리적용"};
+window.appInfo = {"domain":"tistory.com","topUrl":"https://www.tistory.com","loginUrl":"https://www.tistory.com/auth/login","logoutUrl":"https://www.tistory.com/auth/logout"};
+window.initData = {};
+
+window.TistoryBlog = {
+    basePath: "",
+    url: "https://dtslib1k.tistory.com",
+    tistoryUrl: "https://dtslib1k.tistory.com",
+    manageUrl: "https://dtslib1k.tistory.com/manage",
+    token: "2nwSjwnU1fyHNwk9vyX4bvxd56P6udahZjvKdTfOk4/tTXtO8isxEHnbAPOJ/3vy"
+};
+var servicePath = "";
+var blogURL = "";</script>
+
+                
+                
+                
+                        <!-- BusinessLicenseInfo - START -->
         
-        <div class="header">
-            <div>
-                <span class="badge">자동 처리</span>
-                <span class="badge auto">모바일 최적화</span>
-                <span class="badge">수동 작업 0%</span>
+            <link href="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/plugin/BusinessLicenseInfo/style.css" rel="stylesheet" type="text/css"/>
+
+            <script>function switchFold(entryId) {
+    var businessLayer = document.getElementById("businessInfoLayer_" + entryId);
+
+    if (businessLayer) {
+        if (businessLayer.className.indexOf("unfold_license") > 0) {
+            businessLayer.className = "business_license_layer";
+        } else {
+            businessLayer.className = "business_license_layer unfold_license";
+        }
+    }
+}
+</script>
+
+        
+        <!-- BusinessLicenseInfo - END -->
+        <!-- DaumShow - START -->
+        <style type="text/css">#daumSearchBox {
+    height: 21px;
+    background-image: url(//i1.daumcdn.net/imgsrc.search/search_all/show/tistory/plugin/bg_search2_2.gif);
+    margin: 5px auto;
+    padding: 0;
+}
+
+#daumSearchBox input {
+    background: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+#daumSearchBox #daumLogo {
+    width: 34px;
+    height: 21px;
+    float: left;
+    margin-right: 5px;
+    background-image: url(//i1.daumcdn.net/img-media/tistory/img/bg_search1_2_2010ci.gif);
+}
+
+#daumSearchBox #show_q {
+    background-color: transparent;
+    border: none;
+    font: 12px Gulim, Sans-serif;
+    color: #555;
+    margin-top: 4px;
+    margin-right: 15px;
+    float: left;
+}
+
+#daumSearchBox #show_btn {
+    background-image: url(//i1.daumcdn.net/imgsrc.search/search_all/show/tistory/plugin/bt_search_2.gif);
+    width: 37px;
+    height: 21px;
+    float: left;
+    margin: 0;
+    cursor: pointer;
+    text-indent: -1000em;
+}
+</style>
+
+        <!-- DaumShow - END -->
+
+<!-- System - START -->
+
+<!-- System - END -->
+
+        <!-- TistoryProfileLayer - START -->
+        <link href="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/plugin/TistoryProfileLayer/style.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/plugin/TistoryProfileLayer/script.js"></script>
+
+        <!-- TistoryProfileLayer - END -->
+
+                
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="format-detection" content="telephone=no">
+<script src="//t1.daumcdn.net/tistory_admin/lib/jquery/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="//t1.daumcdn.net/tiara/js/v1/tiara.min.js"></script><meta name="referrer" content="always"/>
+<meta name="google-adsense-platform-account" content="ca-host-pub-9691043933427338"/>
+<meta name="google-adsense-platform-domain" content="tistory.com"/>
+<meta name="description" content="문답 아카이브 · 티스토리 HTML 퀵업로드 백서 배경 #f4e5c9 · UI #cd853f/#daa520 · 모바일 우선 · © dtslib.com · 저자: 중년작가지망생 EduArt Engineer Q1. 왜 원클릭 자동 발행이 막히나? ▶ 핵심 티스토리 오픈 API 종료로 외부 앱에서 발행 불가(API/OAuth 차단). 브라우저 보안(CORS/CSP)·세션 정책으로 외부 페이지가 에디터(DOM)를 직접 조작 불가. 에디터 구조상 스크립트 삽입 차단(sanitizer) → 본문에 JS 불가. 결론 원클릭 자동 발행(X.."/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://dtslib1k.tistory.com/188"/>
+<meta property="og.article.author" content="중년작가지망생"/>
+<meta property="og:site_name" content="중년작가지망생 EduArt Engineer"/>
+<meta property="og:title" content="티스토리 업로드 자동화?"/>
+<meta name="by" content="중년작가지망생"/>
+<meta property="og:description" content="문답 아카이브 · 티스토리 HTML 퀵업로드 백서 배경 #f4e5c9 · UI #cd853f/#daa520 · 모바일 우선 · © dtslib.com · 저자: 중년작가지망생 EduArt Engineer Q1. 왜 원클릭 자동 발행이 막히나? ▶ 핵심 티스토리 오픈 API 종료로 외부 앱에서 발행 불가(API/OAuth 차단). 브라우저 보안(CORS/CSP)·세션 정책으로 외부 페이지가 에디터(DOM)를 직접 조작 불가. 에디터 구조상 스크립트 삽입 차단(sanitizer) → 본문에 JS 불가. 결론 원클릭 자동 발행(X.."/>
+<meta property="og:image" content="https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Ftistory_admin%2Fstatic%2Fimages%2FopenGraph%2Fopengraph.png"/>
+<meta property="article:section" content="'창작'"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:site" content="@TISTORY"/>
+<meta name="twitter:title" content="티스토리 업로드 자동화?"/>
+<meta name="twitter:description" content="문답 아카이브 · 티스토리 HTML 퀵업로드 백서 배경 #f4e5c9 · UI #cd853f/#daa520 · 모바일 우선 · © dtslib.com · 저자: 중년작가지망생 EduArt Engineer Q1. 왜 원클릭 자동 발행이 막히나? ▶ 핵심 티스토리 오픈 API 종료로 외부 앱에서 발행 불가(API/OAuth 차단). 브라우저 보안(CORS/CSP)·세션 정책으로 외부 페이지가 에디터(DOM)를 직접 조작 불가. 에디터 구조상 스크립트 삽입 차단(sanitizer) → 본문에 JS 불가. 결론 원클릭 자동 발행(X.."/>
+<meta property="twitter:image" content="https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Ftistory_admin%2Fstatic%2Fimages%2FopenGraph%2Fopengraph.png"/>
+<meta content="https://dtslib1k.tistory.com/188" property="dg:plink" content="https://dtslib1k.tistory.com/188"/>
+<meta name="plink"/>
+<meta name="title" content="티스토리 업로드 자동화?"/>
+<meta name="article:media_name" content="중년작가지망생 EduArt Engineer"/>
+<meta property="article:mobile_url" content="https://dtslib1k.tistory.com/m/188"/>
+<meta property="article:pc_url" content="https://dtslib1k.tistory.com/188"/>
+<meta property="article:mobile_view_url" content="https://dtslib1k.tistory.com/m/188"/>
+<meta property="article:pc_view_url" content="https://dtslib1k.tistory.com/188"/>
+<meta property="article:talk_channel_view_url" content="https://dtslib1k.tistory.com/m/188"/>
+<meta property="article:pc_service_home" content="https://www.tistory.com"/>
+<meta property="article:mobile_service_home" content="https://www.tistory.com/m"/>
+<meta property="article:txid" content="7993480_188"/>
+<meta property="article:published_time" content="2025-08-25T20:41:00+09:00"/>
+<meta property="og:regDate" content="20250825084100"/>
+<meta property="article:modified_time" content="2025-08-25T20:41:00+09:00"/>
+<script type="module" src="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/pc/dist/index.js" defer=""></script>
+<script type="text/javascript" src="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/pc/dist/index-legacy.js" defer="" nomodule="true"></script>
+<script type="text/javascript" src="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/pc/dist/polyfills-legacy.js" defer="" nomodule="true"></script>
+<link rel="icon" sizes="any" href="https://t1.daumcdn.net/tistory_admin/favicon/tistory_favicon_32x32.ico"/>
+<link rel="icon" type="image/svg+xml" href="https://t1.daumcdn.net/tistory_admin/top_v2/bi-tistory-favicon.svg"/>
+<link rel="apple-touch-icon" href="https://t1.daumcdn.net/tistory_admin/top_v2/tistory-apple-touch-favicon.png"/>
+<link rel="stylesheet" type="text/css" href="https://t1.daumcdn.net/tistory_admin/www/style/font.css"/>
+<link rel="stylesheet" type="text/css" href="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/style/content.css"/>
+<link rel="stylesheet" type="text/css" href="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/pc/dist/index.css"/>
+<link rel="stylesheet" type="text/css" href="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/style/uselessPMargin.css"/>
+<script type="text/javascript">(function() {
+    var tjQuery = jQuery.noConflict(true);
+    window.tjQuery = tjQuery;
+    window.orgjQuery = window.jQuery; window.jQuery = tjQuery;
+    window.jQuery = window.orgjQuery; delete window.orgjQuery;
+})()</script>
+<script type="text/javascript" src="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/script/base.js"></script>
+<script type="text/javascript" src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+                
+  <title>티스토리 업로드 자동화? :: 중년작가지망생 EduArt Engineer</title>
+  <meta name="title" content="티스토리 업로드 자동화? :: 중년작가지망생 EduArt Engineer" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+  <link rel="alternate" type="application/rss+xml" title="중년작가지망생 EduArt Engineer" href="https://dtslib1k.tistory.com/rss" />
+  <link rel="stylesheet" href="https://tistory1.daumcdn.net/tistory/7993480/skin/style.css?_version_=1756273526" />
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css">
+  <!--[if IE 7]><link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome-ie7.min.css"><![endif]-->
+
+                
+                
+                <style type="text/css">.another_category {
+    border: 1px solid #E5E5E5;
+    padding: 10px 10px 5px;
+    margin: 10px 0;
+    clear: both;
+}
+
+.another_category h4 {
+    font-size: 12px !important;
+    margin: 0 !important;
+    border-bottom: 1px solid #E5E5E5 !important;
+    padding: 2px 0 6px !important;
+}
+
+.another_category h4 a {
+    font-weight: bold !important;
+}
+
+.another_category table {
+    table-layout: fixed;
+    border-collapse: collapse;
+    width: 100% !important;
+    margin-top: 10px !important;
+}
+
+* html .another_category table {
+    width: auto !important;
+}
+
+*:first-child + html .another_category table {
+    width: auto !important;
+}
+
+.another_category th, .another_category td {
+    padding: 0 0 4px !important;
+}
+
+.another_category th {
+    text-align: left;
+    font-size: 12px !important;
+    font-weight: normal;
+    word-break: break-all;
+    overflow: hidden;
+    line-height: 1.5;
+}
+
+.another_category td {
+    text-align: right;
+    width: 80px;
+    font-size: 11px;
+}
+
+.another_category th a {
+    font-weight: normal;
+    text-decoration: none;
+    border: none !important;
+}
+
+.another_category th a.current {
+    font-weight: bold;
+    text-decoration: none !important;
+    border-bottom: 1px solid !important;
+}
+
+.another_category th span {
+    font-weight: normal;
+    text-decoration: none;
+    font: 10px Tahoma, Sans-serif;
+    border: none !important;
+}
+
+.another_category_color_gray, .another_category_color_gray h4 {
+    border-color: #E5E5E5 !important;
+}
+
+.another_category_color_gray * {
+    color: #909090 !important;
+}
+
+.another_category_color_gray th a.current {
+    border-color: #909090 !important;
+}
+
+.another_category_color_gray h4, .another_category_color_gray h4 a {
+    color: #737373 !important;
+}
+
+.another_category_color_red, .another_category_color_red h4 {
+    border-color: #F6D4D3 !important;
+}
+
+.another_category_color_red * {
+    color: #E86869 !important;
+}
+
+.another_category_color_red th a.current {
+    border-color: #E86869 !important;
+}
+
+.another_category_color_red h4, .another_category_color_red h4 a {
+    color: #ED0908 !important;
+}
+
+.another_category_color_green, .another_category_color_green h4 {
+    border-color: #CCE7C8 !important;
+}
+
+.another_category_color_green * {
+    color: #64C05B !important;
+}
+
+.another_category_color_green th a.current {
+    border-color: #64C05B !important;
+}
+
+.another_category_color_green h4, .another_category_color_green h4 a {
+    color: #3EA731 !important;
+}
+
+.another_category_color_blue, .another_category_color_blue h4 {
+    border-color: #C8DAF2 !important;
+}
+
+.another_category_color_blue * {
+    color: #477FD6 !important;
+}
+
+.another_category_color_blue th a.current {
+    border-color: #477FD6 !important;
+}
+
+.another_category_color_blue h4, .another_category_color_blue h4 a {
+    color: #1960CA !important;
+}
+
+.another_category_color_violet, .another_category_color_violet h4 {
+    border-color: #E1CEEC !important;
+}
+
+.another_category_color_violet * {
+    color: #9D64C5 !important;
+}
+
+.another_category_color_violet th a.current {
+    border-color: #9D64C5 !important;
+}
+
+.another_category_color_violet h4, .another_category_color_violet h4 a {
+    color: #7E2CB5 !important;
+}
+</style>
+
+                
+                <link rel="stylesheet" type="text/css" href="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/style/revenue.css"/>
+<link rel="canonical" href="https://dtslib1k.tistory.com/188"/>
+
+<!-- BEGIN STRUCTURED_DATA -->
+<script type="application/ld+json">
+    {"@context":"http://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@id":"https://dtslib1k.tistory.com/188","name":null},"url":"https://dtslib1k.tistory.com/188","headline":"티스토리 업로드 자동화?","description":"문답 아카이브 &middot; 티스토리 HTML 퀵업로드 백서 배경 #f4e5c9 &middot; UI #cd853f/#daa520 &middot; 모바일 우선 &middot; &copy; dtslib.com &middot; 저자: 중년작가지망생 EduArt Engineer Q1. 왜 원클릭 자동 발행이 막히나? ▶ 핵심 티스토리 오픈 API 종료로 외부 앱에서 발행 불가(API/OAuth 차단). 브라우저 보안(CORS/CSP)&middot;세션 정책으로 외부 페이지가 에디터(DOM)를 직접 조작 불가. 에디터 구조상 스크립트 삽입 차단(sanitizer) &rarr; 본문에 JS 불가. 결론 원클릭 자동 발행(X..","author":{"@type":"Person","name":"중년작가지망생","logo":null},"image":{"@type":"ImageObject","url":"https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Ftistory_admin%2Fstatic%2Fimages%2FopenGraph%2Fopengraph.png","width":"800px","height":"800px"},"datePublished":"2025-08-25T20:41:00+09:00","dateModified":"2025-08-25T20:41:00+09:00","publisher":{"@type":"Organization","name":"TISTORY","logo":{"@type":"ImageObject","url":"https://t1.daumcdn.net/tistory_admin/static/images/openGraph/opengraph.png","width":"800px","height":"800px"}}}
+</script>
+<!-- END STRUCTURED_DATA -->
+<link rel="stylesheet" type="text/css" href="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/style/dialog.css"/>
+<link rel="stylesheet" type="text/css" href="//t1.daumcdn.net/tistory_admin/www/style/top/font.css"/>
+<link rel="stylesheet" type="text/css" href="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/style/postBtn.css"/>
+<link rel="stylesheet" type="text/css" href="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/style/tistory.css"/>
+<script type="text/javascript" src="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/script/common.js"></script>
+
+                
+                </head>
+
+                                                <body id="tt-body-page">
+                
+                
+                
+
+  <div id="wrap">
+    <!-- ===== Sidebar ===== -->
+    <aside id="sidebar" role="complementary" aria-label="Sidebar">
+      <div class="profile-icon">
+        <img src="https://tistory1.daumcdn.net/tistory/7993480/skin/images/Ed.png" alt="프로필 아이콘" />
+      </div>
+
+      <h1 class="side-title"><a href="https://dtslib1k.tistory.com/">중년작가지망생 EduArt Engineer</a></h1>
+
+      
+          <div class="widget category"><ul class="tt_category"><li class=""><a href="/category" class="link_tit"> 분류 전체보기 <span class="c_cnt">(18)</span> </a>
+  <ul class="category_list"><li class=""><a href="/category/%EC%84%A4%EC%A0%95%20%28System%20Lab%29" class="link_item"> 설정 (System Lab) <span class="c_cnt">(7)</span> </a>
+  <ul class="sub_category_list"><li class=""><a href="/category/%EC%84%A4%EC%A0%95%20%28System%20Lab%29/%EC%9E%91%EA%B0%80%EB%A1%9C%EB%93%9C%EB%A7%B5" class="link_sub_item"> 작가로드맵 <span class="c_cnt">(1)</span> </a></li>
+<li class=""><a href="/category/%EC%84%A4%EC%A0%95%20%28System%20Lab%29/%ED%8B%B0%EC%8A%A4%ED%86%A0%EB%A6%AC%EC%A0%81%EC%9A%A9" class="link_sub_item"> 티스토리적용 <span class="c_cnt">(6)</span> </a></li>
+</ul>
+</li>
+<li class=""><a href="/category/%EC%83%9D%EA%B0%81%EB%B6%84%EB%A6%AC%20%28Writer%E2%80%99s%20Path%29" class="link_item"> 생각분리 (Writer&rsquo;s Path) <span class="c_cnt">(7)</span> </a>
+  <ul class="sub_category_list"><li class=""><a href="/category/%EC%83%9D%EA%B0%81%EB%B6%84%EB%A6%AC%20%28Writer%E2%80%99s%20Path%29/%EC%B2%A0%ED%95%99%EC%9E%90" class="link_sub_item"> 철학자 <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/%EC%83%9D%EA%B0%81%EB%B6%84%EB%A6%AC%20%28Writer%E2%80%99s%20Path%29/%EA%B8%B0%EB%8A%A5%EC%9D%B8" class="link_sub_item"> 기능인 <span class="c_cnt">(7)</span> </a></li>
+<li class=""><a href="/category/%EC%83%9D%EA%B0%81%EB%B6%84%EB%A6%AC%20%28Writer%E2%80%99s%20Path%29/%EB%B8%94%EB%A1%9C%EA%B1%B0" class="link_sub_item"> 블로거 <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/%EC%83%9D%EA%B0%81%EB%B6%84%EB%A6%AC%20%28Writer%E2%80%99s%20Path%29/%ED%99%94%EA%B0%80" class="link_sub_item"> 화가 <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/%EC%83%9D%EA%B0%81%EB%B6%84%EB%A6%AC%20%28Writer%E2%80%99s%20Path%29/%EB%AE%A4%EC%A7%80%EC%85%98" class="link_sub_item"> 뮤지션 <span class="c_cnt">(0)</span> </a></li>
+</ul>
+</li>
+<li class=""><a href="/category/%ED%94%84%EB%A1%AC%ED%94%84%ED%8A%B8%20%28Prompt%20Studio%29" class="link_item"> 프롬프트 (Prompt Studio) <span class="c_cnt">(1)</span> </a>
+  <ul class="sub_category_list"><li class=""><a href="/category/%ED%94%84%EB%A1%AC%ED%94%84%ED%8A%B8%20%28Prompt%20Studio%29/%EC%9B%B9%ED%8E%98%EC%9D%B4%EC%A7%80%EB%B3%80%ED%99%98" class="link_sub_item"> 웹페이지변환 <span class="c_cnt">(1)</span> </a></li>
+<li class=""><a href="/category/%ED%94%84%EB%A1%AC%ED%94%84%ED%8A%B8%20%28Prompt%20Studio%29/%EC%9B%B9%ED%8E%98%EC%9D%B4%EC%A7%80%EB%B6%84%EB%A6%AC%EC%88%98%EA%B1%B0" class="link_sub_item"> 웹페이지분리수거 <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/%ED%94%84%EB%A1%AC%ED%94%84%ED%8A%B8%20%28Prompt%20Studio%29/%EC%9B%B9%EC%95%B1%EB%AA%A8%EB%8D%B8%EB%A7%81" class="link_sub_item"> 웹앱모델링 <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/%ED%94%84%EB%A1%AC%ED%94%84%ED%8A%B8%20%28Prompt%20Studio%29/%EC%95%B1%EA%B0%9C%EB%B0%9C%20%28HW%20%C3%97%20%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C%29" class="link_sub_item"> 앱개발 (HW &times; 안드로이드) <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/%ED%94%84%EB%A1%AC%ED%94%84%ED%8A%B8%20%28Prompt%20Studio%29/%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C%20%EC%9E%90%EB%8F%99%ED%99%94" class="link_sub_item"> 클라우드 자동화 <span class="c_cnt">(0)</span> </a></li>
+</ul>
+</li>
+<li class=""><a href="/category/%EB%94%94%EB%B0%94%EC%9D%B4%EC%8A%A4%20%28Device%20Chronicles%29" class="link_item"> 디바이스 (Device Chronicles) <span class="c_cnt">(1)</span> </a>
+  <ul class="sub_category_list"><li class=""><a href="/category/%EB%94%94%EB%B0%94%EC%9D%B4%EC%8A%A4%20%28Device%20Chronicles%29/%EC%82%BC%EC%84%B1%ED%95%B8%EB%93%9C%ED%8F%B0%20x%20ChatGPT%20%3D%20MAL" class="link_sub_item"> 삼성핸드폰 x ChatGPT = MAL <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/%EB%94%94%EB%B0%94%EC%9D%B4%EC%8A%A4%20%28Device%20Chronicles%29/%EC%82%BC%EC%84%B1%ED%83%9C%EB%B8%94%EB%A6%BF%20%20x%20DALLE%C2%B3%20SORA%20%3D%20Qsketch" class="link_sub_item"> 삼성태블릿  x DALLE&sup3; SORA = Qsketch <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/%EB%94%94%EB%B0%94%EC%9D%B4%EC%8A%A4%20%28Device%20Chronicles%29/%EC%82%BC%EC%84%B1%ED%83%9C%EB%B8%94%EB%A6%BF%20%20x%20Obsidian%20Publish%20%3D%20PenOn" class="link_sub_item"> 삼성태블릿  x Obsidian Publish = Pe.. <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/%EB%94%94%EB%B0%94%EC%9D%B4%EC%8A%A4%20%28Device%20Chronicles%29/%EC%82%BC%EC%84%B1%ED%83%9C%EB%B8%94%EB%A6%BF%20x%20AIVA%20%3D%20EML" class="link_sub_item"> 삼성태블릿 x AIVA = EML <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/%EB%94%94%EB%B0%94%EC%9D%B4%EC%8A%A4%20%28Device%20Chronicles%29/%EA%B5%AC%ED%98%95%20%EB%9E%A9%ED%83%91%20x%20Cluade%20MCP%20x%20Github%20%3D%20Patcher" class="link_sub_item"> 구형 랩탑 x Cluade MCP x Github = .. <span class="c_cnt">(0)</span> </a></li>
+</ul>
+</li>
+<li class=""><a href="/category/WebAppsBook" class="link_item"> WebAppsBook <span class="c_cnt">(2)</span> </a>
+  <ul class="sub_category_list"><li class=""><a href="/category/WebAppsBook/Web%20page%20%28%ED%94%8C%EB%9E%AB%ED%8F%BCx%EC%84%9C%EC%8B%9D%29" class="link_sub_item"> Web page (플랫폼x서식) <span class="c_cnt">(2)</span> </a></li>
+<li class=""><a href="/category/WebAppsBook/Apps%20%28%EB%B0%98%EB%B3%B5-%EC%9B%B9%EC%95%B1%29" class="link_sub_item"> Apps (반복-웹앱) <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/WebAppsBook/Book%20%28%EC%9D%B8%ED%8F%AC%EA%B7%B8%EB%9E%98%ED%94%BD%29" class="link_sub_item"> Book (인포그래픽) <span class="c_cnt">(0)</span> </a></li>
+</ul>
+</li>
+<li class=""><a href="/category/WebAppsBookCast" class="link_item"> WebAppsBookCast <span class="c_cnt">(0)</span> </a>
+  <ul class="sub_category_list"><li class=""><a href="/category/WebAppsBookCast/%ED%83%9C%EB%B8%94%EB%A6%BF%ED%8C%90%EC%84%9C%EA%B0%95%EC%9D%98" class="link_sub_item"> 태블릿판서강의 <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/WebAppsBookCast/YT-3%EB%B6%84" class="link_sub_item"> YT-3분 <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/WebAppsBookCast/BGM%20AIVA" class="link_sub_item"> BGM AIVA <span class="c_cnt">(0)</span> </a></li>
+</ul>
+</li>
+<li class=""><a href="/category/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%28Thought%20Archaeology%29" class="link_item"> 프로젝트 (Thought Archaeology) <span class="c_cnt">(0)</span> </a>
+  <ul class="sub_category_list"><li class=""><a href="/category/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%28Thought%20Archaeology%29/Mal" class="link_sub_item"> Mal <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%28Thought%20Archaeology%29/Ph.L" class="link_sub_item"> Ph.L <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%28Thought%20Archaeology%29/Patcher" class="link_sub_item"> Patcher <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%28Thought%20Archaeology%29/PenOn" class="link_sub_item"> PenOn <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%28Thought%20Archaeology%29/Qsketch" class="link_sub_item"> Qsketch <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%28Thought%20Archaeology%29/EML" class="link_sub_item"> EML <span class="c_cnt">(0)</span> </a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        
+          <div class="widget my-links">
+            <a href="https://dtslib.com" target="_blank" rel="noopener" class="btn-site">dtslib.com</a>
+            <a href="https://parksy.kr"  target="_blank" rel="noopener" class="btn-site">parksy.kr</a>
+          </div>
+        
+          <div class="widget"><ul>
+  <li class="t_menu_home first"><a href="/" target="">홈</a></li>
+  <li class="t_menu_tag"><a href="/tag" target="">태그</a></li>
+  <li class="t_menu_guestbook last"><a href="/guestbook" target="">방명록</a></li>
+</ul></div>
+        
+          
+            <div class="widget">
+              <ul>
+                
+              </ul>
             </div>
-            <h1>티스토리 업로드 자동화?</h1>
-            <div class="meta">파일명: 2025-08-25-티스토리 업로드 자동화 • 처리: 2025.08.27 21:19</div>
-        </div>
+          
         
-        <div class="automation-info">
-            <h3>🤖 자동화 시스템 처리 완료</h3>
-            <ul>
-                <li>✅ 원본 파일에서 자동 추출</li>
-                <li>✅ 모바일 반응형 최적화</li>
-                <li>✅ 수동 작업 없이 자동 배포</li>
+          <div class="widget">
+            <ul id="recentComments">
+              
             </ul>
-        </div>
+          </div>
         
-        <div class="content">
-            <h2>📄 문서 정보</h2>
+          <div class="widget">
             <ul>
-                <li><strong>제목:</strong> 티스토리 업로드 자동화?</li>
-                <li><strong>원본 파일:</strong> 2025-08-25-티스토리 업로드 자동화.html</li>
-                <li><strong>자동 처리일:</strong> 2025년 08월 27일 21시 19분</li>
-                <li><strong>처리 방식:</strong> 완전 자동화 (수동 개입 0%)</li>
+              
             </ul>
+          </div>
+        
+          <div class="widget counter text-center">
+            <span class="yesterday">0</span> /
+            <span class="today">0</span> /
+            <span class="total">114</span>
+          </div>
+        
+          <div class="widget search text-center">
             
-            <h3>🔗 관련 링크</h3>
-            <ul>
-                <li><a href="https://dtslib.com">dtslib.com</a> - 메인 사이트</li>
-                <li><a href="https://parksy.kr">parksy.kr</a> - 아카이브</li>
-                <li><a href="/archive/">아카이브 홈</a> - 전체 목록</li>
-            </ul>
+              <label for="search" class="screen_out">블로그 내 검색</label>
+              <input id="search" class="search" placeholder="press enter to search…" type="text"
+                     name="search" value=""
+                     onkeypress="if (event.keyCode == 13) { try {
+    window.location.href = '/search' + '/' + looseURIEncode(document.getElementsByName('search')[0].value);
+    document.getElementsByName('search')[0].value = '';
+    return false;
+} catch (e) {} }" />
             
-            <h3>🤖 자동화 시스템 정보</h3>
-            <ul>
-                <li><strong>시스템:</strong> EduArt Engineer CI v2.0</li>
-                <li><strong>처리 방식:</strong> GitHub Actions 완전 자동화</li>
-                <li><strong>실행 주기:</strong> 매 3시간 또는 파일 변경 시</li>
-                <li><strong>수동 개입:</strong> 불필요 (0% 수동 작업)</li>
-            </ul>
-        </div>
+          </div>
         
-        <footer>
-            <small>© EduArt Engineer CI · 완전 자동화 시스템 · 수동 작업 제거</small>
-        </footer>
+    </aside>
+    <!-- ===== /Sidebar ===== -->
+
+    <!-- ===== Mobile/Tablet quick links (≤1024px에서만 표시) ===== -->
+    <nav id="mobile-links" class="mobile-only" role="navigation" aria-label="Quick links">
+      <a href="https://dtslib.com" target="_blank" rel="noopener" class="m-btn">dtslib.com</a>
+      <a href="https://parksy.kr"  target="_blank" rel="noopener" class="m-btn">parksy.kr</a>
+    </nav>
+
+    <!-- ===== Content ===== -->
+    <main id="content" role="main">
+      <div id="content-inner">
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+                
+            
+  <div id="head">
+    <h2><a href="/188">티스토리 업로드 자동화?</a></h2>
+    <div class="post-meta">
+      <span class="author">중년작가지망생</span>
+      <span class="meta-date">2025. 8. 25. 20:41</span>
+      
     </div>
-</body>
+  </div>
+
+  <div id="body" class="entry">
+    <div class="tag_label">
+      
+    </div>
+
+    <div class="article" id="article-view">            <!-- System - START -->
+
+<!-- System - END -->
+
+            <div class="tt_article_useless_p_margin contents_style"><!DOCTYPE html>
+<html lang="ko">
+                                                <head>
+                <script type="text/javascript">if (!window.T) { window.T = {} }
+window.T.config = {"TOP_SSL_URL":"https://www.tistory.com","PREVIEW":false,"ROLE":"guest","PREV_PAGE":"","NEXT_PAGE":"","BLOG":{"id":7993480,"name":"dtslib1k","title":"중년작가지망생 EduArt Engineer","isDormancy":false,"nickName":"중년작가지망생","status":"open","profileStatus":"normal"},"NEED_COMMENT_LOGIN":true,"COMMENT_LOGIN_CONFIRM_MESSAGE":"이 블로그는 로그인한 사용자에게만 댓글 작성을 허용했습니다. 지금 로그인하시겠습니까?","LOGIN_URL":"https://www.tistory.com/auth/login/?redirectUrl=https://dtslib1k.tistory.com/188","DEFAULT_URL":"https://dtslib1k.tistory.com","USER":{"name":null,"homepage":null,"id":0,"profileImage":null},"SUBSCRIPTION":{"status":"none","isConnected":false,"isPending":false,"isWait":false,"isProcessing":false,"isNone":true},"IS_LOGIN":false,"HAS_BLOG":false,"IS_SUPPORT":false,"IS_SCRAPABLE":false,"TOP_URL":"http://www.tistory.com","JOIN_URL":"https://www.tistory.com/member/join","PHASE":"prod","ROLE_GROUP":"visitor"};
+window.T.entryInfo = {"entryId":188,"isAuthor":false,"categoryId":1256804,"categoryLabel":"설정 (System Lab)/티스토리적용"};
+window.appInfo = {"domain":"tistory.com","topUrl":"https://www.tistory.com","loginUrl":"https://www.tistory.com/auth/login","logoutUrl":"https://www.tistory.com/auth/logout"};
+window.initData = {};
+
+window.TistoryBlog = {
+    basePath: "",
+    url: "https://dtslib1k.tistory.com",
+    tistoryUrl: "https://dtslib1k.tistory.com",
+    manageUrl: "https://dtslib1k.tistory.com/manage",
+    token: "2nwSjwnU1fyHNwk9vyX4bvxd56P6udahZjvKdTfOk4/tTXtO8isxEHnbAPOJ/3vy"
+};
+var servicePath = "";
+var blogURL = "";</script>
+
+                
+                
+                
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>문답 아카이브 · 티스토리 HTML 퀵업로드 백서</title>
+  <meta name="description" content="대화 로그 기반 문답 아카이브와 패턴 질문, 요약 백서. 파피루스 배경, 황토 UI, 모바일 우선.">
+  <style>
+    :root{
+      --bg:#f4e5c9;      /* 파피루스 */
+      --ink:#1a1a1a;
+      --muted:#6b5b45;
+      --paper:#fffaf0;
+      --ochre:#cd853f;   /* 황토1 */
+      --gold:#daa520;    /* 황토2 */
+      --r:16px; --max:900px;
+      --shadow:0 10px 28px rgba(0,0,0,.12);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--ink);
+      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Pretendard,Apple SD Gothic Neo,Noto Sans KR,Malgun Gothic,sans-serif;line-height:1.7}
+    a{color:var(--ochre);text-decoration:none}
+    .wrap{max-width:var(--max);margin:0 auto;padding:18px 14px 96px}
+    header{background:linear-gradient(180deg,rgba(218,165,32,.16),rgba(205,133,63,.10));
+      border:1px solid rgba(205,133,63,.28);border-radius:var(--r);padding:14px;margin:12px 0;box-shadow:var(--shadow)}
+    h1{margin:0 0 6px;font-size:clamp(20px,5.2vw,30px);color:var(--ink)}
+    .hint{color:var(--muted);font-size:12px}
+    .card{background:var(--paper);border:1px solid rgba(205,133,63,.28);border-radius:var(--r);padding:14px;box-shadow:var(--shadow);margin:12px 0}
+    /* 메인: 문답 아코디언만 */
+    #qa details{border:1px solid rgba(205,133,63,.35);border-radius:12px;background:#fff8eb;padding:10px 12px}
+    #qa details+details{margin-top:10px}
+    #qa summary{cursor:pointer;font-weight:800;color:var(--ochre);list-style:none}
+    #qa summary::-webkit-details-marker{display:none}
+    #qa .chev{float:right;transition:.25s transform}
+    #qa details[open] .chev{transform:rotate(90deg)}
+    #qa h3{margin:10px 0 6px;font-size:16px;color:var(--gold)}
+    #qa ul{margin:6px 0 0 18px;padding:0}
+    #qa li{margin:4px 0}
+    /* 보조 섹션 */
+    .section-title{margin:0 0 8px;color:var(--ochre);font-size:clamp(18px,4.4vw,22px)}
+    pre.pkg{background:#111;color:#eee;border-radius:12px;padding:12px;overflow:auto;white-space:pre-wrap}
+    /* 버튼들 */
+    .toolbar{position:sticky;bottom:0;left:0;right:0;padding:10px;background:
+      linear-gradient(180deg, transparent, rgba(0,0,0,.08) 25%, rgba(0,0,0,.16) 100%)}
+    .tb-inner{max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+    @media (max-width:520px){.tb-inner{grid-template-columns:1fr}}
+    .btn{padding:12px 16px;border-radius:999px;border:none;font-weight:800;cursor:pointer}
+    .btn.main{background:var(--ochre);color:#fff}
+    .btn.alt{background:var(--gold);color:#111}
+    .btn.ghost{background:transparent;border:2px solid var(--ochre);color:var(--ochre)}
+    /* 상태바 */
+    .status{position:fixed;left:0;right:0;bottom:56px;background:var(--ochre);color:#fff;text-align:center;
+      padding:8px;font-size:12px;border-top-left-radius:10px;border-top-right-radius:10px;transform:translateY(120%);transition:.25s}
+    .status.show{transform:translateY(0)}
+    footer{margin-top:12px;color:var(--muted);font-size:12px;text-align:center}
+  </style>
+
+                <style type="text/css">.another_category {
+    border: 1px solid #E5E5E5;
+    padding: 10px 10px 5px;
+    margin: 10px 0;
+    clear: both;
+}
+
+.another_category h4 {
+    font-size: 12px !important;
+    margin: 0 !important;
+    border-bottom: 1px solid #E5E5E5 !important;
+    padding: 2px 0 6px !important;
+}
+
+.another_category h4 a {
+    font-weight: bold !important;
+}
+
+.another_category table {
+    table-layout: fixed;
+    border-collapse: collapse;
+    width: 100% !important;
+    margin-top: 10px !important;
+}
+
+* html .another_category table {
+    width: auto !important;
+}
+
+*:first-child + html .another_category table {
+    width: auto !important;
+}
+
+.another_category th, .another_category td {
+    padding: 0 0 4px !important;
+}
+
+.another_category th {
+    text-align: left;
+    font-size: 12px !important;
+    font-weight: normal;
+    word-break: break-all;
+    overflow: hidden;
+    line-height: 1.5;
+}
+
+.another_category td {
+    text-align: right;
+    width: 80px;
+    font-size: 11px;
+}
+
+.another_category th a {
+    font-weight: normal;
+    text-decoration: none;
+    border: none !important;
+}
+
+.another_category th a.current {
+    font-weight: bold;
+    text-decoration: none !important;
+    border-bottom: 1px solid !important;
+}
+
+.another_category th span {
+    font-weight: normal;
+    text-decoration: none;
+    font: 10px Tahoma, Sans-serif;
+    border: none !important;
+}
+
+.another_category_color_gray, .another_category_color_gray h4 {
+    border-color: #E5E5E5 !important;
+}
+
+.another_category_color_gray * {
+    color: #909090 !important;
+}
+
+.another_category_color_gray th a.current {
+    border-color: #909090 !important;
+}
+
+.another_category_color_gray h4, .another_category_color_gray h4 a {
+    color: #737373 !important;
+}
+
+.another_category_color_red, .another_category_color_red h4 {
+    border-color: #F6D4D3 !important;
+}
+
+.another_category_color_red * {
+    color: #E86869 !important;
+}
+
+.another_category_color_red th a.current {
+    border-color: #E86869 !important;
+}
+
+.another_category_color_red h4, .another_category_color_red h4 a {
+    color: #ED0908 !important;
+}
+
+.another_category_color_green, .another_category_color_green h4 {
+    border-color: #CCE7C8 !important;
+}
+
+.another_category_color_green * {
+    color: #64C05B !important;
+}
+
+.another_category_color_green th a.current {
+    border-color: #64C05B !important;
+}
+
+.another_category_color_green h4, .another_category_color_green h4 a {
+    color: #3EA731 !important;
+}
+
+.another_category_color_blue, .another_category_color_blue h4 {
+    border-color: #C8DAF2 !important;
+}
+
+.another_category_color_blue * {
+    color: #477FD6 !important;
+}
+
+.another_category_color_blue th a.current {
+    border-color: #477FD6 !important;
+}
+
+.another_category_color_blue h4, .another_category_color_blue h4 a {
+    color: #1960CA !important;
+}
+
+.another_category_color_violet, .another_category_color_violet h4 {
+    border-color: #E1CEEC !important;
+}
+
+.another_category_color_violet * {
+    color: #9D64C5 !important;
+}
+
+.another_category_color_violet th a.current {
+    border-color: #9D64C5 !important;
+}
+
+.another_category_color_violet h4, .another_category_color_violet h4 a {
+    color: #7E2CB5 !important;
+}
+</style>
+
+                
+                <link rel="stylesheet" type="text/css" href="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/style/revenue.css"/>
+<link rel="canonical" href="https://dtslib1k.tistory.com/188"/>
+
+<!-- BEGIN STRUCTURED_DATA -->
+<script type="application/ld+json">
+    {"@context":"http://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@id":"https://dtslib1k.tistory.com/188","name":null},"url":"https://dtslib1k.tistory.com/188","headline":"티스토리 업로드 자동화?","description":"문답 아카이브 &middot; 티스토리 HTML 퀵업로드 백서 배경 #f4e5c9 &middot; UI #cd853f/#daa520 &middot; 모바일 우선 &middot; &copy; dtslib.com &middot; 저자: 중년작가지망생 EduArt Engineer Q1. 왜 원클릭 자동 발행이 막히나? ▶ 핵심 티스토리 오픈 API 종료로 외부 앱에서 발행 불가(API/OAuth 차단). 브라우저 보안(CORS/CSP)&middot;세션 정책으로 외부 페이지가 에디터(DOM)를 직접 조작 불가. 에디터 구조상 스크립트 삽입 차단(sanitizer) &rarr; 본문에 JS 불가. 결론 원클릭 자동 발행(X..","author":{"@type":"Person","name":"중년작가지망생","logo":null},"image":{"@type":"ImageObject","url":"https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Ftistory_admin%2Fstatic%2Fimages%2FopenGraph%2Fopengraph.png","width":"800px","height":"800px"},"datePublished":"2025-08-25T20:41:00+09:00","dateModified":"2025-08-25T20:41:00+09:00","publisher":{"@type":"Organization","name":"TISTORY","logo":{"@type":"ImageObject","url":"https://t1.daumcdn.net/tistory_admin/static/images/openGraph/opengraph.png","width":"800px","height":"800px"}}}
+</script>
+<!-- END STRUCTURED_DATA -->
+<link rel="stylesheet" type="text/css" href="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/style/dialog.css"/>
+<link rel="stylesheet" type="text/css" href="//t1.daumcdn.net/tistory_admin/www/style/top/font.css"/>
+<link rel="stylesheet" type="text/css" href="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/style/postBtn.css"/>
+<link rel="stylesheet" type="text/css" href="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/style/tistory.css"/>
+<script type="text/javascript" src="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/script/common.js"></script>
+
+                
+                </head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>문답 아카이브 · 티스토리 HTML 퀵업로드 백서</h1>
+    <p class="hint">배경 #f4e5c9 · UI #cd853f/#daa520 · 모바일 우선 · © dtslib.com · 저자: 중년작가지망생 EduArt Engineer</p>
+  </header>
+
+  <!-- 1) 메인: 문답 아코디언만 -->
+  <section id="qa" class="card" aria-label="Q&A Archive">
+    <!-- Q1 -->
+    <details open>
+      <summary>Q1. 왜 원클릭 자동 발행이 막히나? <span class="chev">▶</span></summary>
+      <div>
+        <h3>핵심</h3>
+        <ul>
+          <li>티스토리 오픈 API 종료로 외부 앱에서 발행 불가(API/OAuth 차단).</li>
+          <li>브라우저 보안(CORS/CSP)·세션 정책으로 외부 페이지가 에디터(DOM)를 직접 조작 불가.</li>
+          <li>에디터 구조상 스크립트 삽입 차단(sanitizer) → 본문에 JS 불가.</li>
+        </ul>
+        <h3>결론</h3>
+        <ul>
+          <li>원클릭 자동 발행(X). 가능한 건 <b>수동 HTML 붙여넣기</b> 루틴만.</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- Q2 -->
+    <details>
+      <summary>Q2. APK 대신 웹(PWA)로 간 이유는? <span class="chev">▶</span></summary>
+      <div>
+        <ul>
+          <li>APK는 서명·배포·업데이트 부담(스토어 워크플로우) → 목적(속도)과 불일치.</li>
+          <li>PWA(Progressive Web App)는 설치감·오프라인(Service Worker)·경량 업데이트 장점.</li>
+          <li>단, PWA도 발행 자체는 수동(Human-in-the-loop).</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- Q3 -->
+    <details>
+      <summary>Q3. 티스토리 내부 페이지에 도구를 넣으면 되지 않나? <span class="chev">▶</span></summary>
+      <div>
+        <ul>
+          <li>티스토리 본문/공지 영역은 <b>&lt;script&gt;</b> 실행 제한 → JS 도구·PWA 등록 불가(Manifest/Service Worker 스코프 문제).</li>
+          <li>현실 해법: 외부 호스팅(PWA) + 티스토리엔 <b>링크만</b> 배치.</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- Q4 -->
+    <details>
+      <summary>Q4. 최종 워크플로우는 어떻게 고정했나? <span class="chev">▶</span></summary>
+      <div>
+        <ul>
+          <li><b>ChatGPT(ko)</b> → 정리본 HTML 생성(메타는 EN).</li>
+          <li><b>PWA</b>에서 Generate/Copy/Open 실행.</li>
+          <li><b>Tistory</b> 에디터 HTML 모드 붙여넣기 → 카테고리/공개 선택 → 발행.</li>
+          <li><b>RSS/Crawling → GitHub</b> 장기 백업, <b>Claude MCP</b>에서 Artifact 마감.</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- Q5 -->
+    <details>
+      <summary>Q5. Tasker(자동화 앱) vs 직접 개발 판단은? <span class="chev">▶</span></summary>
+      <div>
+        <ul>
+          <li>Tasker는 Android 자동화 도구(매크로)이지 앱 빌더가 아님.</li>
+          <li>장점: 위젯 원탭 가능. 단점: UI 바뀌면 동선 꼬임·유지보수 ↑, 유료.</li>
+          <li>결론: 안정성 중시 → PWA 수동 루틴. 실험용 원탭은 Tasker 보조.</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- Q6 -->
+    <details>
+      <summary>Q6. 왜 한국어 본문 + 영어 메타 전략인가? <span class="chev">▶</span></summary>
+      <div>
+        <ul>
+          <li>본문은 한국어(속도·자연스러움).</li>
+          <li>시스템 메타(파일명/태그/키워드)는 영어(검색·매칭 최적: GitHub/Obsidian/Claude).</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- Q7 -->
+    <details>
+      <summary>Q7. PWA 한 파일 버전은 왜 PWA처럼 설치가 안되나? <span class="chev">▶</span></summary>
+      <div>
+        <ul>
+          <li>data: URL manifest/SW 등록 비권장·제한 → A2HS(홈 화면 추가) 불가.</li>
+          <li>정상 PWA는 <b>/manifest.json</b>, <b>/sw.js</b> 분리 + HTTPS 정적 호스팅 필요.</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- Q8 -->
+    <details>
+      <summary>Q8. “12클릭 두 엄지” 루틴을 채택한 이유는? <span class="chev">▶</span></summary>
+      <div>
+        <ul>
+          <li>항상 된다(예측 가능). API·자동화 꼬임 리스크 없음.</li>
+          <li>익숙해지면 빠르다. 기존 텍스트 편집보다 효율적.</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- Q9 -->
+    <details>
+      <summary>Q9. 백업은 어떻게 보장하나? <span class="chev">▶</span></summary>
+      <div>
+        <ul>
+          <li>Tistory 전체 RSS 또는 크롤링으로 HTML 정리본 수집.</li>
+          <li>GitHub Actions 등으로 주기 아카이브(Repository).</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- Q10 -->
+    <details>
+      <summary>Q10. 결론 한 줄? <span class="chev">▶</span></summary>
+      <div>
+        <ul>
+          <li><b>외부 PWA + 수동 HTML 붙여넣기</b>가 지금 가능한 최단·안정 루트.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- 2) 패턴 질문 리스트 -->
+  <section class="card" aria-label="Pattern Questions">
+    <h2 class="section-title">패턴 질문 리스트 (AI도 예측 어려운 전환 질문)</h2>
+    <pre id="patternsText" class="pkg">- 티스토리 본문 영역에서 자바스크립트(PWA/Service Worker) 자체를 구동할 수 있는가?
+- 모바일(안드로이드) 편집 환경만으로도 실전 운영이 가능한가?
+- API가 막혀도 RSS/크롤링으로 장기 백업 파이프라인을 만들 수 있는가?
+- APK 없이도 설치감(Installation feel)을 주는 PWA만으로 목적 달성이 가능한가?
+- 한국어 본문 + 영어 메타(파일명/태그) 전략이 검색·자동화에 실효성 있는가?
+- Tasker 같은 접근성 매크로가 UI 변경에 얼마나 취약한가?
+- 티스토리 공지/페이지에 외부 도구를 삽입하지 않고도 링크만으로 UX를 간결화할 수 있는가?
+- GitHub Pages/Cloudflare Pages에 도구를 두고, 티스토리는 발행 채널로만 쓰는 구조가 최적화인가?</pre>
+  </section>
+
+  <!-- 3) 백서 요약 -->
+  <section class="card" aria-label="Whitepaper Summary">
+    <h2 class="section-title">백서 요약</h2>
+    <ul>
+      <li><b>취지/목적</b>: 모바일에서 ChatGPT 정리본 HTML을 가장 빠르고 안정적으로 티스토리에 게시.</li>
+      <li><b>핵심 문답 요약</b>:
+        <ul>
+          <li>원클릭(X) 이유: API 종료 + 브라우저 보안 + 에디터 구조.</li>
+          <li>PWA 도구는 외부 호스팅, 티스토리는 링크로 접속.</li>
+          <li>데이터 플로우: ChatGPT(ko) → PWA → Tistory → RSS/Crawl → GitHub → Claude(Artifact).</li>
+          <li>운영: 수동 10~12클릭 루틴(두 엄지)로 안정성 확보.</li>
+        </ul>
+      </li>
+      <li><b>패턴 질문</b>: 상단 리스트 참조.</li>
+    </ul>
+  </section>
+
+  <footer>© dtslib.com · 저자: 중년작가지망생 EduArt Engineer</footer>
+</div>
+
+<!-- 4) 복사 유틸리티 -->
+<div id="status" class="status"><span id="smsg">READY</span></div>
+<div class="toolbar" aria-hidden="false">
+  <div class="tb-inner">
+    <button class="btn main" onclick="copyFullPage()">전체 HTML/CSS 복사</button>
+    <button class="btn alt" onclick="copyAccordion()">문답 아코디언만 복사</button>
+    <button class="btn ghost" onclick="copyPatterns()">패턴 질문 리스트 복사</button>
+  </div>
+</div>
+
+<script>
+  function toast(msg){const s=document.getElementById('status');const t=document.getElementById('smsg');t.textContent=msg;s.classList.add('show');setTimeout(()=>s.classList.remove('show'),1600);}
+  async function copyText(txt){try{await navigator.clipboard.writeText(txt);toast('✅ 복사됨');}catch(e){toast('❌ 복사 실패');}}
+  function copyFullPage(){
+    const doc='<!DOCTYPE html>\n'+document.documentElement.outerHTML;
+    copyText(doc);
+  }
+  function copyAccordion(){
+    const html=document.getElementById('qa').innerHTML.trim();
+    copyText(html);
+  }
+  function copyPatterns(){
+    const txt=document.getElementById('patternsText').textContent.trim();
+    copyText(txt);
+  }
+</script>
+
+                <div style="margin:0; padding:0; border:none; background:none; float:none; clear:none; z-index:0"></div>
+<script type="text/javascript" src="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/script/common.js"></script>
+<script type="text/javascript">window.roosevelt_params_queue = window.roosevelt_params_queue || [{channel_id: 'dk', channel_label: '{tistory}'}]</script>
+<script type="text/javascript" src="//t1.daumcdn.net/midas/rt/dk_bt/roosevelt_dk_bt.js" async="async"></script>
+
+                
+                <script>window.tiara = {"svcDomain":"user.tistory.com","section":"글뷰","trackPage":"글뷰_보기","page":"글뷰","key":"7993480-188","customProps":{"userId":"0","blogId":"7993480","entryId":"188","role":"guest","trackPage":"글뷰_보기","filterTarget":false},"entry":{"entryId":"188","entryTitle":"티스토리 업로드 자동화?","entryType":"POST","categoryName":"설정 (System Lab)/티스토리적용","categoryId":"1256804","serviceCategoryName":"창작","serviceCategoryId":308,"author":"7331786","authorNickname":"중년작가지망생","blogNmae":"중년작가지망생 EduArt Engineer","image":"","plink":"/188","tags":[]},"kakaoAppKey":"3e6ddd834b023f24221217e370daed18","appUserId":"null"}</script>
+<script type="module" src="https://t1.daumcdn.net/tistory_admin/frontend/tiara/v1.0.5/index.js"></script>
+<script src="https://t1.daumcdn.net/tistory_admin/frontend/tiara/v1.0.5/polyfills-legacy.js" nomodule="true" defer="true"></script>
+<script src="https://t1.daumcdn.net/tistory_admin/frontend/tiara/v1.0.5/index-legacy.js" nomodule="true" defer="true"></script>
+
+                </body>
+</html></div>
+            <!-- System - START -->
+
+<!-- System - END -->
+
+                    <div class="container_postbtn #post_button_group">
+  <div class="postbtn_like"><script>window.ReactionButtonType = 'reaction';
+window.ReactionApiUrl = '//dtslib1k.tistory.com/reaction';
+window.ReactionReqBody = {
+    entryId: 188
+}</script>
+<div class="wrap_btn" id="reaction-188" data-tistory-react-app="Reaction"></div><div class="wrap_btn wrap_btn_share"><button type="button" class="btn_post sns_btn btn_share" aria-expanded="false" data-thumbnail-url="https://t1.daumcdn.net/tistory_admin/static/images/openGraph/opengraph.png" data-title="티스토리 업로드 자동화?" data-description="문답 아카이브 · 티스토리 HTML 퀵업로드 백서 배경 #f4e5c9 · UI #cd853f/#daa520 · 모바일 우선 · © dtslib.com · 저자: 중년작가지망생 EduArt Engineer Q1. 왜 원클릭 자동 발행이 막히나? ▶ 핵심 티스토리 오픈 API 종료로 외부 앱에서 발행 불가(API/OAuth 차단). 브라우저 보안(CORS/CSP)·세션 정책으로 외부 페이지가 에디터(DOM)를 직접 조작 불가. 에디터 구조상 스크립트 삽입 차단(sanitizer) → 본문에 JS 불가. 결론 원클릭 자동 발행(X.." data-profile-image="https://tistory1.daumcdn.net/tistory/7993480/attach/536171101ea646b8920b58ef77c11ca5" data-profile-name="중년작가지망생" data-pc-url="https://dtslib1k.tistory.com/188" data-relative-pc-url="/188" data-blog-title="중년작가지망생 EduArt Engineer"><span class="ico_postbtn ico_share">공유하기</span></button>
+  <div class="layer_post" id="tistorySnsLayer"></div>
+</div><div class="wrap_btn wrap_btn_etc" data-entry-id="188" data-entry-visibility="public" data-category-visibility="public"><button type="button" class="btn_post btn_etc2" aria-expanded="false"><span class="ico_postbtn ico_etc">게시글 관리</span></button>
+  <div class="layer_post" id="tistoryEtcLayer"></div>
+</div></div>
+<button type="button" class="btn_menu_toolbar btn_subscription #subscribe" data-blog-id="7993480" data-url="https://dtslib1k.tistory.com/188" data-device="web_pc" data-tiara-action-name="구독 버튼_클릭"><em class="txt_state"></em><strong class="txt_tool_id">중년작가지망생 EduArt Engineer</strong><span class="img_common_tistory ico_check_type1"></span></button>  <div data-tistory-react-app="SupportButton"></div>
+</div>
+
+                    <!-- PostListinCategory - START -->
+<div class="another_category another_category_color_gray">
+  <h4>'<a href="/category/%EC%84%A4%EC%A0%95%20%28System%20Lab%29">설정 (System Lab)</a> &gt; <a href="/category/%EC%84%A4%EC%A0%95%20%28System%20Lab%29/%ED%8B%B0%EC%8A%A4%ED%86%A0%EB%A6%AC%EC%A0%81%EC%9A%A9">티스토리적용</a>' 카테고리의 다른 글</h4>
+  <table>
+    <tr>
+      <th><a href="/189">티스토리 솔루션</a>&nbsp;&nbsp;<span>(0)</span></th>
+      <td>2025.08.25</td>
+    </tr>
+    <tr>
+      <th><a href="/187">티스토리 가치</a>&nbsp;&nbsp;<span>(0)</span></th>
+      <td>2025.08.25</td>
+    </tr>
+    <tr>
+      <th><a href="/186">티스토리 활용?</a>&nbsp;&nbsp;<span>(0)</span></th>
+      <td>2025.08.25</td>
+    </tr>
+    <tr>
+      <th><a href="/150">백서 생성 ChatGPT 프롬프트 / 삼성 키보드 이식</a>&nbsp;&nbsp;<span>(0)</span></th>
+      <td>2025.08.07</td>
+    </tr>
+    <tr>
+      <th><a href="/146">작가지망생 적용 프롬프트 (웹페이지변환 싱글모드)</a>&nbsp;&nbsp;<span>(0)</span></th>
+      <td>2025.08.04</td>
+    </tr>
+  </table>
+</div>
+
+<!-- PostListinCategory - END -->
+</div>
+
+    
+
+    <div data-tistory-react-app="Namecard"></div><div id="entry188Comment"><div data-tistory-react-app="Comment"></div>
+</div>
+<script type="text/javascript">loadedComments[188]=true;
+findFragmentAndHighlight(188);</script>
+
+  </div>
+
+            
+        
+
+        
+
+        <div id="paging">
+          
+        </div>
+
+        <!-- Recent posts grid -->
+        
+          <div id="recent-post">
+            <h4><a href="/category">+ Recent posts</a></h4>
+            <ul>
+              
+                <li class="box">
+                  <a href="/189" class="thumb">
+                    <img loading="lazy" src=""
+                         onerror="this.src='https://tistory1.daumcdn.net/tistory/7993480/skin/images/blank2.png'" alt="post image" />
+                    <span class="title">티스토리 솔루션</span>
+                  </a>
+                </li>
+              
+                <li class="box">
+                  <a href="/188" class="thumb">
+                    <img loading="lazy" src=""
+                         onerror="this.src='https://tistory1.daumcdn.net/tistory/7993480/skin/images/blank2.png'" alt="post image" />
+                    <span class="title">티스토리 업로드 자동화?</span>
+                  </a>
+                </li>
+              
+                <li class="box">
+                  <a href="/187" class="thumb">
+                    <img loading="lazy" src=""
+                         onerror="this.src='https://tistory1.daumcdn.net/tistory/7993480/skin/images/blank2.png'" alt="post image" />
+                    <span class="title">티스토리 가치</span>
+                  </a>
+                </li>
+              
+                <li class="box">
+                  <a href="/186" class="thumb">
+                    <img loading="lazy" src="https://img1.daumcdn.net/thumb/R750x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbuT4aC%2FbtsP5nq9Gm4%2FAAAAAAAAAAAAAAAAAAAAALcyXgGz-5lF-f5GiVpczkfdYg6TcA6ZVHiHJZnqvLu6%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1756652399%26allow_ip%3D%26allow_referer%3D%26signature%3D3RlDJFuZdjXCxwrq%252BynYL5dECQg%253D"
+                         onerror="this.src='https://tistory1.daumcdn.net/tistory/7993480/skin/images/blank2.png'" alt="post image" />
+                    <span class="title">티스토리 활용?</span>
+                  </a>
+                </li>
+              
+                <li class="box">
+                  <a href="/179" class="thumb">
+                    <img loading="lazy" src=""
+                         onerror="this.src='https://tistory1.daumcdn.net/tistory/7993480/skin/images/blank2.png'" alt="post image" />
+                    <span class="title">티스토리 어쩌지</span>
+                  </a>
+                </li>
+              
+                <li class="box">
+                  <a href="/178" class="thumb">
+                    <img loading="lazy" src=""
+                         onerror="this.src='https://tistory1.daumcdn.net/tistory/7993480/skin/images/blank2.png'" alt="post image" />
+                    <span class="title">클라우드 컴 쇼핑모델</span>
+                  </a>
+                </li>
+              
+                <li class="box">
+                  <a href="/176" class="thumb">
+                    <img loading="lazy" src=""
+                         onerror="this.src='https://tistory1.daumcdn.net/tistory/7993480/skin/images/blank2.png'" alt="post image" />
+                    <span class="title">사진저장법</span>
+                  </a>
+                </li>
+              
+                <li class="box">
+                  <a href="/175" class="thumb">
+                    <img loading="lazy" src=""
+                         onerror="this.src='https://tistory1.daumcdn.net/tistory/7993480/skin/images/blank2.png'" alt="post image" />
+                    <span class="title">깃허브란</span>
+                  </a>
+                </li>
+              
+                <li class="box">
+                  <a href="/171" class="thumb">
+                    <img loading="lazy" src=""
+                         onerror="this.src='https://tistory1.daumcdn.net/tistory/7993480/skin/images/blank2.png'" alt="post image" />
+                    <span class="title">디바이스기반 콘텐츠 워크플로우</span>
+                  </a>
+                </li>
+              
+                <li class="box">
+                  <a href="/170" class="thumb">
+                    <img loading="lazy" src=""
+                         onerror="this.src='https://tistory1.daumcdn.net/tistory/7993480/skin/images/blank2.png'" alt="post image" />
+                    <span class="title">설치 가이드 AI 파트너 클로드</span>
+                  </a>
+                </li>
+              
+              <div class="clear"></div>
+            </ul>
+          </div>
+        
+
+        <div class="clear"></div>
+
+        <footer id="foot">
+          <div class="powered">Powered by <a href="http://www.tistory.com/" target="_blank" rel="noopener">Tistory</a></div>
+          <div class="social"><a href="https://dtslib1k.tistory.com/rss" target="_blank" rel="noopener">RSS</a></div>
+        </footer>
+      </div>
+    </main>
+    <!-- ===== /Content ===== -->
+  </div>
+
+
+<!-- 빈 위젯 자동 숨김 -->
+<script>
+(function () {
+  document.querySelectorAll('#sidebar .widget').forEach(function (w) {
+    const has = w.querySelector('a, img, input, li');
+    const text = (w.textContent || '').replace(/\s+/g, '');
+    const uls = w.querySelectorAll('ul');
+    const emptyUL = uls.length && Array.from(uls).every(u => (u.textContent || '').trim().length === 0);
+    if ((!has && text.length === 0) || emptyUL) w.style.display = 'none';
+  });
+})();
+</script>
+<div class="#menubar menu_toolbar ">
+  <h2 class="screen_out">티스토리툴바</h2>
+<div class="btn_tool"><button class="btn_menu_toolbar btn_subscription  #subscribe" data-blog-id="7993480" data-url="https://dtslib1k.tistory.com" data-device="web_pc"><strong class="txt_tool_id">중년작가지망생 EduArt Engineer</strong><em class="txt_state">구독하기</em><span class="img_common_tistory ico_check_type1"></span></button></div></div>
+<div class="#menubar menu_toolbar "></div>
+<div class="layer_tooltip">
+  <div class="inner_layer_tooltip">
+    <p class="desc_g"></p>
+  </div>
+</div>
+<div id="editEntry" style="position:absolute;width:1px;height:1px;left:-100px;top:-100px"></div>
+
+
+                <!-- DragSearchHandler - START -->
+<script src="//search1.daumcdn.net/search/statics/common/js/g/search_dragselection.min.js"></script>
+
+<!-- DragSearchHandler - END -->
+
+                </body>
 </html>

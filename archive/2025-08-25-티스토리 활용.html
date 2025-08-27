@@ -1,103 +1,1198 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>티스토리 활용? :: EduArt Engineer Archive</title>
-    <meta name="description" content="티스토리 활용? - 자동화 시스템으로 처리된 디지털 아카이브">
-    <style>
-        :root{
-            --bg:#f4e5c9;--ui:#cd853f;--ui-2:#daa520;
-            --ink:#2a2a2a;--card:#fff9ee;
-        }
-        body{
-            margin:0;padding:20px;background:var(--bg);color:var(--ink);
-            font-family:system-ui,-apple-system,sans-serif;line-height:1.65;
-        }
-        .container{max-width:800px;margin:0 auto}
-        .header{
-            background:linear-gradient(135deg,#f8edd6,#fbe1b0);
-            border:2px solid var(--ui);border-radius:16px;
-            padding:20px;margin-bottom:20px;
-            box-shadow:0 6px 20px rgba(0,0,0,.08);
-        }
-        .badge{
-            display:inline-block;font-weight:700;font-size:12px;
-            padding:.25rem .5rem;border-radius:999px;
-            background:var(--ui);color:#fff;margin:4px 8px 4px 0;
-        }
-        .badge.auto{background:var(--ui-2)}
-        h1{margin:10px 0;font-size:1.6rem;color:#3a2b1a}
-        .content{
-            background:var(--card);border:1px solid var(--ui-2);
-            border-radius:14px;padding:20px;margin:20px 0;
-        }
-        .back-btn{
-            display:inline-block;padding:8px 16px;
-            background:var(--ui);color:#fff;text-decoration:none;
-            border-radius:8px;margin-bottom:20px;
-        }
-        .automation-info{
-            background:#e8f5e8;border:1px solid #4caf50;
-            border-radius:8px;padding:12px;margin:16px 0;
-        }
-        footer{text-align:center;margin:30px 0;color:#6b563e;font-size:.9rem}
-        ul{padding-left:20px}
-        li{margin:8px 0}
-        .meta{color:#666;font-size:.9rem}
-    </style>
-</head>
-<body>
-    <div class="container">
-        <a href="/archive/" class="back-btn">← 아카이브로 돌아가기</a>
+                                                                                <head>
+                <script type="text/javascript">if (!window.T) { window.T = {} }
+window.T.config = {"TOP_SSL_URL":"https://www.tistory.com","PREVIEW":false,"ROLE":"guest","PREV_PAGE":"","NEXT_PAGE":"","BLOG":{"id":7993480,"name":"dtslib1k","title":"중년작가지망생 EduArt Engineer","isDormancy":false,"nickName":"중년작가지망생","status":"open","profileStatus":"normal"},"NEED_COMMENT_LOGIN":true,"COMMENT_LOGIN_CONFIRM_MESSAGE":"이 블로그는 로그인한 사용자에게만 댓글 작성을 허용했습니다. 지금 로그인하시겠습니까?","LOGIN_URL":"https://www.tistory.com/auth/login/?redirectUrl=https://dtslib1k.tistory.com/186","DEFAULT_URL":"https://dtslib1k.tistory.com","USER":{"name":null,"homepage":null,"id":0,"profileImage":null},"SUBSCRIPTION":{"status":"none","isConnected":false,"isPending":false,"isWait":false,"isProcessing":false,"isNone":true},"IS_LOGIN":false,"HAS_BLOG":false,"IS_SUPPORT":false,"IS_SCRAPABLE":false,"TOP_URL":"http://www.tistory.com","JOIN_URL":"https://www.tistory.com/member/join","PHASE":"prod","ROLE_GROUP":"visitor"};
+window.T.entryInfo = {"entryId":186,"isAuthor":false,"categoryId":1256804,"categoryLabel":"설정 (System Lab)/티스토리적용"};
+window.appInfo = {"domain":"tistory.com","topUrl":"https://www.tistory.com","loginUrl":"https://www.tistory.com/auth/login","logoutUrl":"https://www.tistory.com/auth/logout"};
+window.initData = {};
+
+window.TistoryBlog = {
+    basePath: "",
+    url: "https://dtslib1k.tistory.com",
+    tistoryUrl: "https://dtslib1k.tistory.com",
+    manageUrl: "https://dtslib1k.tistory.com/manage",
+    token: "uvIWRcnBjfA/X7AZ9BzU99vj/GKerDDlic8jtp79YG3QnmjotdqSxb8gv/0WaUG/"
+};
+var servicePath = "";
+var blogURL = "";</script>
+
+                
+                
+                
+                        <!-- BusinessLicenseInfo - START -->
         
-        <div class="header">
-            <div>
-                <span class="badge">자동 처리</span>
-                <span class="badge auto">모바일 최적화</span>
-                <span class="badge">수동 작업 0%</span>
+            <link href="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/plugin/BusinessLicenseInfo/style.css" rel="stylesheet" type="text/css"/>
+
+            <script>function switchFold(entryId) {
+    var businessLayer = document.getElementById("businessInfoLayer_" + entryId);
+
+    if (businessLayer) {
+        if (businessLayer.className.indexOf("unfold_license") > 0) {
+            businessLayer.className = "business_license_layer";
+        } else {
+            businessLayer.className = "business_license_layer unfold_license";
+        }
+    }
+}
+</script>
+
+        
+        <!-- BusinessLicenseInfo - END -->
+        <!-- DaumShow - START -->
+        <style type="text/css">#daumSearchBox {
+    height: 21px;
+    background-image: url(//i1.daumcdn.net/imgsrc.search/search_all/show/tistory/plugin/bg_search2_2.gif);
+    margin: 5px auto;
+    padding: 0;
+}
+
+#daumSearchBox input {
+    background: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+#daumSearchBox #daumLogo {
+    width: 34px;
+    height: 21px;
+    float: left;
+    margin-right: 5px;
+    background-image: url(//i1.daumcdn.net/img-media/tistory/img/bg_search1_2_2010ci.gif);
+}
+
+#daumSearchBox #show_q {
+    background-color: transparent;
+    border: none;
+    font: 12px Gulim, Sans-serif;
+    color: #555;
+    margin-top: 4px;
+    margin-right: 15px;
+    float: left;
+}
+
+#daumSearchBox #show_btn {
+    background-image: url(//i1.daumcdn.net/imgsrc.search/search_all/show/tistory/plugin/bt_search_2.gif);
+    width: 37px;
+    height: 21px;
+    float: left;
+    margin: 0;
+    cursor: pointer;
+    text-indent: -1000em;
+}
+</style>
+
+        <!-- DaumShow - END -->
+
+<!-- System - START -->
+
+<!-- System - END -->
+
+        <!-- TistoryProfileLayer - START -->
+        <link href="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/plugin/TistoryProfileLayer/style.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/plugin/TistoryProfileLayer/script.js"></script>
+
+        <!-- TistoryProfileLayer - END -->
+
+                
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="format-detection" content="telephone=no">
+<script src="//t1.daumcdn.net/tistory_admin/lib/jquery/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="//t1.daumcdn.net/tiara/js/v1/tiara.min.js"></script><meta name="referrer" content="always"/>
+<meta name="google-adsense-platform-account" content="ca-host-pub-9691043933427338"/>
+<meta name="google-adsense-platform-domain" content="tistory.com"/>
+<meta name="description" content="티스토리를 왜 써야 하냐 — 문답 아카이브 작성: 2025-08-25 (Asia/Seoul) 저자: 중년작가지망생 EduArt Engineer 저작권: © dtslib.com 모바일 우선 · HTML 모드 전체 페이지 복사(HTML/CSS/JS) 문답 아코디언만 복사 패턴 질문 리스트 복사 복사 후 티스토리/깃허브/메모앱 등에 바로 붙여넣기 하세요. Q.티스토리를 왜 써야 하냐? A. 로컬 인큐베이터 + 웹 메모장 + 브릿지이기 때문. .."/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://dtslib1k.tistory.com/186"/>
+<meta property="og.article.author" content="중년작가지망생"/>
+<meta property="og:site_name" content="중년작가지망생 EduArt Engineer"/>
+<meta property="og:title" content="티스토리 활용?"/>
+<meta name="by" content="중년작가지망생"/>
+<meta property="og:description" content="티스토리를 왜 써야 하냐 — 문답 아카이브 작성: 2025-08-25 (Asia/Seoul) 저자: 중년작가지망생 EduArt Engineer 저작권: © dtslib.com 모바일 우선 · HTML 모드 전체 페이지 복사(HTML/CSS/JS) 문답 아코디언만 복사 패턴 질문 리스트 복사 복사 후 티스토리/깃허브/메모앱 등에 바로 붙여넣기 하세요. Q.티스토리를 왜 써야 하냐? A. 로컬 인큐베이터 + 웹 메모장 + 브릿지이기 때문. .."/>
+<meta property="og:image" content="https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbuT4aC%2FbtsP5nq9Gm4%2FAAAAAAAAAAAAAAAAAAAAALcyXgGz-5lF-f5GiVpczkfdYg6TcA6ZVHiHJZnqvLu6%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1756652399%26allow_ip%3D%26allow_referer%3D%26signature%3D3RlDJFuZdjXCxwrq%252BynYL5dECQg%253D"/>
+<meta property="article:section" content="'창작'"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:site" content="@TISTORY"/>
+<meta name="twitter:title" content="티스토리 활용?"/>
+<meta name="twitter:description" content="티스토리를 왜 써야 하냐 — 문답 아카이브 작성: 2025-08-25 (Asia/Seoul) 저자: 중년작가지망생 EduArt Engineer 저작권: © dtslib.com 모바일 우선 · HTML 모드 전체 페이지 복사(HTML/CSS/JS) 문답 아코디언만 복사 패턴 질문 리스트 복사 복사 후 티스토리/깃허브/메모앱 등에 바로 붙여넣기 하세요. Q.티스토리를 왜 써야 하냐? A. 로컬 인큐베이터 + 웹 메모장 + 브릿지이기 때문. .."/>
+<meta property="twitter:image" content="https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbuT4aC%2FbtsP5nq9Gm4%2FAAAAAAAAAAAAAAAAAAAAALcyXgGz-5lF-f5GiVpczkfdYg6TcA6ZVHiHJZnqvLu6%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1756652399%26allow_ip%3D%26allow_referer%3D%26signature%3D3RlDJFuZdjXCxwrq%252BynYL5dECQg%253D"/>
+<meta content="https://dtslib1k.tistory.com/186" property="dg:plink" content="https://dtslib1k.tistory.com/186"/>
+<meta name="plink"/>
+<meta name="title" content="티스토리 활용?"/>
+<meta name="article:media_name" content="중년작가지망생 EduArt Engineer"/>
+<meta property="article:mobile_url" content="https://dtslib1k.tistory.com/m/186"/>
+<meta property="article:pc_url" content="https://dtslib1k.tistory.com/186"/>
+<meta property="article:mobile_view_url" content="https://dtslib1k.tistory.com/m/186"/>
+<meta property="article:pc_view_url" content="https://dtslib1k.tistory.com/186"/>
+<meta property="article:talk_channel_view_url" content="https://dtslib1k.tistory.com/m/186"/>
+<meta property="article:pc_service_home" content="https://www.tistory.com"/>
+<meta property="article:mobile_service_home" content="https://www.tistory.com/m"/>
+<meta property="article:txid" content="7993480_186"/>
+<meta property="article:published_time" content="2025-08-25T17:04:01+09:00"/>
+<meta property="og:regDate" content="20250825050401"/>
+<meta property="article:modified_time" content="2025-08-25T17:04:01+09:00"/>
+<script type="module" src="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/pc/dist/index.js" defer=""></script>
+<script type="text/javascript" src="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/pc/dist/index-legacy.js" defer="" nomodule="true"></script>
+<script type="text/javascript" src="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/pc/dist/polyfills-legacy.js" defer="" nomodule="true"></script>
+<link rel="icon" sizes="any" href="https://t1.daumcdn.net/tistory_admin/favicon/tistory_favicon_32x32.ico"/>
+<link rel="icon" type="image/svg+xml" href="https://t1.daumcdn.net/tistory_admin/top_v2/bi-tistory-favicon.svg"/>
+<link rel="apple-touch-icon" href="https://t1.daumcdn.net/tistory_admin/top_v2/tistory-apple-touch-favicon.png"/>
+<link rel="stylesheet" type="text/css" href="https://t1.daumcdn.net/tistory_admin/www/style/font.css"/>
+<link rel="stylesheet" type="text/css" href="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/style/content.css"/>
+<link rel="stylesheet" type="text/css" href="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/pc/dist/index.css"/>
+<link rel="stylesheet" type="text/css" href="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/style/uselessPMargin.css"/>
+<script type="text/javascript">(function() {
+    var tjQuery = jQuery.noConflict(true);
+    window.tjQuery = tjQuery;
+    window.orgjQuery = window.jQuery; window.jQuery = tjQuery;
+    window.jQuery = window.orgjQuery; delete window.orgjQuery;
+})()</script>
+<script type="text/javascript" src="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/script/base.js"></script>
+<script type="text/javascript" src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+                
+  <title>티스토리 활용? :: 중년작가지망생 EduArt Engineer</title>
+  <meta name="title" content="티스토리 활용? :: 중년작가지망생 EduArt Engineer" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+  <link rel="alternate" type="application/rss+xml" title="중년작가지망생 EduArt Engineer" href="https://dtslib1k.tistory.com/rss" />
+  <link rel="stylesheet" href="https://tistory1.daumcdn.net/tistory/7993480/skin/style.css?_version_=1756273526" />
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css">
+  <!--[if IE 7]><link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome-ie7.min.css"><![endif]-->
+
+                
+                
+                <style type="text/css">.another_category {
+    border: 1px solid #E5E5E5;
+    padding: 10px 10px 5px;
+    margin: 10px 0;
+    clear: both;
+}
+
+.another_category h4 {
+    font-size: 12px !important;
+    margin: 0 !important;
+    border-bottom: 1px solid #E5E5E5 !important;
+    padding: 2px 0 6px !important;
+}
+
+.another_category h4 a {
+    font-weight: bold !important;
+}
+
+.another_category table {
+    table-layout: fixed;
+    border-collapse: collapse;
+    width: 100% !important;
+    margin-top: 10px !important;
+}
+
+* html .another_category table {
+    width: auto !important;
+}
+
+*:first-child + html .another_category table {
+    width: auto !important;
+}
+
+.another_category th, .another_category td {
+    padding: 0 0 4px !important;
+}
+
+.another_category th {
+    text-align: left;
+    font-size: 12px !important;
+    font-weight: normal;
+    word-break: break-all;
+    overflow: hidden;
+    line-height: 1.5;
+}
+
+.another_category td {
+    text-align: right;
+    width: 80px;
+    font-size: 11px;
+}
+
+.another_category th a {
+    font-weight: normal;
+    text-decoration: none;
+    border: none !important;
+}
+
+.another_category th a.current {
+    font-weight: bold;
+    text-decoration: none !important;
+    border-bottom: 1px solid !important;
+}
+
+.another_category th span {
+    font-weight: normal;
+    text-decoration: none;
+    font: 10px Tahoma, Sans-serif;
+    border: none !important;
+}
+
+.another_category_color_gray, .another_category_color_gray h4 {
+    border-color: #E5E5E5 !important;
+}
+
+.another_category_color_gray * {
+    color: #909090 !important;
+}
+
+.another_category_color_gray th a.current {
+    border-color: #909090 !important;
+}
+
+.another_category_color_gray h4, .another_category_color_gray h4 a {
+    color: #737373 !important;
+}
+
+.another_category_color_red, .another_category_color_red h4 {
+    border-color: #F6D4D3 !important;
+}
+
+.another_category_color_red * {
+    color: #E86869 !important;
+}
+
+.another_category_color_red th a.current {
+    border-color: #E86869 !important;
+}
+
+.another_category_color_red h4, .another_category_color_red h4 a {
+    color: #ED0908 !important;
+}
+
+.another_category_color_green, .another_category_color_green h4 {
+    border-color: #CCE7C8 !important;
+}
+
+.another_category_color_green * {
+    color: #64C05B !important;
+}
+
+.another_category_color_green th a.current {
+    border-color: #64C05B !important;
+}
+
+.another_category_color_green h4, .another_category_color_green h4 a {
+    color: #3EA731 !important;
+}
+
+.another_category_color_blue, .another_category_color_blue h4 {
+    border-color: #C8DAF2 !important;
+}
+
+.another_category_color_blue * {
+    color: #477FD6 !important;
+}
+
+.another_category_color_blue th a.current {
+    border-color: #477FD6 !important;
+}
+
+.another_category_color_blue h4, .another_category_color_blue h4 a {
+    color: #1960CA !important;
+}
+
+.another_category_color_violet, .another_category_color_violet h4 {
+    border-color: #E1CEEC !important;
+}
+
+.another_category_color_violet * {
+    color: #9D64C5 !important;
+}
+
+.another_category_color_violet th a.current {
+    border-color: #9D64C5 !important;
+}
+
+.another_category_color_violet h4, .another_category_color_violet h4 a {
+    color: #7E2CB5 !important;
+}
+</style>
+
+                
+                <link rel="stylesheet" type="text/css" href="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/style/revenue.css"/>
+<link rel="canonical" href="https://dtslib1k.tistory.com/186"/>
+
+<!-- BEGIN STRUCTURED_DATA -->
+<script type="application/ld+json">
+    {"@context":"http://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@id":"https://dtslib1k.tistory.com/186","name":null},"url":"https://dtslib1k.tistory.com/186","headline":"티스토리 활용?","description":"티스토리를 왜 써야 하냐 &mdash; 문답 아카이브 작성: 2025-08-25 (Asia/Seoul) 저자: 중년작가지망생 EduArt Engineer 저작권: &copy; dtslib.com 모바일 우선 &middot; HTML 모드 전체 페이지 복사(HTML/CSS/JS) 문답 아코디언만 복사 패턴 질문 리스트 복사 복사 후 티스토리/깃허브/메모앱 등에 바로 붙여넣기 하세요. Q.티스토리를 왜 써야 하냐? A. 로컬 인큐베이터 + 웹 메모장 + 브릿지이기 때문. ..","author":{"@type":"Person","name":"중년작가지망생","logo":null},"image":{"@type":"ImageObject","url":"https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbuT4aC%2FbtsP5nq9Gm4%2FAAAAAAAAAAAAAAAAAAAAALcyXgGz-5lF-f5GiVpczkfdYg6TcA6ZVHiHJZnqvLu6%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1756652399%26allow_ip%3D%26allow_referer%3D%26signature%3D3RlDJFuZdjXCxwrq%252BynYL5dECQg%253D","width":"800px","height":"800px"},"datePublished":"2025-08-25T17:04:01+09:00","dateModified":"2025-08-25T17:04:01+09:00","publisher":{"@type":"Organization","name":"TISTORY","logo":{"@type":"ImageObject","url":"https://t1.daumcdn.net/tistory_admin/static/images/openGraph/opengraph.png","width":"800px","height":"800px"}}}
+</script>
+<!-- END STRUCTURED_DATA -->
+<link rel="stylesheet" type="text/css" href="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/style/dialog.css"/>
+<link rel="stylesheet" type="text/css" href="//t1.daumcdn.net/tistory_admin/www/style/top/font.css"/>
+<link rel="stylesheet" type="text/css" href="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/style/postBtn.css"/>
+<link rel="stylesheet" type="text/css" href="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/style/tistory.css"/>
+<script type="text/javascript" src="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/script/common.js"></script>
+
+                
+                </head>
+
+                                                <body id="tt-body-page">
+                
+                
+                
+
+  <div id="wrap">
+    <!-- ===== Sidebar ===== -->
+    <aside id="sidebar" role="complementary" aria-label="Sidebar">
+      <div class="profile-icon">
+        <img src="https://tistory1.daumcdn.net/tistory/7993480/skin/images/Ed.png" alt="프로필 아이콘" />
+      </div>
+
+      <h1 class="side-title"><a href="https://dtslib1k.tistory.com/">중년작가지망생 EduArt Engineer</a></h1>
+
+      
+          <div class="widget category"><ul class="tt_category"><li class=""><a href="/category" class="link_tit"> 분류 전체보기 <span class="c_cnt">(18)</span> </a>
+  <ul class="category_list"><li class=""><a href="/category/%EC%84%A4%EC%A0%95%20%28System%20Lab%29" class="link_item"> 설정 (System Lab) <span class="c_cnt">(7)</span> </a>
+  <ul class="sub_category_list"><li class=""><a href="/category/%EC%84%A4%EC%A0%95%20%28System%20Lab%29/%EC%9E%91%EA%B0%80%EB%A1%9C%EB%93%9C%EB%A7%B5" class="link_sub_item"> 작가로드맵 <span class="c_cnt">(1)</span> </a></li>
+<li class=""><a href="/category/%EC%84%A4%EC%A0%95%20%28System%20Lab%29/%ED%8B%B0%EC%8A%A4%ED%86%A0%EB%A6%AC%EC%A0%81%EC%9A%A9" class="link_sub_item"> 티스토리적용 <span class="c_cnt">(6)</span> </a></li>
+</ul>
+</li>
+<li class=""><a href="/category/%EC%83%9D%EA%B0%81%EB%B6%84%EB%A6%AC%20%28Writer%E2%80%99s%20Path%29" class="link_item"> 생각분리 (Writer&rsquo;s Path) <span class="c_cnt">(7)</span> </a>
+  <ul class="sub_category_list"><li class=""><a href="/category/%EC%83%9D%EA%B0%81%EB%B6%84%EB%A6%AC%20%28Writer%E2%80%99s%20Path%29/%EC%B2%A0%ED%95%99%EC%9E%90" class="link_sub_item"> 철학자 <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/%EC%83%9D%EA%B0%81%EB%B6%84%EB%A6%AC%20%28Writer%E2%80%99s%20Path%29/%EA%B8%B0%EB%8A%A5%EC%9D%B8" class="link_sub_item"> 기능인 <span class="c_cnt">(7)</span> </a></li>
+<li class=""><a href="/category/%EC%83%9D%EA%B0%81%EB%B6%84%EB%A6%AC%20%28Writer%E2%80%99s%20Path%29/%EB%B8%94%EB%A1%9C%EA%B1%B0" class="link_sub_item"> 블로거 <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/%EC%83%9D%EA%B0%81%EB%B6%84%EB%A6%AC%20%28Writer%E2%80%99s%20Path%29/%ED%99%94%EA%B0%80" class="link_sub_item"> 화가 <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/%EC%83%9D%EA%B0%81%EB%B6%84%EB%A6%AC%20%28Writer%E2%80%99s%20Path%29/%EB%AE%A4%EC%A7%80%EC%85%98" class="link_sub_item"> 뮤지션 <span class="c_cnt">(0)</span> </a></li>
+</ul>
+</li>
+<li class=""><a href="/category/%ED%94%84%EB%A1%AC%ED%94%84%ED%8A%B8%20%28Prompt%20Studio%29" class="link_item"> 프롬프트 (Prompt Studio) <span class="c_cnt">(1)</span> </a>
+  <ul class="sub_category_list"><li class=""><a href="/category/%ED%94%84%EB%A1%AC%ED%94%84%ED%8A%B8%20%28Prompt%20Studio%29/%EC%9B%B9%ED%8E%98%EC%9D%B4%EC%A7%80%EB%B3%80%ED%99%98" class="link_sub_item"> 웹페이지변환 <span class="c_cnt">(1)</span> </a></li>
+<li class=""><a href="/category/%ED%94%84%EB%A1%AC%ED%94%84%ED%8A%B8%20%28Prompt%20Studio%29/%EC%9B%B9%ED%8E%98%EC%9D%B4%EC%A7%80%EB%B6%84%EB%A6%AC%EC%88%98%EA%B1%B0" class="link_sub_item"> 웹페이지분리수거 <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/%ED%94%84%EB%A1%AC%ED%94%84%ED%8A%B8%20%28Prompt%20Studio%29/%EC%9B%B9%EC%95%B1%EB%AA%A8%EB%8D%B8%EB%A7%81" class="link_sub_item"> 웹앱모델링 <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/%ED%94%84%EB%A1%AC%ED%94%84%ED%8A%B8%20%28Prompt%20Studio%29/%EC%95%B1%EA%B0%9C%EB%B0%9C%20%28HW%20%C3%97%20%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C%29" class="link_sub_item"> 앱개발 (HW &times; 안드로이드) <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/%ED%94%84%EB%A1%AC%ED%94%84%ED%8A%B8%20%28Prompt%20Studio%29/%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C%20%EC%9E%90%EB%8F%99%ED%99%94" class="link_sub_item"> 클라우드 자동화 <span class="c_cnt">(0)</span> </a></li>
+</ul>
+</li>
+<li class=""><a href="/category/%EB%94%94%EB%B0%94%EC%9D%B4%EC%8A%A4%20%28Device%20Chronicles%29" class="link_item"> 디바이스 (Device Chronicles) <span class="c_cnt">(1)</span> </a>
+  <ul class="sub_category_list"><li class=""><a href="/category/%EB%94%94%EB%B0%94%EC%9D%B4%EC%8A%A4%20%28Device%20Chronicles%29/%EC%82%BC%EC%84%B1%ED%95%B8%EB%93%9C%ED%8F%B0%20x%20ChatGPT%20%3D%20MAL" class="link_sub_item"> 삼성핸드폰 x ChatGPT = MAL <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/%EB%94%94%EB%B0%94%EC%9D%B4%EC%8A%A4%20%28Device%20Chronicles%29/%EC%82%BC%EC%84%B1%ED%83%9C%EB%B8%94%EB%A6%BF%20%20x%20DALLE%C2%B3%20SORA%20%3D%20Qsketch" class="link_sub_item"> 삼성태블릿  x DALLE&sup3; SORA = Qsketch <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/%EB%94%94%EB%B0%94%EC%9D%B4%EC%8A%A4%20%28Device%20Chronicles%29/%EC%82%BC%EC%84%B1%ED%83%9C%EB%B8%94%EB%A6%BF%20%20x%20Obsidian%20Publish%20%3D%20PenOn" class="link_sub_item"> 삼성태블릿  x Obsidian Publish = Pe.. <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/%EB%94%94%EB%B0%94%EC%9D%B4%EC%8A%A4%20%28Device%20Chronicles%29/%EC%82%BC%EC%84%B1%ED%83%9C%EB%B8%94%EB%A6%BF%20x%20AIVA%20%3D%20EML" class="link_sub_item"> 삼성태블릿 x AIVA = EML <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/%EB%94%94%EB%B0%94%EC%9D%B4%EC%8A%A4%20%28Device%20Chronicles%29/%EA%B5%AC%ED%98%95%20%EB%9E%A9%ED%83%91%20x%20Cluade%20MCP%20x%20Github%20%3D%20Patcher" class="link_sub_item"> 구형 랩탑 x Cluade MCP x Github = .. <span class="c_cnt">(0)</span> </a></li>
+</ul>
+</li>
+<li class=""><a href="/category/WebAppsBook" class="link_item"> WebAppsBook <span class="c_cnt">(2)</span> </a>
+  <ul class="sub_category_list"><li class=""><a href="/category/WebAppsBook/Web%20page%20%28%ED%94%8C%EB%9E%AB%ED%8F%BCx%EC%84%9C%EC%8B%9D%29" class="link_sub_item"> Web page (플랫폼x서식) <span class="c_cnt">(2)</span> </a></li>
+<li class=""><a href="/category/WebAppsBook/Apps%20%28%EB%B0%98%EB%B3%B5-%EC%9B%B9%EC%95%B1%29" class="link_sub_item"> Apps (반복-웹앱) <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/WebAppsBook/Book%20%28%EC%9D%B8%ED%8F%AC%EA%B7%B8%EB%9E%98%ED%94%BD%29" class="link_sub_item"> Book (인포그래픽) <span class="c_cnt">(0)</span> </a></li>
+</ul>
+</li>
+<li class=""><a href="/category/WebAppsBookCast" class="link_item"> WebAppsBookCast <span class="c_cnt">(0)</span> </a>
+  <ul class="sub_category_list"><li class=""><a href="/category/WebAppsBookCast/%ED%83%9C%EB%B8%94%EB%A6%BF%ED%8C%90%EC%84%9C%EA%B0%95%EC%9D%98" class="link_sub_item"> 태블릿판서강의 <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/WebAppsBookCast/YT-3%EB%B6%84" class="link_sub_item"> YT-3분 <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/WebAppsBookCast/BGM%20AIVA" class="link_sub_item"> BGM AIVA <span class="c_cnt">(0)</span> </a></li>
+</ul>
+</li>
+<li class=""><a href="/category/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%28Thought%20Archaeology%29" class="link_item"> 프로젝트 (Thought Archaeology) <span class="c_cnt">(0)</span> </a>
+  <ul class="sub_category_list"><li class=""><a href="/category/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%28Thought%20Archaeology%29/Mal" class="link_sub_item"> Mal <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%28Thought%20Archaeology%29/Ph.L" class="link_sub_item"> Ph.L <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%28Thought%20Archaeology%29/Patcher" class="link_sub_item"> Patcher <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%28Thought%20Archaeology%29/PenOn" class="link_sub_item"> PenOn <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%28Thought%20Archaeology%29/Qsketch" class="link_sub_item"> Qsketch <span class="c_cnt">(0)</span> </a></li>
+<li class=""><a href="/category/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%28Thought%20Archaeology%29/EML" class="link_sub_item"> EML <span class="c_cnt">(0)</span> </a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        
+          <div class="widget my-links">
+            <a href="https://dtslib.com" target="_blank" rel="noopener" class="btn-site">dtslib.com</a>
+            <a href="https://parksy.kr"  target="_blank" rel="noopener" class="btn-site">parksy.kr</a>
+          </div>
+        
+          <div class="widget"><ul>
+  <li class="t_menu_home first"><a href="/" target="">홈</a></li>
+  <li class="t_menu_tag"><a href="/tag" target="">태그</a></li>
+  <li class="t_menu_guestbook last"><a href="/guestbook" target="">방명록</a></li>
+</ul></div>
+        
+          
+            <div class="widget">
+              <ul>
+                
+              </ul>
             </div>
-            <h1>티스토리 활용?</h1>
-            <div class="meta">파일명: 2025-08-25-티스토리 활용 • 처리: 2025.08.27 21:19</div>
-        </div>
+          
         
-        <div class="automation-info">
-            <h3>🤖 자동화 시스템 처리 완료</h3>
-            <ul>
-                <li>✅ 원본 파일에서 자동 추출</li>
-                <li>✅ 모바일 반응형 최적화</li>
-                <li>✅ 수동 작업 없이 자동 배포</li>
+          <div class="widget">
+            <ul id="recentComments">
+              
             </ul>
-        </div>
+          </div>
         
-        <div class="content">
-            <h2>📄 문서 정보</h2>
+          <div class="widget">
             <ul>
-                <li><strong>제목:</strong> 티스토리 활용?</li>
-                <li><strong>원본 파일:</strong> 2025-08-25-티스토리 활용.html</li>
-                <li><strong>자동 처리일:</strong> 2025년 08월 27일 21시 19분</li>
-                <li><strong>처리 방식:</strong> 완전 자동화 (수동 개입 0%)</li>
+              
             </ul>
+          </div>
+        
+          <div class="widget counter text-center">
+            <span class="yesterday">0</span> /
+            <span class="today">0</span> /
+            <span class="total">114</span>
+          </div>
+        
+          <div class="widget search text-center">
             
-            <h3>🔗 관련 링크</h3>
-            <ul>
-                <li><a href="https://dtslib.com">dtslib.com</a> - 메인 사이트</li>
-                <li><a href="https://parksy.kr">parksy.kr</a> - 아카이브</li>
-                <li><a href="/archive/">아카이브 홈</a> - 전체 목록</li>
-            </ul>
+              <label for="search" class="screen_out">블로그 내 검색</label>
+              <input id="search" class="search" placeholder="press enter to search…" type="text"
+                     name="search" value=""
+                     onkeypress="if (event.keyCode == 13) { try {
+    window.location.href = '/search' + '/' + looseURIEncode(document.getElementsByName('search')[0].value);
+    document.getElementsByName('search')[0].value = '';
+    return false;
+} catch (e) {} }" />
             
-            <h3>🤖 자동화 시스템 정보</h3>
-            <ul>
-                <li><strong>시스템:</strong> EduArt Engineer CI v2.0</li>
-                <li><strong>처리 방식:</strong> GitHub Actions 완전 자동화</li>
-                <li><strong>실행 주기:</strong> 매 3시간 또는 파일 변경 시</li>
-                <li><strong>수동 개입:</strong> 불필요 (0% 수동 작업)</li>
-            </ul>
-        </div>
+          </div>
         
-        <footer>
-            <small>© EduArt Engineer CI · 완전 자동화 시스템 · 수동 작업 제거</small>
-        </footer>
+    </aside>
+    <!-- ===== /Sidebar ===== -->
+
+    <!-- ===== Mobile/Tablet quick links (≤1024px에서만 표시) ===== -->
+    <nav id="mobile-links" class="mobile-only" role="navigation" aria-label="Quick links">
+      <a href="https://dtslib.com" target="_blank" rel="noopener" class="m-btn">dtslib.com</a>
+      <a href="https://parksy.kr"  target="_blank" rel="noopener" class="m-btn">parksy.kr</a>
+    </nav>
+
+    <!-- ===== Content ===== -->
+    <main id="content" role="main">
+      <div id="content-inner">
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+                
+            
+  <div id="head">
+    <h2><a href="/186">티스토리 활용?</a></h2>
+    <div class="post-meta">
+      <span class="author">중년작가지망생</span>
+      <span class="meta-date">2025. 8. 25. 17:04</span>
+      
     </div>
-</body>
+  </div>
+
+  <div id="body" class="entry">
+    <div class="tag_label">
+      
+    </div>
+
+    <div class="article" id="article-view">            <!-- System - START -->
+
+<!-- System - END -->
+
+            <div class="tt_article_useless_p_margin contents_style"><!doctype html>
+<html lang="ko">
+                                                <head>
+                <script type="text/javascript">if (!window.T) { window.T = {} }
+window.T.config = {"TOP_SSL_URL":"https://www.tistory.com","PREVIEW":false,"ROLE":"guest","PREV_PAGE":"","NEXT_PAGE":"","BLOG":{"id":7993480,"name":"dtslib1k","title":"중년작가지망생 EduArt Engineer","isDormancy":false,"nickName":"중년작가지망생","status":"open","profileStatus":"normal"},"NEED_COMMENT_LOGIN":true,"COMMENT_LOGIN_CONFIRM_MESSAGE":"이 블로그는 로그인한 사용자에게만 댓글 작성을 허용했습니다. 지금 로그인하시겠습니까?","LOGIN_URL":"https://www.tistory.com/auth/login/?redirectUrl=https://dtslib1k.tistory.com/186","DEFAULT_URL":"https://dtslib1k.tistory.com","USER":{"name":null,"homepage":null,"id":0,"profileImage":null},"SUBSCRIPTION":{"status":"none","isConnected":false,"isPending":false,"isWait":false,"isProcessing":false,"isNone":true},"IS_LOGIN":false,"HAS_BLOG":false,"IS_SUPPORT":false,"IS_SCRAPABLE":false,"TOP_URL":"http://www.tistory.com","JOIN_URL":"https://www.tistory.com/member/join","PHASE":"prod","ROLE_GROUP":"visitor"};
+window.T.entryInfo = {"entryId":186,"isAuthor":false,"categoryId":1256804,"categoryLabel":"설정 (System Lab)/티스토리적용"};
+window.appInfo = {"domain":"tistory.com","topUrl":"https://www.tistory.com","loginUrl":"https://www.tistory.com/auth/login","logoutUrl":"https://www.tistory.com/auth/logout"};
+window.initData = {};
+
+window.TistoryBlog = {
+    basePath: "",
+    url: "https://dtslib1k.tistory.com",
+    tistoryUrl: "https://dtslib1k.tistory.com",
+    manageUrl: "https://dtslib1k.tistory.com/manage",
+    token: "uvIWRcnBjfA/X7AZ9BzU99vj/GKerDDlic8jtp79YG3QnmjotdqSxb8gv/0WaUG/"
+};
+var servicePath = "";
+var blogURL = "";</script>
+
+                
+                
+                
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>티스토리를 왜 써야 하냐 — 문답 아카이브(모바일 우선)</title>
+  <meta name="description" content="ChatGPT 대화 로그에서 핵심 문답만 추출해 아코디언으로 정리. 패턴 질문/백서 요약/복사 버튼 포함. Tistory HTML 모드 전용." />
+  <meta name="author" content="중년작가지망생 EduArt Engineer" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="티스토리를 왜 써야 하냐 — 문답 아카이브" />
+  <meta property="og:description" content="모바일 우선 · 아코디언 Q&A · 복사 버튼 · 파피루스/황토/골드 스킨" />
+  <meta property="og:locale" content="ko_KR" />
+  <style>
+    :root{
+      --papyrus:#f4e5c9; /* 배경 */
+      --ochre:#cd853f;   /* 포인트 1 */
+      --gold:#daa520;    /* 포인트 2 */
+      --ink:#222;        /* 본문 */
+      --muted:#6b6b6b;   /* 보조 */
+      --card:#fffaf0;    /* 카드 배경 */
+      --radius:16px;
+      --shadow:0 6px 18px rgba(0,0,0,.08);
+    }
+    *{box-sizing:border-box}
+    html{color-scheme:light only}
+    body{
+      margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Apple SD Gothic Neo, "맑은 고딕", sans-serif;
+      line-height:1.65; color:var(--ink); background:var(--papyrus); font-size:16px;
+      min-width:320px;
+    }
+    .wrap{width:min(100%, 780px); margin-inline:auto; padding:14px}
+    header{
+      background:linear-gradient(180deg, rgba(218,165,32,.12), rgba(205,133,63,.10));
+      border:1px solid rgba(205,133,63,.28); border-radius:calc(var(--radius) + 6px);
+      padding:18px 16px; box-shadow:var(--shadow);
+    }
+    h1{margin:0 0 8px; font-size:clamp(20px, 4.5vw, 32px); letter-spacing:-.2px}
+    .meta{display:flex; gap:8px; flex-wrap:wrap; color:var(--muted); font-size:.92rem}
+    .badge{padding:2px 8px; border-radius:999px; background:var(--card); border:1px solid rgba(205,133,63,.35)}
+    .toolbox{position:sticky; top:0; z-index:20; padding:10px 0 0; background:linear-gradient(180deg, var(--papyrus), transparent 70%)}
+    .btnbar{display:flex; gap:8px; flex-wrap:wrap}
+    button{
+      appearance:none; border:none; cursor:pointer; font-weight:700;
+      padding:10px 12px; border-radius:999px; box-shadow:var(--shadow);
+      background:var(--gold); color:#1a1200;
+    }
+    button.alt{background:var(--ochre); color:#fffaf0}
+    button.ghost{background:var(--card); color:#6b4600; border:1px solid rgba(205,133,63,.38)}
+    /* 메인 Q&A 아코디언 */
+    main#qa{margin:14px 0}
+    .qa{margin:12px 0}
+    details.qa-card{
+      background:var(--card); border-left:6px solid var(--ochre);
+      border:1px solid rgba(205,133,63,.35); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden;
+    }
+    details.qa-card summary{
+      list-style:none; cursor:pointer; padding:14px; display:flex; gap:10px; align-items:flex-start;
+    }
+    details.qa-card summary::-webkit-details-marker{display:none}
+    .q-tag{font-weight:800; color:#7a4e00}
+    .q-title{font-weight:700; flex:1}
+    details[open].qa-card summary{background:linear-gradient(180deg, rgba(205,133,63,.08), transparent)}
+    .a-body{padding:0 14px 14px; border-top:1px dashed rgba(0,0,0,.08)}
+    .a-tag{font-weight:800; color:#7a4e00}
+    /* 카드 블록 */
+    .card{
+      background:var(--card); border:1px solid rgba(205,133,63,.28); border-radius:var(--radius); box-shadow:var(--shadow);
+      padding:14px; margin:16px 0;
+    }
+    h2{margin:8px 0 8px; font-size:clamp(18px, 3.8vw, 24px)}
+    h3{margin:6px 0 8px; font-size:clamp(16px, 3.4vw, 20px)}
+    p,li{word-break:keep-all}
+    .hint{color:var(--muted); font-size:.9rem}
+    footer{margin:22px 0 34px; color:var(--muted); font-size:.92rem}
+    .top{display:flex; justify-content:flex-end; margin-top:10px}
+    .top a{background:var(--gold); color:#1b1200; text-decoration:none; padding:10px 14px; border-radius:999px; box-shadow:var(--shadow); font-weight:700}
+    /* 토스트 */
+    .toast{
+      position:fixed; left:50%; transform:translateX(-50%); bottom:18px;
+      background:#111; color:#fff; padding:10px 14px; border-radius:999px; opacity:0; pointer-events:none; transition:opacity .25s ease;
+    }
+    .toast.show{opacity:.95}
+    ul{padding-left:18px}
+    code, pre{background:#fff; border:1px solid rgba(0,0,0,.08); padding:2px 6px; border-radius:6px}
+  </style>
+
+                <style type="text/css">.another_category {
+    border: 1px solid #E5E5E5;
+    padding: 10px 10px 5px;
+    margin: 10px 0;
+    clear: both;
+}
+
+.another_category h4 {
+    font-size: 12px !important;
+    margin: 0 !important;
+    border-bottom: 1px solid #E5E5E5 !important;
+    padding: 2px 0 6px !important;
+}
+
+.another_category h4 a {
+    font-weight: bold !important;
+}
+
+.another_category table {
+    table-layout: fixed;
+    border-collapse: collapse;
+    width: 100% !important;
+    margin-top: 10px !important;
+}
+
+* html .another_category table {
+    width: auto !important;
+}
+
+*:first-child + html .another_category table {
+    width: auto !important;
+}
+
+.another_category th, .another_category td {
+    padding: 0 0 4px !important;
+}
+
+.another_category th {
+    text-align: left;
+    font-size: 12px !important;
+    font-weight: normal;
+    word-break: break-all;
+    overflow: hidden;
+    line-height: 1.5;
+}
+
+.another_category td {
+    text-align: right;
+    width: 80px;
+    font-size: 11px;
+}
+
+.another_category th a {
+    font-weight: normal;
+    text-decoration: none;
+    border: none !important;
+}
+
+.another_category th a.current {
+    font-weight: bold;
+    text-decoration: none !important;
+    border-bottom: 1px solid !important;
+}
+
+.another_category th span {
+    font-weight: normal;
+    text-decoration: none;
+    font: 10px Tahoma, Sans-serif;
+    border: none !important;
+}
+
+.another_category_color_gray, .another_category_color_gray h4 {
+    border-color: #E5E5E5 !important;
+}
+
+.another_category_color_gray * {
+    color: #909090 !important;
+}
+
+.another_category_color_gray th a.current {
+    border-color: #909090 !important;
+}
+
+.another_category_color_gray h4, .another_category_color_gray h4 a {
+    color: #737373 !important;
+}
+
+.another_category_color_red, .another_category_color_red h4 {
+    border-color: #F6D4D3 !important;
+}
+
+.another_category_color_red * {
+    color: #E86869 !important;
+}
+
+.another_category_color_red th a.current {
+    border-color: #E86869 !important;
+}
+
+.another_category_color_red h4, .another_category_color_red h4 a {
+    color: #ED0908 !important;
+}
+
+.another_category_color_green, .another_category_color_green h4 {
+    border-color: #CCE7C8 !important;
+}
+
+.another_category_color_green * {
+    color: #64C05B !important;
+}
+
+.another_category_color_green th a.current {
+    border-color: #64C05B !important;
+}
+
+.another_category_color_green h4, .another_category_color_green h4 a {
+    color: #3EA731 !important;
+}
+
+.another_category_color_blue, .another_category_color_blue h4 {
+    border-color: #C8DAF2 !important;
+}
+
+.another_category_color_blue * {
+    color: #477FD6 !important;
+}
+
+.another_category_color_blue th a.current {
+    border-color: #477FD6 !important;
+}
+
+.another_category_color_blue h4, .another_category_color_blue h4 a {
+    color: #1960CA !important;
+}
+
+.another_category_color_violet, .another_category_color_violet h4 {
+    border-color: #E1CEEC !important;
+}
+
+.another_category_color_violet * {
+    color: #9D64C5 !important;
+}
+
+.another_category_color_violet th a.current {
+    border-color: #9D64C5 !important;
+}
+
+.another_category_color_violet h4, .another_category_color_violet h4 a {
+    color: #7E2CB5 !important;
+}
+</style>
+
+                
+                <link rel="stylesheet" type="text/css" href="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/style/revenue.css"/>
+<link rel="canonical" href="https://dtslib1k.tistory.com/186"/>
+
+<!-- BEGIN STRUCTURED_DATA -->
+<script type="application/ld+json">
+    {"@context":"http://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@id":"https://dtslib1k.tistory.com/186","name":null},"url":"https://dtslib1k.tistory.com/186","headline":"티스토리 활용?","description":"티스토리를 왜 써야 하냐 &mdash; 문답 아카이브 작성: 2025-08-25 (Asia/Seoul) 저자: 중년작가지망생 EduArt Engineer 저작권: &copy; dtslib.com 모바일 우선 &middot; HTML 모드 전체 페이지 복사(HTML/CSS/JS) 문답 아코디언만 복사 패턴 질문 리스트 복사 복사 후 티스토리/깃허브/메모앱 등에 바로 붙여넣기 하세요. Q.티스토리를 왜 써야 하냐? A. 로컬 인큐베이터 + 웹 메모장 + 브릿지이기 때문. ..","author":{"@type":"Person","name":"중년작가지망생","logo":null},"image":{"@type":"ImageObject","url":"https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbuT4aC%2FbtsP5nq9Gm4%2FAAAAAAAAAAAAAAAAAAAAALcyXgGz-5lF-f5GiVpczkfdYg6TcA6ZVHiHJZnqvLu6%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1756652399%26allow_ip%3D%26allow_referer%3D%26signature%3D3RlDJFuZdjXCxwrq%252BynYL5dECQg%253D","width":"800px","height":"800px"},"datePublished":"2025-08-25T17:04:01+09:00","dateModified":"2025-08-25T17:04:01+09:00","publisher":{"@type":"Organization","name":"TISTORY","logo":{"@type":"ImageObject","url":"https://t1.daumcdn.net/tistory_admin/static/images/openGraph/opengraph.png","width":"800px","height":"800px"}}}
+</script>
+<!-- END STRUCTURED_DATA -->
+<link rel="stylesheet" type="text/css" href="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/style/dialog.css"/>
+<link rel="stylesheet" type="text/css" href="//t1.daumcdn.net/tistory_admin/www/style/top/font.css"/>
+<link rel="stylesheet" type="text/css" href="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/style/postBtn.css"/>
+<link rel="stylesheet" type="text/css" href="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/style/tistory.css"/>
+<script type="text/javascript" src="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/script/common.js"></script>
+
+                
+                </head>
+<body>
+  <a id="top"></a>
+  <div class="wrap">
+    <header>
+      <h1>티스토리를 왜 써야 하냐 — 문답 아카이브</h1>
+      <div class="meta">
+        <span class="badge">작성: 2025-08-25 (Asia/Seoul)</span>
+        <span class="badge">저자: 중년작가지망생 EduArt Engineer</span>
+        <span class="badge">저작권: © dtslib.com</span>
+        <span class="badge">모바일 우선 · HTML 모드</span>
+      </div>
+    </header>
+
+    <!-- 복사 툴바 -->
+    <div class="toolbox">
+      <div class="btnbar">
+        <button id="btnCopyAll">전체 페이지 복사(HTML/CSS/JS)</button>
+        <button id="btnCopyQA" class="alt">문답 아코디언만 복사</button>
+        <button id="btnCopyPatterns" class="ghost">패턴 질문 리스트 복사</button>
+      </div>
+      <p class="hint">복사 후 티스토리/깃허브/메모앱 등에 바로 붙여넣기 하세요.</p>
+    </div>
+
+    <!-- 1) 문답 아카이브 (업데이트된 기준 적용) -->
+    <main id="qa" aria-label="문답 아카이브">
+      <!-- Q1: 플랫폼 이유(문제 해결/아이디어 도출) -->
+      <section class="qa" id="q1">
+        <details class="qa-card" open>
+          <summary><span class="q-tag">Q.</span><span class="q-title">티스토리를 왜 써야 하냐?</span></summary>
+          <div class="a-body">
+            <p><span class="a-tag">A.</span> <b>로컬 인큐베이터 + 웹 메모장 + 브릿지</b>이기 때문. 폰에서 떠든 문답을 즉시 HTML로 발행(아코디언/인포그래픽), RSS로 깃허브·워드프레스·섭스택에 자동 이관하기 쉬움. 소액 수익은 습관 유지의 동력.</p>
+            <ul>
+              <li>모바일 친화 백업 허브</li>
+              <li>HTML 모드 → ChatGPT 코드 그대로</li>
+              <li>로컬 검증 → 글로벌 이전</li>
+              <li>RSS → GitHub Actions 자동화</li>
+            </ul>
+          </div>
+        </details>
+      </section>
+
+      <!-- Q2: 최종 역할 정의(흐름 정립) -->
+      <section class="qa" id="q2">
+        <details class="qa-card">
+          <summary><span class="q-tag">Q.</span><span class="q-title">최종 티스토리의 역할은 무엇인가?</span></summary>
+          <div class="a-body">
+            <p><span class="a-tag">A.</span> <b>2차 저장소(웹 메모장/백업)</b> + <b>로컬 인큐베이터</b> + <b>웹앱 퍼블리셔</b>. 1차 원석은 ChatGPT, 3차 글로벌 아카이브는 GitHub/WordPress.</p>
+          </div>
+        </details>
+      </section>
+
+      <!-- Q3: 문답만으로 충분? (모델링 핵심 구조) -->
+      <section class="qa" id="q3">
+        <details class="qa-card">
+          <summary><span class="q-tag">Q.</span><span class="q-title">문답만 아카이브해도 모델링에 충분한가?</span></summary>
+          <div class="a-body">
+            <p><span class="a-tag">A.</span> 충분. 기준은 <b>문제 해결 과정</b>과 <b>새 아이디어 도출</b>이 드러난 Q/A. “왜 → 그래서 → 결과” 구조만 있어도 재구성 가능.</p>
+          </div>
+        </details>
+      </section>
+
+      <!-- Q4: HTML vs Markdown (자유도 차이) -->
+      <section class="qa" id="q4">
+        <details class="qa-card">
+          <summary><span class="q-tag">Q.</span><span class="q-title">HTML 모드가 왜 중요한가? Markdown과 무엇이 다른가?</span></summary>
+          <div class="a-body">
+            <p><span class="a-tag">A.</span> HTML은 스타일·레이아웃·상호작용(아코디언 등) 구현이 자유롭고 ChatGPT가 코드를 바로 생성. 결과적으로 <b>대화 → 코드 → 즉시 발행</b> 루프가 성립.</p>
+          </div>
+        </details>
+      </section>
+
+      <!-- Q5: 모바일 동선(즉시 발행 루프) -->
+      <section class="qa" id="q5">
+        <details class="qa-card">
+          <summary><span class="q-tag">Q.</span><span class="q-title">모바일 퍼스트 동선은 어떻게 구성하나?</span></summary>
+          <div class="a-body">
+            <p><span class="a-tag">A.</span> <b>ChatGPT 문답 정리 → HTML 템플릿 삽입 → 티스토리 HTML 모드 붙여넣기 → 발행</b>. 필요 시 AdSense 코드 추가.</p>
+          </div>
+        </details>
+      </section>
+
+      <!-- Q6: 브릿지 & 자동화(상호작용 기반 문답) -->
+      <section class="qa" id="q6">
+        <details class="qa-card">
+          <summary><span class="q-tag">Q.</span><span class="q-title">티스토리를 GitHub/WordPress/Substack과 어떻게 연계하나?</span></summary>
+          <div class="a-body">
+            <p><span class="a-tag">A.</span> 티스토리 RSS → GitHub Actions로 수집·저장·번역·리빌드 → GitHub Pages/WordPress/Substack 재배포. 로컬에서 검증된 포맷만 글로벌 승격.</p>
+          </div>
+        </details>
+      </section>
+
+      <!-- Q7: 로컬→글로벌 포지션(방향 전환 질문 반영) -->
+      <section class="qa" id="q7">
+        <details class="qa-card">
+          <summary><span class="q-tag">Q.</span><span class="q-title">로컬→글로벌 전환에서 티스토리의 포지션은?</span></summary>
+          <div class="a-body">
+            <p><span class="a-tag">A.</span> <b>Pre-translation & 현지화 검증 스테이지</b>. 한국어 맥락에서 다듬고 반응 확인 후 압축/정제/번역.</p>
+          </div>
+        </details>
+      </section>
+
+      <!-- Q8: 수익의 전략적 의미(습관 유지 동력) -->
+      <section class="qa" id="q8">
+        <details class="qa-card">
+          <summary><span class="q-tag">Q.</span><span class="q-title">소액 수익은 전략적으로 어떤 의미가 있나?</span></summary>
+          <div class="a-body">
+            <p><span class="a-tag">A.</span> 금액보다 <b>습관 유지 동기</b>로서 가치. “아이디어=돈” 경험은 지속성을 만든다.</p>
+          </div>
+        </details>
+      </section>
+
+      <!-- Q9: 진짜 웹 메모장으로 써도 되는가(운영 규칙) -->
+      <section class="qa" id="q9">
+        <details class="qa-card">
+          <summary><span class="q-tag">Q.</span><span class="q-title">티스토리를 웹 메모장처럼 써도 되는가?</span></summary>
+          <div class="a-body">
+            <p><span class="a-tag">A.</span> 가능. 운영 규칙은 단순하게: <b>Q/A 블록 중심</b>으로 쌓고, 필요 시 <b>원문 전체</b>는 별도 원문 블록에 보관.</p>
+          </div>
+        </details>
+      </section>
+
+      <!-- Q10: 스터디의 정당성(종합 근거) -->
+      <section class="qa" id="q10">
+        <details class="qa-card">
+          <summary><span class="q-tag">Q.</span><span class="q-title">우리가 지금 스터디하는 게 티스토리를 쓸 이유가 충분한가?</span></summary>
+          <div class="a-body">
+            <p><span class="a-tag">A.</span> 충분. <b>모바일 동선 최적</b>, <b>HTML 자유도</b>, <b>로컬 검증→글로벌 브릿지</b>, <b>RSS 자동화</b>, <b>동기부여 수익</b>이 한 플랫폼에서 이어진다.</p>
+          </div>
+        </details>
+      </section>
+    </main>
+
+    <!-- 2) 패턴 질문 리스트 (기준: 일반검색 불가 + 흐름 전환) -->
+    <section class="card" id="patterns">
+      <h2>패턴 질문 리스트</h2>
+      <ul id="pattern-list">
+        <li>티스토리를 왜 써야 하냐? (플랫폼 선택의 철학/동선 중심)</li>
+        <li>최종 티스토리의 역할은 무엇인가? (흐름 정의/포지셔닝)</li>
+        <li>문답만으로 모델링이 성립하는가? (구조 추출 가설 검증)</li>
+        <li>HTML 모드가 Markdown을 대체/보완할 수 있는가? (인터랙션/출판체인)</li>
+        <li>모바일에서 즉시 발행 가능한 최소 동선은? (속도/습관 설계)</li>
+        <li>RSS→GitHub Actions 자동화가 실제로 유지보수 가능한가? (운영 관점)</li>
+        <li>로컬→글로벌 승격 기준은 무엇인가? (품질 게이트/승격 룰)</li>
+        <li>소액 수익이 창작 지속성에 미치는 정량/정성 효과는? (동기 모델)</li>
+        <li>티스토리를 ‘웹 메모장’으로 쓸 때 최소 규칙은? (운영 가이드라인)</li>
+      </ul>
+      <p class="hint">버튼으로 전체 리스트를 복사할 수 있습니다.</p>
+    </section>
+
+    <!-- 3) 백서 요약 -->
+    <section class="card" id="whitepaper">
+      <h2>백서 요약</h2>
+      <h3>취지/목적</h3>
+      <p>한국어 기반 실시간 사고(ChatGPT 문답)를 <b>티스토리 HTML 모드</b>로 즉시 아카이브/시각화하고, <b>RSS→GitHub Actions</b> 자동화를 통해 글로벌 배포로 연결한다. 티스토리는 로컬 인큐베이터이자 웹 메모장, 그리고 소액 수익을 통한 습관 엔진이다.</p>
+      <h3>문답 요약 리스트</h3>
+      <ul>
+        <li>이유: 모바일 동선·HTML 자유도·브릿지·자동화·동기 수익</li>
+        <li>역할: 2차 저장소 + 로컬 인큐베이터 + 웹앱 퍼블리셔</li>
+        <li>Q/A만으로도 문제해결/아이디어 도출 구조 보존 가능</li>
+        <li>HTML은 대화→코드→즉시발행 루프를 완성</li>
+        <li>폰 동선: ChatGPT → HTML → Tistory → 발행</li>
+        <li>RSS로 깃허브/워드프레스/섭스택 재배포</li>
+        <li>로컬 검증 후 글로벌 승격 — 품질 게이트 운영</li>
+        <li>소액 수익은 습관·지속성의 연료</li>
+      </ul>
+      <h3>추출된 패턴 질문</h3>
+      <p class="hint">상단 “패턴 질문 리스트 복사” 버튼으로 한 번에 복사하세요.</p>
+    </section>
+
+    <footer>
+      <div class="top"><a href="#top">맨 위로 ↑</a></div>
+      <p>저작권: © dtslib.com · 저자: 중년작가지망생 EduArt Engineer</p>
+    </footer>
+  </div>
+
+  <!-- 복사 유틸 -->
+  <div id="toast" class="toast" role="status" aria-live="polite">복사 완료!</div>
+  <script>
+    const toast = document.getElementById('toast');
+    function showToast(msg='복사 완료!'){
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(()=>toast.classList.remove('show'), 1600);
+    }
+    async function copyText(text){
+      try{
+        await navigator.clipboard.writeText(text);
+        showToast();
+      }catch(e){
+        const ta = document.createElement('textarea');
+        ta.value = text; document.body.appendChild(ta); ta.select();
+        try{ document.execCommand('copy'); showToast(); }
+        finally{ document.body.removeChild(ta); }
+      }
+    }
+    document.getElementById('btnCopyAll').addEventListener('click', ()=>{
+      copyText(document.documentElement.outerHTML);
+    });
+    document.getElementById('btnCopyQA').addEventListener('click', ()=>{
+      const qa = document.getElementById('qa');
+      copyText(qa.outerHTML);
+    });
+    document.getElementById('btnCopyPatterns').addEventListener('click', ()=>{
+      const items = Array.from(document.querySelectorAll('#pattern-list li'));
+      const text = items.map(li => '- ' + li.innerText.trim()).join('\n');
+      copyText(text);
+    });
+  </script>
+
+                <div style="margin:0; padding:0; border:none; background:none; float:none; clear:none; z-index:0"></div>
+<script type="text/javascript" src="https://tistory1.daumcdn.net/tistory_admin/userblog/userblog-39ee03342e373848ba7c0bb12e153b29db04aa6b/static/script/common.js"></script>
+<script type="text/javascript">window.roosevelt_params_queue = window.roosevelt_params_queue || [{channel_id: 'dk', channel_label: '{tistory}'}]</script>
+<script type="text/javascript" src="//t1.daumcdn.net/midas/rt/dk_bt/roosevelt_dk_bt.js" async="async"></script>
+
+                
+                <script>window.tiara = {"svcDomain":"user.tistory.com","section":"글뷰","trackPage":"글뷰_보기","page":"글뷰","key":"7993480-186","customProps":{"userId":"0","blogId":"7993480","entryId":"186","role":"guest","trackPage":"글뷰_보기","filterTarget":false},"entry":{"entryId":"186","entryTitle":"티스토리 활용?","entryType":"POST","categoryName":"설정 (System Lab)/티스토리적용","categoryId":"1256804","serviceCategoryName":"창작","serviceCategoryId":308,"author":"7331786","authorNickname":"중년작가지망생","blogNmae":"중년작가지망생 EduArt Engineer","image":"kage@buT4aC/btsP5nq9Gm4/RSPp8CEmKgUrxQ758j6pdK","plink":"/186","tags":[]},"kakaoAppKey":"3e6ddd834b023f24221217e370daed18","appUserId":"null"}</script>
+<script type="module" src="https://t1.daumcdn.net/tistory_admin/frontend/tiara/v1.0.5/index.js"></script>
+<script src="https://t1.daumcdn.net/tistory_admin/frontend/tiara/v1.0.5/polyfills-legacy.js" nomodule="true" defer="true"></script>
+<script src="https://t1.daumcdn.net/tistory_admin/frontend/tiara/v1.0.5/index-legacy.js" nomodule="true" defer="true"></script>
+
+                </body>
+</html></div>
+            <!-- System - START -->
+
+<!-- System - END -->
+
+                    <div class="container_postbtn #post_button_group">
+  <div class="postbtn_like"><script>window.ReactionButtonType = 'reaction';
+window.ReactionApiUrl = '//dtslib1k.tistory.com/reaction';
+window.ReactionReqBody = {
+    entryId: 186
+}</script>
+<div class="wrap_btn" id="reaction-186" data-tistory-react-app="Reaction"></div><div class="wrap_btn wrap_btn_share"><button type="button" class="btn_post sns_btn btn_share" aria-expanded="false" data-thumbnail-url="https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbuT4aC%2FbtsP5nq9Gm4%2FAAAAAAAAAAAAAAAAAAAAALcyXgGz-5lF-f5GiVpczkfdYg6TcA6ZVHiHJZnqvLu6%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1756652399%26allow_ip%3D%26allow_referer%3D%26signature%3D3RlDJFuZdjXCxwrq%252BynYL5dECQg%253D" data-title="티스토리 활용?" data-description="티스토리를 왜 써야 하냐 — 문답 아카이브 작성: 2025-08-25 (Asia/Seoul) 저자: 중년작가지망생 EduArt Engineer 저작권: © dtslib.com 모바일 우선 · HTML 모드 전체 페이지 복사(HTML/CSS/JS) 문답 아코디언만 복사 패턴 질문 리스트 복사 복사 후 티스토리/깃허브/메모앱 등에 바로 붙여넣기 하세요. Q.티스토리를 왜 써야 하냐? A. 로컬 인큐베이터 + 웹 메모장 + 브릿지이기 때문. .." data-profile-image="https://tistory1.daumcdn.net/tistory/7993480/attach/536171101ea646b8920b58ef77c11ca5" data-profile-name="중년작가지망생" data-pc-url="https://dtslib1k.tistory.com/186" data-relative-pc-url="/186" data-blog-title="중년작가지망생 EduArt Engineer"><span class="ico_postbtn ico_share">공유하기</span></button>
+  <div class="layer_post" id="tistorySnsLayer"></div>
+</div><div class="wrap_btn wrap_btn_etc" data-entry-id="186" data-entry-visibility="public" data-category-visibility="public"><button type="button" class="btn_post btn_etc2" aria-expanded="false"><span class="ico_postbtn ico_etc">게시글 관리</span></button>
+  <div class="layer_post" id="tistoryEtcLayer"></div>
+</div></div>
+<button type="button" class="btn_menu_toolbar btn_subscription #subscribe" data-blog-id="7993480" data-url="https://dtslib1k.tistory.com/186" data-device="web_pc" data-tiara-action-name="구독 버튼_클릭"><em class="txt_state"></em><strong class="txt_tool_id">중년작가지망생 EduArt Engineer</strong><span class="img_common_tistory ico_check_type1"></span></button>  <div data-tistory-react-app="SupportButton"></div>
+</div>
+
+                    <!-- PostListinCategory - START -->
+<div class="another_category another_category_color_gray">
+  <h4>'<a href="/category/%EC%84%A4%EC%A0%95%20%28System%20Lab%29">설정 (System Lab)</a> &gt; <a href="/category/%EC%84%A4%EC%A0%95%20%28System%20Lab%29/%ED%8B%B0%EC%8A%A4%ED%86%A0%EB%A6%AC%EC%A0%81%EC%9A%A9">티스토리적용</a>' 카테고리의 다른 글</h4>
+  <table>
+    <tr>
+      <th><a href="/189">티스토리 솔루션</a>&nbsp;&nbsp;<span>(0)</span></th>
+      <td>2025.08.25</td>
+    </tr>
+    <tr>
+      <th><a href="/188">티스토리 업로드 자동화?</a>&nbsp;&nbsp;<span>(0)</span></th>
+      <td>2025.08.25</td>
+    </tr>
+    <tr>
+      <th><a href="/187">티스토리 가치</a>&nbsp;&nbsp;<span>(0)</span></th>
+      <td>2025.08.25</td>
+    </tr>
+    <tr>
+      <th><a href="/150">백서 생성 ChatGPT 프롬프트 / 삼성 키보드 이식</a>&nbsp;&nbsp;<span>(0)</span></th>
+      <td>2025.08.07</td>
+    </tr>
+    <tr>
+      <th><a href="/146">작가지망생 적용 프롬프트 (웹페이지변환 싱글모드)</a>&nbsp;&nbsp;<span>(0)</span></th>
+      <td>2025.08.04</td>
+    </tr>
+  </table>
+</div>
+
+<!-- PostListinCategory - END -->
+</div>
+
+    
+
+    <div data-tistory-react-app="Namecard"></div><div id="entry186Comment"><div data-tistory-react-app="Comment"></div>
+</div>
+<script type="text/javascript">loadedComments[186]=true;
+findFragmentAndHighlight(186);</script>
+
+  </div>
+
+            
+        
+
+        
+
+        <div id="paging">
+          
+        </div>
+
+        <!-- Recent posts grid -->
+        
+          <div id="recent-post">
+            <h4><a href="/category">+ Recent posts</a></h4>
+            <ul>
+              
+                <li class="box">
+                  <a href="/189" class="thumb">
+                    <img loading="lazy" src=""
+                         onerror="this.src='https://tistory1.daumcdn.net/tistory/7993480/skin/images/blank2.png'" alt="post image" />
+                    <span class="title">티스토리 솔루션</span>
+                  </a>
+                </li>
+              
+                <li class="box">
+                  <a href="/188" class="thumb">
+                    <img loading="lazy" src=""
+                         onerror="this.src='https://tistory1.daumcdn.net/tistory/7993480/skin/images/blank2.png'" alt="post image" />
+                    <span class="title">티스토리 업로드 자동화?</span>
+                  </a>
+                </li>
+              
+                <li class="box">
+                  <a href="/187" class="thumb">
+                    <img loading="lazy" src=""
+                         onerror="this.src='https://tistory1.daumcdn.net/tistory/7993480/skin/images/blank2.png'" alt="post image" />
+                    <span class="title">티스토리 가치</span>
+                  </a>
+                </li>
+              
+                <li class="box">
+                  <a href="/186" class="thumb">
+                    <img loading="lazy" src="https://img1.daumcdn.net/thumb/R750x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbuT4aC%2FbtsP5nq9Gm4%2FAAAAAAAAAAAAAAAAAAAAALcyXgGz-5lF-f5GiVpczkfdYg6TcA6ZVHiHJZnqvLu6%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1756652399%26allow_ip%3D%26allow_referer%3D%26signature%3D3RlDJFuZdjXCxwrq%252BynYL5dECQg%253D"
+                         onerror="this.src='https://tistory1.daumcdn.net/tistory/7993480/skin/images/blank2.png'" alt="post image" />
+                    <span class="title">티스토리 활용?</span>
+                  </a>
+                </li>
+              
+                <li class="box">
+                  <a href="/179" class="thumb">
+                    <img loading="lazy" src=""
+                         onerror="this.src='https://tistory1.daumcdn.net/tistory/7993480/skin/images/blank2.png'" alt="post image" />
+                    <span class="title">티스토리 어쩌지</span>
+                  </a>
+                </li>
+              
+                <li class="box">
+                  <a href="/178" class="thumb">
+                    <img loading="lazy" src=""
+                         onerror="this.src='https://tistory1.daumcdn.net/tistory/7993480/skin/images/blank2.png'" alt="post image" />
+                    <span class="title">클라우드 컴 쇼핑모델</span>
+                  </a>
+                </li>
+              
+                <li class="box">
+                  <a href="/176" class="thumb">
+                    <img loading="lazy" src=""
+                         onerror="this.src='https://tistory1.daumcdn.net/tistory/7993480/skin/images/blank2.png'" alt="post image" />
+                    <span class="title">사진저장법</span>
+                  </a>
+                </li>
+              
+                <li class="box">
+                  <a href="/175" class="thumb">
+                    <img loading="lazy" src=""
+                         onerror="this.src='https://tistory1.daumcdn.net/tistory/7993480/skin/images/blank2.png'" alt="post image" />
+                    <span class="title">깃허브란</span>
+                  </a>
+                </li>
+              
+                <li class="box">
+                  <a href="/171" class="thumb">
+                    <img loading="lazy" src=""
+                         onerror="this.src='https://tistory1.daumcdn.net/tistory/7993480/skin/images/blank2.png'" alt="post image" />
+                    <span class="title">디바이스기반 콘텐츠 워크플로우</span>
+                  </a>
+                </li>
+              
+                <li class="box">
+                  <a href="/170" class="thumb">
+                    <img loading="lazy" src=""
+                         onerror="this.src='https://tistory1.daumcdn.net/tistory/7993480/skin/images/blank2.png'" alt="post image" />
+                    <span class="title">설치 가이드 AI 파트너 클로드</span>
+                  </a>
+                </li>
+              
+              <div class="clear"></div>
+            </ul>
+          </div>
+        
+
+        <div class="clear"></div>
+
+        <footer id="foot">
+          <div class="powered">Powered by <a href="http://www.tistory.com/" target="_blank" rel="noopener">Tistory</a></div>
+          <div class="social"><a href="https://dtslib1k.tistory.com/rss" target="_blank" rel="noopener">RSS</a></div>
+        </footer>
+      </div>
+    </main>
+    <!-- ===== /Content ===== -->
+  </div>
+
+
+<!-- 빈 위젯 자동 숨김 -->
+<script>
+(function () {
+  document.querySelectorAll('#sidebar .widget').forEach(function (w) {
+    const has = w.querySelector('a, img, input, li');
+    const text = (w.textContent || '').replace(/\s+/g, '');
+    const uls = w.querySelectorAll('ul');
+    const emptyUL = uls.length && Array.from(uls).every(u => (u.textContent || '').trim().length === 0);
+    if ((!has && text.length === 0) || emptyUL) w.style.display = 'none';
+  });
+})();
+</script>
+<div class="#menubar menu_toolbar ">
+  <h2 class="screen_out">티스토리툴바</h2>
+<div class="btn_tool"><button class="btn_menu_toolbar btn_subscription  #subscribe" data-blog-id="7993480" data-url="https://dtslib1k.tistory.com" data-device="web_pc"><strong class="txt_tool_id">중년작가지망생 EduArt Engineer</strong><em class="txt_state">구독하기</em><span class="img_common_tistory ico_check_type1"></span></button></div></div>
+<div class="#menubar menu_toolbar "></div>
+<div class="layer_tooltip">
+  <div class="inner_layer_tooltip">
+    <p class="desc_g"></p>
+  </div>
+</div>
+<div id="editEntry" style="position:absolute;width:1px;height:1px;left:-100px;top:-100px"></div>
+
+
+                <!-- DragSearchHandler - START -->
+<script src="//search1.daumcdn.net/search/statics/common/js/g/search_dragselection.min.js"></script>
+
+<!-- DragSearchHandler - END -->
+
+                </body>
 </html>
