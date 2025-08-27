@@ -39,7 +39,7 @@ class AutoInstallSystem:
             # 1. 환경 자동 설정
             self._setup_environment()
             
-            # 2. 백업 파일 자동 미러링
+            # 2. 🔥 백업 파일 원본 그대로 미러링 (수정됨!)
             mirrored_count = self._mirror_backup_files()
             
             # 3. manifest.json 자동 생성
@@ -66,8 +66,8 @@ class AutoInstallSystem:
             logger.info(f"📁 디렉토리 확인: {directory}")
 
     def _mirror_backup_files(self) -> int:
-        """🪞 백업 파일 자동 미러링 - 수동 복사 제거"""
-        logger.info("🪞 자동 미러링 시작...")
+        """🪞 백업 파일 원본 그대로 자동 미러링 - 변환 없음!"""
+        logger.info("🪞 원본 파일 그대로 자동 미러링 시작...")
         
         mirrored_count = 0
         backup_files = list(self.backup_dir.glob("*.html"))
@@ -86,161 +86,46 @@ class AutoInstallSystem:
             )
             
             if should_copy:
-                # 최적화된 복사 (모바일 친화적)
-                self._optimize_and_copy_file(src_file, dst_file)
+                # 🔥 원본 파일 그대로 복사 (변환 없음!)
+                shutil.copy2(src_file, dst_file)
                 mirrored_count += 1
-                logger.info(f"📄 처리됨: {src_file.name}")
+                logger.info(f"📄 원본 복사됨: {src_file.name}")
         
-        logger.info(f"✅ {mirrored_count}개 파일 자동 미러링 완료")
+        logger.info(f"✅ {mirrored_count}개 파일 원본 그대로 미러링 완료")
         return mirrored_count
 
-    def _optimize_and_copy_file(self, src_file: Path, dst_file: Path):
-        """📱 파일 최적화하여 자동 복사"""
+    def _extract_title_from_html(self, file_path: Path) -> str:
+        """📝 HTML 파일에서 제목 추출"""
         try:
-            # 원본 파일 읽기
-            with open(src_file, 'r', encoding='utf-8') as f:
+            with open(file_path, 'r', encoding='utf-8') as f:
                 content = f.read()
             
-            # 제목 자동 추출
-            title = self._extract_title(content)
+            # <title> 태그 우선
+            title_match = re.search(r'<title[^>]*>(.*?)</title>', content, re.IGNORECASE | re.DOTALL)
+            if title_match:
+                title = title_match.group(1).strip()
+                # 블로그명 제거
+                title = re.sub(r'\s*::\s*.*$', '', title)
+                return title
             
-            # 모바일 최적화 HTML 생성
-            optimized_content = self._create_mobile_optimized_html(title, src_file.stem)
+            # og:title 백업
+            og_title_match = re.search(r'<meta[^>]*property=["\']og:title["\'][^>]*content=["\']([^"\']*)["\']', content, re.IGNORECASE)
+            if og_title_match:
+                return og_title_match.group(1).strip()
             
-            # 최적화된 파일 저장
-            with open(dst_file, 'w', encoding='utf-8') as f:
-                f.write(optimized_content)
-                
         except Exception as e:
-            logger.warning(f"⚠️ 최적화 실패, 원본 복사: {e}")
-            # 실패 시 원본 복사
-            shutil.copy2(src_file, dst_file)
-
-    def _extract_title(self, content: str) -> str:
-        """📝 HTML에서 제목 자동 추출"""
-        # <title> 태그 우선
-        title_match = re.search(r'<title[^>]*>(.*?)</title>', content, re.IGNORECASE | re.DOTALL)
-        if title_match:
-            title = title_match.group(1).strip()
-            # 블로그명 제거
-            title = re.sub(r'\s*::\s*.*$', '', title)
+            logger.warning(f"⚠️ 제목 추출 실패 {file_path.name}: {e}")
+        
+        # 파일명에서 제목 추출 (날짜 제거)
+        filename = file_path.stem
+        if len(filename) > 11 and filename.startswith('20'):
+            title = filename[11:].replace('-', ' ')
             return title
         
-        # og:title 백업
-        og_title_match = re.search(r'<meta[^>]*property=["\']og:title["\'][^>]*content=["\']([^"\']*)["\']', content, re.IGNORECASE)
-        if og_title_match:
-            return og_title_match.group(1).strip()
-        
-        return "제목 없음"
-
-    def _create_mobile_optimized_html(self, title: str, filename: str) -> str:
-        """🎨 모바일 최적화 HTML 자동 생성"""
-        return f'''<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>{title} :: EduArt Engineer Archive</title>
-    <meta name="description" content="{title} - 자동화 시스템으로 처리된 디지털 아카이브">
-    <style>
-        :root{{
-            --bg:#f4e5c9;--ui:#cd853f;--ui-2:#daa520;
-            --ink:#2a2a2a;--card:#fff9ee;
-        }}
-        body{{
-            margin:0;padding:20px;background:var(--bg);color:var(--ink);
-            font-family:system-ui,-apple-system,sans-serif;line-height:1.65;
-        }}
-        .container{{max-width:800px;margin:0 auto}}
-        .header{{
-            background:linear-gradient(135deg,#f8edd6,#fbe1b0);
-            border:2px solid var(--ui);border-radius:16px;
-            padding:20px;margin-bottom:20px;
-            box-shadow:0 6px 20px rgba(0,0,0,.08);
-        }}
-        .badge{{
-            display:inline-block;font-weight:700;font-size:12px;
-            padding:.25rem .5rem;border-radius:999px;
-            background:var(--ui);color:#fff;margin:4px 8px 4px 0;
-        }}
-        .badge.auto{{background:var(--ui-2)}}
-        h1{{margin:10px 0;font-size:1.6rem;color:#3a2b1a}}
-        .content{{
-            background:var(--card);border:1px solid var(--ui-2);
-            border-radius:14px;padding:20px;margin:20px 0;
-        }}
-        .back-btn{{
-            display:inline-block;padding:8px 16px;
-            background:var(--ui);color:#fff;text-decoration:none;
-            border-radius:8px;margin-bottom:20px;
-        }}
-        .automation-info{{
-            background:#e8f5e8;border:1px solid #4caf50;
-            border-radius:8px;padding:12px;margin:16px 0;
-        }}
-        footer{{text-align:center;margin:30px 0;color:#6b563e;font-size:.9rem}}
-        ul{{padding-left:20px}}
-        li{{margin:8px 0}}
-        .meta{{color:#666;font-size:.9rem}}
-    </style>
-</head>
-<body>
-    <div class="container">
-        <a href="/archive/" class="back-btn">← 아카이브로 돌아가기</a>
-        
-        <div class="header">
-            <div>
-                <span class="badge">자동 처리</span>
-                <span class="badge auto">모바일 최적화</span>
-                <span class="badge">수동 작업 0%</span>
-            </div>
-            <h1>{title}</h1>
-            <div class="meta">파일명: {filename} • 처리: {datetime.now().strftime('%Y.%m.%d %H:%M')}</div>
-        </div>
-        
-        <div class="automation-info">
-            <h3>🤖 자동화 시스템 처리 완료</h3>
-            <ul>
-                <li>✅ 원본 파일에서 자동 추출</li>
-                <li>✅ 모바일 반응형 최적화</li>
-                <li>✅ 수동 작업 없이 자동 배포</li>
-            </ul>
-        </div>
-        
-        <div class="content">
-            <h2>📄 문서 정보</h2>
-            <ul>
-                <li><strong>제목:</strong> {title}</li>
-                <li><strong>원본 파일:</strong> {filename}.html</li>
-                <li><strong>자동 처리일:</strong> {datetime.now().strftime('%Y년 %m월 %d일 %H시 %M분')}</li>
-                <li><strong>처리 방식:</strong> 완전 자동화 (수동 개입 0%)</li>
-            </ul>
-            
-            <h3>🔗 관련 링크</h3>
-            <ul>
-                <li><a href="https://dtslib.com">dtslib.com</a> - 메인 사이트</li>
-                <li><a href="https://parksy.kr">parksy.kr</a> - 아카이브</li>
-                <li><a href="/archive/">아카이브 홈</a> - 전체 목록</li>
-            </ul>
-            
-            <h3>🤖 자동화 시스템 정보</h3>
-            <ul>
-                <li><strong>시스템:</strong> EduArt Engineer CI v2.0</li>
-                <li><strong>처리 방식:</strong> GitHub Actions 완전 자동화</li>
-                <li><strong>실행 주기:</strong> 매 3시간 또는 파일 변경 시</li>
-                <li><strong>수동 개입:</strong> 불필요 (0% 수동 작업)</li>
-            </ul>
-        </div>
-        
-        <footer>
-            <small>© EduArt Engineer CI · 완전 자동화 시스템 · 수동 작업 제거</small>
-        </footer>
-    </div>
-</body>
-</html>'''
+        return filename.replace('-', ' ')
 
     def _generate_manifest(self):
-        """📋 manifest.json 자동 생성"""
+        """📋 manifest.json 자동 생성 - 원본 파일 기반"""
         logger.info("📋 매니페스트 자동 생성...")
         
         # 아카이브 HTML 파일 수집 (index.html 제외)
@@ -251,11 +136,10 @@ class AutoInstallSystem:
             filename = html_file.stem
             
             # 날짜 추출 (YYYY-MM-DD 형식)
-            date_match = filename[:10] if filename.startswith('20') else "날짜없음"
+            date_match = filename[:10] if filename.startswith('20') and len(filename) >= 10 else None
             
-            # 제목 추출 (날짜 이후 부분)
-            title = filename[11:] if len(filename) > 11 else filename
-            title = title.replace('-', ' ')  # 하이픈을 스페이스로
+            # 실제 HTML 파일에서 제목 추출
+            title = self._extract_title_from_html(html_file)
             
             items.append({
                 "title": title,
@@ -274,7 +158,7 @@ class AutoInstallSystem:
             "automationInfo": {
                 "system": "EduArt Engineer CI v2.0",
                 "manualWork": "0%",
-                "processType": "완전 자동화",
+                "processType": "완전 자동화 - 원본 파일 보존",
                 "updateFrequency": "매 3시간 또는 변경 시"
             },
             "items": items
@@ -335,16 +219,17 @@ class AutoInstallSystem:
 
 def main():
     """🚀 메인 실행 - 완전 자동화"""
-    print("🤖 완전 자동화 시스템 시작 - 수동 작업 제거!")
+    print("🤖 완전 자동화 시스템 시작 - 원본 파일 보존!")
     
     system = AutoInstallSystem()
     success = system.run_full_automation()
     
     if success:
         print("🎉 완전 자동화 성공!")
-        print("✅ 모든 파일이 자동으로 처리되었습니다")
+        print("✅ 모든 파일이 원본 그대로 자동 처리되었습니다")
         print("🌐 웹사이트: https://parksy.kr")
         print("📋 수동 작업: 0% (완전 자동화)")
+        print("🔥 파일 처리: 원본 HTML 그대로 보존")
     else:
         print("❌ 자동화 실패")
         return 1
