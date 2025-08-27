@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>원웨이 · 투 트랙 · 무속 정치 — 인터랙티브 웹앱</title>
+<meta name="description" content="오순절(Pentecostal)=샤먼(Shaman), 복음주의(Evangelical)=선동(Agitator) 프레임을 인터랙티브 다이어그램으로 탐구하는 단일 파일 웹앱.">
+<style>
+:root{
+  --papyrus:#f4e5c9;   /* 배경 */
+  --ink:#2b2b2b;       /* 본문 */
+  --muted:#6b5e4a;     /* 보조 */
+  --clay:#cd853f;      /* 주색 */
+  --gold:#daa520;      /* 포인트 */
+  --card:#fff;
+  --border:#e9d9b9;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--papyrus);color:var(--ink);font-family:ui-sans-serif,system-ui,Apple SD Gothic Neo,"Noto Sans KR",Pretendard,Roboto,Arial,sans-serif;line-height:1.6}
+a{color:var(--clay);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:980px;margin:0 auto;padding:18px}
+h1{font-size:1.4rem;margin:0 0 4px 0}
+.sub{color:var(--muted);font-size:.94rem}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+button{
+  border:none;background:var(--clay);color:#fff;padding:10px 12px;border-radius:10px;
+  font-weight:700;font-size:.95rem;box-shadow:0 2px 0 rgba(0,0,0,.08);cursor:pointer
+}
+button.secondary{background:var(--gold);color:#221a00}
+button.ghost{background:#0000;color:var(--clay);border:2px solid var(--clay)}
+button:active{transform:translateY(1px)}
+.card{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:12px}
+.card h3{margin:.2rem 0 .6rem 0;font-size:1.06rem}
+.badge{display:inline-block;background:var(--gold);color:#221a00;border-radius:999px;padding:4px 10px;font-weight:800;font-size:.8rem}
+.note{color:var(--muted);font-size:.9rem}
+.list{margin:.2rem 0 .2rem 1rem;padding:0}
+#canvas-wrap{position:relative}
+svg{width:100%;height:auto;background:#fff;border:2px solid var(--border);border-radius:14px}
+.legend{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.legend .item{display:flex;gap:6px;align-items:center}
+.dot{inline-size:12px;block-size:12px;border-radius:3px}
+.dot.oneway{background:var(--clay)}
+.dot.twotrack{background:var(--gold)}
+.dot.shamanic{background:#8b4513}
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.toggle{display:flex;gap:8px;flex-wrap:wrap}
+.tiny{font-size:.86rem;color:var(--muted)}
+/* accordion (요약 블록) */
+details{border:2px solid var(--border);border-radius:12px;background:#fff;margin:10px 0}
+summary{list-style:none;cursor:pointer;font-weight:800;padding:10px 12px;display:flex;align-items:center;gap:8px}
+summary::-webkit-details-marker{display:none}
+details > div{padding:0 12px 12px 12px;border-top:1px dashed var(--border)}
+/* responsive */
+@media(min-width:760px){
+  h1{font-size:1.6rem}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>원웨이(One-way) · 투 트랙(Dual-track) · 무속 정치(Shamanic Politics)</h1>
+    <div class="sub">오순절(Pentecostal)=샤먼(Shaman) · 복음주의(Evangelical)=선동(Agitator) — 단일 파일 웹앱</div>
+    <div class="bar">
+      <button onclick="downloadPNG()">다이어그램 PNG 내보내기</button>
+      <button class="secondary" onclick="copyPatterns()">패턴 질문 복사</button>
+      <button class="ghost" onclick="copyWhitepaper()">백서 요약 복사</button>
+    </div>
+    <span class="badge">모바일 우선 · 배경 #f4e5c9 · UI #cd853f/#daa520</span>
+  </header>
+
+  <!-- 컨트롤 -->
+  <section class="card">
+    <h3>보기 설정</h3>
+    <div class="controls">
+      <div class="toggle" id="layer-toggles">
+        <button data-layer="oneway" class="secondary">원웨이</button>
+        <button data-layer="twotrack" class="secondary">투 트랙</button>
+        <button data-layer="shamanic" class="secondary">무속 정치</button>
+      </div>
+      <div class="toggle" id="preset">
+        <button class="ghost" data-preset="korea">한국 맥락</button>
+        <button class="ghost" data-preset="brazil">브라질 맥락</button>
+        <button class="ghost" data-preset="usa">미국 맥락</button>
+        <button class="ghost" data-preset="clear">표시 초기화</button>
+      </div>
+    </div>
+    <div class="legend">
+      <div class="item"><span class="dot oneway"></span><span>원웨이(One-way)</span></div>
+      <div class="item"><span class="dot twotrack"></span><span>투 트랙(Dual-track)</span></div>
+      <div class="item"><span class="dot shamanic"></span><span>무속 정치(Shamanic Politics)</span></div>
+    </div>
+  </section>
+
+  <!-- 다이어그램 -->
+  <section id="canvas-wrap">
+    <svg id="map" viewBox="0 0 860 560" role="img" aria-label="원웨이·투 트랙·무속 정치 다이어그램">
+      <!-- 배경 라벨 -->
+      <defs>
+        <linearGradient id="g1" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#fff"/>
+          <stop offset="1" stop-color="#fff"/>
+        </linearGradient>
+        <!-- 심볼들 -->
+        <g id="icon-cross">
+          <rect x="-10" y="-30" width="20" height="60" rx="2"></rect>
+          <rect x="-24" y="-10" width="48" height="20" rx="2"></rect>
+        </g>
+        <g id="icon-crescent">
+          <circle cx="0" cy="0" r="20"></circle>
+          <circle cx="7" cy="0" r="20" fill="#fff"></circle>
+          <polygon points="18,0 8,-3 8,3" />
+        </g>
+        <g id="icon-menorah">
+          <path d="M -40 -10 Q -40 -30 -20 -30 Q 0 -30 0 0 Q 0 -30 20 -30 Q 40 -30 40 -10" fill="none" stroke="currentColor" stroke-width="6"/>
+          <rect x="-6" y="0" width="12" height="30"></rect>
+          <rect x="-16" y="30" width="32" height="10"></rect>
+        </g>
+        <g id="icon-temple">
+          <polygon points="-35,0 35,0 35,12 -35,12" />
+          <rect x="-40" y="12" width="80" height="8"></rect>
+          <rect x="-40" y="24" width="80" height="10"></rect>
+          <polygon points="-45,0 0,-24 45,0" />
+        </g>
+        <g id="icon-megaphone">
+          <polygon points="-30,-10 0,-20 0,20 -30,10" />
+          <rect x="0" y="-8" width="16" height="16"></rect>
+        </g>
+        <g id="icon-shaman">
+          <circle cx="0" cy="-10" r="12"></circle>
+          <rect x="-6" y="0" width="12" height="18"></rect>
+          <polygon points="0,-28 8,-20 0,-16 -8,-20" />
+        </g>
+      </defs>
+
+      <!-- 영역 박스 -->
+      <g id="zones" font-family="inherit">
+        <g id="zone-oneway" transform="translate(20,20)">
+          <rect width="260" height="520" rx="16" fill="url(#g1)" stroke="#e9d9b9" stroke-width="3"/>
+          <text x="16" y="36" font-size="20" font-weight="700" fill="#cd853f">원웨이 (One-way)</text>
+          <!-- 아이템 -->
+          <g transform="translate(40,90)" fill="#cd853f">
+            <use href="#icon-menorah" x="0" y="0"></use>
+            <text x="-14" y="58" font-size="14">유대교</text>
+          </g>
+          <g transform="translate(160,90)" fill="#cd853f">
+            <use href="#icon-crescent" x="0" y="0"></use>
+            <text x="-16" y="58" font-size="14">이슬람</text>
+          </g>
+          <g transform="translate(100,190)" fill="#cd853f">
+            <use href="#icon-temple" x="0" y="0"></use>
+            <text x="-26" y="58" font-size="14">신정 모델</text>
+          </g>
+        </g>
+
+        <g id="zone-twotrack" transform="translate(300,20)">
+          <rect width="260" height="520" rx="16" fill="url(#g1)" stroke="#e9d9b9" stroke-width="3"/>
+          <text x="16" y="36" font-size="20" font-weight="700" fill="#daa520">투 트랙 (Dual-track)</text>
+          <g transform="translate(70,98)" fill="#daa520">
+            <use href="#icon-cross"></use>
+            <text x="-20" y="58" font-size="14">가톨릭</text>
+          </g>
+          <g transform="translate(190,98)" fill="#daa520">
+            <use href="#icon-temple"></use>
+            <text x="-24" y="58" font-size="14">세속 권력</text>
+          </g>
+          <g transform="translate(130,210)" fill="#daa520">
+            <text x="-72" y="0" font-size="13">교회/국가 병행(Parallel)</text>
+          </g>
+        </g>
+
+        <g id="zone-shamanic" transform="translate(580,20)">
+          <rect width="260" height="520" rx="16" fill="url(#g1)" stroke="#e9d9b9" stroke-width="3"/>
+          <text x="16" y="36" font-size="20" font-weight="700" fill="#8b4513">무속 정치 (Shamanic Politics)</text>
+          <g transform="translate(70,98)" fill="#8b4513">
+            <use href="#icon-shaman"></use>
+            <text x="-22" y="58" font-size="14">오순절</text>
+          </g>
+          <g transform="translate(190,98)" fill="#8b4513">
+            <use href="#icon-megaphone"></use>
+            <text x="-26" y="58" font-size="14">복음주의</text>
+          </g>
+          <g transform="translate(130,210)" fill="#8b4513">
+            <text x="-88" y="0" font-size="13">샤먼(체험) × 선동(동원)</text>
+          </g>
+        </g>
+      </g>
+
+      <!-- 프리셋 마커 -->
+      <g id="markers" font-size="12" font-weight="700"></g>
+    </svg>
+    <div class="tiny">도식만 SVG로 구현(무저작·내장형). 내보내기는 PNG로 변환.</div>
+  </section>
+
+  <!-- 설명/요약 (리스트만, 테이블 없음) -->
+  <section class="grid">
+    <section class="card">
+      <h3>개념 요약</h3>
+      <ul class="list">
+        <li>원웨이(One-way): 종교·정치·재정 일치(Fusion).</li>
+        <li>투 트랙(Dual-track): 교회/국가 병행(Parallel), 상호 독립 지향.</li>
+        <li>무속 정치(Shamanic Politics): 오순절(샤먼성) × 복음주의(선동성) 결합.</li>
+        <li>번영신학(Prosperity Gospel): 신앙 → 물질적 축복 내러티브.</li>
+        <li>프로테스탄트 윤리(Protestant Ethic): 근면·절약·재투자 → 자본 축적(Accumulation).</li>
+      </ul>
+    </section>
+
+    <section class="card" id="insights">
+      <h3>프리셋 인사이트</h3>
+      <ul id="insight-list" class="list">
+        <li>프리셋 버튼으로 한국/브라질/미국 맥락을 토글.</li>
+        <li>각 맥락의 포인트는 리스트로만 제공(테이블 미사용).</li>
+      </ul>
+    </section>
+  </section>
+
+  <!-- 패턴 질문 / 백서 요약 (details 아코디언) -->
+  <details>
+    <summary>패턴 질문 (AI도 예측 어려운 질문)</summary>
+    <div>
+      <ul id="pattern-list" class="list">
+        <li>“투웨이”는 왕복(Interactive)인가, 투 트랙(Dual-track)인가?</li>
+        <li>브라질은 가톨릭 다수인데 왜 개신교처럼 정치가 요동하는가?</li>
+        <li>오순절=샤먼, 복음주의=선동 교차 비유는 정당한가?</li>
+        <li>샤먼 × 선동 = 무속 정치(Shamanic Politics)로 모델링 가능한가?</li>
+        <li>개신교도 무속인가? — 현대판 샤먼화 논증 가능성.</li>
+        <li>“개인 무속(쇼핑)” vs “제도 무속(교회)” 대칭 비교는 타당한가?</li>
+        <li>한국 극우화에 미국식 원웨이 개신교 모델을 이식해 설명 가능한가?</li>
+        <li>“기독교”로 뭉뚱그리지 않고 가톨릭/개신교 분리 분석이 필수인가?</li>
+      </ul>
+      <div class="bar"><button class="secondary" onclick="copyPatterns()">패턴 질문 복사</button></div>
+    </div>
+  </details>
+
+  <details>
+    <summary>백서 요약 (Whitepaper Summary)</summary>
+    <div id="whitepaper">
+      <ul class="list">
+        <li>취지/목적: 종교 권력-세속 권력 결합을 원웨이·투 트랙·하이브리드로 구분해 한국·브라질·미국 맥락을 비교.</li>
+        <li>문답 요약:
+          <ul class="list">
+            <li>카톨릭(Catholicism)=투 트랙(Parallel) 지향.</li>
+            <li>개신교(Protestantism)=현실 결합(Hybrid) 경향.</li>
+            <li>브라질: 복음주의/오순절 + 번영신학 + 미디어 동원 → 극우 결탁.</li>
+            <li>오순절=샤먼, 복음주의=선동 → 무속 정치 방정식.</li>
+            <li>개인 무속(쇼핑) vs 제도 무속(집단) 구분 필요.</li>
+          </ul>
+        </li>
+        <li>실행 포인트:
+          <ul class="list">
+            <li>도식은 SVG, 복사/내보내기 유틸 제공.</li>
+            <li>리스트만 사용(테이블 미사용), 블로그 즉시 게시 가능.</li>
+          </ul>
+        </li>
+      </ul>
+      <div class="bar"><button class="secondary" onclick="copyWhitepaper()">백서 요약 복사</button></div>
+    </div>
+  </details>
+
+  <footer class="tiny" style="margin-top:18px">
+    © dtslib.com · 저자: 중년작가지망생 EduArt Engineer
+  </footer>
+</div>
+
+<script>
+/* 데이터: 맥락별 마커/인사이트 */
+const presets = {
+  korea:{
+    markers:[
+      {zone:'twotrack', label:'가톨릭(투 트랙 지향)', x:430, y:140, color:'#daa520'},
+      {zone:'shamanic', label:'순복음/대형교회(샤먼×선동)', x:710, y:160, color:'#8b4513'}
+    ],
+    insights:[
+      '미국식 정치참여형 개신교 DNA 이식.',
+      '분단/반공/산업화 맥락이 정치 세력화 증폭.',
+      '오순절 + 복음주의 결합 → 무속 정치화.'
+    ]
+  },
+  brazil:{
+    markers:[
+      {zone:'twotrack', label:'가톨릭 다수(형식적 중심)', x:430, y:210, color:'#daa520'},
+      {zone:'shamanic', label:'복음주의/오순절 헤게모니', x:710, y:210, color:'#8b4513'}
+    ],
+    insights:[
+      '복음주의·오순절 급성장 + 번영신학.',
+      'TV/유튜브/대형집회 동원력.',
+      '보우소나루 등 극우 정치 결탁.'
+    ]
+  },
+  usa:{
+    markers:[
+      {zone:'twotrack', label:'공적 세속주의(원칙)', x:430, y:90, color:'#daa520'},
+      {zone:'shamanic', label:'복음주의 정치 플랫폼', x:710, y:120, color:'#8b4513'}
+    ],
+    insights:[
+      '청교도·프로테스탄트 윤리(근면·절약·재투자).',
+      '교회 = 정치 동원 플랫폼.',
+      '종교·경제·정치의 상호 증폭.'
+    ]
+  }
+};
+
+const state = { layers:{oneway:true, twotrack:true, shamanic:true}, activePreset:null };
+
+function qs(s){return document.querySelector(s)}
+function qsa(s){return Array.from(document.querySelectorAll(s))}
+
+/* 레이어 토글 */
+qsa('#layer-toggles button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const key = btn.dataset.layer;
+    state.layers[key] = !state.layers[key];
+    btn.classList.toggle('secondary', state.layers[key]);
+    qs('#zone-'+key).style.display = state.layers[key] ? 'block' : 'none';
+    renderMarkers();
+  });
+});
+
+/* 프리셋 */
+qsa('#preset button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const key = btn.dataset.preset;
+    if(key==='clear'){ state.activePreset=null; setInsights([]); renderMarkers(); return; }
+    state.activePreset = key;
+    setInsights(presets[key].insights);
+    renderMarkers();
+  });
+});
+
+function setInsights(items){
+  const ul = qs('#insight-list'); ul.innerHTML='';
+  (items&&items.length?items:['프리셋 선택으로 인사이트 표시.']).forEach(t=>{
+    const li=document.createElement('li'); li.textContent=t; ul.appendChild(li);
+  });
+}
+
+/* 마커 렌더 */
+function renderMarkers(){
+  const g = qs('#markers'); g.innerHTML='';
+  const key = state.activePreset;
+  if(!key) return;
+  const data = presets[key].markers;
+  data.forEach(m=>{
+    // 마커 (사각+텍스트)
+    const group = document.createElementNS('http://www.w3.org/2000/svg','g');
+    group.setAttribute('transform',`translate(${m.x},${m.y})`);
+    const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+    rect.setAttribute('x','-6'); rect.setAttribute('y','-6'); rect.setAttribute('width','12'); rect.setAttribute('height','12'); rect.setAttribute('rx','2');
+    rect.setAttribute('fill', m.color);
+    const text = document.createElementNS('http://www.w3.org/2000/svg','text');
+    text.setAttribute('x','10'); text.setAttribute('y','4'); text.textContent = m.label; text.setAttribute('fill', m.color);
+    text.setAttribute('font-weight','800');
+    group.appendChild(rect); group.appendChild(text); g.appendChild(group);
+  });
+}
+
+/* 복사 유틸 */
+async function copyText(s){
+  try{ await navigator.clipboard.writeText(s); alert('복사 완료'); }
+  catch(e){ fallbackCopy(s); }
+}
+function fallbackCopy(data){
+  const ta=document.createElement('textarea'); ta.value=data; document.body.appendChild(ta);
+  ta.select(); document.execCommand('copy'); document.body.removeChild(ta); alert('복사 완료(대체 방식)');
+}
+
+function copyPatterns(){
+  const text = qsa('#pattern-list li').map(li=>'- '+li.innerText.trim()).join('\n');
+  copyText(text);
+}
+function copyWhitepaper(){
+  const text = qsa('#whitepaper .list li').map(li=>'- '+li.innerText.trim()).join('\n');
+  copyText(text);
+}
+
+/* PNG 내보내기 (SVG→Canvas 변환) */
+function downloadPNG(){
+  const svg = qs('#map');
+  const xml = new XMLSerializer().serializeToString(svg);
+  const svg64 = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(xml);
+  const img = new Image();
+  img.onload = ()=>{
+    const c = document.createElement('canvas');
+    const scale = 2; // 레티나 선명도
+    c.width = svg.viewBox.baseVal.width * scale;
+    c.height = svg.viewBox.baseVal.height * scale;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0,0,c.width,c.height);
+    ctx.drawImage(img,0,0,c.width,c.height);
+    const a = document.createElement('a');
+    a.download = 'oneway-dualtrack-shamanic.png';
+    a.href = c.toDataURL('image/png');
+    a.click();
+  };
+  img.src = svg64;
+}
+
+/* 초기 렌더 */
+renderMarkers();
+</script>
+</body>
+</html>
