@@ -1,35 +1,17 @@
 {
-  "name": "UncleParksy - EduArt Engineer's Grimoire",
-  "short_name": "UncleParksy",
-  "description": "Ancient Digital Codex of Knowledge & Creation",
+  "name": "dtslib",
+  "short_name": "dtslib",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f7f3e8",
-  "theme_color": "#d4af37",
-  "orientation": "portrait-primary",
-  "scope": "/",
-  "lang": "en",
-  "categories": ["education", "productivity", "books"],
+  "theme_color": "#f7f3e8",
+  "description": "🚧 PWA features under construction.",
   "icons": [
-    {
-      "src": "/assets/icons/favicon.ico",
-      "sizes": "48x48",
-      "type": "image/x-icon"
-    },
     {
       "src": "/assets/icons/apple-touch-icon.png",
       "sizes": "180x180",
       "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "Archive",
-      "short_name": "Archive",
-      "description": "Browse the KR TextStory archive",
-      "url": "/archive/",
-      "icons": [{ "src": "/assets/icons/apple-touch-icon.png", "sizes": "180x180" }]
+      "purpose": "any"
     }
   ]
 }
