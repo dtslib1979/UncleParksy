@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Manifest Generator for UncleParksy KR TextStory Archive
-Scans /archive/backup/*.html files and generates assets/manifest.json
+Scans /archive/*.html files and generates assets/manifest.json
 """
 
 from pathlib import Path
@@ -12,8 +12,8 @@ import re
 import datetime
 
 def main():
-    """Generate manifest.json from archive/backup HTML files"""
-    SCAN = Path("archive/backup")
+    """Generate manifest.json from archive HTML files"""
+    SCAN = Path("archive")
     OUT = Path("assets/manifest.json")
     
     # Create assets directory if it doesn't exist
@@ -28,7 +28,9 @@ def main():
         SCAN.mkdir(parents=True, exist_ok=True)
     
     # Process HTML files in reverse chronological order (newest first)
-    html_files = sorted(SCAN.glob("*.html"), key=lambda x: x.name, reverse=True)
+    # Exclude index.html from archive folder
+    html_files = sorted([f for f in SCAN.glob("*.html") if f.name != "index.html"], 
+                       key=lambda x: x.name, reverse=True)
     
     for p in html_files:
         title = p.stem
@@ -69,9 +71,9 @@ def main():
             except Exception as e:
                 print(f"Warning: Could not parse date {date_str} for {p.name}: {e}")
         
-        # Add item to manifest
+        # Add item to manifest - path is relative to root, not archive folder
         item = {
-            "path": str(p).replace("\\", "/"),  # Use forward slashes for web
+            "path": f"archive/{p.name}",  # Direct path: archive/filename.html
             "title": display,
             "date": iso_date
         }
