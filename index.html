@@ -5,7 +5,35 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>UncleParksy — EduArt Engineer's Grimoire</title>
 
-<!-- Slim fonts -->
+<!-- SEO / Sharing -->
+<meta name="description" content="EduArt Engineer's Grimoire — Ancient Digital Codex of Knowledge & Creation. Projects, archives, and modular thinking for WebAppsBook." />
+<link rel="canonical" href="https://dtslib1979.github.io/">
+<meta name="robots" content="index,follow">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="UncleParksy — EduArt Engineer's Grimoire">
+<meta property="og:description" content="Ancient Digital Codex of Knowledge & Creation">
+<meta property="og:url" content="https://dtslib1979.github.io/">
+<meta property="og:image" content="https://dtslib1979.github.io/assets/og/cover.png">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="UncleParksy — EduArt Engineer's Grimoire">
+<meta name="twitter:description" content="Ancient Digital Codex of Knowledge & Creation">
+<meta name="twitter:image" content="https://dtslib1979.github.io/assets/og/cover.png">
+
+<!-- PWA / Icons -->
+<link rel="icon" href="/assets/icons/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#f7f3e8">
+
+<!-- Feeds / Sitemap -->
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml">
+<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+
+<!-- Fonts (Slim) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Philosopher:wght@400;700&display=swap" rel="stylesheet">
@@ -171,12 +199,21 @@ body::before{
 .nav a:hover{text-decoration:underline}
 
 /* footer */
-.footer{padding:20px 16px; text-align:center; color:#6b6b6b}
+.footer{padding:20px 16px; text-align:center; color:#6b6b6b; font-size:.92rem; line-height:1.7}
+.footer .links{margin-bottom:10px}
+.footer .biz{margin-top:10px; font-size:.85rem; color:#555}
+.footer .biz b{color:#333}
+.footer .legal{margin-top:8px; font-size:.8rem; color:#666}
+.footer a{color:inherit}
 
-/* helpers */
+/* helpers & accessibility */
 .fade-in{opacity:0; transform:translateY(36px); animation:in .7s ease forwards}
 .fade-in:nth-child(1){animation-delay:.08s}.fade-in:nth-child(2){animation-delay:.16s}.fade-in:nth-child(3){animation-delay:.24s}.fade-in:nth-child(4){animation-delay:.32s}
 @keyframes in{to{opacity:1; transform:none}}
+
+.skip-link{position:absolute;left:-9999px;top:auto}
+.skip-link:focus{left:16px;top:16px;background:#fff;padding:8px 12px;border-radius:8px;z-index:99999}
+.chapter-card:focus-visible{outline:3px solid var(--primary-gold); outline-offset:3px}
 
 /* ===== Tablet Tweaks (터치 태블릿: 768~1200px) ===== */
 @media (pointer: coarse) and (min-width:768px) and (max-width:1200px){
@@ -214,15 +251,23 @@ body::before{
 </head>
 <body>
 
+<a class="skip-link" href="#main">Skip to content</a>
+
 <!-- Top bar -->
-<header class="site-header">
-  <a class="brand" href="./">
-    <img src="/assets/img/logo.png" alt="UncleParksy" />
+<header class="site-header" role="banner">
+  <a class="brand" href="./" aria-label="UncleParksy home">
+    <img src="/assets/img/logo.png" alt="UncleParksy logo" />
     <span class="brand-title">UncleParksy</span>
   </a>
-  <nav class="nav">
+  <nav class="nav" aria-label="Primary">
     <a href="./">Home</a>
-    <a href="./archive/index.html">KR TextStory</a>
+    <a href="./archive/index.html">Archive</a>
+    <a href="./about/index.html">About</a>
+    <a href="./contact/index.html">Contact</a>
+    <!-- simple site search (static) -->
+    <form action="/search/" role="search" aria-label="Site search" style="display:inline-block;margin-left:8px">
+      <input name="q" placeholder="Search…" aria-label="Search this site">
+    </form>
   </nav>
 </header>
 
@@ -236,29 +281,29 @@ body::before{
 <style>@keyframes lb{to{transform:translateX(0)}}@keyframes sh{0%{background-position:-200% 0}100%{background-position:200% 0}}</style>
 
 <!-- Cursor -->
-<div class="cursor" id="cursor"></div>
+<div class="cursor" id="cursor" aria-hidden="true"></div>
 
 <!-- Page turn effect -->
 <div id="pageTurn" style="position:fixed;inset:0;background:linear-gradient(135deg,var(--parchment),var(--dark-parchment));z-index:9999;transform:perspective(1000px) rotateY(-90deg);transform-origin:left center;transition:transform .8s ease,opacity .8s ease;opacity:0;pointer-events:none"></div>
 
 <!-- Three.js BG -->
-<div id="three-container"><canvas id="three-canvas"></canvas></div>
+<div id="three-container" aria-hidden="true"><canvas id="three-canvas"></canvas></div>
 
 <!-- Magic circle + particles -->
-<div class="magic-circle"></div>
-<div id="particles"></div>
+<div class="magic-circle" aria-hidden="true"></div>
+<div id="particles" aria-hidden="true"></div>
 
 <!-- Main content -->
-<main class="container">
+<main id="main" class="container" role="main">
   <header class="book-cover fade-in">
-    <div class="ancient-seal">⚡</div>
+    <div class="ancient-seal" aria-hidden="true">⚡</div>
     <h1 class="grimoire-title">EduArt Engineer's Grimoire</h1>
     <p class="grimoire-subtitle">Ancient Digital Codex of Knowledge & Creation</p>
   </header>
 
-  <section class="chapter-index fade-in">
+  <section class="chapter-index fade-in" aria-labelledby="chapters-title">
     <div class="index-header">
-      <h2 class="index-title">📜 Chapters of Wisdom</h2>
+      <h2 class="index-title" id="chapters-title">📜 Chapters of Wisdom</h2>
       <p style="font-size:clamp(1rem,2.4vw,1.15rem); color:var(--ink-2); opacity:.85">Choose your path through the realms of knowledge…</p>
     </div>
 
@@ -267,12 +312,12 @@ body::before{
       <div class="chapter-card" tabindex="0" role="button" aria-label="Open Complete Archive" onclick="openChapter('all')" onkeypress="handleKeyPress(event,'all')">
         <div class="chapter-content">
           <div>
-            <span class="chapter-icon">📚</span>
+            <span class="chapter-icon" aria-hidden="true">📚</span>
             <h3 class="chapter-title">KR TextStory</h3>
             <p class="chapter-description">All tomes and scrolls preserved in these Korean pages.</p>
           </div>
           <div class="chapter-meta">
-            <span class="chapter-count loading" data-path="archive">…</span>
+            <span class="chapter-count loading" data-path="archive" aria-live="polite">…</span>
             <span class="badge legendary">Legendary</span>
           </div>
         </div>
@@ -282,12 +327,12 @@ body::before{
       <div class="chapter-card" tabindex="0" role="button" aria-label="Open System Configuration" onclick="openChapter('settings')" onkeypress="handleKeyPress(event,'settings')">
         <div class="chapter-content">
           <div>
-            <span class="chapter-icon">⚙️</span>
+            <span class="chapter-icon" aria-hidden="true">⚙️</span>
             <h3 class="chapter-title">System Configuration</h3>
             <p class="chapter-description">Essential setup spells for any digital craftsman.</p>
           </div>
           <div class="chapter-meta">
-            <span class="chapter-count loading" data-path="category/system-configuration">…</span>
+            <span class="chapter-count loading" data-path="category/system-configuration" aria-live="polite">…</span>
             <span class="badge common">Common</span>
           </div>
         </div>
@@ -297,12 +342,12 @@ body::before{
       <div class="chapter-card" tabindex="0" role="button" aria-label="Open Writer's Path" onclick="openChapter('roadmap')" onkeypress="handleKeyPress(event,'roadmap')">
         <div class="chapter-content">
           <div>
-            <span class="chapter-icon">🗺️</span>
+            <span class="chapter-icon" aria-hidden="true">🗺️</span>
             <h3 class="chapter-title">Writer's Path</h3>
             <p class="chapter-description">A sacred roadmap from novice to master storyteller.</p>
           </div>
           <div class="chapter-meta">
-            <span class="chapter-count loading" data-path="category/writers-path">…</span>
+            <span class="chapter-count loading" data-path="category/writers-path" aria-live="polite">…</span>
             <span class="badge rare">Rare</span>
           </div>
         </div>
@@ -312,12 +357,12 @@ body::before{
       <div class="chapter-card" tabindex="0" role="button" aria-label="Open Blog Transformation" onclick="openChapter('tistory')" onkeypress="handleKeyPress(event,'tistory')">
         <div class="chapter-content">
           <div>
-            <span class="chapter-icon">🎨</span>
+            <span class="chapter-icon" aria-hidden="true">🎨</span>
             <h3 class="chapter-title">Blog Transformation</h3>
             <p class="chapter-description">Metamorphosis arts for captivating digital experiences.</p>
           </div>
           <div class="chapter-meta">
-            <span class="chapter-count loading" data-path="category/blog-transformation">…</span>
+            <span class="chapter-count loading" data-path="category/blog-transformation" aria-live="polite">…</span>
             <span class="badge epic">Epic</span>
           </div>
         </div>
@@ -327,12 +372,12 @@ body::before{
       <div class="chapter-card" tabindex="0" role="button" aria-label="Open Device Chronicles" onclick="openChapter('devices')" onkeypress="handleKeyPress(event,'devices')">
         <div class="chapter-content">
           <div>
-            <span class="chapter-icon">📱</span>
+            <span class="chapter-icon" aria-hidden="true">📱</span>
             <h3 class="chapter-title">Device Chronicles</h3>
             <p class="chapter-description">Tales and secrets of our mystical digital devices.</p>
           </div>
           <div class="chapter-meta">
-            <span class="chapter-count loading" data-path="category/device-chronicles">…</span>
+            <span class="chapter-count loading" data-path="category/device-chronicles" aria-live="polite">…</span>
             <span class="badge common">Common</span>
           </div>
         </div>
@@ -342,12 +387,12 @@ body::before{
       <div class="chapter-card" tabindex="0" role="button" aria-label="Open WebAppsBook Codex" onclick="openChapter('webappsbook')" onkeypress="handleKeyPress(event,'webappsbook')">
         <div class="chapter-content">
           <div>
-            <span class="chapter-icon">💻</span>
+            <span class="chapter-icon" aria-hidden="true">💻</span>
             <h3 class="chapter-title">WebAppsBook Codex</h3>
             <p class="chapter-description">Powerful digital creation spells & forbidden lore.</p>
           </div>
           <div class="chapter-meta">
-            <span class="chapter-count loading" data-path="category/webappsbook-codex">…</span>
+            <span class="chapter-count loading" data-path="category/webappsbook-codex" aria-live="polite">…</span>
             <span class="badge legendary">Legendary</span>
           </div>
         </div>
@@ -357,12 +402,12 @@ body::before{
       <div class="chapter-card" tabindex="0" role="button" aria-label="Open WebAppsBookCast" onclick="openChapter('cast')" onkeypress="handleKeyPress(event,'cast')">
         <div class="chapter-content">
           <div>
-            <span class="chapter-icon">🎬</span>
+            <span class="chapter-icon" aria-hidden="true">🎬</span>
             <h3 class="chapter-title">WebAppsBookCast</h3>
             <p class="chapter-description">Prophecies & knowledge yet to manifest in the digital realm.</p>
           </div>
           <div class="chapter-meta">
-            <span class="chapter-count loading" data-path="category/webappsbookcast">…</span>
+            <span class="chapter-count loading" data-path="category/webappsbookcast" aria-live="polite">…</span>
             <span class="badge prophecy">Prophecy</span>
           </div>
         </div>
@@ -372,12 +417,12 @@ body::before{
       <div class="chapter-card" tabindex="0" role="button" aria-label="Open Thought Archaeology" onclick="openChapter('thoughts')" onkeypress="handleKeyPress(event,'thoughts')">
         <div class="chapter-content">
           <div>
-            <span class="chapter-icon">💭</span>
+            <span class="chapter-icon" aria-hidden="true">💭</span>
             <h3 class="chapter-title">Thought Archaeology</h3>
             <p class="chapter-description">Excavating ideas into organized wisdom and structured knowledge.</p>
           </div>
           <div class="chapter-meta">
-            <span class="chapter-count loading" data-path="category/thought-archaeology">…</span>
+            <span class="chapter-count loading" data-path="category/thought-archaeology" aria-live="polite">…</span>
             <span class="badge rare">Rare</span>
           </div>
         </div>
@@ -386,10 +431,29 @@ body::before{
   </section>
 </main>
 
-<footer class="footer">© dtslib.com • UncleParksy • <a href="./archive/index.html">KR TextStory Archive</a></footer>
+<footer class="footer" role="contentinfo">
+  <div class="links">
+    © dtslib.com • UncleParksy • <a href="./archive/index.html">Site Archive</a> •
+    <a href="/privacy.html">Privacy</a> • <a href="/terms.html">Terms</a> •
+    <a href="mailto:dimas@dtslib.com">contact</a>
+  </div>
+
+  <!-- Business block (KR compliance style, EN labels) -->
+  <div class="biz" aria-label="Business information">
+    <div><b>Company Name:</b> dtslib</div>
+    <div><b>Business Reg. No.:</b> 475-01-03493</div>
+    <div><b>Publisher Declaration No.:</b> 2024-000013</div>
+    <div><b>Address:</b> 305, 16, Waryong-ro, Manan-gu, Anyang-si, Gyeonggi-do, Republic of Korea</div>
+    <div><b>E-mail:</b> <a href="mailto:dimas@dtslib.com">dimas@dtslib.com</a></div>
+  </div>
+
+  <div class="legal">
+    This site may use cookies for basic analytics. © dtslib. All rights reserved.
+  </div>
+</footer>
 
 <!-- libs (desktop bg only) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/128/three.min.js"></script>
 <script>
 let scene, camera, renderer, magicObjects=[];
 let mouseX=0, mouseY=0;
@@ -412,33 +476,21 @@ document.addEventListener('DOMContentLoaded', () => {
 /* 🚀 Dynamic chapter counts */
 async function loadChapterCounts() {
   const countElements = document.querySelectorAll('.chapter-count[data-path]');
-  
   for (const element of countElements) {
     const path = element.dataset.path;
-    
     try {
       const response = await fetch(`https://api.github.com/repos/dtslib1979/UncleParksy/contents/${path}`);
-      
       if (response.ok) {
         const files = await response.json();
-        // Count HTML files only (excluding index.html)
-        const htmlFiles = files.filter(file => 
-          file.type === 'file' && 
-          file.name.endsWith('.html') && 
-          file.name !== 'index.html'
-        );
-        
+        const htmlFiles = files.filter(file => file.type === 'file' && file.name.endsWith('.html') && file.name !== 'index.html');
         const count = htmlFiles.length;
         element.textContent = count;
         element.classList.remove('loading');
-        
-        // ✨ Add visual effect based on count
         if (count > 0) {
           element.style.transform = 'scale(1.1)';
           setTimeout(() => element.style.transform = 'scale(1)', 200);
         }
       } else {
-        // Directory doesn't exist
         element.textContent = '0';
         element.classList.remove('loading');
       }
@@ -446,10 +498,9 @@ async function loadChapterCounts() {
       console.log(`Failed to load count for ${path}:`, error);
       element.textContent = '0';
       element.classList.remove('loading');
+      element.title = 'Count unavailable (rate limit or network)';
     }
-    
-    // Add delay between requests to prevent GitHub API rate limiting
-    await new Promise(resolve => setTimeout(resolve, 100));
+    await new Promise(resolve => setTimeout(resolve, 120));
   }
 }
 
@@ -579,5 +630,11 @@ function maybeNotify(msg){
   }
 }
 </script>
+
+<!-- noscript fallback -->
+<noscript>
+  <style>.magic-circle,#three-container,.cursor,.loading-overlay{display:none}</style>
+  <div style="padding:1rem;text-align:center">JavaScript is disabled; background effects are off. Content is available.</div>
+</noscript>
 </body>
 </html>
