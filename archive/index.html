@@ -429,7 +429,8 @@ body::before{
     function createTreasureCard(item, index) {
       const card = document.createElement('a');
       card.className = 'treasure-card';
-      card.href = item.path;
+      // Direct link to archive folder (not archive/backup)
+      card.href = '../' + item.path;  // item.path is already "archive/filename.html"
       card.target = '_blank';
       
       // Random rotation and translation for "삐뚤빼뚤" effect
