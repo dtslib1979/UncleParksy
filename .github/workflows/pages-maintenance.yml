@@ -45,14 +45,14 @@ jobs:
               /<ul id="post-list">/ {
                 print; 
                 while ( ( "echo \"" list "\" " | getline line ) > 0 ) {
-                  gsub(/^\.\/"/,"",line)
+                  gsub(/^\.\//,"",line)
                   cmd="basename \"" line "\""; cmd | getline base; close(cmd)
                   date=substr(base,1,10)
                   title=base
                   sub(/^[0-9]{4}-[0-9]{2}-[0-9]{2}-/,"",title)
                   sub(/\.html$/,"",title)
                   gsub(/-/," ",title)
-                  printf("        <li><a href=\"/" line \">" title "</a></li>\n")
+                  printf("        <li><a href=\"/%s\">[%s] %s</a></li>\n", line, date, title)
                 }
                 skip=1; next
               }
