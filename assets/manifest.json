@@ -1,68 +1,84 @@
 {
   "title": "EduArt Engineer's Grimoire - Digital Knowledge Archive",
-  "description": "Uncle Parksy's collection of educational content and technical insights",
-  "lastUpdate": "2025-08-27T16:52:00Z",
+  "description": "완전 자동화 시스템으로 관리되는 디지털 지식 아카이브",
+  "lastUpdate": "2025-08-27T16:59:41.645266Z",
   "count": 10,
+  "automationInfo": {
+    "system": "EduArt Engineer CI v2.0",
+    "manualWork": "0%",
+    "processType": "완전 자동화",
+    "updateFrequency": "매 3시간 또는 변경 시"
+  },
   "items": [
     {
-      "title": "설치 가이드 AI 파트너 클로드",
-      "date": "2025-08-16",
-      "path": "/archive/2025-08-16-설치 가이드 AI 파트너 클로드.html",
-      "description": "AI 파트너 클로드 설치 및 활용 가이드"
-    },
-    {
-      "title": "디바이스기반 콘텐츠 워크플로우",
-      "date": "2025-08-17",
-      "path": "/archive/2025-08-17-디바이스기반 콘텐츠 워크플로우.html",
-      "description": "효율적인 디바이스 기반 콘텐츠 제작 워크플로우"
-    },
-    {
-      "title": "깃허브란",
-      "date": "2025-08-19",
-      "path": "/archive/2025-08-19-깃허브란.html",
-      "description": "GitHub 기본 개념과 활용법"
-    },
-    {
-      "title": "사진저장법",
-      "date": "2025-08-19",
-      "path": "/archive/2025-08-19-사진저장법.html",
-      "description": "디지털 사진 보관 및 관리 방법"
-    },
-    {
-      "title": "클라우드 컴 쇼핑모델",
-      "date": "2025-08-22",
-      "path": "/archive/2025-08-22-클라우드 컴 쇼핑모델.html",
-      "description": "클라우드 컴퓨팅 기반 쇼핑 모델 분석"
-    },
-    {
-      "title": "티스토리 어쩌지",
-      "date": "2025-08-23",
-      "path": "/archive/2025-08-23-티스토리 어쩌지.html",
-      "description": "티스토리 블로그 운영 고민과 해결책"
-    },
-    {
-      "title": "티스토리 가치",
+      "title": "티스토리 활용",
       "date": "2025-08-25",
-      "path": "/archive/2025-08-25-티스토리 가치.html",
-      "description": "티스토리 플랫폼의 가치와 활용성"
-    },
-    {
-      "title": "티스토리 솔루션",
-      "date": "2025-08-25",
-      "path": "/archive/2025-08-25-티스토리 솔루션.html",
-      "description": "티스토리 운영을 위한 종합 솔루션"
+      "path": "/archive/2025-08-25-티스토리 활용.html",
+      "description": "티스토리 활용 - 자동화 시스템으로 처리됨",
+      "processed": "2025-08-27T16:59:41.645227"
     },
     {
       "title": "티스토리 업로드 자동화",
       "date": "2025-08-25",
       "path": "/archive/2025-08-25-티스토리 업로드 자동화.html",
-      "description": "티스토리 콘텐츠 업로드 자동화 시스템"
+      "description": "티스토리 업로드 자동화 - 자동화 시스템으로 처리됨",
+      "processed": "2025-08-27T16:59:41.645234"
     },
     {
-      "title": "티스토리 활용",
+      "title": "티스토리 솔루션",
       "date": "2025-08-25",
-      "path": "/archive/2025-08-25-티스토리 활용.html",
-      "description": "티스토리 블로그 최적 활용법"
+      "path": "/archive/2025-08-25-티스토리 솔루션.html",
+      "description": "티스토리 솔루션 - 자동화 시스템으로 처리됨",
+      "processed": "2025-08-27T16:59:41.645237"
+    },
+    {
+      "title": "티스토리 가치",
+      "date": "2025-08-25",
+      "path": "/archive/2025-08-25-티스토리 가치.html",
+      "description": "티스토리 가치 - 자동화 시스템으로 처리됨",
+      "processed": "2025-08-27T16:59:41.645240"
+    },
+    {
+      "title": "티스토리 어쩌지",
+      "date": "2025-08-23",
+      "path": "/archive/2025-08-23-티스토리 어쩌지.html",
+      "description": "티스토리 어쩌지 - 자동화 시스템으로 처리됨",
+      "processed": "2025-08-27T16:59:41.645242"
+    },
+    {
+      "title": "클라우드 컴 쇼핑모델",
+      "date": "2025-08-22",
+      "path": "/archive/2025-08-22-클라우드 컴 쇼핑모델.html",
+      "description": "클라우드 컴 쇼핑모델 - 자동화 시스템으로 처리됨",
+      "processed": "2025-08-27T16:59:41.645249"
+    },
+    {
+      "title": "사진저장법",
+      "date": "2025-08-19",
+      "path": "/archive/2025-08-19-사진저장법.html",
+      "description": "사진저장법 - 자동화 시스템으로 처리됨",
+      "processed": "2025-08-27T16:59:41.645253"
+    },
+    {
+      "title": "깃허브란",
+      "date": "2025-08-19",
+      "path": "/archive/2025-08-19-깃허브란.html",
+      "description": "깃허브란 - 자동화 시스템으로 처리됨",
+      "processed": "2025-08-27T16:59:41.645258"
+    },
+    {
+      "title": "디바이스기반 콘텐츠 워크플로우",
+      "date": "2025-08-17",
+      "path": "/archive/2025-08-17-디바이스기반 콘텐츠 워크플로우.html",
+      "description": "디바이스기반 콘텐츠 워크플로우 - 자동화 시스템으로 처리됨",
+      "processed": "2025-08-27T16:59:41.645261"
+    },
+    {
+      "title": "설치 가이드 AI 파트너 클로드",
+      "date": "2025-08-16",
+      "path": "/archive/2025-08-16-설치 가이드 AI 파트너 클로드.html",
+      "description": "설치 가이드 AI 파트너 클로드 - 자동화 시스템으로 처리됨",
+      "processed": "2025-08-27T16:59:41.645264"
     }
   ]
 }
