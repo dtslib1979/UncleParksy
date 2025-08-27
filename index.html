@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>KoreanParksy — EduArt Engineer's Grimoire</title>
+<title>UncleParksy — EduArt Engineer's Grimoire</title>
 
 <!-- Slim fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -217,8 +217,8 @@ body::before{
 <!-- Top bar -->
 <header class="site-header">
   <a class="brand" href="./">
-    <img src="/assets/img/logo.png" alt="KoreanParksy" />
-    <span class="brand-title">KoreanParksy</span>
+    <img src="/assets/img/logo.png" alt="UncleParksy" />
+    <span class="brand-title">UncleParksy</span>
   </a>
   <nav class="nav">
     <a href="./">Home</a>
@@ -269,7 +269,7 @@ body::before{
           <div>
             <span class="chapter-icon">📚</span>
             <h3 class="chapter-title">Complete Archive</h3>
-            <p class="chapter-description">All tomes and scrolls preserved in these pages.</p>
+            <p class="chapter-description">All tomes and scrolls preserved in these ancient pages.</p>
           </div>
           <div class="chapter-meta">
             <span class="chapter-count loading" data-path="archive">…</span>
@@ -314,7 +314,7 @@ body::before{
           <div>
             <span class="chapter-icon">🎨</span>
             <h3 class="chapter-title">Blog Transformation</h3>
-            <p class="chapter-description">Metamorphosis arts for captivating experiences.</p>
+            <p class="chapter-description">Metamorphosis arts for captivating digital experiences.</p>
           </div>
           <div class="chapter-meta">
             <span class="chapter-count loading" data-path="category/blog-transformation">…</span>
@@ -329,7 +329,7 @@ body::before{
           <div>
             <span class="chapter-icon">📱</span>
             <h3 class="chapter-title">Device Chronicles</h3>
-            <p class="chapter-description">Tales and secrets of our mystical devices.</p>
+            <p class="chapter-description">Tales and secrets of our mystical digital devices.</p>
           </div>
           <div class="chapter-meta">
             <span class="chapter-count loading" data-path="category/device-chronicles">…</span>
@@ -359,7 +359,7 @@ body::before{
           <div>
             <span class="chapter-icon">🎬</span>
             <h3 class="chapter-title">WebAppsBookCast</h3>
-            <p class="chapter-description">Prophecies & knowledge yet to manifest.</p>
+            <p class="chapter-description">Prophecies & knowledge yet to manifest in the digital realm.</p>
           </div>
           <div class="chapter-meta">
             <span class="chapter-count loading" data-path="category/webappsbookcast">…</span>
@@ -374,7 +374,7 @@ body::before{
           <div>
             <span class="chapter-icon">💭</span>
             <h3 class="chapter-title">Thought Archaeology</h3>
-            <p class="chapter-description">Excavating ideas into organized wisdom.</p>
+            <p class="chapter-description">Excavating ideas into organized wisdom and structured knowledge.</p>
           </div>
           <div class="chapter-meta">
             <span class="chapter-count loading" data-path="category/thought-archaeology">…</span>
@@ -386,7 +386,7 @@ body::before{
   </section>
 </main>
 
-<footer class="footer">© dtslib.com • KoreanParksy • <a href="./archive/index.html">Sitemap</a></footer>
+<footer class="footer">© dtslib.com • UncleParksy • <a href="./archive/index.html">Site Archive</a></footer>
 
 <!-- libs (desktop bg only) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -400,7 +400,7 @@ const isTablet = window.matchMedia('(pointer: coarse) and (min-width: 768px) and
 document.addEventListener('DOMContentLoaded', () => {
   initLoading(); 
   initAccessibility();
-  loadChapterCounts(); // 🚀 NEW: Load dynamic chapter counts
+  loadChapterCounts(); // 🚀 Load dynamic chapter counts
   if(!reduced){
     if (!isTablet) initCursor();
     if (!isTablet && window.innerWidth>1024){ initThree(); }
@@ -409,7 +409,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-/* 🚀 NEW: Dynamic chapter counts */
+/* 🚀 Dynamic chapter counts */
 async function loadChapterCounts() {
   const countElements = document.querySelectorAll('.chapter-count[data-path]');
   
@@ -421,7 +421,7 @@ async function loadChapterCounts() {
       
       if (response.ok) {
         const files = await response.json();
-        // HTML 파일만 카운트 (index.html 제외)
+        // Count HTML files only (excluding index.html)
         const htmlFiles = files.filter(file => 
           file.type === 'file' && 
           file.name.endsWith('.html') && 
@@ -432,13 +432,13 @@ async function loadChapterCounts() {
         element.textContent = count;
         element.classList.remove('loading');
         
-        // ✨ 카운트에 따라 시각적 효과 추가
+        // ✨ Add visual effect based on count
         if (count > 0) {
           element.style.transform = 'scale(1.1)';
           setTimeout(() => element.style.transform = 'scale(1)', 200);
         }
       } else {
-        // 폴더가 없는 경우
+        // Directory doesn't exist
         element.textContent = '0';
         element.classList.remove('loading');
       }
@@ -448,7 +448,7 @@ async function loadChapterCounts() {
       element.classList.remove('loading');
     }
     
-    // 요청 간격을 두어 GitHub API 제한 방지
+    // Add delay between requests to prevent GitHub API rate limiting
     await new Promise(resolve => setTimeout(resolve, 100));
   }
 }
