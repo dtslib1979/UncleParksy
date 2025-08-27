@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>UncleParksy - EduArt Engineer's Grimoire</title>
+    <link>https://dtslib1979.github.io/UncleParksy/</link>
+    <description>Ancient Digital Codex of Knowledge &amp; Creation</description>
+    <language>en-us</language>
+    <managingEditor>dimas@dtslib.com (EduArt Engineer)</managingEditor>
+    <webMaster>dimas@dtslib.com (EduArt Engineer)</webMaster>
+    <lastBuildDate>Wed, 27 Aug 2025 22:00:00 +0000</lastBuildDate>
+    <atom:link href="https://dtslib1979.github.io/UncleParksy/feed.xml" rel="self" type="application/rss+xml"/>
+    
+    <item>
+      <title>Welcome to EduArt Engineer's Grimoire</title>
+      <link>https://dtslib1979.github.io/UncleParksy/</link>
+      <description>Explore the ancient digital codex of knowledge and creation. Discover KR TextStory archives, WebAppsBook content, and more.</description>
+      <pubDate>Wed, 27 Aug 2025 22:00:00 +0000</pubDate>
+      <guid>https://dtslib1979.github.io/UncleParksy/</guid>
+    </item>
+    
+    <item>
+      <title>KR TextStory Archive</title>
+      <link>https://dtslib1979.github.io/UncleParksy/archive/</link>
+      <description>Browse through Korean text stories and preserved digital treasures.</description>
+      <pubDate>Wed, 27 Aug 2025 21:00:00 +0000</pubDate>
+      <guid>https://dtslib1979.github.io/UncleParksy/archive/</guid>
+    </item>
+  </channel>
+</rss>
