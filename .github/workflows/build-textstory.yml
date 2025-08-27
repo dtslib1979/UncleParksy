@@ -1,0 +1,108 @@
+name: 🏗️ Build KR TextStory Archive
+on:
+  push:
+    paths:
+      - "backup/**"
+      - "scripts/**"
+      - "archive/index.html"
+      - ".github/workflows/build-textstory.yml"
+  schedule:
+    # Run every 6 hours
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+    description: "Manually trigger KR TextStory archive build"
+
+jobs:
+  build-archive:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: 'pip'
+
+      - name: 📦 Install dependencies
+        run: |
+          pip install beautifulsoup4 lxml
+
+      - name: 🪞 Mirror backup to archive
+        run: |
+          echo "🔄 Starting backup mirroring process..."
+          python scripts/mirror_backup.py
+
+      - name: 📋 Generate manifest
+        run: |
+          echo "📋 Generating archive manifest..."
+          python scripts/generate_manifest.py
+
+      - name: 📊 Archive statistics
+        run: |
+          echo "📊 Archive Statistics:"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          if [ -d "archive/backup" ]; then
+            backup_count=$(find archive/backup -name "*.html" | wc -l)
+            echo "📁 Archive backup files: $backup_count"
+          fi
+          
+          if [ -f "assets/manifest.json" ]; then
+            manifest_count=$(jq '.count' assets/manifest.json 2>/dev/null || echo "0")
+            echo "📄 Manifest entries: $manifest_count"
+            
+            echo ""
+            echo "📖 Latest entries:"
+            jq -r '.items[:3][] | "  • \(.title) (\(.date // "no date"))"' assets/manifest.json 2>/dev/null || echo "  (no entries found)"
+          fi
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+      - name: 🔍 Check for changes
+        id: changes
+        run: |
+          if git diff --quiet; then
+            echo "No changes detected"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "Changes detected"
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            git status --porcelain
+          fi
+
+      - name: 📤 Commit and push changes
+        if: steps.changes.outputs.has_changes == 'true'
+        run: |
+          git config --local user.name "🤖 KR TextStory Bot"
+          git config --local user.email "actions@users.noreply.github.com"
+          
+          git add archive/backup/ assets/manifest.json
+          
+          # Create detailed commit message
+          backup_count=$(find archive/backup -name "*.html" 2>/dev/null | wc -l || echo "0")
+          manifest_count=$(jq '.count' assets/manifest.json 2>/dev/null || echo "0")
+          
+          git commit -m "🔄 auto: update KR TextStory archive
+          
+          📊 Stats:
+          • Backup files: $backup_count
+          • Manifest entries: $manifest_count
+          • Generated: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
+          
+          🏗️ Updated by GitHub Actions"
+          
+          git push
+
+      - name: ✅ Build complete
+        run: |
+          echo "🎉 KR TextStory Archive build completed successfully!"
+          echo ""
+          echo "🌐 Archive URL: https://parksy.kr/archive/"
+          echo "📱 Mobile-friendly design with Korean particle effects"
+          echo "🎴 Treasure scroll cards with random rotations"
+          echo "📄 Automatic manifest generation and mirroring"
