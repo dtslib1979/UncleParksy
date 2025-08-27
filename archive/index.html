@@ -83,6 +83,34 @@ body::before{
   color:var(--ink-2); opacity:.85; margin:0 0 1.5rem;
 }
 
+/* 📊 Counter Display */
+.file-counter{
+  position:relative; z-index:10;
+  text-align:center; margin:1rem 0;
+  padding:1rem; border-radius:20px;
+  background:linear-gradient(135deg, rgba(212,175,55,.15), rgba(106,76,147,.1));
+  border:2px solid rgba(212,175,55,.3);
+  box-shadow:0 4px 16px var(--shadow-l);
+}
+
+.counter-text{
+  font-family:'Philosopher', serif; font-weight:700;
+  font-size:clamp(1rem,2.5vw,1.3rem);
+  color:var(--ink);
+  margin:0;
+}
+
+.counter-number{
+  display:inline-block;
+  font-family:'Pirata One', cursive;
+  font-size:clamp(1.5rem,4vw,2rem);
+  background:linear-gradient(135deg, var(--primary-gold), var(--purple));
+  -webkit-background-clip:text; background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin:0 .5rem;
+  text-shadow:0 0 10px rgba(212,175,55,.5);
+}
+
 /* Navigation & Controls */
 .archive-controls{
   position:relative; z-index:10; 
@@ -294,6 +322,13 @@ body::before{
     <p class="archive-subtitle">한국어로 쓰여진 소중한 이야기들의 보관소</p>
   </header>
 
+  <!-- 📊 File Counter Display -->
+  <div class="file-counter">
+    <p class="counter-text">
+      총 <span class="counter-number" id="file-count">0</span>개의 보물 이야기가 보관되어 있습니다
+    </p>
+  </div>
+
   <!-- Controls -->
   <nav class="archive-controls">
     <a href="../index.html" class="back-link">← 그리모어로 돌아가기</a>
@@ -355,14 +390,24 @@ body::before{
       initTouchSupport();
     });
 
-    // Load manifest.json
+    // 🎯 Load manifest.json (수정된 경로 처리)
     async function loadManifest() {
       try {
+        console.log('📡 Fetching manifest.json...');
         const response = await fetch('../assets/manifest.json');
-        if (!response.ok) throw new Error('Failed to load manifest');
+        
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
         
         const data = await response.json();
+        console.log('✅ Manifest loaded:', data);
+        
         allItems = data.items || [];
+        console.log(`📊 Found ${allItems.length} items`);
+        
+        // 🔥 Update file counter
+        updateFileCounter(data.count || allItems.length);
         
         // Apply initial sort
         applySort(currentSort);
@@ -371,10 +416,29 @@ body::before{
         document.getElementById('loading').style.display = 'none';
         document.getElementById('content').style.display = 'block';
         
+        console.log('🎉 Archive loaded successfully!');
+        
       } catch (error) {
-        console.error('Error loading manifest:', error);
+        console.error('❌ Error loading manifest:', error);
         document.getElementById('loading').style.display = 'none';
         document.getElementById('error').style.display = 'block';
+        
+        // Show error details
+        const errorDiv = document.getElementById('error');
+        errorDiv.innerHTML = `
+          ❌ 보물 목록을 불러올 수 없습니다.<br>
+          <small style="opacity:0.7">오류: ${error.message}</small><br>
+          <small style="opacity:0.7">경로: ../assets/manifest.json</small>
+        `;
+      }
+    }
+
+    // 📊 Update file counter display
+    function updateFileCounter(count) {
+      const counterElement = document.getElementById('file-count');
+      if (counterElement) {
+        counterElement.textContent = count;
+        console.log(`📊 Counter updated: ${count} files`);
       }
     }
 
@@ -425,13 +489,21 @@ body::before{
       updatePagination();
     }
 
-    // Create treasure card element
+    // 🔥 Create treasure card element (경로 처리 수정)
     function createTreasureCard(item, index) {
       const card = document.createElement('a');
       card.className = 'treasure-card';
-      // Direct link to archive folder (not archive/backup)
-      card.href = '../' + item.path;  // item.path is already "archive/filename.html"
+      
+      // 🎯 경로 처리 수정: 앞의 "/" 제거 후 "../" 추가
+      let cleanPath = item.path;
+      if (cleanPath.startsWith('/')) {
+        cleanPath = cleanPath.substring(1); // 맨 앞 "/" 제거
+      }
+      card.href = '../' + cleanPath; // "../archive/filename.html" 형태가 됨
+      
       card.target = '_blank';
+      
+      console.log(`🔗 Card link: ${card.href} (원본: ${item.path})`);
       
       // Random rotation and translation for "삐뚤빼뚤" effect
       const rotate = (Math.random() - 0.5) * 4; // -2deg to 2deg
