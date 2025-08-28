@@ -9,6 +9,10 @@ on:
     paths:
       - 'category/**'
 
+permissions:
+  contents: write
+  actions: read
+
 jobs:
   sync:
     if: github.actor != 'github-actions[bot]'
@@ -19,6 +23,12 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.SELF_PUSH_TOKEN }}
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "actions-bot"
+          git config --global user.email "actions@users.noreply.github.com"
 
       - name: Install tools
         run: |
@@ -32,39 +42,52 @@ jobs:
 
       - name: Sync RAW HTML
         run: |
-          rsync -av --delete \
-            category/blog-transformation \
-            category/device-chronicles \
-            category/system-configuration \
-            category/thought-archaeology \
-            category/webappsbook-codex \
-            category/webappsbookcast \
-            category/writers-path \
-            _obsidian/_imports/html_raw/
+          if [ -d "category" ]; then
+            rsync -av --delete \
+              category/blog-transformation \
+              category/device-chronicles \
+              category/system-configuration \
+              category/thought-archaeology \
+              category/webappsbook-codex \
+              category/webappsbookcast \
+              category/writers-path \
+              _obsidian/_imports/html_raw/ 2>/dev/null || true
+            echo "✅ RAW HTML sync completed"
+          else
+            echo "⚠️ Category folder not found"
+          fi
 
       - name: Convert HTML → Markdown
         run: |
           for folder in blog-transformation device-chronicles system-configuration thought-archaeology webappsbook-codex webappsbookcast writers-path; do
-            find category/$folder -type f -name "*.html" | while read -r file; do
-              rel="${file#category/}"
-              outdir="_obsidian/_imports/html_md/$(dirname "$rel")"
-              mkdir -p "$outdir"
-              pandoc "$file" -f html -t gfm -o "$outdir/$(basename "$rel" .html).md"
-            done
+            if [ -d "category/$folder" ]; then
+              echo "Processing folder: $folder"
+              find category/$folder -type f -name "*.html" | while read -r file; do
+                rel="${file#category/}"
+                outdir="_obsidian/_imports/html_md/$(dirname "$rel")"
+                mkdir -p "$outdir"
+                pandoc "$file" -f html -t gfm -o "$outdir/$(basename "$rel" .html).md" 2>/dev/null || echo "Failed to convert: $file"
+              done
+            fi
           done
+          echo "✅ HTML to Markdown conversion completed"
 
       - name: Copy assets (non-HTML)
         run: |
-          rsync -av --exclude='*.html' category/ _obsidian/_imports/html_md/
+          if [ -d "category" ]; then
+            rsync -av --exclude='*.html' category/ _obsidian/_imports/html_md/ 2>/dev/null || true
+            echo "✅ Assets copy completed"
+          fi
 
       - name: Commit & Push
+        env:
+          GITHUB_TOKEN: ${{ secrets.SELF_PUSH_TOKEN }}
         run: |
           git add -A
           if ! git diff --cached --quiet; then
-            git config user.name "actions-bot"
-            git config user.email "actions@users.noreply.github.com"
-            git commit -m "sync: /category → _obsidian/_imports (raw+md)"
+            git commit -m "sync: /category → _obsidian/_imports (raw+md) [$(date '+%Y-%m-%d %H:%M')]"
             git push origin HEAD:main
+            echo "✅ Changes pushed successfully"
           else
-            echo "No changes."
+            echo "ℹ️ No changes to commit"
           fi
