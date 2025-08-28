@@ -1,0 +1,70 @@
+name: Sync /category → _obsidian (RAW + Markdown)
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"   # 6시간마다 (UTC)
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - 'category/**'
+
+jobs:
+  sync:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout (with PAT)
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.SELF_PUSH_TOKEN }}
+
+      - name: Install tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y rsync pandoc
+
+      - name: Prep Obsidian folders
+        run: |
+          mkdir -p _obsidian/_imports/html_raw
+          mkdir -p _obsidian/_imports/html_md
+
+      - name: Sync RAW HTML
+        run: |
+          rsync -av --delete \
+            category/blog-transformation \
+            category/device-chronicles \
+            category/system-configuration \
+            category/thought-archaeology \
+            category/webappsbook-codex \
+            category/webappsbookcast \
+            category/writers-path \
+            _obsidian/_imports/html_raw/
+
+      - name: Convert HTML → Markdown
+        run: |
+          for folder in blog-transformation device-chronicles system-configuration thought-archaeology webappsbook-codex webappsbookcast writers-path; do
+            find category/$folder -type f -name "*.html" | while read -r file; do
+              rel="${file#category/}"
+              outdir="_obsidian/_imports/html_md/$(dirname "$rel")"
+              mkdir -p "$outdir"
+              pandoc "$file" -f html -t gfm -o "$outdir/$(basename "$rel" .html).md"
+            done
+          done
+
+      - name: Copy assets (non-HTML)
+        run: |
+          rsync -av --exclude='*.html' category/ _obsidian/_imports/html_md/
+
+      - name: Commit & Push
+        run: |
+          git add -A
+          if ! git diff --cached --quiet; then
+            git config user.name "actions-bot"
+            git config user.email "actions@users.noreply.github.com"
+            git commit -m "sync: /category → _obsidian/_imports (raw+md)"
+            git push origin HEAD:main
+          else
+            echo "No changes."
+          fi
