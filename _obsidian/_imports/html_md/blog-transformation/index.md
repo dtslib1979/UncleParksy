@@ -1,19 +1,5 @@
-<div class="site-header">
+blog-transformation (1)
 
-<a href="/" class="brand"><img src="/assets/img/logo.png"
-style="height:40px" alt="KoreanParksy" /> <span
-class="brand-title">KoreanParksy</span></a>
+# blog-transformation (1)
 
-[Home](/)
-
-</div>
-
-<div class="container" role="main">
-
-# 🎨 블로그 변환
-
-Metamorphosis arts for captivating experiences.
-
-</div>
-
-© dtslib.com • KoreanParksy
+- [2025년 8월 29일 깃허브설정](./2025년%208월%2029일%20깃허브설정.html)

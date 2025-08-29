@@ -1,19 +1,5 @@
-<div class="site-header">
+device-chronicles (1)
 
-<a href="/" class="brand"><img src="/assets/img/logo.png"
-style="height:40px" alt="KoreanParksy" /> <span
-class="brand-title">KoreanParksy</span></a>
+# device-chronicles (1)
 
-[Home](/)
-
-</div>
-
-<div class="container" role="main">
-
-# 📱 디바이스 연대기
-
-Tales and secrets of our mystical devices.
-
-</div>
-
-© dtslib.com • KoreanParksy
+- [2025-08-27-uncleparksy-site-launch](./2025-08-27-uncleparksy-site-launch.html)
