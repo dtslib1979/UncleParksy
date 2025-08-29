@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>대화 로그 아카이브 × 웹 백서 — Mobile-First 출판 라인</title>
+<meta name="description" content="ChatGPT 대화 로그를 티스토리에 보관(원시 데이터)하고, 실제 페이지는 안드로이드 GitHub 앱으로 작성·출판, 출판본은 Obsidian에 백업·연구하는 모바일 중심 출판 라인.">
+<meta name="theme-color" content="#cd853f" />
+<meta property="og:title" content="대화 로그 아카이브 × 웹 백서 — Mobile-First 출판 라인">
+<meta property="og:description" content="티스토리=대화 로그, GitHub Pages=출판, Obsidian=연구. 모바일(안드로이드 GitHub) 중심 설계.">
+<meta property="og:type" content="website">
+<style>
+  :root{
+    --papyrus:#f4e5c9;         /* 배경 */
+    --clay:#cd853f;            /* UI 주색(황토) */
+    --gold:#daa520;            /* 포인트 골드 */
+    --ink:#2b2b2b;             /* 본문 컬러 */
+    --muted:#5a4b3a;           /* 보조 텍스트 */
+    --card:#fff8e8;            /* 카드 바탕 */
+  }
+  html,body{margin:0;padding:0;background:var(--papyrus);color:var(--ink);font-family:ui-sans-serif,system-ui,Apple SD Gothic Neo,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";line-height:1.6}
+  .wrap{max-width:920px;margin:0 auto;padding:20px}
+  header{padding:12px 0 10px}
+  .title{font-size:1.25rem;font-weight:800;letter-spacing:.2px}
+  .subtitle{color:var(--muted);font-size:.95rem;margin-top:4px}
+  .bar{height:4px;background:linear-gradient(90deg,var(--clay),var(--gold));border-radius:999px;margin:12px 0 18px}
+
+  /* 버튼 */
+  .btns{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 18px}
+  button{
+    background:var(--clay);color:#fff;border:none;border-bottom:2px solid #8d5d2b;
+    padding:10px 14px;border-radius:12px;font-weight:700;font-size:.92rem;
+    box-shadow:0 1px 0 rgba(0,0,0,.05);cursor:pointer
+  }
+  button:hover{filter:brightness(.98)}
+  button.alt{background:var(--gold);border-bottom:2px solid #a58016;color:#2b2008}
+
+  /* 카드/섹션 */
+  section{background:var(--card);border:1px solid #e9d7b6;border-radius:16px;padding:14px 14px 10px;margin:14px 0}
+  section h2{margin:0 0 8px;font-size:1.05rem}
+  .small{font-size:.9rem;color:var(--muted)}
+
+  /* 아코디언 */
+  details{background:#fff; border:1px solid #ead8b7;border-radius:14px;margin:10px 0;overflow:hidden}
+  summary{list-style:none;padding:14px 16px;font-weight:800;display:flex;gap:8px;align-items:center;cursor:pointer;background:linear-gradient(0deg,#fff,#fffef9)}
+  summary::-webkit-details-marker{display:none}
+  .qtag{font-size:.8rem;background:var(--gold);color:#1f1706;border-radius:999px;padding:2px 8px}
+  .panel{padding:12px 16px;border-top:1px dashed #e7cfa1;background:#fffef9}
+  .panel p{margin:.4rem 0}
+  code.inline{background:#fff3cc;padding:.1rem .35rem;border-radius:.35rem;border:1px solid #ffe7a1}
+  ul,ol{margin:.4rem 0 .6rem 1.2rem}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
+
+  /* 푸터 */
+  footer{color:var(--muted);font-size:.85rem;text-align:center;padding:24px 6px 40px}
+  .pill{display:inline-block;background:#ffe9ba;border:1px solid #ffd67c;border-radius:999px;padding:2px 10px;margin:0 4px;color:#5b4311}
+
+  /* 모바일 우선 */
+  @media(min-width:640px){
+    .title{font-size:1.45rem}
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="title">대화 로그 아카이브 × 웹 백서 — Mobile-First 출판 라인</div>
+      <div class="subtitle">티스토리=대화 로그(원시 데이터) · GitHub Pages=실제 페이지 · Obsidian=출판본 연구/백업</div>
+      <div class="bar"></div>
+    </header>
+
+    <!-- 복사 유틸리티 버튼 -->
+    <div class="btns" role="group" aria-label="복사 도구">
+      <button onclick="copyWholePage()">전체 HTML/CSS 코드 복사</button>
+      <button class="alt" onclick="copyQA()">문답 아코디언만 복사</button>
+      <button onclick="copyPatterns()">패턴 질문 리스트 복사</button>
+    </div>
+
+    <!-- 1. 문답 아카이브 (메인 콘텐츠) -->
+    <section id="qa-archive" aria-label="문답 아카이브 (메인)">
+      <h2>① 문답 아카이브 (의미 있는 문답만)</h2>
+      <div class="small">기준: 단순 정보가 아닌 문제 해결·새 아이디어·여러 차례 상호작용으로 다듬어진 문답</div>
+
+      <!-- Q1 -->
+      <details open>
+        <summary><span class="qtag">Q1</span> GitHub → PC 로컬 → Obsidian Sync로 핸드폰/태블릿까지 “한 번에” 동기화 가능한가?</summary>
+        <div class="panel">
+          <p><strong>A.</strong> 가능. 전략은 두 갈래:</p>
+          <ol>
+            <li><strong>편의성 우선</strong>: 작업용 Vault는 <em>Obsidian Sync</em>로 전 기기 동기화. GitHub는 출판/아카이브 전용.</li>
+            <li><strong>Git 기반</strong>: 모바일은 <em>GitHub Android</em>/GitJournal로 커밋·푸시, PC는 GitHub Desktop. 충돌 관리 필요.</li>
+          </ol>
+          <p>현재 라우팅은 <code class="inline">GitHub(출판/백업)</code> ⟷ <code class="inline">PC(작업)</code> → <code class="inline">Obsidian Sync</code> → <code class="inline">모바일/태블릿</code> 흐름이 가장 안정적.</p>
+        </div>
+      </details>
+
+      <!-- Q2 -->
+      <details>
+        <summary><span class="qtag">Q2</span> PC에는 Vault가 2개인가?</summary>
+        <div class="panel">
+          <p><strong>A.</strong> 네. 개념상 두 개:</p>
+          <ul>
+            <li><strong>Repo Vault</strong>: GitHub 레포와 동기화되는 퍼블리싱/백업 라인.</li>
+            <li><strong>Working Vault</strong>: Obsidian 플러그인/검색/링크 구조가 살아있는 실제 작업 라인(Obsidian Sync 대상).</li>
+          </ul>
+          <p>원한다면 심볼릭 링크/서브모듈로 “겉보기 1폴더 운영”도 가능하나, 현재처럼 역할 분리 권장.</p>
+        </div>
+      </details>
+
+      <!-- Q3 -->
+      <details>
+        <summary><span class="qtag">Q3</span> 레포 핵심 구조 해석 — <code class="inline">archive/</code>, <code class="inline">category/</code>, <code class="inline">_obsidian/_imports/</code>는 무엇?</summary>
+        <div class="panel">
+          <p><strong>A.</strong></p>
+          <ul>
+            <li><code class="inline">archive/</code> : 티스토리에서 들어온 <em>대화 로그 원본 HTML</em> 보관(원시 데이터).</li>
+            <li><code class="inline">category/</code> : <em>핸드폰(안드로이드 GitHub 앱)</em>에서 직접 작성·업로드하는 실제 출판용 페이지.</li>
+            <li><code class="inline">_obsidian/_imports/</code> : <em>category</em> 산출물의 Obsidian 백업(HTML raw + MD 변환).</li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- Q4 -->
+      <details>
+        <summary><span class="qtag">Q4</span> 이 설계는 잘 된 것인가? 보강 포인트는?</summary>
+        <div class="panel">
+          <p><strong>A.</strong> 아키텍처는 적합. 보강하면 좋은 6가지:</p>
+          <ol>
+            <li><strong>단일 진실원 선언</strong>: <em>티스토리 원시</em>=archive, <em>출판본</em>=category, <em>연구본</em>=_obsidian.</li>
+            <li><strong>역류 차단</strong>: Working Vault에서 변환본을 다시 raw로 올리지 않기(1-way).</li>
+            <li><strong>네이밍 규칙</strong>: <span class="mono">YYYY-MM-DD-slug.html</span> 고정.</li>
+            <li><strong>변경 감지</strong>: 해시/체크섬 기반 idempotent 변환·배포.</li>
+            <li><strong>메타 정규화</strong>: HTML canonical, MD front-matter(title/date/source/tags).</li>
+            <li><strong>롤백 플랜</strong>: manifest 스냅샷 + 즉시 롤백.</li>
+          </ol>
+        </div>
+      </details>
+
+      <!-- Q5 -->
+      <details>
+        <summary><span class="qtag">Q5</span> “아카이브=티스토리, 카테고리=내가 만든 페이지, 옵시디언=카테고리 백업” 맞나? 더 깔끔한 표준은?</summary>
+        <div class="panel">
+          <p><strong>A.</strong> 맞다. 추가로 권장:</p>
+          <ul>
+            <li><code class="inline">archive/tistory_raw/</code>, <code class="inline">archive/tistory_md/</code>로 서브폴더 분리.</li>
+            <li><code class="inline">web/pages/</code>처럼 <em>category</em> 명확화(선택).</li>
+            <li><strong>액션 분리</strong>: <em>import.yml</em>(티스토리 수집/변환) ↔ <em>publish.yml</em>(출판/미러).</li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- Q6 -->
+      <details>
+        <summary><span class="qtag">Q6</span> 최종 동선 확정 — “핸드폰 말→티스토리(로그), 핸드폰 GitHub→카테고리(출판), 옵시디언(연구)”</summary>
+        <div class="panel">
+          <p><strong>A.</strong> 최종 절차:</p>
+          <ol>
+            <li>핸드폰에서 대화 정리 → 티스토리에 <em>대화 로그</em> 저장(원시 데이터).</li>
+            <li>액션이 <span class="mono">backup/ → archive/</span>에 자동 보관.</li>
+            <li>핸드폰 GitHub 앱에서 <span class="mono">category/</span>에 실제 페이지 작성·업로드.</li>
+            <li>GitHub Pages로 도메인 배포.</li>
+            <li>출판본이 <span class="mono">_obsidian/_imports/</span>에 raw+md로 백업 → Vault 동기화·연구.</li>
+          </ol>
+        </div>
+      </details>
+
+      <!-- Q7 -->
+      <details>
+        <summary><span class="qtag">Q7</span> 대중도 이해할 수 있게 설명하려면?</summary>
+        <div class="panel">
+          <p><strong>A.</strong> 은유로 단순화:</p>
+          <ul>
+            <li><strong>티스토리 = 메모장</strong> (날것 기록)</li>
+            <li><strong>GitHub = 출판소</strong> (핸드폰으로 책/페이지 만들기)</li>
+            <li><strong>Obsidian = 도서관</strong> (출판본을 보관·연구)</li>
+          </ul>
+          <p>여기에 한 장짜리 다이어그램(SVG/Mermaid) 추가 시 이해도↑.</p>
+        </div>
+      </details>
+
+      <!-- Q8 -->
+      <details>
+        <summary><span class="qtag">Q8</span> 필수 운영 규칙 5개만 압축하면?</summary>
+        <div class="panel">
+          <ol>
+            <li>원본은 항상 <strong>archive</strong>에만 있다(편집 금지).</li>
+            <li><strong>category</strong>만 편집·출판한다(핸드폰 GitHub).</li>
+            <li><strong>_obsidian</strong>은 읽기 전용 백업·연구본이다.</li>
+            <li>파일명은 <span class="mono">YYYY-MM-DD-slug</span>로 통일.</li>
+            <li>canonical/front-matter는 반드시 넣는다.</li>
+          </ol>
+        </div>
+      </details>
+    </section>
+
+    <!-- 2. 패턴 질문 리스트 -->
+    <section id="pattern-questions" aria-label="패턴 질문 리스트">
+      <h2>② 패턴 질문 리스트 (AI도 예측 어려운 전환 질문)</h2>
+      <div class="small">특징: 검색/교과서 즉답 불가 · 흐름을 바꾸는 질문</div>
+      <ol id="patternList">
+        <li>“티스토리=대화 로그 전용”으로 고정하고 “출판은 GitHub”으로 분리할 때, 초심자 기준 진입장벽을 어떻게 낮출 수 있는가?</li>
+        <li>모바일(안드로이드 GitHub 앱)만으로 <em>category/</em>를 안정적으로 운영하려면 어떤 <strong>역류 차단</strong>·<strong>변경 감지</strong> 전략이 필요한가?</li>
+        <li>HTML-only GitHub Pages에서 “파일 드롭=배포 트리거”를 안전하게 구성하는 최소 규칙은 무엇인가?</li>
+        <li>원본-변환-출판-연구 4단계를 한 레포에서 명확히 구분하기 위한 <strong>폴더 네이밍/메타 표준</strong>은?</li>
+        <li>대화 로그(티스토리)와 출판본(GitHub) 간 <strong>canonical</strong> 관계를 유지하면서 SEO 중복을 피하는 최적 패턴은?</li>
+        <li>Obsidian Sync와 GitHub Actions를 병행할 때 생길 수 있는 루프를 <strong>시스템적으로 차단</strong>하는 체크리스트는?</li>
+      </ol>
+      <div class="btns"><button class="alt" onclick="copyPatterns()">패턴 질문 전체 복사</button></div>
+    </section>
+
+    <!-- 3. 백서 요약 -->
+    <section id="whitepaper" aria-label="백서 요약">
+      <h2>③ 백서 요약 (Purpose · Q&A Digest · Patterns)</h2>
+      <div class="small">Human + Technical을 한 페이지에</div>
+      <div id="whitepaperBody">
+        <p><strong>취지/목적.</strong> ChatGPT 대화를 <em>티스토리(메모장)</em>에 보관하고, 실제 글쓰기는 <em>핸드폰 GitHub(출판소)</em>에서 수행, 출판본은 <em>Obsidian(도서관)</em>에 백업·연구하는 <strong>모바일 중심 출판 라인</strong> 정립.</p>
+        <p><strong>문답 요약.</strong> (1) GitHub→PC→Sync로 전 기기 동기화 가능. (2) PC에는 Repo/Working 두 Vault 권장. (3) <span class="mono">archive/</span>·<span class="mono">category/</span>·<span class="mono">_obsidian/</span> 3역할 분리. (4) 단일 진실원·역류 차단·변경 감지·메타 표준·롤백 필요. (5) 최종 동선은 “말→티스토리(로그) → GitHub(출판) → Obsidian(연구)”. (6) 대중화는 ‘메모장/출판소/도서관’ 은유와 다이어그램이 효과적.</p>
+        <p><strong>추출된 패턴 질문.</strong> 모바일 출판의 안정성, HTML-only 배포 규칙, 네이밍/메타 표준, canonical SEO, 루프 차단 등 “검색 즉답 불가” 설계형 질문 세트.</p>
+      </div>
+      <div class="btns">
+        <button onclick="copyWhitepaper()">백서 요약 복사</button>
+      </div>
+    </section>
+
+    <!-- 4. 유틸: 복사 가이드 -->
+    <section aria-label="복사 가이드">
+      <h2>④ 복사 기능</h2>
+      <ul>
+        <li><strong>전체 HTML/CSS 복사</strong>: 상단/하단 버튼으로 이 페이지 원본을 통째로 복사(배포 템플릿으로 재사용).</li>
+        <li><strong>문답 아코디언만 복사</strong>: Q&A만 다른 레포/포스트로 이동.</li>
+        <li><strong>패턴 질문 복사</strong>: 기획/리뷰 미팅 질문지로 즉시 활용.</li>
+      </ul>
+    </section>
+
+    <footer>
+      <span class="pill">© dtslib.com</span>
+      <span class="pill">저자: 중년작가지망생 EduArt Engineer</span>
+    </footer>
+  </div>
+
+<script>
+  // 전체 HTML/CSS 복사
+  function copyWholePage(){
+    const html = document.documentElement.outerHTML;
+    copyToClipboard(html, "전체 HTML/CSS 코드가 복사되었습니다.");
+  }
+  // 문답 아코디언만 복사 (섹션의 내부 HTML)
+  function copyQA(){
+    const qa = document.getElementById('qa-archive').innerHTML;
+    copyToClipboard(qa, "문답 아코디언 섹션이 복사되었습니다.");
+  }
+  // 패턴 질문 복사 (텍스트 라인)
+  function copyPatterns(){
+    const lis = Array.from(document.querySelectorAll('#patternList li')).map(li => "- " + li.innerText.trim());
+    copyToClipboard(lis.join("\n"), "패턴 질문 리스트가 복사되었습니다.");
+  }
+  // 백서 요약 복사
+  function copyWhitepaper(){
+    const wp = document.getElementById('whitepaperBody').innerText.trim();
+    copyToClipboard(wp, "백서 요약이 복사되었습니다.");
+  }
+  // 클립보드 유틸
+  async function copyToClipboard(text, toastMsg){
+    try{
+      await navigator.clipboard.writeText(text);
+      toast(toastMsg);
+    }catch(e){
+      // Fallback
+      const ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy'); toast(toastMsg); }
+      catch(err){ alert('복사 실패: ' + err); }
+      finally{ document.body.removeChild(ta); }
+    }
+  }
+  // 간단 토스트
+  function toast(msg){
+    let t = document.createElement('div');
+    t.textContent = msg;
+    t.style.cssText = `
+      position:fixed;left:50%;bottom:22px;transform:translateX(-50%);
+      background:#2b2b2b;color:#fff;padding:10px 14px;border-radius:12px;
+      box-shadow:0 6px 18px rgba(0,0,0,.18);z-index:9999;font-size:.9rem
+    `;
+    document.body.appendChild(t);
+    setTimeout(()=>{ t.style.opacity='0'; t.style.transition='opacity .4s' }, 1400);
+    setTimeout(()=>{ document.body.removeChild(t) }, 1850);
+  }
+</script>
+</body>
+</html>
