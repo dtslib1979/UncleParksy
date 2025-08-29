@@ -115,7 +115,7 @@ body::before{
 
 .grimoire-title{
   font-family:'Pirata One', cursive; font-size:clamp(2.4rem,7vw,4.2rem);
-  background:linear-gradient(135deg, var(--primary-gold) 0%, var(--light-gold) 25%, var(--dark-gold) 50%, var(--purple) 75%, var(--primary-gold) 100%);
+  background:linear-gradient(135deg, var(--primary-gold) 0%, var(--light-gold) 25%, var(----dark-gold) 50%, var(--purple) 75%, var(--primary-gold) 100%);
   background-size:200% 200%; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
   text-shadow:2px 2px 4px var(--shadow-m), 0 0 20px rgba(212,175,55,.3);
   letter-spacing:clamp(2px,.5vw,4px); margin:0 0 1rem; line-height:1.1; text-transform:uppercase; animation:shine 8s ease-in-out infinite;
@@ -332,7 +332,8 @@ body::before{
             <p class="chapter-description">Essential setup spells for any digital craftsman.</p>
           </div>
           <div class="chapter-meta">
-            <span class="chapter-count loading" data-path="category/system-configuration" aria-live="polite">…</span>
+            <!-- ✅ data-cat 키 추가 -->
+            <span class="chapter-count loading" data-path="category/system-configuration" data-cat="system-configuration" aria-live="polite">…</span>
             <span class="badge common">Common</span>
           </div>
         </div>
@@ -347,7 +348,7 @@ body::before{
             <p class="chapter-description">A sacred roadmap from novice to master storyteller.</p>
           </div>
           <div class="chapter-meta">
-            <span class="chapter-count loading" data-path="category/writers-path" aria-live="polite">…</span>
+            <span class="chapter-count loading" data-path="category/writers-path" data-cat="writers-path" aria-live="polite">…</span>
             <span class="badge rare">Rare</span>
           </div>
         </div>
@@ -362,7 +363,7 @@ body::before{
             <p class="chapter-description">Metamorphosis arts for captivating digital experiences.</p>
           </div>
           <div class="chapter-meta">
-            <span class="chapter-count loading" data-path="category/blog-transformation" aria-live="polite">…</span>
+            <span class="chapter-count loading" data-path="category/blog-transformation" data-cat="blog-transformation" aria-live="polite">…</span>
             <span class="badge epic">Epic</span>
           </div>
         </div>
@@ -377,7 +378,7 @@ body::before{
             <p class="chapter-description">Tales and secrets of our mystical digital devices.</p>
           </div>
           <div class="chapter-meta">
-            <span class="chapter-count loading" data-path="category/device-chronicles" aria-live="polite">…</span>
+            <span class="chapter-count loading" data-path="category/device-chronicles" data-cat="device-chronicles" aria-live="polite">…</span>
             <span class="badge common">Common</span>
           </div>
         </div>
@@ -392,7 +393,7 @@ body::before{
             <p class="chapter-description">Powerful digital creation spells & forbidden lore.</p>
           </div>
           <div class="chapter-meta">
-            <span class="chapter-count loading" data-path="category/webappsbook-codex" aria-live="polite">…</span>
+            <span class="chapter-count loading" data-path="category/webappsbook-codex" data-cat="webappsbook-codex" aria-live="polite">…</span>
             <span class="badge legendary">Legendary</span>
           </div>
         </div>
@@ -407,7 +408,7 @@ body::before{
             <p class="chapter-description">Prophecies & knowledge yet to manifest in the digital realm.</p>
           </div>
           <div class="chapter-meta">
-            <span class="chapter-count loading" data-path="category/webappsbookcast" aria-live="polite">…</span>
+            <span class="chapter-count loading" data-path="category/webappsbookcast" data-cat="webappsbookcast" aria-live="polite">…</span>
             <span class="badge prophecy">Prophecy</span>
           </div>
         </div>
@@ -422,7 +423,7 @@ body::before{
             <p class="chapter-description">Excavating ideas into organized wisdom and structured knowledge.</p>
           </div>
           <div class="chapter-meta">
-            <span class="chapter-count loading" data-path="category/thought-archaeology" aria-live="polite">…</span>
+            <span class="chapter-count loading" data-path="category/thought-archaeology" data-cat="thought-archaeology" aria-live="polite">…</span>
             <span class="badge rare">Rare</span>
           </div>
         </div>
@@ -462,9 +463,11 @@ const isTablet = window.matchMedia('(pointer: coarse) and (min-width: 768px) and
 
 /* init */
 document.addEventListener('DOMContentLoaded', () => {
-  initLoading(); 
+  initLoading();
   initAccessibility();
-  loadChapterCounts(); // 🚀 Load dynamic chapter counts
+  // ✅ 1) home.json에서 먼저 채우기 → 실패하거나 값이 없으면 2) GitHub API로 보완
+  loadHomeJsonCounts().finally(loadChapterCounts);
+
   if(!reduced){
     if (!isTablet) initCursor();
     if (!isTablet && window.innerWidth>1024){ initThree(); }
@@ -473,10 +476,31 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-/* 🚀 Dynamic chapter counts */
+/* ✅ 1) home.json (액션/스크립트가 생성)로 카운트 반영 */
+async function loadHomeJsonCounts(){
+  try{
+    const r = await fetch('./assets/home.json', { cache: 'no-store' });
+    if(!r.ok) return;
+    const data = await r.json(); // { "blog-transformation": 3, ... }
+    document.querySelectorAll('.chapter-count[data-cat]').forEach(el=>{
+      const key = el.getAttribute('data-cat');
+      if(key in data){
+        el.textContent = data[key];
+        el.classList.remove('loading');
+      }
+    });
+  }catch(e){
+    // 조용히 패스 → GitHub API 단계에서 보완
+  }
+}
+
+/* ✅ 2) (백업 수단) GitHub API로 해당 디렉토리 listing → .html 개수 */
 async function loadChapterCounts() {
   const countElements = document.querySelectorAll('.chapter-count[data-path]');
   for (const element of countElements) {
+    // home.json에서 이미 채워진 경우는 스킵(특히 카테고리들)
+    if (!element.classList.contains('loading')) continue;
+
     const path = element.dataset.path;
     try {
       const response = await fetch(`https://api.github.com/repos/dtslib1979/UncleParksy/contents/${path}`);
@@ -495,7 +519,6 @@ async function loadChapterCounts() {
         element.classList.remove('loading');
       }
     } catch (error) {
-      console.log(`Failed to load count for ${path}:`, error);
       element.textContent = '0';
       element.classList.remove('loading');
       element.title = 'Count unavailable (rate limit or network)';
@@ -637,4 +660,4 @@ function maybeNotify(msg){
   <div style="padding:1rem;text-align:center">JavaScript is disabled; background effects are off. Content is available.</div>
 </noscript>
 </body>
-</html>
+  </html>
