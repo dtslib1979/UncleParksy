@@ -1,0 +1,36 @@
+name: 🗂️ Category Index Builder
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - "category/**.html"
+      - "scripts/generate_category_index.py"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-index:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: ▶️ Run category index generator
+        run: |
+          python scripts/generate_category_index.py
+
+      - name: 📤 Commit & Push
+        run: |
+          git config user.name "actions-bot"
+          git config user.email "actions@github.com"
+          git add category/*/index.html assets/home.json || true
+          git commit -m "auto: update category indexes" || echo "no changes"
+          git push
