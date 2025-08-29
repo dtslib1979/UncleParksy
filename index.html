@@ -6,8 +6,7 @@
 <title>UncleParksy — EduArt Engineer's Grimoire</title>
 
 <!-- SEO / Sharing -->
-<meta name="description" content="EduArt Engineer's Grimoire — Ancient Digital Codex of Knowledge & Creation. Projects, archives, and modular thinking for WebAppsBook." />
-<link rel="canonical" href="https://dtslib1979.github.io/">
+<meta name="description" content="EduArt Engineer's Grimoire — Ancient Digital Codex of Knowledge & Creation. Projects, archives, and modular thinking for WebAppsBook." />    <link rel="canonical" href="https://dtslib1979.github.io/">
 <meta name="robots" content="index,follow">
 
 <!-- Open Graph -->
@@ -115,7 +114,8 @@ body::before{
 
 .grimoire-title{
   font-family:'Pirata One', cursive; font-size:clamp(2.4rem,7vw,4.2rem);
-  background:linear-gradient(135deg, var(--primary-gold) 0%, var(--light-gold) 25%, var(----dark-gold) 50%, var(--purple) 75%, var(--primary-gold) 100%);
+  /* 오타 수정: ----dark-gold → --dark-gold */
+  background:linear-gradient(135deg, var(--primary-gold) 0%, var(--light-gold) 25%, var(--dark-gold) 50%, var(--purple) 75%, var(--primary-gold) 100%);
   background-size:200% 200%; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
   text-shadow:2px 2px 4px var(--shadow-m), 0 0 20px rgba(212,175,55,.3);
   letter-spacing:clamp(2px,.5vw,4px); margin:0 0 1rem; line-height:1.1; text-transform:uppercase; animation:shine 8s ease-in-out infinite;
@@ -126,32 +126,137 @@ body::before{
   font-size:clamp(1rem,2.8vw,1.3rem); color:var(--ink-2); opacity:.9; margin:0 auto 1rem; max-width:780px
 }
 
-/* BGM button (ancient seal replacement) */
-#bgm-btn{
+/* ancient seal (원본) */
+.ancient-seal{
   position:absolute; top:clamp(-12px,-2vw,-20px); right:clamp(-12px,-2vw,-20px);
   width:clamp(44px,8vw,76px); height:clamp(44px,8vw,76px); border-radius:50%;
   background: radial-gradient(circle at 30% 30%, var(--light-gold) 0%, var(--primary-gold) 45%, var(--dark-gold) 100%);
-  display:flex; align-items:center; justify-content:center;
-  border:2px solid var(--dark-gold);
+  display:flex; align-items:center; justify-content:center; border:2px solid var(--dark-gold);
   box-shadow:0 0 28px rgba(212,175,55,.55), inset 0 2px 4px rgba(255,255,255,.35), inset 0 -2px 4px rgba(0,0,0,.2);
-  cursor:pointer; transition:transform .2s ease, box-shadow .2s ease;
+  color:var(--ink); font-weight:700; text-shadow:1px 1px 2px var(--shadow-m);
 }
-#bgm-btn[aria-pressed="true"]{
-  box-shadow:0 0 32px rgba(212,175,55,.75), inset 0 3px 6px rgba(0,0,0,.35);
-  transform:scale(1.05);
-}
-#bgm-btn img{width:70%;height:70%;object-fit:contain}
 
-/* index section … (이하 원본 동일) */
+/* === BGM 버튼 전용 핫픽스 (아이콘이 영역을 벗어나지 않도록) === */
+#bgm-btn{ cursor:pointer; overflow:hidden; }
+#bgm-btn img{ position:absolute; inset:0; margin:auto; width:70%; height:70%; object-fit:contain; display:block; pointer-events:none; }
+
+/* index section */
+.chapter-index{
+  background:linear-gradient(135deg, rgba(247,243,232,.97) 0%, rgba(232,220,192,.94) 50%, rgba(228,216,188,.92) 100%);
+  backdrop-filter: blur(18px); border-radius:26px; padding:clamp(1.6rem,5vw,3rem);
+  border:3px solid rgba(212,175,55,.4); box-shadow:0 34px 110px var(--shadow-m), inset 0 2px 6px rgba(255,255,255,.5), inset 0 -2px 6px rgba(212,175,55,.15)
+}
+.index-header{text-align:center; margin-bottom:clamp(1.4rem,6vw,3rem)}
+.index-title{
+  font-family:'Pirata One',cursive; font-size:clamp(2rem,6vw,3.2rem); color:var(--ink); letter-spacing:2px; text-transform:uppercase;
+  text-shadow:2px 2px 4px var(--shadow-m), 0 0 15px rgba(212,175,55,.2); margin:0 0 1rem; position:relative
+}
+.index-title::after{
+  content:""; position:absolute; left:50%; transform:translateX(-50%); bottom:-12px;
+  width:clamp(90px,22vw,220px); height:3px; border-radius:2px;
+  background:linear-gradient(to right, transparent, var(--primary-gold) 20%, var(--dark-gold) 50%, var(--primary-gold) 80%, transparent);
+  animation:underline 3s ease-in-out infinite alternate
+}
+@keyframes underline{0%{opacity:.6; box-shadow:0 0 5px rgba(212,175,55,.3)} 100%{opacity:1; box-shadow:0 0 15px rgba(212,175,55,.6)}}
+
+/* grid & cards */
+.chapters-grid{display:grid; gap:clamp(1rem,3.5vw,2.2rem); grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr)); margin-top:1.4rem}
+.chapter-card{
+  position:relative; min-height:260px; display:flex; flex-direction:column; justify-content:space-between;
+  background:linear-gradient(135deg, rgba(255,255,255,.15) 0%, rgba(247,243,232,.92) 30%, rgba(232,220,192,.88) 100%);
+  border-radius:20px; padding:clamp(1.2rem,4vw,2rem); border:2px solid rgba(212,175,55,.3);
+  overflow:hidden; cursor:pointer; transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease
+}
+.chapter-card::before{content:""; position:absolute; inset:0; left:-100%;
+  background:linear-gradient(90deg, transparent, rgba(212,175,55,.15), transparent); transition:left .55s ease; z-index:1}
+.chapter-card::after{
+  content:""; position:absolute; inset:0; border-radius:20px; padding:2px;
+  background:linear-gradient(135deg, rgba(212,175,55,.45), rgba(106,76,147,.25), rgba(212,175,55,.45));
+  mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude; opacity:0; transition:opacity .35s ease
+}
+.chapter-card:hover{transform:translateY(-6px); border-color:var(--primary-gold); box-shadow:0 22px 58px var(--shadow-d), 0 0 36px rgba(212,175,55,.38)}
+.chapter-card:hover::before{left:100%} .chapter-card:hover::after{opacity:1}
+
+.chapter-content{position:relative; z-index:2; height:100%; display:flex; flex-direction:column; justify-content:space-between}
+.chapter-icon{font-size:clamp(2.2rem,5.5vw,3.6rem); margin-bottom:1rem; display:block; filter:drop-shadow(0 4px 12px rgba(212,175,55,.4))}
+.chapter-title{font-weight:700; font-size:clamp(1.2rem,3vw,1.6rem); color:var(--ink); margin:0 0 .6rem}
+.chapter-description{font-size:clamp(.96rem,2.4vw,1.08rem); color:var(--ink-2); opacity:.92; line-height:1.6; margin:0 0 1.2rem; flex-grow:1}
+
+.chapter-meta{display:flex; justify-content:space-between; align-items:center; gap:.8rem; flex-wrap:wrap}
+.chapter-count{background:linear-gradient(135deg,var(--primary-gold),var(--dark-gold)); color:#000; padding:.5rem 1rem; border-radius:20px; font-weight:700; font-size:.95rem; box-shadow:0 6px 18px rgba(212,175,55,.45)}
+.chapter-count.loading{animation:pulse 1.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.7} 50%{opacity:1}}
+
+.badge{font-size:.85rem; padding:.35rem .7rem; border-radius:14px; font-weight:700; text-transform:uppercase; letter-spacing:.5px}
+.badge.rare{background:linear-gradient(135deg, var(--purple), #8a2be2); color:#fff}
+.badge.epic{background:linear-gradient(135deg, var(--primary-gold), #ffd700); color:#000}
+.badge.legendary{background:linear-gradient(135deg, var(--red), #ff6b6b); color:#fff}
+.badge.common{background:linear-gradient(135deg, #666, #999); color:#fff}
+.badge.prophecy{background:linear-gradient(135deg, var(--blue), #00bcd4); color:#fff}
+
+/* header bar */
+.site-header{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 16px}
+.brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:inherit}
+.brand img{height:40px; width:auto; display:block}
+.brand-title{font-family:'Pirata One',cursive; font-size:1.4rem; letter-spacing:1px}
+.nav a{margin-left:12px; font-weight:700; text-decoration:none; color:inherit}
+.nav a:hover{text-decoration:underline}
+
+/* footer */
+.footer{padding:20px 16px; text-align:center; color:#6b6b6b; font-size:.92rem; line-height:1.7}
+.footer .links{margin-bottom:10px}
+.footer .biz{margin-top:10px; font-size:.85rem; color:#555}
+.footer .biz b{color:#333}
+.footer .legal{margin-top:8px; font-size:.8rem; color:#666}
+.footer a{color:inherit}
+
+/* helpers & accessibility */
+.fade-in{opacity:0; transform:translateY(36px); animation:in .7s ease forwards}
+.fade-in:nth-child(1){animation-delay:.08s}.fade-in:nth-child(2){animation-delay:.16s}.fade-in:nth-child(3){animation-delay:.24s}.fade-in:nth-child(4){animation-delay:.32s}
+@keyframes in{to{opacity:1; transform:none}}
+
+.skip-link{position:absolute;left:-9999px;top:auto}
+.skip-link:focus{left:16px;top:16px;background:#fff;padding:8px 12px;border-radius:8px;z-index:99999}
+.chapter-card:focus-visible{outline:3px solid var(--primary-gold); outline-offset:3px}
+
+/* ===== Tablet Tweaks ===== */
+@media (pointer: coarse) and (min-width:768px) and (max-width:1200px){
+  .container{padding:24px}
+  .brand img{height:44px}
+  .brand-title{font-size:1.25rem}
+  .chapters-grid{grid-template-columns:1fr 1fr; gap:18px}
+  .chapter-card{min-height:240px; padding:18px}
+  .chapter-card:hover{transform:none}
+  .chapter-icon{margin-bottom:.6rem}
+  .chapter-title{font-size:1.25rem}
+  .chapter-description{font-size:1.02rem}
+  .chapter-meta{gap:.6rem}
+  .chapter-count, .badge{padding:.5rem .9rem; font-size:.9rem}
+  .magic-circle{opacity:.7; animation-duration:180s}
+}
+
+/* touch targets */
+@media (pointer: coarse){
+  .nav a{padding:8px 10px; display:inline-block}
+  .brand{padding:6px}
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important}
+}
+
+/* print */
+@media print{
+  .magic-circle,.particle,#three-container,.cursor,.loading-overlay{display:none}
+  body{background:#fff; color:#000}
+}
 </style>
 </head>
 <body>
 
 <a class="skip-link" href="#main">Skip to content</a>
-
-<!-- Page BGM config -->
-<div id="bgm-config" data-src="/assets/audio/home.mp3"
-     data-title="Home — EduArt Engineer BGM"></div>
 
 <!-- Top bar -->
 <header class="site-header" role="banner">
@@ -170,11 +275,33 @@ body::before{
   </nav>
 </header>
 
+<!-- Loading overlay -->
+<div class="loading-overlay" id="loadingOverlay" style="position:fixed;inset:0;background:linear-gradient(135deg,#1a0f0a,#2d1b12);z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .6s ease; color:var(--primary-gold); font-family:'Pirata One',cursive;">
+  <div style="font-size:clamp(1.6rem,5vw,3rem); margin-bottom:1.4rem; text-shadow:0 0 18px rgba(212,175,55,.5)">Summoning Ancient Knowledge…</div>
+  <div style="width:min(90vw,420px); height:6px; background:rgba(212,175,55,.25); border-radius:3px; overflow:hidden; box-shadow:inset 0 2px 4px rgba(0,0,0,.35)">
+    <div style="height:100%; width:100%; transform:translateX(-100%); background:linear-gradient(90deg,var(--primary-gold),var(--light-gold),var(--purple),var(--primary-gold)); background-size:200% 100%; animation:lb 2.4s ease-in-out forwards, sh 1s linear infinite; border-radius:3px"></div>
+  </div>
+</div>
+<style>@keyframes lb{to{transform:translateX(0)}}@keyframes sh{0%{background-position:-200% 0}100%{background-position:200% 0}}</style>
+
+<!-- Cursor -->
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+
+<!-- Page turn effect -->
+<div id="pageTurn" style="position:fixed;inset:0;background:linear-gradient(135deg,var(--parchment),var(--dark-parchment));z-index:9999;transform:perspective(1000px) rotateY(-90deg);transform-origin:left center;transition:transform .8s ease,opacity .8s ease;opacity:0;pointer-events:none"></div>
+
+<!-- Three.js BG -->
+<div id="three-container" aria-hidden="true"><canvas id="three-canvas"></canvas></div>
+
+<!-- Magic circle + particles -->
+<div class="magic-circle" aria-hidden="true"></div>
+<div id="particles" aria-hidden="true"></div>
+
 <!-- Main content -->
 <main id="main" class="container" role="main">
   <header class="book-cover fade-in">
-    <!-- BGM 버튼 -->
-    <button id="bgm-btn" aria-pressed="false" title="Play BGM">
+    <!-- ⚡ 대신: BGM 토글 버튼 -->
+    <button id="bgm-btn" class="ancient-seal" aria-pressed="false" title="Play background music">
       <img src="/assets/icons/bgm-coin.png" alt="Play background music">
     </button>
 
@@ -182,59 +309,179 @@ body::before{
     <p class="grimoire-subtitle">Ancient Digital Codex of Knowledge & Creation</p>
   </header>
 
-  <!-- 이하 챕터 섹션/푸터/JS 원본 그대로 유지 -->
-  … 기존 코드 …
+  <section class="chapter-index fade-in" aria-labelledby="chapters-title">
+    <div class="index-header">
+      <h2 class="index-title" id="chapters-title">📜 Chapters of Wisdom</h2>
+      <p style="font-size:clamp(1rem,2.4vw,1.15rem); color:var(--ink-2); opacity:.85">Choose your path through the realms of knowledge…</p>
+    </div>
+
+    <div class="chapters-grid">
+      <!-- 1 -->
+      <div class="chapter-card" tabindex="0" role="button" aria-label="Open Complete Archive" onclick="openChapter('all')" onkeypress="handleKeyPress(event,'all')">
+        <div class="chapter-content">
+          <div>
+            <span class="chapter-icon" aria-hidden="true">📚</span>
+            <h3 class="chapter-title">KR TextStory</h3>
+            <p class="chapter-description">All tomes and scrolls preserved in these Korean pages.</p>
+          </div>
+          <div class="chapter-meta">
+            <span class="chapter-count loading" data-path="archive" aria-live="polite">…</span>
+            <span class="badge legendary">Legendary</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="chapter-card" tabindex="0" role="button" aria-label="Open System Configuration" onclick="openChapter('settings')" onkeypress="handleKeyPress(event,'settings')">
+        <div class="chapter-content">
+          <div>
+            <span class="chapter-icon" aria-hidden="true">⚙️</span>
+            <h3 class="chapter-title">System Configuration</h3>
+            <p class="chapter-description">Essential setup spells for any digital craftsman.</p>
+          </div>
+          <div class="chapter-meta">
+            <span class="chapter-count loading" data-path="category/system-configuration" data-cat="system-configuration" aria-live="polite">…</span>
+            <span class="badge common">Common</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="chapter-card" tabindex="0" role="button" aria-label="Open Writer's Path" onclick="openChapter('roadmap')" onkeypress="handleKeyPress(event,'roadmap')">
+        <div class="chapter-content">
+          <div>
+            <span class="chapter-icon" aria-hidden="true">🗺️</span>
+            <h3 class="chapter-title">Writer's Path</h3>
+            <p class="chapter-description">A sacred roadmap from novice to master storyteller.</p>
+          </div>
+          <div class="chapter-meta">
+            <span class="chapter-count loading" data-path="category/writers-path" data-cat="writers-path" aria-live="polite">…</span>
+            <span class="badge rare">Rare</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="chapter-card" tabindex="0" role="button" aria-label="Open Blog Transformation" onclick="openChapter('tistory')" onkeypress="handleKeyPress(event,'tistory')">
+        <div class="chapter-content">
+          <div>
+            <span class="chapter-icon" aria-hidden="true">🎨</span>
+            <h3 class="chapter-title">Blog Transformation</h3>
+            <p class="chapter-description">Metamorphosis arts for captivating digital experiences.</p>
+          </div>
+          <div class="chapter-meta">
+            <span class="chapter-count loading" data-path="category/blog-transformation" data-cat="blog-transformation" aria-live="polite">…</span>
+            <span class="badge epic">Epic</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="chapter-card" tabindex="0" role="button" aria-label="Open Device Chronicles" onclick="openChapter('devices')" onkeypress="handleKeyPress(event,'devices')">
+        <div class="chapter-content">
+          <div>
+            <span class="chapter-icon" aria-hidden="true">📱</span>
+            <h3 class="chapter-title">Device Chronicles</h3>
+            <p class="chapter-description">Tales and secrets of our mystical digital devices.</p>
+          </div>
+          <div class="chapter-meta">
+            <span class="chapter-count loading" data-path="category/device-chronicles" data-cat="device-chronicles" aria-live="polite">…</span>
+            <span class="badge common">Common</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="chapter-card" tabindex="0" role="button" aria-label="Open WebAppsBook Codex" onclick="openChapter('webappsbook')" onkeypress="handleKeyPress(event,'webappsbook')">
+        <div class="chapter-content">
+          <div>
+            <span class="chapter-icon" aria-hidden="true">💻</span>
+            <h3 class="chapter-title">WebAppsBook Codex</h3>
+            <p class="chapter-description">Powerful digital creation spells & forbidden lore.</p>
+          </div>
+          <div class="chapter-meta">
+            <span class="chapter-count loading" data-path="category/webappsbook-codex" data-cat="webappsbook-codex" aria-live="polite">…</span>
+            <span class="badge legendary">Legendary</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <div class="chapter-card" tabindex="0" role="button" aria-label="Open WebAppsBookCast" onclick="openChapter('cast')" onkeypress="handleKeyPress(event,'cast')">
+        <div class="chapter-content">
+          <div>
+            <span class="chapter-icon" aria-hidden="true">🎬</span>
+            <h3 class="chapter-title">WebAppsBookCast</h3>
+            <p class="chapter-description">Prophecies & knowledge yet to manifest in the digital realm.</p>
+          </div>
+          <div class="chapter-meta">
+            <span class="chapter-count loading" data-path="category/webappsbookcast" data-cat="webappsbookcast" aria-live="polite">…</span>
+            <span class="badge prophecy">Prophecy</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8 -->
+      <div class="chapter-card" tabindex="0" role="button" aria-label="Open Thought Archaeology" onclick="openChapter('thoughts')" onkeypress="handleKeyPress(event,'thoughts')">
+        <div class="chapter-content">
+          <div>
+            <span class="chapter-icon" aria-hidden="true">💭</span>
+            <h3 class="chapter-title">Thought Archaeology</h3>
+            <p class="chapter-description">Excavating ideas into organized wisdom and structured knowledge.</p>
+          </div>
+          <div class="chapter-meta">
+            <span class="chapter-count loading" data-path="category/thought-archaeology" data-cat="thought-archaeology" aria-live="polite">…</span>
+            <span class="badge rare">Rare</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 
-<!-- 기존 JS … -->
+<footer class="footer" role="contentinfo">
+  <div class="links">
+    © dtslib.com • UncleParksy • <a href="./archive/index.html">Site Archive</a> •
+    <a href="/privacy.html">Privacy</a> • <a href="/terms.html">Terms</a> •
+    <a href="mailto:dimas@dtslib.com">contact</a>
+  </div>
 
-<!-- BGM JS -->
+  <div class="biz" aria-label="Business information">
+    <div><b>Company Name:</b> dtslib</div>
+    <div><b>Business Reg. No.:</b> 475-01-03493</div>
+    <div><b>Publisher Declaration No.:</b> 2024-000013</div>
+    <div><b>Address:</b> 305, 16, Waryong-ro, Manan-gu, Anyang-si, Gyeonggi-do, Republic of Korea</div>
+    <div><b>E-mail:</b> <a href="mailto:dimas@dtslib.com">dimas@dtslib.com</a></div>
+  </div>
+
+  <div class="legal">
+    This site may use cookies for basic analytics. © dtslib. All rights reserved.
+  </div>
+</footer>
+
+<!-- libs (desktop bg only) -->
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/128/three.min.js"></script>
 <script>
-(() => {
-  const cfg = document.getElementById("bgm-config");
-  if(!cfg) return;
+let scene, camera, renderer, magicObjects=[];
+let mouseX=0, mouseY=0;
+const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isTablet = window.matchMedia('(pointer: coarse) and (min-width: 768px) and (max-width: 1200px)').matches;
 
-  const SRC   = cfg.dataset.src;
-  const TITLE = cfg.dataset.title || "Page BGM";
-  const btn   = document.getElementById("bgm-btn");
-  const audio = new Audio(SRC);
+/* ===== BFCache safety: reset when returning to MAIN ===== */
+function resetMain(){
+  // hide/remove overlays that could trap input
+  const overlay = document.getElementById('loadingOverlay');
+  if (overlay) { overlay.style.opacity='0'; overlay.style.pointerEvents='none'; overlay.remove?.(); }
 
-  audio.loop = true;
-  audio.preload = "auto";
-  audio.volume = parseFloat(localStorage.getItem("bgm_vol") ?? "0.35");
-  audio.muted  = true;
-  audio.play().catch(()=>{});
-
-  if ("mediaSession" in navigator) {
-    navigator.mediaSession.metadata = new MediaMetadata({
-      title: TITLE, artist: "dtslib", album: "EduArt Engineer"
-    });
-    navigator.mediaSession.setActionHandler("play",  () => play());
-    navigator.mediaSession.setActionHandler("pause", () => pause());
+  const pageTurn = document.getElementById('pageTurn');
+  if (pageTurn){
+    pageTurn.style.opacity='0';
+    pageTurn.style.transform='perspective(1000px) rotateY(-90deg)';
+    pageTurn.style.pointerEvents='none';
   }
 
-  btn.addEventListener("click", () => {
-    if (audio.paused) play(); else pause();
-  });
+  document.body.classList.remove('lock');
 
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden && !audio.paused) audio.pause();
-    else if (!document.hidden && btn.getAttribute("aria-pressed")==="true") {
-      audio.play().catch(()=>{});
-    }
-  });
-
-  function play(){
-    audio.muted = false;
-    audio.play().catch(()=>{});
-    btn.setAttribute("aria-pressed","true");
-  }
-  function pause(){
-    audio.pause();
-    btn.setAttribute("aria-pressed","false");
-  }
-})();
-</script>
-
-</body>
-</html>
+  // restart particles safely
+  try{
+    if (typeof particleTimer!=='undefined' && particleTimer){ clearInterval(p
