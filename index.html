@@ -250,6 +250,45 @@ body::before{
   .magic-circle,.particle,#three-container,.cursor,.loading-overlay{display:none}
   body{background:#fff; color:#000}
 }
+
+/* ===================== */
+/* 📱 Mobile search polish (phones only) — ADD-ON */
+/* (추가만 했고 기존 라인 삭제 없음) */
+/* ===================== */
+@media (max-width:480px){
+  /* 헤더가 줄바꿈되며 안전 여백 확보 */
+  .site-header{
+    flex-wrap:wrap; align-items:flex-start;
+    padding-left:max(16px, env(safe-area-inset-left));
+    padding-right:max(16px, env(safe-area-inset-right));
+  }
+
+  /* 네비는 그대로, 검색 폼만 다음 줄 풀폭 */
+  .nav{display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
+  .nav form[role="search"]{order:2; width:100%; margin-left:0;}
+
+  /* 입력창 pill 스타일 + 좌우 16px 여백 */
+  .nav form[role="search"] input{
+    display:block;
+    width:calc(100% - 32px);
+    margin:8px 16px 0;
+    padding:12px 14px;
+    box-sizing:border-box;
+
+    border:1px solid rgba(0,0,0,.25);
+    border-radius:999px;
+    background:#fff;
+    box-shadow:0 2px 10px rgba(0,0,0,.06);
+
+    font-size:16px; line-height:1.2;
+  }
+  .nav form[role="search"] input:focus{
+    outline:none;
+    border-color:#caa24b;
+    box-shadow:0 3px 14px rgba(202,162,75,.25);
+  }
+  .nav form[role="search"] input::placeholder{color:#666; opacity:.85;}
+}
 </style>
 </head>
 <body>
