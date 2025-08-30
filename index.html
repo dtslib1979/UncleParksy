@@ -134,7 +134,7 @@ body::before{
   color:var(--ink); font-weight:700; text-shadow:1px 1px 2px var(--shadow-m);
 }
 
-/* === BGM 버튼 전용 안전 패치 (아이콘이 영역을 벗어나지 않도록) === */
+/* === BGM 버튼 전용 안전 패치 === */
 #bgm-btn{ cursor:pointer; overflow:hidden; border:none; background:transparent; }
 #bgm-btn img{ position:absolute; inset:0; margin:auto; width:70%; height:70%; object-fit:contain; display:block; pointer-events:none; }
 
@@ -252,22 +252,28 @@ body::before{
 }
 
 /* ===================== */
-/* 📱 Mobile search polish (phones only) — ADD-ON */
-/* (추가만 했고 기존 라인 삭제 없음) */
+/* 📱 Mobile search/nav polish (phones only) — overrides inline styles */
 /* ===================== */
 @media (max-width:480px){
-  /* 헤더가 줄바꿈되며 안전 여백 확보 */
+  /* 헤더는 줄바꿈 허용, 안전 여백 */
   .site-header{
     flex-wrap:wrap; align-items:flex-start;
     padding-left:max(16px, env(safe-area-inset-left));
     padding-right:max(16px, env(safe-area-inset-right));
   }
 
-  /* 네비는 그대로, 검색 폼만 다음 줄 풀폭 */
-  .nav{display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
-  .nav form[role="search"]{order:2; width:100%; margin-left:0;}
+  /* 네비 링크 한 줄 고정 */
+  .nav{display:flex; align-items:center; gap:14px; flex-wrap:wrap; width:100%;}
+  .nav a{margin-left:0; flex:0 0 auto;} /* ← Contact 줄바꿈 방지 */
 
-  /* 입력창 pill 스타일 + 좌우 16px 여백 */
+  /* 🔥 검색 폼 인라인 스타일 무시 */
+  .nav form[role="search"]{
+    order:99; width:100%;
+    margin-left:0 !important;
+    display:block !important;
+  }
+
+  /* 검색 인풋 풀폭 pill */
   .nav form[role="search"] input{
     display:block;
     width:calc(100% - 32px);
@@ -283,8 +289,7 @@ body::before{
     font-size:16px; line-height:1.2;
   }
   .nav form[role="search"] input:focus{
-    outline:none;
-    border-color:#caa24b;
+    outline:none; border-color:#caa24b;
     box-shadow:0 3px 14px rgba(202,162,75,.25);
   }
   .nav form[role="search"] input::placeholder{color:#666; opacity:.85;}
@@ -511,7 +516,6 @@ const isTablet = window.matchMedia('(pointer: coarse) and (min-width: 768px) and
 
 /* ===== BFCache safety: reset when returning to MAIN ===== */
 function resetMain(){
-  // hide/remove overlays that could trap input
   const overlay = document.getElementById('loadingOverlay');
   if (overlay) { overlay.style.opacity='0'; overlay.style.pointerEvents='none'; overlay.remove?.(); }
 
@@ -524,18 +528,15 @@ function resetMain(){
 
   document.body.classList.remove('lock');
 
-  // restart particles safely
   try{
     if (typeof particleTimer!=='undefined' && particleTimer){ clearInterval(particleTimer); particleTimer=null; }
     if(!reduced){ initParticles(isTablet ? { interval:1200, max:8 } : { interval:800, max:15 }); }
   }catch(_){}
 
-  // if WebGL context was lost during bfcache, rebuild renderer
   try{
     if (renderer){
       const gl = renderer.getContext();
       if (gl && gl.isContextLost && gl.isContextLost()){
-        // reinit all three objects
         scene = camera = renderer = null;
         magicObjects = [];
         initThree();
@@ -558,7 +559,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// When returning via back/forward cache, re-initialize main UI.
 window.addEventListener('pageshow', (e) => {
   if (e.persisted) resetMain();
 });
@@ -568,7 +568,7 @@ async function loadHomeJsonCounts(){
   try{
     const r = await fetch('./assets/home.json', { cache: 'no-store' });
     if(!r.ok) return;
-    const data = await r.json(); // { "blog-transformation": 3, ... }
+    const data = await r.json();
     document.querySelectorAll('.chapter-count[data-cat]').forEach(el=>{
       const key = el.getAttribute('data-cat');
       if(key in data){
@@ -576,7 +576,7 @@ async function loadHomeJsonCounts(){
         el.classList.remove('loading');
       }
     });
-  }catch(e){/* fallback to GitHub API */}
+  }catch(e){}
 }
 
 /* GitHub API fallback counts */
@@ -636,7 +636,6 @@ function initCursor(){
 function initThree(){
   const canvas=document.getElementById('three-canvas');
 
-  // guard: if renderer already exists, dispose before reinit
   if (renderer && renderer.dispose){ try{ renderer.dispose(); }catch(_){} }
 
   scene=new THREE.Scene();
@@ -646,7 +645,6 @@ function initThree(){
   renderer.setClearColor(0x000000,0);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
 
-  // handle context loss gracefully
   const gl = renderer.getContext();
   canvas.addEventListener('webglcontextlost', (ev)=>{ ev.preventDefault(); }, false);
   canvas.addEventListener('webglcontextrestored', ()=>{ magicObjects=[]; initThree(); }, false);
@@ -680,7 +678,7 @@ function animate3D(){
   renderer.render(scene,camera);
 }
 
-/* particles (single interval, resume-safe) */
+/* particles */
 let particleTimer=null;
 function initParticles(opts={interval:800, max:15}){
   const host=document.getElementById('particles');
@@ -716,7 +714,7 @@ function initAccessibility(){
   window.handleKeyPress=(e,chap)=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openChapter(chap); } };
 }
 
-/* chapter routing — RELATIVE paths for project pages */
+/* chapter routing */
 function openChapter(key){
   const pageTurn=document.getElementById('pageTurn');
   pageTurn.style.opacity='1'; pageTurn.style.transform='perspective(1000px) rotateY(0deg)';
@@ -739,14 +737,14 @@ function openChapter(key){
   }, 700);
 }
 
-/* optional desktop notification helper (no auto prompt) */
+/* optional desktop notification helper */
 function maybeNotify(msg){
   if('Notification' in window && Notification.permission==='granted'){
     new Notification('EduArt Engineer', {body:msg, icon:'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>'});
   }
 }
 
-/* === BGM 토글 스크립트 (원본에 영향 없음) === */
+/* === BGM 토글 스크립트 === */
 (function(){
   const btn = document.getElementById('bgm-btn');
   if(!btn) return;
@@ -764,7 +762,6 @@ function maybeNotify(msg){
     }
   });
 
-  // 탭 전환시 일시정지(원치 않으면 삭제 가능)
   document.addEventListener('visibilitychange', ()=>{
     if(document.hidden && !audioEl.paused) audioEl.pause();
   });
