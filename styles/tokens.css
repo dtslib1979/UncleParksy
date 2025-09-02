@@ -1,0 +1,14 @@
+:root {
+  --bg: 255 255 255;
+  --fg: 17 24 39;
+  --brand: 124 58 237;
+  --accent: 34 211 238;
+  --radius: 12px;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Noto Sans KR", sans-serif;
+  --space-base: 1rem;
+  --shadow-card: 0 4px 24px rgba(0,0,0,0.08);
+}
+
+[data-theme="dark"] {
+  /* TODO: dark tokens if needed */
+}

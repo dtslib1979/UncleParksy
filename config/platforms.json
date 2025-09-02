@@ -1,0 +1,20 @@
+{
+  "tistory": {
+    "label": "Tistory",
+    "scopeSelector": "#app",
+    "inject": { "type": "inline-style" },
+    "specificityBoost": 1
+  },
+  "wordpress": {
+    "label": "WordPress",
+    "scopeSelector": "body",
+    "inject": { "type": "additional-css" },
+    "specificityBoost": 0
+  },
+  "pages": {
+    "label": "GitHub Pages",
+    "scopeSelector": "html",
+    "inject": { "type": "file", "path": "styles/tokens.css" },
+    "specificityBoost": 0
+  }
+}

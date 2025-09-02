@@ -1,0 +1,40 @@
+{
+  "name": "theme-extractor-engine",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "analyze": "tsx scripts/crawl.ts",
+    "extract": "tsx scripts/extract.ts",
+    "tokens": "tsx scripts/tokens.ts",
+    "synthesize": "tsx scripts/synthesize.ts",
+    "audit": "tsx scripts/audit.ts",
+    "build:platforms": "tsx scripts/build-platforms.ts"
+  },
+  "dependencies": {
+    "colord": "2.9.3",
+    "next": "14.2.5",
+    "node-vibrant": "3.2.1-alpha.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "22.5.4",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0",
+    "autoprefixer": "10.4.20",
+    "css": "3.0.0",
+    "jsdom": "24.1.0",
+    "pa11y": "8.0.0",
+    "playwright": "1.47.1",
+    "postcss": "8.4.45",
+    "tailwindcss": "3.4.10",
+    "ts-node": "10.9.2",
+    "tsx": "^4.20.5",
+    "typescript": "5.5.4",
+    "wcag-contrast": "3.0.0"
+  }
+}
