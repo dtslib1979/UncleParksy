@@ -2,7 +2,7 @@ import os, re, requests, feedparser
 from datetime import datetime
 
 RSS_URL = "https://dtslib1k.tistory.com/rss"
-SAVE_DIR = "backup"
+SAVE_DIR = "backup/raw"
 
 def clean_filename(title):
     """파일명으로 사용할 수 없는 문자 제거"""
