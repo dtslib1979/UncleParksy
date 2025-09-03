@@ -46,8 +46,15 @@ def inject_viewport_meta(soup, verbose=False):
     # Target viewport content
     target_viewport = "width=device-width, initial-scale=1, viewport-fit=cover"
     
-    # Find existing viewport meta tags
-    viewport_tags = head.find_all('meta', attrs={'name': 'viewport'})
+    # Find ALL existing viewport meta tags (including those in nested structures)
+    viewport_tags = soup.find_all('meta', attrs={'name': 'viewport'})
+    
+    # Check if we already have the correct viewport tag
+    has_correct_viewport = False
+    for tag in viewport_tags:
+        if tag.get('content') == target_viewport:
+            has_correct_viewport = True
+            break
     
     # Remove all existing viewport tags
     removed_count = 0
@@ -55,7 +62,7 @@ def inject_viewport_meta(soup, verbose=False):
         tag.decompose()
         removed_count += 1
     
-    # Inject the standardized viewport tag
+    # Inject the standardized viewport tag only once
     viewport_meta = soup.new_tag('meta')
     viewport_meta['name'] = 'viewport'
     viewport_meta['content'] = target_viewport
@@ -68,9 +75,14 @@ def inject_viewport_meta(soup, verbose=False):
         head.insert(0, viewport_meta)
     
     if verbose:
-        print(f"  ✓ Viewport meta injected (removed {removed_count} existing)")
+        if has_correct_viewport and removed_count == 1:
+            print("  → Viewport meta already correct")
+            return False
+        else:
+            print(f"  ✓ Viewport meta injected (removed {removed_count} existing)")
+            return True
     
-    return True
+    return not (has_correct_viewport and removed_count == 1)
 
 
 def inject_mobile_css_link(soup, css_path, verbose=False):
