@@ -501,7 +501,8 @@ body::before{
       }
       card.href = '../' + cleanPath; // "../archive/filename.html" 형태가 됨
       
-      card.target = '_blank';
+      // Remove target="_blank" for better mobile navigation experience
+      // card.target = '_blank';
       
       console.log(`🔗 Card link: ${card.href} (원본: ${item.path})`);
       
