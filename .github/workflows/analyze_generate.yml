@@ -1,0 +1,35 @@
+name: Analyze & Generate
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 'Source website URL'
+        required: true
+      platforms:
+        description: 'Comma-separated platforms (tistory,wordpress,pages)'
+        required: false
+        default: 'tistory,wordpress,pages'
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: npm ci
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Analyze & Extract
+        run: |
+          npx tsx scripts/crawl.ts "${{ github.event.inputs.url }}"
+          npx tsx scripts/extract.ts
+      - name: Generate tokens & outputs
+        run: |
+          npx tsx scripts/tokens.ts
+          npx tsx scripts/synthesize.ts
+          npx tsx scripts/audit.ts
+          npx tsx scripts/build-platforms.ts "${{ github.event.inputs.platforms }}"
+      - name: Commit artifacts
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(engine): extract & synthesize from ${{ github.event.inputs.url }}"
