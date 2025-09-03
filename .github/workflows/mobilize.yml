@@ -1,0 +1,46 @@
+name: Clean and Mobilize Archive
+
+on:
+  schedule:
+    - cron: "30 */6 * * *"  # Run 30 minutes after backup job (every 6 hours)
+  workflow_dispatch:        # Manual execution
+  push:
+    paths:
+      - 'backup/raw/*.html'  # Trigger when new raw backup files are added
+      - 'scripts/clean_and_mobilize.py'  # Trigger when script is updated
+
+jobs:
+  clean-and-mobilize:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      
+      - name: Install Dependencies
+        run: |
+          pip install beautifulsoup4 lxml
+      
+      - name: Run Clean and Mobilize Pipeline
+        run: |
+          python scripts/clean_and_mobilize.py
+      
+      - name: Commit and Push Changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add archive/
+          if git diff --staged --quiet; then
+            echo "📝 No changes to commit."
+          else
+            git commit -m "auto(mobile): extract body and rebuild clean template"
+            git push
+            echo "✅ Clean archive files updated."
+          fi
