@@ -1,4 +1,4 @@
-name: 🗂️ Category Index Builder
+name: 🗂️ Category Index Builder (즉시 동기화 연동)
 
 on:
   push:
@@ -34,3 +34,21 @@ jobs:
           git add category/*/index.html assets/home.json || true
           git commit -m "auto: update category indexes" || echo "no changes"
           git push
+
+      - name: 🚀 Trigger 즉시 Obsidian Sync
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            try {
+              await github.rest.actions.createWorkflowDispatch({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                workflow_id: 'obsidian-sync.yml',
+                ref: 'main'
+              });
+              console.log('✅ Obsidian 즉시 동기화 트리거 완료');
+            } catch (error) {
+              console.log('⚠️ Obsidian sync trigger failed:', error.message);
+            }
