@@ -334,6 +334,51 @@ def extract_pattern_questions(soup):
     
     return pattern_content
 
+def create_simple_clean_html(title, main_content):
+    """Create a simple clean HTML structure for non-Q&A content"""
+    
+    # Clean the content by removing scripts, styles, and unwanted elements
+    for tag in main_content.find_all(['script', 'style', 'nav', 'header', 'footer']):
+        tag.decompose()
+    
+    content_html = str(main_content)
+    
+    # Create basic HTML structure
+    html = f"""<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{title} — Korean Learning Archive</title>
+    <meta name="description" content="Clean content archive for learners interested in Korean content and culture">
+    <meta name="author" content="Uncle Parksy - Korean Learning Archive">
+    {get_clean_css()}
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="title">{title}</div>
+            <div class="subtitle">Korean Learning Archive — Clean Format</div>
+            <div class="meta">Optimized for learners interested in Korean content</div>
+            <div class="bar"></div>
+        </header>
+
+        <main>
+            {content_html}
+        </main>
+
+        <footer>
+            <span class="pill">© Uncle Parksy Korean Learning Archive</span>
+            <span class="pill">Optimized for Foreign Learners</span>
+        </footer>
+    </div>
+</body>
+</html>
+"""
+    
+    return html
+
+
 def create_clean_html(title, content_sections, pattern_questions=None):
     """Create a clean HTML structure with the extracted content"""
     
@@ -429,8 +474,32 @@ def clean_archive_file(file_path):
         pattern_questions = extract_pattern_questions(soup)
         
         if not content_sections:
-            print(f"  Warning: No substantial content found in {file_path.name}")
-            return False
+            # Try to find any meaningful content for files without Q&A structure
+            # Look for article content, main content, or any substantial text blocks
+            main_content = None
+            
+            # Try to find the main content area
+            content_areas = soup.find_all(['main', 'article', 'div'], {'id': re.compile(r'content|main|view'), 'class': re.compile(r'content|main|post')})
+            if not content_areas:
+                # Broader search - just look for main elements
+                content_areas = soup.find_all('main')
+            
+            for area in content_areas:
+                text_content = area.get_text(strip=True)
+                if text_content and len(text_content) > 100:  # Lower threshold
+                    main_content = area
+                    break
+            
+            if main_content:
+                # Create a simple structure for non-Q&A content
+                clean_html = create_simple_clean_html(title, main_content)
+                with open(file_path, 'w', encoding='utf-8') as f:
+                    f.write(clean_html)
+                print(f"  ✓ Cleaned successfully - converted to simple format")
+                return True
+            else:
+                print(f"  Warning: No substantial content found in {file_path.name}")
+                return False
         
         # Create clean HTML
         clean_html = create_clean_html(title, content_sections, pattern_questions)
