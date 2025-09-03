@@ -1,0 +1,72 @@
+name: Mobilize Archive
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'archive/*.html'
+      - 'scripts/mobilize_archive.py'
+      - 'assets/css/mobile-override.css'
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Force re-mobilization of all files'
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  mobilize:
+    runs-on: ubuntu-latest
+    name: Mobile Optimization
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install beautifulsoup4 lxml
+        
+    - name: Run mobile optimization
+      run: |
+        python scripts/mobilize_archive.py --archive-dir archive --verbose
+        
+    - name: Check for changes
+      id: changes
+      run: |
+        if git diff --quiet; then
+          echo "No changes detected"
+          echo "has_changes=false" >> $GITHUB_OUTPUT
+        else
+          echo "Changes detected"
+          echo "has_changes=true" >> $GITHUB_OUTPUT
+          echo "Files changed:"
+          git diff --name-only
+        fi
+        
+    - name: Commit and push changes
+      if: steps.changes.outputs.has_changes == 'true'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add -A
+        git commit -m "auto(mobile): mobilize archive pages"
+        git push
+        
+    - name: Summary
+      run: |
+        if [[ "${{ steps.changes.outputs.has_changes }}" == "true" ]]; then
+          echo "✅ Mobile optimization completed with changes"
+        else
+          echo "✨ All files already optimized"
+        fi
