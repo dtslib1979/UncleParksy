@@ -42,13 +42,16 @@ class AutoInstallSystem:
             # 2. 🔥 백업 파일 원본 그대로 미러링 (수정됨!)
             mirrored_count = self._mirror_backup_files()
             
-            # 3. manifest.json 자동 생성
+            # 3. 📱 모바일 최적화 자동 적용
+            mobile_count = self._mobilize_archive_files()
+            
+            # 4. manifest.json 자동 생성
             self._generate_manifest()
             
-            # 4. 자동 검증
+            # 5. 자동 검증
             self._verify_results()
             
-            logger.info(f"✅ 완전 자동화 완료! {mirrored_count}개 파일 처리")
+            logger.info(f"✅ 완전 자동화 완료! {mirrored_count}개 파일 처리, {mobile_count}개 파일 모바일 최적화")
             return True
             
         except Exception as e:
@@ -93,6 +96,37 @@ class AutoInstallSystem:
         
         logger.info(f"✅ {mirrored_count}개 파일 원본 그대로 미러링 완료")
         return mirrored_count
+
+    def _mobilize_archive_files(self) -> int:
+        """📱 아카이브 파일 모바일 최적화"""
+        logger.info("📱 아카이브 파일 모바일 최적화 시작...")
+        
+        try:
+            # mobilize_archive.py 스크립트 실행
+            import subprocess
+            result = subprocess.run([
+                'python', 'scripts/mobilize_archive.py'
+            ], capture_output=True, text=True, cwd='.')
+            
+            if result.returncode == 0:
+                # 성공 메시지에서 숫자 추출
+                output = result.stdout
+                if "Successfully processed" in output:
+                    import re
+                    match = re.search(r'Successfully processed (\d+)', output)
+                    count = int(match.group(1)) if match else 0
+                    logger.info(f"✅ 모바일 최적화 완료: {count}개 파일")
+                    return count
+                else:
+                    logger.info("✅ 모바일 최적화: 이미 처리된 파일들")
+                    return 0
+            else:
+                logger.warning(f"⚠️ 모바일 최적화 오류: {result.stderr}")
+                return 0
+                
+        except Exception as e:
+            logger.warning(f"⚠️ 모바일 최적화 실패: {e}")
+            return 0
 
     def _extract_title_from_html(self, file_path: Path) -> str:
         """📝 HTML 파일에서 제목 추출"""
