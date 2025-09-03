@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>GitHub Word Master — 백서 (Papyrus · Tistory 최적화)</title>
+<meta name="description" content="GitHub 필수 개념 57개를 레벨별 로드맵으로 정리한 최종 백서. JS 없이 작동하는 아코디언과 SVG 인포그래픽 포함. 모바일 우선(320px+)." />
+<meta name="author" content="중년작가지망생 EduArt Engineer" />
+<style>
+  :root{
+    --papyrus:#f4e5c9;   /* 파피루스 배경 */
+    --ink:#2b2b2b;       /* 본문 잉크색 */
+    --muted:#6b5e4a;     /* 보조 잉크 */
+    --clay:#cd853f;      /* 황토 UI */
+    --gold:#daa520;      /* 골드 UI */
+    --card:#fff7e6;      /* 카드 바탕 */
+    --line:#d2b48c;      /* 구분선 */
+  }
+  html,body{height:100%;}
+  body{
+    margin:0; color:var(--ink); background:var(--papyrus);
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", Helvetica, Arial, sans-serif;
+    line-height:1.6; letter-spacing:.2px;
+    background-image: radial-gradient(rgba(0,0,0,.02) 1px, transparent 1px),
+                      linear-gradient(180deg, rgba(255,255,255,.35), rgba(255,255,255,0));
+    background-size: 6px 6px, 100% 100%;
+  }
+  .wrap{max-width:980px; margin-inline:auto; padding:20px;}
+  header.hero{border:2px solid var(--line); border-radius:16px; background:var(--card);
+    padding:18px 16px; position:relative; box-shadow:0 6px 24px rgba(0,0,0,.06);
+  }
+  .eyebrow{font-size:.9rem; color:var(--muted);}
+  h1{font-size: clamp(1.4rem, 4.6vw, 2.2rem); margin:.2rem 0 .6rem; line-height:1.15;}
+  .meta{display:flex; flex-wrap:wrap; gap:10px; font-size:.9rem; color:var(--muted)}
+  .chip{border:1px solid var(--clay); color:#3e2a1a; background:linear-gradient(#ffe7c2,#f9d79f);
+    border-radius:999px; padding:.2rem .6rem; font-weight:600}
+
+  /* 버튼 */
+  .btn{display:inline-block; padding:.7rem 1rem; border-radius:12px; border:2px solid var(--clay);
+    color:#3a240f; background:linear-gradient(#ffeecf,#f9d8a2); font-weight:700; text-decoration:none;
+    box-shadow:0 3px 0 rgba(205,133,63,.45); transition:transform .1s ease; cursor:pointer;}
+  .btn:active{transform:translateY(1px)}
+  .btn.gold{border-color:var(--gold); box-shadow:0 3px 0 rgba(218,165,32,.5)}
+
+  /* 섹션 카드 */
+  section.card{border:2px solid var(--line); background:var(--card); border-radius:16px; padding:14px 14px 4px;
+    margin:18px 0; box-shadow:0 6px 24px rgba(0,0,0,.05);
+  }
+  section.card > h2{margin:0 0 .6rem; font-size: clamp(1.1rem,3.6vw,1.6rem)}
+  .sub{color:var(--muted); font-size:.95rem; margin:.1rem 0 .6rem}
+
+  /* 아코디언 (details/summary) */
+  details{border:1.5px solid var(--line); border-radius:12px; background:#fffaf0; margin:10px 0;}
+  details > summary{list-style:none; cursor:pointer; padding:.9rem 1rem; font-weight:700; position:relative;
+    display:flex; gap:.6rem; align-items:center;}
+  details > summary::marker{display:none}
+  details > summary::after{content:""; margin-left:auto; width:10px; height:10px; border-right:3px solid var(--clay);
+    border-bottom:3px solid var(--clay); transform:rotate(-45deg); transition:transform .18s ease}
+  details[open] > summary::after{transform:rotate(45deg)}
+  .content{padding:.2rem 1rem 1rem}
+
+  /* 표 (모바일 스크롤) */
+  .table-wrap{overflow:auto; border:1px dashed var(--line); border-radius:10px;}
+  table{width:100%; border-collapse:collapse; min-width:760px;}
+  th,td{border-bottom:1px solid #edd6ae; padding:.5rem .6rem; text-align:left; font-size:.92rem}
+  thead th{background:#fff2d3; position:sticky; top:0}
+  tbody tr:nth-child(odd){background:#fffaf2}
+
+  /* 인포그래픽 SVG 공통 */
+  .svg-box{background:#fffdf6; border:1px solid var(--line); border-radius:12px; padding:8px;}
+  .svg-box svg{display:block; width:100%; height:auto}
+
+  /* 푸터 */
+  footer{margin:28px 0 12px; text-align:center; color:var(--muted); font-size:.9rem}
+  footer .brand{font-weight:800; color:#4a341e}
+
+  /* 유틸 */
+  .grid{display:grid; gap:10px}
+  @media (min-width:760px){ .grid.cols-2{grid-template-columns:1fr 1fr} }
+  .kbd{font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; background:#fff; border:1px solid var(--line);
+    font-size:.88rem; padding:.14rem .32rem; border-radius:6px}
+  .note{font-size:.92rem; color:#5a4936}
+  .badge{display:inline-flex; align-items:center; gap:.35rem; background:#fff; border:1px solid var(--line);
+    border-radius:999px; padding:.18rem .55rem; font-size:.85rem}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="eyebrow">Final Edition · 모바일 우선 (320px+)</div>
+      <h1>GitHub Word Master — 57개 핵심 키워드 백서</h1>
+      <div class="meta">
+        <span class="chip">파피루스 배경 #f4e5c9</span>
+        <span class="chip">황토 UI #cd853f · 골드 #daa520</span>
+        <span class="chip">JS 없이 아코디언 & SVG 인포그래픽</span>
+      </div>
+      <p class="sub">버전 관리 → 협업 → 자동화 → 고급 관리의 4레벨 로드맵으로 GitHub 실무 언어를 완성합니다. 한국어 보조설명과 박씨식 은유를 함께 제공합니다.</p>
+      <a href="#copy-pack" class="btn gold">📄 문서 전체 텍스트 열기/복사</a>
+    </header>
+
+    <!-- 인포그래픽 묶음 -->
+    <section class="card">
+      <h2>📊 한눈에 보는 로드맵 — SVG 인포그래픽</h2>
+      <div class="grid cols-2">
+        <!-- 4-레벨 타임라인 -->
+        <div class="svg-box" aria-label="4단계 학습 타임라인">
+          <svg viewBox="0 0 720 240" role="img" aria-labelledby="ttl1 desc1">
+            <title id="ttl1">GitHub 4-레벨 학습 타임라인</title>
+            <desc id="desc1">레벨 1 핵심, 레벨 2 협업, 레벨 3 자동화, 레벨 4 고급 관리</desc>
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1">
+                <stop offset="0%" stop-color="#f8d9a2"/>
+                <stop offset="100%" stop-color="#f1c166"/>
+              </linearGradient>
+            </defs>
+            <rect x="30" y="40" width="660" height="10" rx="5" fill="url(#g1)"/>
+            <g font-family="ui-monospace,monospace" font-size="12" fill="#4a341e">
+              <circle cx="90" cy="45" r="8" fill="#cd853f"/>
+              <text x="90" y="80" text-anchor="middle">레벨 1</text>
+              <text x="90" y="98" text-anchor="middle">코어</text>
+
+              <circle cx="240" cy="45" r="8" fill="#cd853f"/>
+              <text x="240" y="80" text-anchor="middle">레벨 2</text>
+              <text x="240" y="98" text-anchor="middle">협업</text>
+
+              <circle cx="420" cy="45" r="8" fill="#daa520"/>
+              <text x="420" y="80" text-anchor="middle">레벨 3</text>
+              <text x="420" y="98" text-anchor="middle">자동화</text>
+
+              <circle cx="600" cy="45" r="8" fill="#daa520"/>
+              <text x="600" y="80" text-anchor="middle">레벨 4</text>
+              <text x="600" y="98" text-anchor="middle">고급</text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- 숙련 커버리지 도넛 (50/57≈95%) -->
+        <div class="svg-box" aria-label="커버리지 도넛">
+          <svg viewBox="0 0 260 160" role="img" aria-labelledby="ttl2 desc2">
+            <title id="ttl2">필수 50개 숙련 시 업무 커버리지</title>
+            <desc id="desc2">필수 50개로 개발 업무 95%를 커버한다는 경험적 가설을 시각화</desc>
+            <g transform="translate(80,80)">
+              <circle r="48" fill="#fff8ea" stroke="#e2c792" stroke-width="10"/>
+              <!-- 95% 원호 -->
+              <path d="M0,-48 A48,48 0 1,1 -8.3,47.3" fill="none" stroke="#daa520" stroke-width="10" stroke-linecap="round"/>
+              <text x="0" y="6" text-anchor="middle" font-size="18" font-weight="700" fill="#4a341e">95%</text>
+            </g>
+            <g font-size="12" fill="#4a341e">
+              <rect x="160" y="40" width="12" height="12" fill="#daa520"/><text x="178" y="50">필수 50</text>
+              <rect x="160" y="60" width="12" height="12" fill="#e2c792"/><text x="178" y="70">보너스 7</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <p class="note">※ 시각화는 학습 설계용 개념도입니다. 실제 숙련도는 프로젝트 난이도·팀 문화에 따라 달라질 수 있습니다.</p>
+    </section>
+
+    <!-- Q&A 아코디언 (백서 취지·문답) -->
+    <section class="card">
+      <h2>💬 백서 취지 · 목적 문답 (JS 없이 아코디언)</h2>
+
+      <details open>
+        <summary>왜 57개인가요?</summary>
+        <div class="content">버전 관리·협업·자동화·운영까지 전 과정을 빈틈없이 커버하는 최소 충분 집합(minimum complete set)으로 구성했기 때문입니다. 50개만 익혀도 실무 95%를 수행하고, 나머지 7개는 엔터프라이즈 단계에서 위력을 발휘합니다.</div>
+      </details>
+
+      <details>
+        <summary>추천 학습 순서는?</summary>
+        <div class="content">레벨 1(코어) → 레벨 2(협업) → 레벨 3(CI/CD·배포) → 레벨 4(히스토리·조직 운영). 각 레벨 말미의 ⭐핵심 흐름을 암기 루틴으로 삼으세요.</div>
+      </details>
+
+      <details>
+        <summary>티스토리/워드프레스/깃허브 페이지 어디에나 올릴 수 있나요?</summary>
+        <div class="content">예. 이 문서는 **단일 HTML**로 구성되며, **JS 없이** 작동합니다. `<details>/<summary>` 아코디언과 **인라인 SVG**만 사용합니다.</div>
+      </details>
+
+      <details>
+        <summary>실무에서 가장 자주 쓰는 조합은?</summary>
+        <div class="content"><span class="badge">Clone→Branch→Commit→Push</span> <span class="badge">PR→Review→Merge</span> <span class="badge">Action→Artifact→Release/Pages</span> 의 3줄 흐름을 일단 손에 익히세요.</div>
+      </details>
+
+      <details>
+        <summary>초보가 막히는 지점은?</summary>
+        <div class="content">1) <span class="kbd">upstream</span> 개념(원본)과 <span class="kbd">origin</span>(내 원격) 혼동, 2) rebase 충돌 처리 두려움, 3) CI 실패 로그 읽기. 이 문서의 표·은유·흐름도를 참고해 반복 노출하세요.</div>
+      </details>
+    </section>
+
+    <!-- 레벨 1 -->
+    <section class="card">
+      <h2>👑 레벨 1: 코드 관리 핵심 (The Core)</h2>
+      <p class="sub">혼자서 프로젝트를 관리하고 버전 기록을 남기기 위한 필수 기초.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>#</th><th>영문 원어</th><th>업계 뉘앙스</th><th>한국어 보조설명</th><th>박씨식 은유</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Repository (Repo)</td><td>프로젝트 단위 저장소</td><td>코드·데이터 모음집</td><td>하드 디스크 파티션</td></tr>
+            <tr><td>2</td><td>Commit</td><td>변경사항 확정 기록</td><td>세이브포인트</td><td>일기장 한 줄 기록</td></tr>
+            <tr><td>3</td><td>Branch</td><td>독립된 작업선</td><td>기능/버전별 가지</td><td>철도 분기선</td></tr>
+            <tr><td>4</td><td>HEAD</td><td>현재 작업 지점</td><td>내가 서 있는 커밋</td><td>내비 현재 위치</td></tr>
+            <tr><td>5</td><td>Clone</td><td>원격을 로컬로 복제</td><td>내 PC에 사본 만들기</td><td>책 필사</td></tr>
+            <tr><td>6</td><td>Push</td><td>로컬 변경 업로드</td><td>서버에 올리기</td><td>편지 발송</td></tr>
+            <tr><td>7</td><td>Fetch</td><td>원격 변경 확인</td><td>병합 전 미리보기</td><td>봉투만 뜯기</td></tr>
+            <tr><td>8</td><td>Pull</td><td>원격변경 가져와 병합</td><td>최신 반영</td><td>편지 읽기</td></tr>
+            <tr><td>9</td><td>Merge</td><td>브랜치 병합</td><td>코드 합치기</td><td>강줄기 합류</td></tr>
+            <tr><td>10</td><td>.gitignore</td><td>추적 제외 목록</td><td>관리 안할 파일</td><td>쓰레기 분리표</td></tr>
+            <tr><td>11</td><td>Stash</td><td>임시 저장</td><td>커밋 전 보관</td><td>서랍에 넣기</td></tr>
+            <tr><td>12</td><td>Tag</td><td>특정 시점 고정</td><td>버전 라벨</td><td>책갈피</td></tr>
+            <tr><td>13</td><td>Diff</td><td>변경점 비교</td><td>차이 보기</td><td>틀린그림 찾기</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">⭐ 핵심 흐름: <span class="kbd">Clone → Branch → Commit → Push → Pull/Merge</span></p>
+    </section>
+
+    <!-- 레벨 2 -->
+    <section class="card">
+      <h2>👑 레벨 2: 협업과 소통 (Collaboration)</h2>
+      <p class="sub">다른 개발자와 함께 일할 때 필수적인 개념.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>#</th><th>영문 원어</th><th>업계 뉘앙스</th><th>한국어 보조설명</th><th>박씨식 은유</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>14</td><td>Remote</td><td>원격 저장소 별칭</td><td>서버의 별명</td><td>단골 식당 이름</td></tr>
+            <tr><td>15</td><td>Origin</td><td>기본 원격 이름</td><td>내 레포 주소</td><td>우리 집 주소</td></tr>
+            <tr><td>16</td><td>Upstream</td><td>원본 프로젝트</td><td>Fork의 근원</td><td>원조 맛집</td></tr>
+            <tr><td>17</td><td>Fork</td><td>남의 레포 복사</td><td>독립 사본</td><td>원조 레시피 가져오기</td></tr>
+            <tr><td>18</td><td>Pull Request (PR)</td><td>코드 병합 제안</td><td>리뷰 요청</td><td>논문 심사 청구서</td></tr>
+            <tr><td>19</td><td>Review</td><td>코드 검토</td><td>변경 확인</td><td>동료 심사</td></tr>
+            <tr><td>20</td><td>Approve / Request Changes</td><td>승인/수정요청</td><td>리뷰 결과</td><td>결재/반려 도장</td></tr>
+            <tr><td>21</td><td>Issue</td><td>작업/버그 티켓</td><td>Todo/보고</td><td>민원 접수 창구</td></tr>
+            <tr><td>22</td><td>Milestone</td><td>목표 단계</td><td>이슈 묶음</td><td>프로젝트 이정표</td></tr>
+            <tr><td>23</td><td>Blame</td><td>작성자 추적</td><td>누가 고쳤는지</td><td>CCTV 되감기</td></tr>
+            <tr><td>24</td><td>Star / Watch</td><td>관심/구독</td><td>북마크/알림</td><td>좋아요/신문구독</td></tr>
+            <tr><td>25</td><td>Code owner</td><td>코드 담당자</td><td>자동 리뷰어</td><td>구역별 책임자</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">⭐ 핵심 흐름: <span class="kbd">Fork → Clone → Commit → Push → PR → Review → Merge</span></p>
+    </section>
+
+    <!-- 레벨 3 -->
+    <section class="card">
+      <h2>👑 레벨 3: 자동화와 배포 (Automation & DevOps)</h2>
+      <p class="sub">반복 작업을 줄이고, 빌드/테스트/배포를 자동화.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>#</th><th>영문 원어</th><th>업계 뉘앙스</th><th>한국어 보조설명</th><th>박씨식 은유</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>26</td><td>Action</td><td>자동화 실행 단위</td><td>이벤트 트리거</td><td>엑셀 매크로</td></tr>
+            <tr><td>27</td><td>Workflow</td><td>액션 시나리오</td><td>Job+Step 조합</td><td>공장 조립 라인</td></tr>
+            <tr><td>28</td><td>Job / Step</td><td>큰 작업/단계</td><td>병렬·순차</td><td>팀/조립 절차</td></tr>
+            <tr><td>29</td><td>Runner</td><td>워크플로 머신</td><td>작업 실행기</td><td>공장 로봇</td></tr>
+            <tr><td>30</td><td>CI/CD</td><td>지속 통합/배포</td><td>빌드·테스트·배포</td><td>24시간 공장</td></tr>
+            <tr><td>31</td><td>Artifact</td><td>빌드 산출물</td><td>실행 결과물</td><td>완성품</td></tr>
+            <tr><td>32</td><td>Secret</td><td>암호 변수</td><td>API Key 등</td><td>금고 쪽지</td></tr>
+            <tr><td>33</td><td>Release</td><td>공식 배포본</td><td>버전 패키지</td><td>출판된 책</td></tr>
+            <tr><td>34</td><td>Pages</td><td>정적 웹 호스팅</td><td>웹사이트 공개</td><td>동네 게시판</td></tr>
+            <tr><td>35</td><td>Webhook</td><td>외부 알림</td><td>이벤트 콜백</td><td>비상벨 알림</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">⭐ 핵심 흐름: <span class="kbd">Push → Action → Workflow → Artifact → Release/Pages</span></p>
+    </section>
+
+    <!-- 레벨 4 -->
+    <section class="card">
+      <h2>👑 레벨 4: 고급 기능과 관리 (Advanced & Management)</h2>
+      <p class="sub">대규모 프로젝트/조직 운영을 위한 고급 개념.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>#</th><th>영문 원어</th><th>업계 뉘앙스</th><th>한국어 보조설명</th><th>박씨식 은유</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>36</td><td>Rebase</td><td>커밋 히스토리 재정렬</td><td>최신 기준 재배치</td><td>기초 다시 다짐</td></tr>
+            <tr><td>37</td><td>Cherry-pick</td><td>특정 커밋만 가져오기</td><td>부분 복사</td><td>딸기만 쏙</td></tr>
+            <tr><td>38</td><td>Submodule</td><td>외부 레포 포함</td><td>다른 프로젝트 포함</td><td>건물 별관</td></tr>
+            <tr><td>39</td><td>LFS</td><td>대용량 파일 관리</td><td>Git 확장 저장소</td><td>외부 창고</td></tr>
+            <tr><td>40</td><td>Monorepo</td><td>대규모 통합 레포</td><td>다중 프로젝트 한곳</td><td>백화점</td></tr>
+            <tr><td>41</td><td>Project</td><td>칸반/로드맵</td><td>이슈 시각 관리</td><td>포스트잇 보드</td></tr>
+            <tr><td>42</td><td>Wiki</td><td>프로젝트 위키</td><td>확장 문서 공간</td><td>백과사전</td></tr>
+            <tr><td>43</td><td>Discussion</td><td>커뮤니티 포럼</td><td>자유 Q&A</td><td>아이디어 게시판</td></tr>
+            <tr><td>44</td><td>README.md</td><td>프로젝트 소개</td><td>첫인상 문서</td><td>현판/간판</td></tr>
+            <tr><td>45</td><td>LICENSE</td><td>사용 규약</td><td>저작권 허가</td><td>이용 약관</td></tr>
+            <tr><td>46</td><td>CONTRIBUTING.md</td><td>기여 규칙</td><td>참여 가이드</td><td>동호회 가입 안내</td></tr>
+            <tr><td>47</td><td>CHANGELOG.md</td><td>변경 이력</td><td>버전별 기록</td><td>조선왕조실록</td></tr>
+            <tr><td>48</td><td>Badge</td><td>상태 표시</td><td>빌드/커버리지</td><td>모범음식점 명패</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">⭐ 흐름: <span class="kbd">히스토리(Rebase/Cherry-pick) → 확장(Submodule/LFS) → 관리(Monorepo/Project) → 문서화(README/License…)</span></p>
+    </section>
+
+    <!-- 레벨 외 확장 -->
+    <section class="card">
+      <h2>🚩 레벨 외 확장 (전문가 옵션)</h2>
+      <ul>
+        <li><b>Git reflog</b>: 삭제된 커밋 복구 (블랙박스)</li>
+        <li><b>Git bisect</b>: 버그 발생 커밋 탐색 (탐정 추리극)</li>
+        <li><b>Dependabot</b>: 의존성 보안 검사 (보안 경비원)</li>
+        <li><b>CodeQL</b>: 코드 정적 분석 (엑스레이 검사)</li>
+        <li><b>Organization / Teams / Permissions</b>: 회사 단위 권한 구조 (부서 조직도)</li>
+      </ul>
+    </section>
+
+    <!-- AI가 할 수 없는 아이디어: 가설 리스트 -->
+    <section class="card">
+      <h2>🧭 AI가 할 수 없는 아이디어 — 가설 리스트</h2>
+      <ol>
+        <li><b>책임 리스크의 실재 감수</b> — 배포 실패로 인한 금전·법률 리스크를 <i>개인이 실제로 감수</i>하는 결단은 AI가 대행 불가.</li>
+        <li><b>조직 문화의 설계와 설득</b> — PR 리뷰 문화·브랜치 전략을 팀의 합의로 정착시키는 <i>정치적·정서적 리더십</i>.</li>
+        <li><b>윤리적 경계의 선 긋기</b> — 라이선스 충돌·보안 이슈에서 이해관계자 간 <i>공정·책임</i>을 조율하는 행위.</li>
+        <li><b>학습자의 ‘동기’ 점화</b> — 팀원의 자발적 몰입을 만들기 위한 <i>스토리텔링·롤모델링</i>.</li>
+        <li><b>사건의 냄새嗅</b> — 로그가 애매한 장애에서 <i>직감 기반 가설</i>로 원인 후보를 줄이는 장인의 촉.</li>
+        <li><b>벤더·거버넌스 협상</b> — 비용·SLA·보안 정책 등 현실 제약을 <i>이해·교섭</i>하는 인간적 상호작용.</li>
+        <li><b>브랜드·미학 결정</b> — 문서의 톤앤매너, 메타포(은유) 선택 등 <i>문화 자본</i>의 창출.</li>
+        <li><b>사후평가와 사과</b> — 사고 후 대외 커뮤니케이션과 신뢰 회복의 <i>윤리적 책임</i> 수행.</li>
+      </ol>
+      <p class="note">※ 위 항목은 “현재 시점” 가설입니다. 미래엔 일부가 도구화될 수 있으나, 책임·윤리·정치·미학의 핵심은 인간의 몫입니다.</p>
+    </section>
+
+    <!-- 전문가 평가 칼럼 -->
+    <section class="card">
+      <h2>📝 업계 전문가 칼럼 — “워딩이 곧 실전이다”</h2>
+      <p>이 백서는 개념 나열이 아니라 <b>실전 문법</b>입니다. ① 레벨별 핵심 흐름, ② 은유 기반 기억 보조, ③ 아코디언 요약—세 가지가 맞물려 <b>현장 회의 10분 요약→즉시 실행</b>을 가능케 합니다. 특히 <span class="kbd">origin vs upstream</span>, <span class="kbd">rebase 충돌</span>, <span class="kbd">CI 실패 로그</span> 같은 고난도 구간을 심리적 장벽까지 고려해 설계한 점이 돋보입니다.</p>
+      <p>추천 루틴은 간단합니다. <b>매일 3분</b>씩 레벨별 ⭐핵심 흐름을 소리 내어 암기하고, 개인 레포에서 <b>PR→Review→Merge</b>를 혼자서라도 의식적으로 연습하세요. <i>워딩 숙련 = 사고 체계의 자동화</i>입니다. 이것이 팀 생산성을 바꾸는 가장 저렴한 투자입니다.</p>
+    </section>
+
+    <!-- 전체 텍스트 복사용 (버튼=summary) -->
+    <section id="copy-pack" class="card">
+      <h2>📄 백서 전문 — 텍스트(마크다운) 복사용</h2>
+      <details open>
+        <summary class="btn">📥 클릭하여 전문 열기 (길게 눌러 전체 선택/복사)</summary>
+        <div class="content">
+<textarea rows="22" style="width:100%; height:50vh; border:1px solid var(--line); border-radius:10px; padding:10px; background:#fffaf2; font-family:ui-monospace,monospace;">
+# GitHub Word Master: 백서 (Final Edition)
+
+## 🏆 목적
+- GitHub 필수 개념 57개를 빈틈없이 정리
+- 레벨별 학습 순서와 업계 실무 뉘앙스 제공
+- 한국어 보조설명 + 박씨식 은유로 직관 강화
+- 기초 → 협업 → 자동화 → 고급 관리 성장 로드맵
+
+---
+
+## 👑 레벨 1: 코드 관리 핵심 (The Core)
+1 Repository — 프로젝트 단위 저장소 — 코드·데이터 모음집 — 하드 디스크 파티션
+2 Commit — 변경사항 확정 기록 — 세이브포인트 — 일기장 한 줄 기록
+3 Branch — 독립된 작업선 — 기능/버전별 가지 — 철도 분기선
+4 HEAD — 현재 작업 지점 — 내가 서 있는 커밋 — 내비 현재 위치
+5 Clone — 원격을 로컬로 복제 — 내 PC 사본 — 책 필사
+6 Push — 로컬 변경 업로드 — 서버에 올리기 — 편지 발송
+7 Fetch — 원격 변경 확인 — 병합 전 미리보기 — 봉투만 뜯기
+8 Pull — 원격변경 병합 — 최신 반영 — 편지 읽기
+9 Merge — 브랜치 병합 — 코드 합치기 — 강줄기 합류
+10 .gitignore — 추적 제외 — 관리 안할 파일 — 쓰레기 분리표
+11 Stash — 임시 저장 — 커밋 전 보관 — 서랍에 넣기
+12 Tag — 특정 시점 고정 — 버전 라벨 — 책갈피
+13 Diff — 변경점 비교 — 차이 보기 — 틀린그림 찾기
+⭐ 흐름: Clone→Branch→Commit→Push→Pull/Merge
+
+## 👑 레벨 2: 협업과 소통 (Collaboration)
+14 Remote — 원격 별칭 — 서버 별명 — 단골 식당 이름
+15 Origin — 기본 원격 — 내 레포 주소 — 우리 집 주소
+16 Upstream — 원본 — Fork 근원 — 원조 맛집
+17 Fork — 남의 레포 복사 — 독립 사본 — 원조 레시피 가져오기
+18 PR — 병합 제안 — 리뷰 요청 — 논문 심사 청구서
+19 Review — 코드 검토 — 변경 확인 — 동료 심사
+20 Approve/Request Changes — 승인/수정요청 — 결재/반려 도장
+21 Issue — 작업/버그 티켓 — Todo/보고 — 민원 접수
+22 Milestone — 목표 단계 — 이슈 묶음 — 프로젝트 이정표
+23 Blame — 작성자 추적 — 누가 고쳤는지 — CCTV 되감기
+24 Star/Watch — 관심/구독 — 북마크/알림 — 좋아요/신문 구독
+25 Code owner — 코드 담당자 — 자동 리뷰어 — 구역별 책임자
+⭐ 흐름: Fork→Clone→Commit→Push→PR→Review→Merge
+
+## 👑 레벨 3: 자동화와 배포 (Automation & DevOps)
+26 Action — 자동화 단위 — 이벤트 트리거 — 엑셀 매크로
+27 Workflow — 액션 시나리오 — Job+Step — 공장 조립 라인
+28 Job/Step — 큰 작업/단계 — 병렬·순차 — 팀/조립 절차
+29 Runner — 워크플로 머신 — 실행기 — 공장 로봇
+30 CI/CD — 지속 통합/배포 — 빌드·테스트·배포 — 24시간 공장
+31 Artifact — 빌드 산출물 — 실행 결과물 — 완성품
+32 Secret — 암호 변수 — API Key — 금고 쪽지
+33 Release — 공식 배포 — 버전 패키지 — 출판된 책
+34 Pages — 정적 호스팅 — 웹사이트 공개 — 동네 게시판
+35 Webhook — 외부 알림 — 이벤트 콜백 — 비상벨 알림
+⭐ 흐름: Push→Action→Workflow→Artifact→Release/Pages
+
+## 👑 레벨 4: 고급 기능과 관리 (Advanced & Management)
+36 Rebase — 히스토리 재정렬 — 최신 기준 — 기초 다시 다짐
+37 Cherry-pick — 특정 커밋 선택 — 부분 복사 — 딸기만 쏙
+38 Submodule — 외부 레포 포함 — 프로젝트 포함 — 건물 별관
+39 LFS — 대용량 파일 — Git 확장 저장 — 외부 창고
+40 Monorepo — 대규모 통합 — 다중 프로젝트 한곳 — 백화점
+41 Project — 칸반/로드맵 — 이슈 시각 관리 — 포스트잇 보드
+42 Wiki — 프로젝트 위키 — 확장 문서 — 백과사전
+43 Discussion — 커뮤니티 포럼 — 자유 Q&A — 아이디어 게시판
+44 README.md — 프로젝트 소개 — 첫인상 — 현판/간판
+45 LICENSE — 사용 규약 — 저작권 — 이용 약관
+46 CONTRIBUTING.md — 기여 규칙 — 참여 가이드 — 가입 안내
+47 CHANGELOG.md — 변경 이력 — 버전 기록 — 조선왕조실록
+48 Badge — 상태 표시 — 빌드/커버리지 — 모범음식점 명패
+
+## 🚩 레벨 외 확장
+- Git reflog — 삭제된 커밋 복구 (블랙박스)
+- Git bisect — 버그 커밋 탐색 (탐정)
+- Dependabot — 의존성 보안 (경비원)
+- CodeQL — 정적 분석 (엑스레이)
+- Org/Teams/Permissions — 회사 권한 구조 (부서도)
+
+## 🎯 결론
+- 57개 = 실무 100점 로드맵
+- 50개만 익혀도 95% 커버, +7개는 엔터프라이즈 보너스
+- 순서: 버전관리 → 협업 → 자동화 → 고급 관리
+</textarea>
+        </div>
+      </details>
+      <p class="note">모바일: 위 상자를 길게 눌러 전체 선택 후 복사하세요. (본 문서는 JS 없이 동작합니다)</p>
+    </section>
+
+    <footer>
+      <div>© <span class="brand">dtslib.com</span> · 저자: 중년작가지망생 EduArt Engineer</div>
+    </footer>
+  </div>
+</body>
+</html>
