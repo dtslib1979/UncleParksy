@@ -1,0 +1,210 @@
+2025-09-18 04:22:52,776 - INFO - 🏗️ Obsidian 백업 디렉토리 구조 설정...
+2025-09-18 04:22:52,776 - INFO - 📁 디렉토리 준비: _obsidian/_imports
+2025-09-18 04:22:52,776 - INFO - 📁 디렉토리 준비: _obsidian/_imports/html_raw
+2025-09-18 04:22:52,776 - INFO - 📁 디렉토리 준비: _obsidian/_imports/html_md
+2025-09-18 04:22:52,776 - INFO - 📁 디렉토리 준비: _obsidian/_imports/assets
+2025-09-18 04:22:52,776 - INFO - 📁 디렉토리 준비: _obsidian/_imports/category
+2025-09-18 04:22:52,776 - INFO - 📁 디렉토리 준비: _obsidian/_imports/backup
+2025-09-18 04:22:52,776 - INFO - 📁 디렉토리 준비: _obsidian/_imports/archive
+2025-09-18 04:22:52,776 - INFO - 🎯 ===== 옵시디언 종합 백업 시작 =====
+2025-09-18 04:22:52,776 - INFO - 📝 현재 설정에 따라 모든 콘텐츠를 Obsidian으로 백업합니다
+2025-09-18 04:22:52,777 - INFO - 
+🔥 1단계: Tistory RSS 백업 실행
+2025-09-18 04:22:52,777 - INFO - 🔥 Tistory RSS 백업 시작...
+2025-09-18 04:22:52,930 - INFO - ✅ Tistory 백업 완료: 0개 새 파일
+2025-09-18 04:22:52,930 - INFO - 
+📄 2단계: 백업 파일 Obsidian 미러링
+2025-09-18 04:22:52,930 - INFO - 📄 백업 파일 Obsidian 미러링 시작...
+2025-09-18 04:22:52,930 - INFO - 📄 백업 복사: 2025-09-01-국내 AI 프로그래밍 유튜버3.html
+2025-09-18 04:22:52,931 - INFO - 📄 백업 복사: 2025-08-25-티스토리 가치.html
+2025-09-18 04:22:52,931 - INFO - 📄 백업 복사: 2025-08-23-티스토리 어쩌지.html
+2025-09-18 04:22:52,931 - INFO - 📄 백업 복사: 2025-09-16-코딩 프로그래밍에 대한 자세.html
+2025-09-18 04:22:52,931 - INFO - 📄 백업 복사: 2025-08-19-사진저장법.html
+2025-09-18 04:22:52,932 - INFO - 📄 백업 복사: 2025-08-29-바이럴코딩 입버릇.html
+2025-09-18 04:22:52,932 - INFO - 📄 백업 복사: 2025-08-25-티스토리 솔루션.html
+2025-09-18 04:22:52,932 - INFO - 📄 백업 복사: 2025-09-16-핸드폰 생산자전환.html
+2025-09-18 04:22:52,932 - INFO - 📄 백업 복사: 2025-09-16-AI 프로그래밍 독학법.html
+2025-09-18 04:22:52,933 - INFO - 📄 백업 복사: 2025-09-03-ChatGPT 성우 설정.html
+2025-09-18 04:22:52,933 - INFO - 📄 백업 복사: 2025-08-19-깃허브란.html
+2025-09-18 04:22:52,933 - INFO - 📄 백업 복사: 2025-09-01-챗gpt 사용후기.html
+2025-09-18 04:22:52,933 - INFO - 📄 백업 복사: 2025-08-16-설치 가이드 AI 파트너 클로드.html
+2025-09-18 04:22:52,934 - INFO - 📄 백업 복사: 2025-08-22-클라우드 컴 쇼핑모델.html
+2025-09-18 04:22:52,934 - INFO - 📄 백업 복사: 2025-09-05-네이버블로그메뉴.html
+2025-09-18 04:22:52,934 - INFO - 📄 백업 복사: 2025-08-25-티스토리 활용.html
+2025-09-18 04:22:52,934 - INFO - 📄 백업 복사: 2025-08-17-디바이스기반 콘텐츠 워크플로우.html
+2025-09-18 04:22:52,935 - INFO - 📄 백업 복사: 2025-08-25-티스토리 업로드 자동화.html
+2025-09-18 04:22:52,935 - INFO - ✅ 백업 파일 미러링 완료: 18개 파일
+2025-09-18 04:22:52,935 - INFO - 
+📚 3단계: 아카이브 파일 Obsidian 미러링
+2025-09-18 04:22:52,935 - INFO - 📚 아카이브 파일 Obsidian 미러링 시작...
+2025-09-18 04:22:52,935 - INFO - 📚 아카이브 복사: 2025-09-01-국내 AI 프로그래밍 유튜버3.html
+2025-09-18 04:22:52,935 - INFO - 📚 아카이브 복사: 2025-08-25-티스토리 가치.html
+2025-09-18 04:22:52,935 - INFO - 📚 아카이브 복사: 2025-08-23-티스토리 어쩌지.html
+2025-09-18 04:22:52,936 - INFO - 📚 아카이브 복사: 2025-09-16-코딩 프로그래밍에 대한 자세.html
+2025-09-18 04:22:52,936 - INFO - 📚 아카이브 복사: 2025-08-19-사진저장법.html
+2025-09-18 04:22:52,936 - INFO - 📚 아카이브 복사: 2025-08-29-바이럴코딩 입버릇.html
+2025-09-18 04:22:52,936 - INFO - 📚 아카이브 복사: 2025-08-25-티스토리 솔루션.html
+2025-09-18 04:22:52,936 - INFO - 📚 아카이브 복사: 2025-09-16-핸드폰 생산자전환.html
+2025-09-18 04:22:52,937 - INFO - 📚 아카이브 복사: 2025-09-16-AI 프로그래밍 독학법.html
+2025-09-18 04:22:52,937 - INFO - 📚 아카이브 복사: 2025-09-03-ChatGPT 성우 설정.html
+2025-09-18 04:22:52,937 - INFO - 📚 아카이브 복사: 2025-08-19-깃허브란.html
+2025-09-18 04:22:52,937 - INFO - 📚 아카이브 복사: 2025-09-01-챗gpt 사용후기.html
+2025-09-18 04:22:52,937 - INFO - 📚 아카이브 복사: 2025-08-16-설치 가이드 AI 파트너 클로드.html
+2025-09-18 04:22:52,938 - INFO - 📚 아카이브 복사: 2025-08-22-클라우드 컴 쇼핑모델.html
+2025-09-18 04:22:52,938 - INFO - 📚 아카이브 복사: 2025-09-05-네이버블로그메뉴.html
+2025-09-18 04:22:52,938 - INFO - 📚 아카이브 복사: 2025-08-25-티스토리 활용.html
+2025-09-18 04:22:52,938 - INFO - 📚 아카이브 복사: 2025-08-17-디바이스기반 콘텐츠 워크플로우.html
+2025-09-18 04:22:52,938 - INFO - 📚 아카이브 복사: 2025-08-25-티스토리 업로드 자동화.html
+2025-09-18 04:22:52,939 - INFO - ✅ 아카이브 파일 미러링 완료: 18개 파일
+2025-09-18 04:22:52,939 - INFO - 
+🗂️ 4단계: 카테고리 파일 Obsidian 동기화
+2025-09-18 04:22:52,939 - INFO - 🗂️ 카테고리 파일 Obsidian 동기화 시작...
+2025-09-18 04:22:52,939 - INFO - 🗂️ 카테고리 동기화: blog-transformation/2025년 8월 29일 깃허브설정.html
+2025-09-18 04:22:52,939 - INFO - 🗂️ 카테고리 동기화: blog-transformation/2025-08-29 test.html
+2025-09-18 04:22:52,939 - INFO - 🗂️ 카테고리 동기화: blog-transformation/index.html
+2025-09-18 04:22:52,940 - INFO - 🗂️ 카테고리 동기화: device-chronicles/2025-08-27-uncleparksy-site-launch.html
+2025-09-18 04:22:52,940 - INFO - 🗂️ 카테고리 동기화: device-chronicles/2025-08-29 샘플.html
+2025-09-18 04:22:52,940 - INFO - 🗂️ 카테고리 동기화: device-chronicles/index.html
+2025-09-18 04:22:52,940 - INFO - 🗂️ 카테고리 동기화: system-configuration/2025-09-03-immediate-sync-test.html
+2025-09-18 04:22:52,941 - INFO - 🗂️ 카테고리 동기화: system-configuration/index.html
+2025-09-18 04:22:52,941 - INFO - 🗂️ 카테고리 동기화: thought-archaeology/2025-09-02 VAMEW.html
+2025-09-18 04:22:52,941 - INFO - 🗂️ 카테고리 동기화: thought-archaeology/2025-08-29 테스트.html
+2025-09-18 04:22:52,941 - INFO - 🗂️ 카테고리 동기화: thought-archaeology/2025-08-30 Verbal coding wordmaster.html
+2025-09-18 04:22:52,942 - INFO - 🗂️ 카테고리 동기화: thought-archaeology/2025년 8월 27일 기독교모델.html
+2025-09-18 04:22:52,942 - INFO - 🗂️ 카테고리 동기화: thought-archaeology/index.html
+2025-09-18 04:22:52,942 - INFO - 🗂️ 카테고리 동기화: webappsbook-codex/index.html
+2025-09-18 04:22:52,943 - INFO - 🗂️ 카테고리 동기화: webappsbookcast/2025-09-03 check2.html
+2025-09-18 04:22:52,943 - INFO - 🗂️ 카테고리 동기화: webappsbookcast/index.html
+2025-09-18 04:22:52,943 - INFO - 🗂️ 카테고리 동기화: writers-path/10testaments.html
+2025-09-18 04:22:52,943 - INFO - 🗂️ 카테고리 동기화: writers-path/2025-09-03 CHECK1.html
+2025-09-18 04:22:52,944 - INFO - 🗂️ 카테고리 동기화: writers-path/index.html
+2025-09-18 04:22:52,944 - INFO - 🔄 HTML → Markdown 변환 시작...
+2025-09-18 04:22:52,945 - INFO - 📝 기본 Markdown 변환: blog-transformation/2025년 8월 29일 깃허브설정.md
+2025-09-18 04:22:52,946 - INFO - 📝 기본 Markdown 변환: blog-transformation/2025-08-29 test.md
+2025-09-18 04:22:52,947 - INFO - 📝 기본 Markdown 변환: blog-transformation/index.md
+2025-09-18 04:22:52,947 - INFO - 📝 기본 Markdown 변환: device-chronicles/2025-08-27-uncleparksy-site-launch.md
+2025-09-18 04:22:52,948 - INFO - 📝 기본 Markdown 변환: device-chronicles/2025-08-29 샘플.md
+2025-09-18 04:22:52,949 - INFO - 📝 기본 Markdown 변환: device-chronicles/index.md
+2025-09-18 04:22:52,949 - INFO - 📝 기본 Markdown 변환: system-configuration/2025-09-03-immediate-sync-test.md
+2025-09-18 04:22:52,950 - INFO - 📝 기본 Markdown 변환: system-configuration/index.md
+2025-09-18 04:22:52,951 - INFO - 📝 기본 Markdown 변환: thought-archaeology/2025-09-02 VAMEW.md
+2025-09-18 04:22:52,952 - INFO - 📝 기본 Markdown 변환: thought-archaeology/2025-08-29 테스트.md
+2025-09-18 04:22:52,953 - INFO - 📝 기본 Markdown 변환: thought-archaeology/2025-08-30 Verbal coding wordmaster.md
+2025-09-18 04:22:52,954 - INFO - 📝 기본 Markdown 변환: thought-archaeology/2025년 8월 27일 기독교모델.md
+2025-09-18 04:22:52,955 - INFO - 📝 기본 Markdown 변환: thought-archaeology/index.md
+2025-09-18 04:22:52,955 - INFO - 📝 기본 Markdown 변환: webappsbook-codex/index.md
+2025-09-18 04:22:52,956 - INFO - 📝 기본 Markdown 변환: webappsbookcast/2025-09-03 check2.md
+2025-09-18 04:22:52,957 - INFO - 📝 기본 Markdown 변환: webappsbookcast/index.md
+2025-09-18 04:22:52,958 - INFO - 📝 기본 Markdown 변환: writers-path/10testaments.md
+2025-09-18 04:22:52,959 - INFO - 📝 기본 Markdown 변환: writers-path/2025-09-03 CHECK1.md
+2025-09-18 04:22:52,960 - INFO - 📝 기본 Markdown 변환: writers-path/index.md
+2025-09-18 04:22:52,960 - INFO - ✅ 카테고리 동기화 완료: RAW 19개, MD 19개
+2025-09-18 04:22:52,960 - INFO - 
+🎨 5단계: Assets 백업
+2025-09-18 04:22:52,960 - INFO - 🎨 Assets 백업 시작...
+2025-09-18 04:22:52,960 - INFO - 🎨 Asset 복사: manifest.json
+2025-09-18 04:22:52,961 - INFO - 🎨 Asset 복사: home.json
+2025-09-18 04:22:52,961 - INFO - 🎨 Asset 복사: categories-manifest.json
+2025-09-18 04:22:52,961 - INFO - 🎨 Asset 복사: css/style.css
+2025-09-18 04:22:52,962 - INFO - 🎨 Asset 복사: icons/README.md
+2025-09-18 04:22:52,963 - INFO - 🎨 Asset 복사: icons/apple-touch-icon.png
+2025-09-18 04:22:52,965 - INFO - 🎨 Asset 복사: icons/bgm-coin.png
+2025-09-18 04:22:52,966 - INFO - 🎨 Asset 복사: icons/favicon.png
+2025-09-18 04:22:52,966 - INFO - 🎨 Asset 복사: img/README.md
+2025-09-18 04:22:52,968 - INFO - 🎨 Asset 복사: img/logo.png
+2025-09-18 04:22:52,970 - INFO - 🎨 Asset 복사: audio/home.mp3
+2025-09-18 04:22:52,970 - INFO - 🎨 Asset 복사: og/README.md
+2025-09-18 04:22:52,972 - INFO - 🎨 Asset 복사: og/cover.png
+2025-09-18 04:22:52,972 - INFO - ✅ Assets 백업 완료: 13개 파일
+2025-09-18 04:22:52,972 - INFO - 
+⚙️ 6단계: 메타데이터 및 설정 백업
+2025-09-18 04:22:52,972 - INFO - ⚙️ 메타데이터 및 설정 백업 시작...
+2025-09-18 04:22:52,972 - INFO - ⚙️ 설정 백업: README.md
+2025-09-18 04:22:52,972 - INFO - ⚙️ 설정 백업: manifest.webmanifest
+2025-09-18 04:22:52,972 - INFO - ⚙️ 설정 백업: requirements.txt
+2025-09-18 04:22:52,973 - INFO - ⚙️ 설정 백업: feed.xml
+2025-09-18 04:22:52,973 - INFO - ⚙️ 설정 백업: sitemap.xml
+2025-09-18 04:22:52,973 - INFO - ⚙️ 설정 백업: CNAME
+2025-09-18 04:22:52,973 - INFO - ⚙️ 설정 백업: .nojekyll
+2025-09-18 04:22:52,974 - INFO - ⚙️ GitHub 워크플로우 백업 완료
+2025-09-18 04:22:52,974 - INFO - ✅ 메타데이터 백업 완료: 15개 파일
+2025-09-18 04:22:52,974 - INFO - 
+📋 7단계: 백업 요약 및 인덱스 생성
+2025-09-18 04:22:52,974 - INFO - 📋 백업 인덱스 생성 중...
+2025-09-18 04:22:52,975 - INFO - ✅ 백업 인덱스 생성 완료
+2025-09-18 04:22:52,975 - INFO - 
+✅ ===== 옵시디언 종합 백업 완료 =====
+2025-09-18 04:22:52,975 - INFO - 🕐 소요시간: 0.20초
+2025-09-18 04:22:52,975 - INFO - 📊 총 처리 파일: 102개
+2025-09-18 04:22:52,975 - INFO - 📁 백업 위치: _obsidian/_imports
+2025-09-18 04:23:50,233 - INFO - 🏗️ Obsidian 백업 디렉토리 구조 설정...
+2025-09-18 04:23:50,233 - INFO - 📁 디렉토리 준비: _obsidian/_imports
+2025-09-18 04:23:50,233 - INFO - 📁 디렉토리 준비: _obsidian/_imports/html_raw
+2025-09-18 04:23:50,233 - INFO - 📁 디렉토리 준비: _obsidian/_imports/html_md
+2025-09-18 04:23:50,233 - INFO - 📁 디렉토리 준비: _obsidian/_imports/assets
+2025-09-18 04:23:50,233 - INFO - 📁 디렉토리 준비: _obsidian/_imports/category
+2025-09-18 04:23:50,233 - INFO - 📁 디렉토리 준비: _obsidian/_imports/backup
+2025-09-18 04:23:50,234 - INFO - 📁 디렉토리 준비: _obsidian/_imports/archive
+2025-09-18 04:23:50,234 - INFO - 🎯 ===== 옵시디언 종합 백업 시작 =====
+2025-09-18 04:23:50,234 - INFO - 📝 현재 설정에 따라 모든 콘텐츠를 Obsidian으로 백업합니다
+2025-09-18 04:23:50,234 - INFO - 
+🔥 1단계: Tistory RSS 백업 실행
+2025-09-18 04:23:50,234 - INFO - 🔥 Tistory RSS 백업 시작...
+2025-09-18 04:23:50,384 - INFO - ✅ Tistory 백업 완료: 0개 새 파일
+2025-09-18 04:23:50,384 - INFO - 
+📄 2단계: 백업 파일 Obsidian 미러링
+2025-09-18 04:23:50,384 - INFO - 📄 백업 파일 Obsidian 미러링 시작...
+2025-09-18 04:23:50,385 - INFO - ✅ 백업 파일 미러링 완료: 0개 파일
+2025-09-18 04:23:50,385 - INFO - 
+📚 3단계: 아카이브 파일 Obsidian 미러링
+2025-09-18 04:23:50,385 - INFO - 📚 아카이브 파일 Obsidian 미러링 시작...
+2025-09-18 04:23:50,385 - INFO - ✅ 아카이브 파일 미러링 완료: 0개 파일
+2025-09-18 04:23:50,386 - INFO - 
+🗂️ 4단계: 카테고리 파일 Obsidian 동기화
+2025-09-18 04:23:50,386 - INFO - 🗂️ 카테고리 파일 Obsidian 동기화 시작...
+2025-09-18 04:23:50,386 - INFO - 🔄 HTML → Markdown 변환 시작...
+2025-09-18 04:23:50,388 - INFO - 📝 기본 Markdown 변환: blog-transformation/2025년 8월 29일 깃허브설정.md
+2025-09-18 04:23:50,389 - INFO - 📝 기본 Markdown 변환: blog-transformation/2025-08-29 test.md
+2025-09-18 04:23:50,389 - INFO - 📝 기본 Markdown 변환: blog-transformation/index.md
+2025-09-18 04:23:50,390 - INFO - 📝 기본 Markdown 변환: device-chronicles/2025-08-27-uncleparksy-site-launch.md
+2025-09-18 04:23:50,391 - INFO - 📝 기본 Markdown 변환: device-chronicles/2025-08-29 샘플.md
+2025-09-18 04:23:50,392 - INFO - 📝 기본 Markdown 변환: device-chronicles/index.md
+2025-09-18 04:23:50,392 - INFO - 📝 기본 Markdown 변환: system-configuration/2025-09-03-immediate-sync-test.md
+2025-09-18 04:23:50,393 - INFO - 📝 기본 Markdown 변환: system-configuration/index.md
+2025-09-18 04:23:50,394 - INFO - 📝 기본 Markdown 변환: thought-archaeology/2025-09-02 VAMEW.md
+2025-09-18 04:23:50,395 - INFO - 📝 기본 Markdown 변환: thought-archaeology/2025-08-29 테스트.md
+2025-09-18 04:23:50,396 - INFO - 📝 기본 Markdown 변환: thought-archaeology/2025-08-30 Verbal coding wordmaster.md
+2025-09-18 04:23:50,397 - INFO - 📝 기본 Markdown 변환: thought-archaeology/2025년 8월 27일 기독교모델.md
+2025-09-18 04:23:50,397 - INFO - 📝 기본 Markdown 변환: thought-archaeology/index.md
+2025-09-18 04:23:50,398 - INFO - 📝 기본 Markdown 변환: webappsbook-codex/index.md
+2025-09-18 04:23:50,399 - INFO - 📝 기본 Markdown 변환: webappsbookcast/2025-09-03 check2.md
+2025-09-18 04:23:50,400 - INFO - 📝 기본 Markdown 변환: webappsbookcast/index.md
+2025-09-18 04:23:50,401 - INFO - 📝 기본 Markdown 변환: writers-path/10testaments.md
+2025-09-18 04:23:50,402 - INFO - 📝 기본 Markdown 변환: writers-path/2025-09-03 CHECK1.md
+2025-09-18 04:23:50,402 - INFO - 📝 기본 Markdown 변환: writers-path/index.md
+2025-09-18 04:23:50,403 - INFO - ✅ 카테고리 동기화 완료: RAW 0개, MD 19개
+2025-09-18 04:23:50,403 - INFO - 
+🎨 5단계: Assets 백업
+2025-09-18 04:23:50,403 - INFO - 🎨 Assets 백업 시작...
+2025-09-18 04:23:50,404 - INFO - ✅ Assets 백업 완료: 0개 파일
+2025-09-18 04:23:50,404 - INFO - 
+⚙️ 6단계: 메타데이터 및 설정 백업
+2025-09-18 04:23:50,404 - INFO - ⚙️ 메타데이터 및 설정 백업 시작...
+2025-09-18 04:23:50,404 - INFO - ⚙️ 설정 백업: README.md
+2025-09-18 04:23:50,405 - INFO - ⚙️ 설정 백업: manifest.webmanifest
+2025-09-18 04:23:50,405 - INFO - ⚙️ 설정 백업: requirements.txt
+2025-09-18 04:23:50,405 - INFO - ⚙️ 설정 백업: feed.xml
+2025-09-18 04:23:50,405 - INFO - ⚙️ 설정 백업: sitemap.xml
+2025-09-18 04:23:50,406 - INFO - ⚙️ 설정 백업: CNAME
+2025-09-18 04:23:50,406 - INFO - ⚙️ 설정 백업: .nojekyll
+2025-09-18 04:23:50,407 - INFO - ⚙️ GitHub 워크플로우 백업 완료
+2025-09-18 04:23:50,407 - INFO - ✅ 메타데이터 백업 완료: 16개 파일
+2025-09-18 04:23:50,407 - INFO - 
+📋 7단계: 백업 요약 및 인덱스 생성
+2025-09-18 04:23:50,407 - INFO - 📋 백업 인덱스 생성 중...
+2025-09-18 04:23:50,408 - INFO - ✅ 백업 인덱스 생성 완료
+2025-09-18 04:23:50,408 - INFO - 
+✅ ===== 옵시디언 종합 백업 완료 =====
+2025-09-18 04:23:50,408 - INFO - 🕐 소요시간: 0.17초
+2025-09-18 04:23:50,408 - INFO - 📊 총 처리 파일: 35개
+2025-09-18 04:23:50,408 - INFO - 📁 백업 위치: _obsidian/_imports

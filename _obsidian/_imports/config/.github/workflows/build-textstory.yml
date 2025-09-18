@@ -1,0 +1,143 @@
+name: 🤖 완전 자동화 KR TextStory Archive
+on:
+  push:
+    paths:
+      - "backup/**"
+      - "scripts/**"
+      - ".github/workflows/**"
+  schedule:
+    # 매 3시간마다 자동 실행
+    - cron: "0 */3 * * *"
+  workflow_dispatch:
+    description: "수동 트리거 - 완전 자동화 실행"
+
+jobs:
+  auto-install:
+    name: 🚀 완전 자동화 시스템
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    
+    steps:
+      - name: 📥 체크아웃
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🐍 Python 설정
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: 'pip'
+
+      - name: 📦 의존성 설치
+        run: |
+          pip install beautifulsoup4 lxml requests
+
+      - name: 🤖 완전 자동화 실행
+        run: |
+          echo "🤖 완전 자동화 시스템 시작..."
+          python scripts/auto_install.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 📊 결과 통계
+        run: |
+          echo "📊 자동화 결과:"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          
+          # 백업 파일 개수
+          backup_count=$(find backup -name "*.html" 2>/dev/null | wc -l || echo "0")
+          echo "📁 백업 HTML 파일: $backup_count"
+          
+          # 아카이브 파일 개수 (index.html 제외)
+          archive_count=$(find archive -name "*.html" ! -name "index.html" 2>/dev/null | wc -l || echo "0")
+          echo "🏛️ 아카이브 HTML 파일: $archive_count"
+          
+          # manifest.json 확인
+          if [ -f "assets/manifest.json" ]; then
+            manifest_count=$(jq '.count' assets/manifest.json 2>/dev/null || echo "0")
+            echo "📄 매니페스트 항목: $manifest_count"
+            echo ""
+            echo "📖 최신 3개 항목:"
+            jq -r '.items[:3][] | "  • \(.title) (\(.date))"' assets/manifest.json 2>/dev/null || echo "  (항목 없음)"
+          else
+            echo "❌ manifest.json 파일 없음"
+          fi
+          
+          echo ""
+          echo "🌐 웹사이트 URL:"
+          echo "  • https://parksy.kr"
+          echo "  • https://dtslib1979.github.io/UncleParksy/"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+      - name: 🔍 변경사항 확인
+        id: changes
+        run: |
+          if git diff --quiet; then
+            echo "변경사항 없음"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "변경사항 감지됨"
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            git status --porcelain
+          fi
+
+      - name: 📤 자동 커밋 & 푸시
+        if: steps.changes.outputs.has_changes == 'true'
+        run: |
+          git config --local user.name "🤖 자동화 봇"
+          git config --local user.email "automation@dtslib.com"
+          
+          # 변경된 파일들 추가
+          git add archive/ assets/manifest.json
+          
+          # 통계 수집
+          archive_count=$(find archive -name "*.html" ! -name "index.html" 2>/dev/null | wc -l || echo "0")
+          manifest_count=$(jq '.count' assets/manifest.json 2>/dev/null || echo "0")
+          
+          # 커밋 메시지 작성
+          git commit -m "🤖 auto: KR TextStory Archive 자동 업데이트
+          
+          📊 처리 결과:
+          • 아카이브 파일: ${archive_count}개
+          • 매니페스트 항목: ${manifest_count}개
+          • 처리 시간: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
+          
+          🚀 완전 자동화 시스템 by EduArt Engineer CI"
+          
+          git push
+
+      - name: 🌐 배포 확인
+        run: |
+          echo "🌐 GitHub Pages 배포 확인 중..."
+          sleep 30  # 배포 대기
+          
+          # curl로 웹사이트 접근 테스트
+          if curl -s -f "https://dtslib1979.github.io/UncleParksy/" > /dev/null; then
+            echo "✅ GitHub Pages 배포 성공"
+          else
+            echo "⚠️ GitHub Pages 접근 실패 (배포 진행 중일 수 있음)"
+          fi
+          
+          # manifest.json 접근 테스트
+          if curl -s -f "https://dtslib1979.github.io/UncleParksy/assets/manifest.json" > /dev/null; then
+            echo "✅ manifest.json 접근 성공"
+          else
+            echo "⚠️ manifest.json 접근 실패"
+          fi
+
+      - name: ✅ 완료 알림
+        run: |
+          echo ""
+          echo "🎉 완전 자동화 성공!"
+          echo ""
+          echo "🔗 확인 링크:"
+          echo "  • 메인 사이트: https://parksy.kr"
+          echo "  • GitHub Pages: https://dtslib1979.github.io/UncleParksy/"
+          echo "  • 매니페스트: https://dtslib1979.github.io/UncleParksy/assets/manifest.json"
+          echo ""
+          echo "🤖 다음 자동 실행: 3시간 후"
+          echo "📝 수동 실행: GitHub Actions → 'Run workflow'"

@@ -1,0 +1,472 @@
+<!doctype html><html lang="ko"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>국내 AI 프로그래밍 유튜버3</title>
+<style>
+html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}
+body{margin:0;font-size:16px;line-height:1.7;word-break:keep-all;background:#f4e5c9;color:#2b2116}
+main{max-width:880px;margin:0 auto;padding:18px}
+img,video,iframe{max-width:100%;height:auto}
+[class*="wrap"],[class*="container"],[id*="content"]{max-width:100%!important;width:auto!important;margin:0!important;padding:0!important}
+.grid,.row{display:block!important}.sidebar{display:none!important}.content,.main{width:100%!important}
+table{display:block;width:100%;overflow-x:auto;border-collapse:collapse}
+pre,code{white-space:pre-wrap;word-wrap:break-word}
+h1{font-size:1.5rem;margin:.8rem 0} h2{font-size:1.25rem;margin:.7rem 0}
+.card{background:#fff8ea;border:1px solid rgba(0,0,0,.06);border-radius:14px;padding:14px;margin:10px 0}
+</style>
+<style type="text/css">
+/* Mobile-optimized CSS for archive files */
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background: #f7f5ef;
+}
+
+/* Responsive images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1rem auto;
+}
+
+/* Mobile-friendly layout */
+@media (max-width: 768px) {
+  body {
+    padding: 0 16px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  /* 헤더 모바일 최적화 */
+  .site-header, header {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding: 12px 16px;
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+  }
+  
+  /* 네비게이션 모바일 최적화 */
+  .nav, nav {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  
+  .nav a, nav a {
+    margin-left: 0;
+    flex: 0 0 auto;
+    padding: 8px 10px;
+    display: inline-block;
+  }
+  
+  /* 콘텐츠 영역 */
+  .container, .content, main {
+    max-width: 100%;
+    padding: 0 16px;
+    margin: 0 auto;
+  }
+  
+  /* 카드/박스 요소들 */
+  .card, .box, .widget {
+    margin: 16px 0;
+    padding: 16px;
+    border-radius: 12px;
+  }
+  
+  /* 텍스트 가독성 */
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.3;
+    margin: 1.5rem 0 1rem;
+  }
+  
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 1.6rem; }
+  h3 { font-size: 1.4rem; }
+  h4 { font-size: 1.2rem; }
+  
+  p {
+    margin: 1rem 0;
+    line-height: 1.6;
+  }
+  
+  /* 리스트 요소 */
+  ul, ol {
+    margin: 1rem 0;
+    padding-left: 2rem;
+  }
+  
+  li {
+    margin: 0.5rem 0;
+  }
+  
+  /* 테이블 반응형 */
+  table {
+    width: 100%;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    font-size: 14px;
+  }
+  
+  /* 버튼 터치 최적화 */
+  button, .btn, input[type="button"], input[type="submit"] {
+    min-height: 44px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* 폼 요소 */
+  input, textarea, select {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px; /* iOS 줌 방지 */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+  
+  /* 검색 폼 */
+  form[role="search"] {
+    width: 100%;
+    margin: 16px 0;
+  }
+  
+  form[role="search"] input {
+    width: calc(100% - 32px);
+    margin: 8px 16px 0;
+    padding: 12px 14px;
+    border: 1px solid rgba(0,0,0,.25);
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,.06);
+  }
+  
+  form[role="search"] input:focus {
+    outline: none;
+    border-color: #caa24b;
+    box-shadow: 0 3px 14px rgba(202,162,75,.25);
+  }
+  
+  /* 링크 터치 영역 확대 */
+  a {
+    min-height: 44px;
+    display: inline-block;
+    text-decoration: none;
+  }
+  
+  a:hover, a:focus {
+    text-decoration: underline;
+  }
+  
+  /* 사이드바 요소들 */
+  .sidebar, aside {
+    margin: 20px 0;
+  }
+  
+  .widget {
+    margin: 16px 0;
+    padding: 16px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+  }
+}
+
+/* 초소형 화면 (320px 이하) */
+@media (max-width: 320px) {
+  body {
+    font-size: 13px;
+    padding: 0 12px;
+  }
+  
+  .container, .content, main {
+    padding: 0 12px;
+  }
+  
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.4rem; }
+  h3 { font-size: 1.2rem; }
+  h4 { font-size: 1.1rem; }
+}
+
+/* 다크 모드 대응 */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #1a1a1a;
+    color: #e0e0e0;
+  }
+  
+  .widget, .card, .box {
+    background: #2a2a2a;
+    border-color: #404040;
+  }
+  
+  input, textarea, select {
+    background: #2a2a2a;
+    color: #e0e0e0;
+    border-color: #404040;
+  }
+}
+
+/* 애니메이션 줄이기 설정 */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+</head><body><main>
+<article class="card">
+<h1>국내 AI 프로그래밍 유튜버3</h1>
+<div class="tt_article_useless_p_margin contents_style"><!DOCTYPE html>
+
+<!-- BEGIN STRUCTURED_DATA -->
+
+<!-- END STRUCTURED_DATA -->
+
+<div class="wrap" id="pageRoot">
+
+<!-- copy controls -->
+<div class="copyBar card">
+<button class="btn" onclick="copyFullHTML()">페이지 전체 코드 복사</button>
+<button class="btn" onclick="copyWhitepaperText()">백서 원문 텍스트 복사</button>
+<span class="small">(* Tistory HTML 모드에 붙여넣기 가능)</span>
+</div>
+<!-- EXEC SUMMARY -->
+<section class="card">
+<h2>요약(Executive Summary)</h2>
+<ul>
+<li>YouTube는 튜토리얼(How-to) 중심. ROI가 가장 큰 분야는 <strong>AI 프로그래밍</strong>.</li>
+<li>핵심 루틴: <strong>예습 → 시청 → 실습 → 정리 → 응용</strong>. 예습은 AI 요약(Gemini/ChatGPT), 실습은 PC 기반.</li>
+<li>크리에이터 전략: <strong>코드팩토리</strong>를 메인으로 집중. 조코딩은 트렌드 참고, 잔재미코딩은 데이터 기초 보충.</li>
+<li>환경 원칙: <strong>PC = 개발/빌드</strong>, <strong>태블릿 = 보조(노트, 질의응답, 검토)</strong>.</li>
+</ul>
+</section>
+<!-- CREATOR EVOLUTION (list-form, no table) -->
+<section class="grid">
+<div class="card">
+<h2>크리에이터 성장 이력 &amp; 현재 포지션</h2>
+<h3>조코딩 (JoCoding)</h3>
+<ul>
+<li>초기: 흥미 프로젝트(노코드, 간단 AI 웹)로 대중성 확보.</li>
+<li>중기: 트렌드 실험 확장 → 뉴스/엔터테인먼트 성격 강화.</li>
+<li>현재: 빠른 성취감 제공 장점. 한계는 깊이·체계성.</li>
+</ul>
+
+<h3>코드팩토리 (Code Factory)</h3>
+<ul>
+<li>초기: Flutter 중심 실무 튜토리얼로 주니어 흡수.</li>
+<li>중기: Flutter+NestJS+풀스택(Full-stack)로 채용 수요 직격.</li>
+<li>현재: 실무형 구조/클린 코드, 포트폴리오 직결. 초심자 진입장벽은 AI 보조로 완화.</li>
+</ul>
+
+<h3>잔재미코딩 (Janjaemi Coding)</h3>
+<ul>
+<li>초기: Python 기초·Pandas·Numpy로 입문자 유입.</li>
+<li>중기: 머신러닝/딥러닝(ML/DL) 기초까지 A to Z.</li>
+<li>현재: 학술적 체계는 강점, 실무 연결·속도는 약점.</li>
+</ul>
+</div>
+<div class="card">
+<h2>공통분모(Overlap)만 뽑은 최소 커리큘럼</h2>
+<ul>
+<li>Python 기초(variables, functions, control flow, file I/O).</li>
+<li>API 활용(REST API, OpenAI API)과 서비스 연결(backend ↔ frontend).</li>
+<li>데이터 입출력·가공(CSV/JSON, Pandas 기초).</li>
+<li>실습 중심(worked example) 루틴: 따라치기 → 변형 → 오리지널.</li>
+</ul>
+<p><strong>한 줄 정의:</strong> <em>Python × API × Data × Project</em></p>
+<div class="svgBox">
+<!-- JS 없이 SVG 다이어그램 -->
+<svg aria-label="최소 커리큘럼 다이어그램" height="auto" role="img" viewbox="0 0 520 240" width="100%">
+<defs>
+<lineargradient id="g1" x1="0" x2="1">
+<stop offset="0%" stop-color="#daa520"></stop>
+<stop offset="100%" stop-color="#cd853f"></stop>
+</lineargradient>
+</defs>
+<!-- blocks -->
+<rect fill="#fff" height="50" rx="10" ry="10" stroke="#cd853f" width="110" x="20" y="60"></rect>
+<text font-size="12" text-anchor="middle" x="75" y="90">Python</text>
+<rect fill="#fff" height="50" rx="10" ry="10" stroke="#cd853f" width="110" x="150" y="60"></rect>
+<text font-size="12" text-anchor="middle" x="205" y="90">API</text>
+<rect fill="#fff" height="50" rx="10" ry="10" stroke="#cd853f" width="110" x="280" y="60"></rect>
+<text font-size="12" text-anchor="middle" x="335" y="90">Data</text>
+<rect fill="url(#g1)" height="50" rx="10" ry="10" stroke="#cd853f" width="90" x="410" y="60"></rect>
+<text fill="#fff" font-size="12" text-anchor="middle" x="455" y="90">Project</text>
+<!-- arrows -->
+<path d="M130 85 L150 85" fill="none" marker-end="url(#arrow)" stroke="#cd853f"></path>
+<path d="M260 85 L280 85" fill="none" marker-end="url(#arrow)" stroke="#cd853f"></path>
+<path d="M390 85 L410 85" fill="none" marker-end="url(#arrow)" stroke="#cd853f"></path>
+<defs>
+<marker id="arrow" markerheight="10" markerwidth="10" orient="auto" refx="6" refy="3">
+<path d="M0,0 L0,6 L6,3 z" fill="#cd853f"></path>
+</marker>
+</defs>
+<!-- caption -->
+<text fill="#6b5537" font-size="12" text-anchor="middle" x="260" y="150">따라치기 → 변형 → 오리지널</text>
+</svg>
+</div>
+</div>
+</section>
+<!-- ROUTINE -->
+<section class="card">
+<h2>학습 루틴 (5단계)</h2>
+<div class="flow">
+<div class="step"><strong>예습(Preview)</strong> — URL을 AI에 넣고 초심자 수행 단계 요약 받기.</div>
+<div class="step"><strong>시청(Watch)</strong> — 타임라인 키워드 기록, 모르는 개념 즉시 질의.</div>
+<div class="step"><strong>실습(Practice)</strong> — PC에서 동일 환경(Colab/VSCode, SDK, API key)으로 완벽 복사.</div>
+<div class="step"><strong>정리(Archive)</strong> — 기능/개념/에러해결을 “내 언어”로 기록(Samsung Notes/Blog/GitHub).</div>
+<div class="step"><strong>응용(Extension)</strong> — 색/데이터/기능 변형 → 오리지널 프로젝트.</div>
+</div>
+<div class="svgBox">
+<!-- JS 없이 SVG 파이프라인 -->
+<svg aria-label="5단계 파이프라인" height="auto" role="img" viewbox="0 0 680 170" width="100%">
+<defs>
+<lineargradient id="pipe" x1="0" x2="1">
+<stop offset="0%" stop-color="#fff"></stop>
+<stop offset="100%" stop-color="#fff8e7"></stop>
+</lineargradient>
+</defs>
+<!-- stages -->
+<g>
+<rect fill="url(#pipe)" height="50" rx="10" stroke="#cd853f" width="120" x="10" y="30"></rect>
+<text font-size="12" text-anchor="middle" x="70" y="60">Preview</text>
+</g>
+<g>
+<rect fill="url(#pipe)" height="50" rx="10" stroke="#cd853f" width="120" x="150" y="30"></rect>
+<text font-size="12" text-anchor="middle" x="210" y="60">Watch</text>
+</g>
+<g>
+<rect fill="url(#pipe)" height="50" rx="10" stroke="#cd853f" width="120" x="290" y="30"></rect>
+<text font-size="12" text-anchor="middle" x="350" y="60">Practice</text>
+</g>
+<g>
+<rect fill="url(#pipe)" height="50" rx="10" stroke="#cd853f" width="120" x="430" y="30"></rect>
+<text font-size="12" text-anchor="middle" x="490" y="60">Archive</text>
+</g>
+<g>
+<rect fill="url(#pipe)" height="50" rx="10" stroke="#cd853f" width="100" x="570" y="30"></rect>
+<text font-size="12" text-anchor="middle" x="620" y="60">Extension</text>
+</g>
+<!-- arrows -->
+<path d="M130 55 L150 55 M270 55 L290 55 M410 55 L430 55 M550 55 L570 55" fill="none" marker-end="url(#arrow2)" stroke="#cd853f"></path>
+<defs>
+<marker id="arrow2" markerheight="10" markerwidth="10" orient="auto" refx="6" refy="3">
+<path d="M0,0 L0,6 L6,3 z" fill="#daa520"></path>
+</marker>
+</defs>
+</svg>
+</div>
+</section>
+<!-- ENV & CHOICE -->
+<section class="grid">
+<div class="card">
+<h2>환경 전략(PC/Tablet)</h2>
+<ul>
+<li><strong>PC</strong>: VSCode, Flutter SDK, Node.js, DB, GitHub — 빌드/런(빌드·배포) 필수.</li>
+<li><strong>태블릿</strong>: 예습 요약, 노트, 코드 검토, AI 질의응답 — 보조(Console/Viewer) 역할.</li>
+<li>ML/DL 학습(TensorFlow/PyTorch)은 연산·환경 제약으로 태블릿 단독 불가 → <em>클라우드(Colab, Codespaces)</em> 연결로만 보완.</li>
+</ul>
+</div>
+<div class="card">
+<h2>최종 선택(Selection)</h2>
+<ul>
+<li><strong>메인</strong>: 코드팩토리 — 실무형 프로그래밍·앱/웹 편집·활용 중심.</li>
+<li><strong>보조</strong>: 조코딩(트렌드 레퍼런스), 잔재미코딩(데이터 기초 보충).</li>
+<li><strong>버림</strong>: 온디바이스 ML/DL 학습·이론 심화 — 필요·흥미·환경 모두 불일치.</li>
+</ul>
+</div>
+</section>
+<!-- FAQ with details/summary -->
+<section class="card">
+<h2>자주 묻는 질문(FAQ)</h2>
+<details>
+<summary>왜 한 채널(코드팩토리) 집중이 유리한가?</summary>
+<ul>
+<li>커리큘럼 연속성 유지로 누적 학습이 된다.</li>
+<li>포트폴리오 직결 산출물 확보가 쉽다.</li>
+<li>AI 보조(ChatGPT)로 난이도·속도 보정이 가능하다.</li>
+</ul>
+</details>
+<details>
+<summary>태블릿만으로 가능한 최대치는?</summary>
+<ul>
+<li>브라우저 기반 실습(Colab, Codespaces) 접속, 기록·요약·리뷰.</li>
+<li>경량 추론(TFLite/CoreML) 테스트 수준. <em>학습(Training)은 클라우드/PC 필요.</em></li>
+</ul>
+</details>
+<details>
+<summary>최소 커리큘럼만으로도 충분한가?</summary>
+<ul>
+<li>Python 기초 + API + Data I/O + 프로젝트 반복이면 실용 목적에는 충분.</li>
+<li>대규모 시스템 설계/CS 이론은 필요시 별도 보강(CS50 등) 권장.</li>
+</ul>
+</details>
+</section>
+<!-- Hypotheses inside the page -->
+<section class="card">
+<h2>가설 리스트(User-Only Ideas)</h2>
+<ul>
+<li>YouTube는 <strong>튜토리얼(How-to)</strong> 매체이므로, <strong>AI 프로그래밍</strong>만 집중하면 ROI가 최고다.</li>
+<li><strong>코드팩토리 단일 집중</strong>이 실무·포트폴리오 달성에 가장 빠르다.</li>
+<li><strong>과도기 하이브리드</strong>(PC 메인 × 태블릿 보조)가 현실적 최적점이다.</li>
+<li>“PC 전용 강의의 태블릿 재현”을 별도 프로젝트화하면 <strong>교육 콘텐츠</strong>로 변환될 수 있다.</li>
+<li>학습은 <strong>예습(요약)–시청–실습–정리–응용</strong>의 고정 루틴으로 표준화 가능하다.</li>
+<li>ML/DL 이론·학습은 <strong>의도적으로 배제</strong>해도 실용 목표에는 지장 없다.</li>
+<li>YouTube × AI × 실습 루틴은 개인에게 <strong>“1인 대학(One-Person University)”</strong>가 될 수 있다.</li>
+</ul>
+</section>
+<!-- Expert Column inside the page -->
+<section class="card">
+<h2>전문가 평가 칼럼(Expert Review)</h2>
+<p><strong>강점</strong>: 목표(편집·활용)와 수단(코드팩토리 집중, AI 예습·디버깅)이 정확히 정렬되어 있다. 최소 커리큘럼(Python·API·Data·Project)으로 낭비를 없앴고, PC/태블릿 역할 분리로 실행 가능성을 극대화했다. 인포그래픽은 JS 없이 SVG로 구성되어 이식성과 가볍기가 좋다.</p>
+<p><strong>보강점</strong>: 장기 유지 보수를 고려해 <em>버전 고정(version pinning)</em>과 <em>환경 스냅샷(devcontainer/Codespaces)</em>을 추가하라. 또한 포트폴리오 각 항목에 <em>문제정의–해결–성과</em> 3줄 요약을 붙여 검색·면접 대비력을 높이면 좋다.</p>
+</section>
+
+</div>
+<!-- Hidden plain-text whitepaper for copy -->
+
+<!-- END STRUCTURED_DATA -->
+
+                ${bodyInner}
+
+                `;
+      navigator.clipboard.writeText(html).then(()=&gt;alert('전체 코드가 복사되었습니다.'));
+    }catch(e){
+      alert('복사 중 오류. 데스크톱 브라우저에서 시도하세요.');
+    }
+  }
+  function copyWhitepaperText(){
+    const txt = `
+[백서 원문 텍스트]
+- 핵심 루틴: 예습(Preview)–시청(Watch)–실습(Practice)–정리(Archive)–응용(Extension)
+- 크리에이터 전략: 코드팩토리 메인, 조코딩(트렌드), 잔재미(데이터 기초 보충)
+- 최소 커리큘럼: Python × API × Data × Project
+- 환경: PC=개발/빌드, 태블릿=보조(Console/Viewer), ML/DL 학습은 클라우드/PC
+- 가설: 한 채널 집중·과도기 하이브리드·태블릿 재현 프로젝트화·1인 대학化
+`.trim();
+    navigator.clipboard.writeText(txt).then(()=&gt;alert('백서 원문 텍스트가 복사되었습니다.'));
+  }
+
+</div>
+</article>
+<footer style="opacity:.7;font-size:.9rem;margin:16px 0">© Uncle Parksy Korean Learning Archive</footer>
+</main></body></html>

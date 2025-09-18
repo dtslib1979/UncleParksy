@@ -1,0 +1,374 @@
+<!doctype html><html lang="ko"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>티스토리 솔루션</title>
+<style>
+html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}
+body{margin:0;font-size:16px;line-height:1.7;word-break:keep-all;background:#f4e5c9;color:#2b2116}
+main{max-width:880px;margin:0 auto;padding:18px}
+img,video,iframe{max-width:100%;height:auto}
+[class*="wrap"],[class*="container"],[id*="content"]{max-width:100%!important;width:auto!important;margin:0!important;padding:0!important}
+.grid,.row{display:block!important}.sidebar{display:none!important}.content,.main{width:100%!important}
+table{display:block;width:100%;overflow-x:auto;border-collapse:collapse}
+pre,code{white-space:pre-wrap;word-wrap:break-word}
+h1{font-size:1.5rem;margin:.8rem 0} h2{font-size:1.25rem;margin:.7rem 0}
+.card{background:#fff8ea;border:1px solid rgba(0,0,0,.06);border-radius:14px;padding:14px;margin:10px 0}
+</style>
+<style type="text/css">
+/* Mobile-optimized CSS for archive files */
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background: #f7f5ef;
+}
+
+/* Responsive images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1rem auto;
+}
+
+/* Mobile-friendly layout */
+@media (max-width: 768px) {
+  body {
+    padding: 0 16px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  /* 헤더 모바일 최적화 */
+  .site-header, header {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding: 12px 16px;
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+  }
+  
+  /* 네비게이션 모바일 최적화 */
+  .nav, nav {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  
+  .nav a, nav a {
+    margin-left: 0;
+    flex: 0 0 auto;
+    padding: 8px 10px;
+    display: inline-block;
+  }
+  
+  /* 콘텐츠 영역 */
+  .container, .content, main {
+    max-width: 100%;
+    padding: 0 16px;
+    margin: 0 auto;
+  }
+  
+  /* 카드/박스 요소들 */
+  .card, .box, .widget {
+    margin: 16px 0;
+    padding: 16px;
+    border-radius: 12px;
+  }
+  
+  /* 텍스트 가독성 */
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.3;
+    margin: 1.5rem 0 1rem;
+  }
+  
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 1.6rem; }
+  h3 { font-size: 1.4rem; }
+  h4 { font-size: 1.2rem; }
+  
+  p {
+    margin: 1rem 0;
+    line-height: 1.6;
+  }
+  
+  /* 리스트 요소 */
+  ul, ol {
+    margin: 1rem 0;
+    padding-left: 2rem;
+  }
+  
+  li {
+    margin: 0.5rem 0;
+  }
+  
+  /* 테이블 반응형 */
+  table {
+    width: 100%;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    font-size: 14px;
+  }
+  
+  /* 버튼 터치 최적화 */
+  button, .btn, input[type="button"], input[type="submit"] {
+    min-height: 44px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* 폼 요소 */
+  input, textarea, select {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px; /* iOS 줌 방지 */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+  
+  /* 검색 폼 */
+  form[role="search"] {
+    width: 100%;
+    margin: 16px 0;
+  }
+  
+  form[role="search"] input {
+    width: calc(100% - 32px);
+    margin: 8px 16px 0;
+    padding: 12px 14px;
+    border: 1px solid rgba(0,0,0,.25);
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,.06);
+  }
+  
+  form[role="search"] input:focus {
+    outline: none;
+    border-color: #caa24b;
+    box-shadow: 0 3px 14px rgba(202,162,75,.25);
+  }
+  
+  /* 링크 터치 영역 확대 */
+  a {
+    min-height: 44px;
+    display: inline-block;
+    text-decoration: none;
+  }
+  
+  a:hover, a:focus {
+    text-decoration: underline;
+  }
+  
+  /* 사이드바 요소들 */
+  .sidebar, aside {
+    margin: 20px 0;
+  }
+  
+  .widget {
+    margin: 16px 0;
+    padding: 16px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+  }
+}
+
+/* 초소형 화면 (320px 이하) */
+@media (max-width: 320px) {
+  body {
+    font-size: 13px;
+    padding: 0 12px;
+  }
+  
+  .container, .content, main {
+    padding: 0 12px;
+  }
+  
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.4rem; }
+  h3 { font-size: 1.2rem; }
+  h4 { font-size: 1.1rem; }
+}
+
+/* 다크 모드 대응 */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #1a1a1a;
+    color: #e0e0e0;
+  }
+  
+  .widget, .card, .box {
+    background: #2a2a2a;
+    border-color: #404040;
+  }
+  
+  input, textarea, select {
+    background: #2a2a2a;
+    color: #e0e0e0;
+    border-color: #404040;
+  }
+}
+
+/* 애니메이션 줄이기 설정 */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+</head><body><main>
+<article class="card">
+<h1>티스토리 솔루션</h1>
+<div class="tt_article_useless_p_margin contents_style"><!DOCTYPE html>
+
+<!-- BEGIN STRUCTURED_DATA -->
+
+<!-- END STRUCTURED_DATA -->
+
+<div class="wrap">
+
+<!-- 1) 문답 아코디언 (메인 콘텐츠 전용) -->
+<section aria-label="문답 아카이브(메인)" id="qa-archive">
+<h2>문답 아카이브</h2>
+<details open="">
+<summary>티스토리는 왜 상품적 가치가 낮은가?</summary>
+<ul>
+<li>광고 단가 및 네트워크 효과 약함(SEO, network effects).</li>
+<li>확장성 낮음 → 실험실(lab)·메모장(notepad) 포지션이 적합.</li>
+<li>상품화(monetization)는 GitHub Pages, WordPress, Substack 등으로 전환.</li>
+</ul>
+</details>
+<details>
+<summary>“쓸모없는 삽질” 같았던 티스토리 스터디의 실익은?</summary>
+<ul>
+<li>대화→문답 추출→아코디언→HTML→발행 공정(production line) 체화.</li>
+<li>플랫폼 한계·실패 데이터를 직접 검증 → 다음 무대로 넘어갈 근거.</li>
+<li>결론: 돈은 0점, 시스템 훈련은 90점.</li>
+</ul>
+</details>
+<details>
+<summary>흔한 “GPT→HTML→블로그”와의 차별점은?</summary>
+<ul>
+<li>결과물이 아니라 <strong>엔진</strong>을 설계: 프롬프트 모델링(prompt modeling)·메타모델링(metamodeling).</li>
+<li>재사용 가능한 메타프롬프트(meta‑prompt)·템플릿·검증 규칙을 표준화.</li>
+</ul>
+</details>
+<details>
+<summary>글로벌 확장(i18n)은 구조적으로 가능한가?</summary>
+<ul>
+<li>가능. 정적 배포(static hosting) + 버전관리(Git) + <code>hreflang/canonical</code>.</li>
+<li>KR 원문 + EN 동시 발행, Substack/Medium로 영문화 페더레이션.</li>
+</ul>
+</details>
+<details>
+<summary>티스토리를 “메모장(notepad)”으로 쓰는 이유는?</summary>
+<ul>
+<li>초안·중간 저장에 최적: 카테고리·검색·미리보기 지원.</li>
+<li>최종본은 GitHub Pages/WordPress로 승격(canonical 관리).</li>
+</ul>
+</details>
+<details>
+<summary>초안 툴 정렬: 삼성노트 vs 메모장 vs GitHub?</summary>
+<ul>
+<li>삼성노트(Samsung Notes): 드로잉/판서(whiteboard) 전용.</li>
+<li>메모장(plain text/Markdown): 한글 초안(kor‑first drafting).</li>
+<li>GitHub: 결과 저장소(archive &amp; deploy), 정본 관리(single source of truth).</li>
+</ul>
+</details>
+<details>
+<summary>WebAppsBook Cast 패키지의 구성은?</summary>
+<ul>
+<li>마더시드 백서 웹앱(whitepaper webapp).</li>
+<li>프롬프트 메타모델링 앱(prompt metamodeling app).</li>
+<li>메타프롬프트 표준(meta‑prompt standard).</li>
+<li>강의 영상(YouTube 판서, whiteboard) 동시 발행.</li>
+</ul>
+</details>
+<details>
+<summary>최소 기술 원칙은 무엇인가?</summary>
+<ul>
+<li>Zero‑JS(상호작용은 <code>&lt;details&gt;/&lt;summary&gt;</code>), 복사 기능만 JS.</li>
+<li>리스트 기반(text‑first), 접근성(a11y), 모바일 우선(responsive).</li>
+<li>전문용어 영문 병기(English terms) 의무.</li>
+</ul>
+</details>
+<details>
+<summary>3‑스텝 배포 루틴은?</summary>
+<ul>
+<li>메모장 초안 → 티스토리 임시(메모장) → GitHub Pages 최종.</li>
+<li>i18n 빌드/메타(OG, canonical) 추가 → Substack/Medium 교차 게시.</li>
+</ul>
+</details>
+<details>
+<summary>수익화 루트는?</summary>
+<ul>
+<li>퍼널(funnel): Free 티저 → $9 미니 → $29 스탠다드 → $99 프로.</li>
+<li>상품: 프롬프트 팩(prompt pack), 메타모델 가이드, HTML/MD 템플릿.</li>
+</ul>
+</details>
+</section>
+<!-- 2) 패턴 질문 -->
+<section aria-label="패턴 질문">
+<h2>패턴 질문 리스트</h2>
+<div aria-label="패턴 질문 텍스트" class="card" id="pattern-list" role="region">
+<ul>
+<li>출판물이 아니라 <strong>생산 라인(Production Line)</strong> 자체를 상품화할 수 있는가?</li>
+<li>티스토리를 <strong>메모장(notepad)</strong>으로 고정했을 때 생기는 실질 이익은 무엇인가?</li>
+<li>대화 로그를 데이터셋 삼아 <strong>메타모델링(metamodeling)</strong>으로 역설계하는 최단 경로는?</li>
+<li>Zero‑JS로 유지 가능한 최적 상호작용은 무엇인가? (details/summary)</li>
+<li>KR→EN 동시 발행에서 <strong>canonical</strong> 충돌 없이 퍼널을 설계하는 법은?</li>
+<li>Notepad → GitHub Pages 3‑스텝 중 병목은 어디에서 발생하는가?</li>
+<li>YouTube 판서와 문답 아카이브를 자동 동기화하는 최소 스키마는?</li>
+<li>실패 로그(티스토리 한계)를 KPI로 전환하는 계량 지표는?</li>
+</ul>
+</div>
+
+</section>
+<!-- 3) 백서 요약 -->
+<section aria-label="백서 요약">
+<h2>백서 요약</h2>
+<div class="card">
+<h3>취지/목적</h3>
+<ul>
+<li>오늘 스레드에서 즉답 실패→수정→완성으로 이어진 문답만 선별해 재사용 가능한 생산 라인으로 정리.</li>
+<li>프롬프트 모델링(prompt modeling)·메타모델링(metamodeling) 표준을 명문화.</li>
+</ul>
+<h3>문답 요약 리스트</h3>
+<ul>
+<li>티스토리는 메모장 포지션, 최종본은 Pages/WP.</li>
+<li>차별점은 엔진(생산 라인) 설계 자체.</li>
+<li>i18n·canonical·OG로 글로벌 동시 발행 준비.</li>
+<li>WebAppsBook Cast = 웹앱+메타모델+메타프롬프트+판서.</li>
+<li>Zero‑JS, 리스트 기반, 복사 유틸만 JS.</li>
+</ul>
+<h3>추출된 패턴 질문</h3>
+<ul>
+<li>생산 라인의 상품화 가능성?</li>
+<li>메모장 포지셔닝의 전략적 가치?</li>
+<li>3‑스텝 배포의 병목 제거 플랜?</li>
+</ul>
+</div>
+</section>
+
+</div>
+
+</div>
+</article>
+<footer style="opacity:.7;font-size:.9rem;margin:16px 0">© Uncle Parksy Korean Learning Archive</footer>
+</main></body></html>

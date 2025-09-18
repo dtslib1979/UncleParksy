@@ -1,0 +1,99 @@
+name: 🎯 Obsidian 종합 백업 시스템
+
+on:
+  schedule:
+    - cron: "0 */2 * * *"    # 2시간마다 자동 백업
+  workflow_dispatch:         # 수동 실행 가능
+  push:
+    branches: [ main ]
+    paths:
+      - 'category/**'
+      - 'archive/**'
+      - 'backup/**'
+      - 'assets/**'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  comprehensive-backup:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout (with PAT)
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.SELF_PUSH_TOKEN }}
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "obsidian-backup-bot"
+          git config --global user.email "obsidian-backup@users.noreply.github.com"
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install Dependencies
+        run: |
+          pip install requests feedparser
+
+      - name: 🎯 Run Comprehensive Obsidian Backup
+        run: |
+          echo "🎯 옵시디언 종합 백업 시작..."
+          python scripts/obsidian_comprehensive_backup.py
+
+      - name: 📊 Backup Statistics
+        run: |
+          echo "📊 백업 통계:"
+          find _obsidian/_imports -type f | wc -l | xargs echo "총 파일 수:"
+          find _obsidian/_imports -name "*.html" | wc -l | xargs echo "HTML 파일:"
+          find _obsidian/_imports -name "*.md" | wc -l | xargs echo "Markdown 파일:"
+          find _obsidian/_imports -name "*.json" | wc -l | xargs echo "JSON 파일:"
+          
+          echo "📁 백업 구조:"
+          tree _obsidian/_imports -L 2 || ls -la _obsidian/_imports
+
+      - name: 🚀 Commit & Push Obsidian Backup
+        env:
+          GITHUB_TOKEN: ${{ secrets.SELF_PUSH_TOKEN }}
+        run: |
+          git add _obsidian/_imports/
+          if ! git diff --cached --quiet; then
+            TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
+            TOTAL_FILES=$(find _obsidian/_imports -type f | wc -l)
+            git commit -m "🎯 옵시디언 종합 백업 완료: ${TOTAL_FILES}개 파일 [$TIMESTAMP]
+
+            📊 백업 구성:
+            - Tistory RSS 백업
+            - Archive HTML 파일
+            - Category 원본 + Markdown 변환
+            - Assets 리소스
+            - 메타데이터 및 설정
+            
+            📁 백업 위치: _obsidian/_imports/
+            📋 상세 정보: _obsidian/_imports/BACKUP_INDEX.md"
+            
+            git push origin HEAD:main
+            echo "✅ 옵시디언 백업 완료 - 총 ${TOTAL_FILES}개 파일"
+          else
+            echo "ℹ️ 백업할 변경사항이 없습니다"
+          fi
+
+      - name: 📝 Backup Summary
+        if: always()
+        run: |
+          echo "🎯 ===== 옵시디언 종합 백업 완료 ====="
+          echo "📅 백업 시간: $(date)"
+          echo "📁 백업 위치: _obsidian/_imports/"
+          echo "📋 백업 인덱스: _obsidian/_imports/BACKUP_INDEX.md"
+          echo "🚀 Obsidian에서 '_obsidian/_imports' 폴더를 볼트로 열어보세요!"
+          echo ""
+          echo "💡 사용법:"
+          echo "1. Obsidian 설치"
+          echo "2. '_obsidian/_imports' 폴더를 볼트로 열기"
+          echo "3. 백업된 모든 콘텐츠 탐색 및 활용"

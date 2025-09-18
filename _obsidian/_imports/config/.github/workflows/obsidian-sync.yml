@@ -1,0 +1,122 @@
+name: Sync /category → _obsidian (RAW + Markdown) - 즉시 동기화
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"   # 15분마다 즉시 동기화 (UTC)
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - 'category/**'
+  # 새로운 HTML 페이지 업로드 시 즉시 트리거
+  workflow_run:
+    workflows: ["🗂️ Category Index Builder"]
+    branches: [main]
+    types:
+      - completed
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  sync:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout (with PAT)
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.SELF_PUSH_TOKEN }}
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "actions-bot"
+          git config --global user.email "actions@users.noreply.github.com"
+
+      - name: Install tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y rsync pandoc
+
+      - name: Prep Obsidian folders
+        run: |
+          mkdir -p _obsidian/_imports/html_raw
+          mkdir -p _obsidian/_imports/html_md
+
+      - name: Check for recent changes (즉시 동기화 최적화)
+        id: check_changes
+        run: |
+          # 최근 5분 내 category 폴더 변경 확인
+          RECENT_CHANGES=$(find category -name "*.html" -newermt "5 minutes ago" 2>/dev/null | wc -l)
+          echo "recent_changes=$RECENT_CHANGES" >> $GITHUB_OUTPUT
+          if [ "$RECENT_CHANGES" -gt 0 ]; then
+            echo "✅ 최근 변경사항 발견: $RECENT_CHANGES 개 파일"
+            echo "force_sync=true" >> $GITHUB_OUTPUT
+          else
+            echo "ℹ️ 최근 변경사항 없음 (예정된 동기화)"
+            echo "force_sync=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Sync RAW HTML (즉시 동기화)
+        run: |
+          if [ -d "category" ]; then
+            echo "🚀 즉시 동기화 시작..."
+            rsync -av --delete \
+              category/blog-transformation \
+              category/device-chronicles \
+              category/system-configuration \
+              category/thought-archaeology \
+              category/webappsbook-codex \
+              category/webappsbookcast \
+              category/writers-path \
+              _obsidian/_imports/html_raw/ 2>/dev/null || true
+            echo "✅ RAW HTML 즉시 동기화 완료"
+          else
+            echo "⚠️ Category folder not found"
+          fi
+
+      - name: Convert HTML → Markdown (즉시 변환)
+        run: |
+          echo "🔄 HTML → Markdown 즉시 변환 시작..."
+          for folder in blog-transformation device-chronicles system-configuration thought-archaeology webappsbook-codex webappsbookcast writers-path; do
+            if [ -d "category/$folder" ]; then
+              echo "Processing folder: $folder"
+              find category/$folder -type f -name "*.html" | while read -r file; do
+                rel="${file#category/}"
+                outdir="_obsidian/_imports/html_md/$(dirname "$rel")"
+                mkdir -p "$outdir"
+                pandoc "$file" -f html -t gfm -o "$outdir/$(basename "$rel" .html).md" 2>/dev/null || echo "Failed to convert: $file"
+              done
+            fi
+          done
+          echo "✅ HTML → Markdown 즉시 변환 완료"
+
+      - name: Copy assets (즉시 복사)
+        run: |
+          if [ -d "category" ]; then
+            rsync -av --exclude='*.html' category/ _obsidian/_imports/html_md/ 2>/dev/null || true
+            echo "✅ Assets 즉시 복사 완료"
+          fi
+
+      - name: Commit & Push (즉시 반영)
+        env:
+          GITHUB_TOKEN: ${{ secrets.SELF_PUSH_TOKEN }}
+        run: |
+          git add -A
+          if ! git diff --cached --quiet; then
+            TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
+            if [ "${{ steps.check_changes.outputs.force_sync }}" = "true" ]; then
+              git commit -m "🚀 즉시동기화: /category → _obsidian/_imports (raw+md) [$TIMESTAMP]"
+              echo "✅ 새로운 HTML 페이지 즉시 동기화 완료"
+            else
+              git commit -m "⏰ 예정동기화: /category → _obsidian/_imports (raw+md) [$TIMESTAMP]"
+              echo "✅ 예정된 동기화 완료"
+            fi
+            git push origin HEAD:main
+            echo "✅ Changes pushed successfully - 즉시 반영됨"
+          else
+            echo "ℹ️ No changes to commit"
+          fi

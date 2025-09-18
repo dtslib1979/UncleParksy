@@ -1,0 +1,34 @@
+name: Obsidian Category Auto Backup
+
+"on":
+  push:
+    paths:
+      - 'category/**'
+
+permissions:
+  contents: write
+
+jobs:
+  backup-to-obsidian:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Copy category files to obsidian imports
+        run: |
+          mkdir -p _obsidian/_imports/category
+          rsync -a --exclude='.git/' category/ _obsidian/_imports/category/
+
+      - name: Commit & Push backup
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add _obsidian/_imports/category/
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Auto backup: category files to _obsidian/_imports/category"
+            git push
+          fi
