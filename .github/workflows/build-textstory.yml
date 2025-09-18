@@ -34,7 +34,7 @@ jobs:
 
       - name: 📦 의존성 설치
         run: |
-          pip install beautifulsoup4 lxml requests
+          pip install -r requirements.txt
 
       - name: 🤖 완전 자동화 실행
         run: |
