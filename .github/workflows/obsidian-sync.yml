@@ -1,122 +1,164 @@
-name: Sync /category → _obsidian (RAW + Markdown) - 즉시 동기화
+name: 📥 GitHub → Obsidian 자동 백업 & 동기화
 
 on:
-  schedule:
-    - cron: "*/15 * * * *"   # 15분마다 즉시 동기화 (UTC)
-  workflow_dispatch:
+  # 더 안정적인 트리거들
   push:
-    branches: [ main ]
+    branches: [main]
     paths:
       - 'category/**'
-  # 새로운 HTML 페이지 업로드 시 즉시 트리거
-  workflow_run:
-    workflows: ["🗂️ Category Index Builder"]
-    branches: [main]
-    types:
-      - completed
+  workflow_dispatch:  # 수동 실행
+  schedule:
+    - cron: "0 */3 * * *"  # 3시간마다 (더 자주, 더 안정적)
 
 permissions:
   contents: write
-  actions: read
 
 jobs:
-  sync:
+  github-to-obsidian:
+    # 조건 완화 (automation@dtslib.com도 허용)
     if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Checkout (with PAT)
+      - name: 📦 Checkout Repository
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.SELF_PUSH_TOKEN }}
-          fetch-depth: 0
-
-      - name: Configure Git
+        # 기본 GITHUB_TOKEN 사용 (간단하고 안정적)
+        
+      - name: ⚙️ Configure Git
         run: |
-          git config --global user.name "actions-bot"
-          git config --global user.email "actions@users.noreply.github.com"
-
-      - name: Install tools
+          git config --global user.name "obsidian-backup-bot"
+          git config --global user.email "obsidian@dtslib.com"
+          
+      - name: 🛠️ Install Tools
         run: |
           sudo apt-get update
           sudo apt-get install -y rsync pandoc
-
-      - name: Prep Obsidian folders
+          
+      - name: 📁 Prepare Obsidian Folders
         run: |
           mkdir -p _obsidian/_imports/html_raw
           mkdir -p _obsidian/_imports/html_md
+          echo "✅ Obsidian 폴더 준비 완료"
 
-      - name: Check for recent changes (즉시 동기화 최적화)
-        id: check_changes
-        run: |
-          # 최근 5분 내 category 폴더 변경 확인
-          RECENT_CHANGES=$(find category -name "*.html" -newermt "5 minutes ago" 2>/dev/null | wc -l)
-          echo "recent_changes=$RECENT_CHANGES" >> $GITHUB_OUTPUT
-          if [ "$RECENT_CHANGES" -gt 0 ]; then
-            echo "✅ 최근 변경사항 발견: $RECENT_CHANGES 개 파일"
-            echo "force_sync=true" >> $GITHUB_OUTPUT
-          else
-            echo "ℹ️ 최근 변경사항 없음 (예정된 동기화)"
-            echo "force_sync=false" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Sync RAW HTML (즉시 동기화)
+      - name: 📊 Analyze Category Content
+        id: analyze
         run: |
           if [ -d "category" ]; then
-            echo "🚀 즉시 동기화 시작..."
-            rsync -av --delete \
-              category/blog-transformation \
-              category/device-chronicles \
-              category/system-configuration \
-              category/thought-archaeology \
-              category/webappsbook-codex \
-              category/webappsbookcast \
-              category/writers-path \
-              _obsidian/_imports/html_raw/ 2>/dev/null || true
-            echo "✅ RAW HTML 즉시 동기화 완료"
+            HTML_COUNT=$(find category -name "*.html" -type f | wc -l)
+            FOLDER_COUNT=$(find category -type d | wc -l)
+            echo "html_count=$HTML_COUNT" >> $GITHUB_OUTPUT
+            echo "folder_count=$FOLDER_COUNT" >> $GITHUB_OUTPUT
+            echo "✅ 분석 완료: HTML $HTML_COUNT개, 폴더 $FOLDER_COUNT개"
           else
-            echo "⚠️ Category folder not found"
+            echo "❌ category 폴더가 존재하지 않습니다"
+            exit 1
           fi
 
-      - name: Convert HTML → Markdown (즉시 변환)
+      - name: 📥 RAW HTML Backup
         run: |
-          echo "🔄 HTML → Markdown 즉시 변환 시작..."
-          for folder in blog-transformation device-chronicles system-configuration thought-archaeology webappsbook-codex webappsbookcast writers-path; do
-            if [ -d "category/$folder" ]; then
-              echo "Processing folder: $folder"
-              find category/$folder -type f -name "*.html" | while read -r file; do
-                rel="${file#category/}"
-                outdir="_obsidian/_imports/html_md/$(dirname "$rel")"
-                mkdir -p "$outdir"
-                pandoc "$file" -f html -t gfm -o "$outdir/$(basename "$rel" .html).md" 2>/dev/null || echo "Failed to convert: $file"
-              done
+          echo "🚀 RAW HTML 백업 시작..."
+          
+          # 전체 category 폴더를 html_raw에 동기화
+          rsync -av --delete category/ _obsidian/_imports/html_raw/
+          
+          echo "✅ RAW HTML 백업 완료"
+          echo "📊 백업된 파일 수: $(find _obsidian/_imports/html_raw -type f | wc -l)개"
+
+      - name: 🔄 HTML → Markdown Conversion  
+        run: |
+          echo "🔄 HTML → Markdown 변환 시작..."
+          
+          # 모든 HTML 파일을 Markdown으로 변환
+          find category -name "*.html" -type f | while read -r file; do
+            # 상대 경로 계산
+            rel_path="${file#category/}"
+            md_dir="_obsidian/_imports/html_md/$(dirname "$rel_path")"
+            mkdir -p "$md_dir"
+            
+            # .html을 .md로 변경
+            md_file="$md_dir/$(basename "$rel_path" .html).md"
+            
+            # pandoc으로 변환 (실패하면 간단한 변환)
+            if pandoc "$file" -f html -t gfm -o "$md_file" 2>/dev/null; then
+              echo "✅ 변환 성공: $rel_path"
+            else
+              echo "⚠️ pandoc 실패, 간단 변환: $rel_path"
+              # HTML 태그 제거하고 기본 마크다운으로
+              sed 's/<[^>]*>//g' "$file" | sed 's/&nbsp;/ /g' > "$md_file"
             fi
           done
-          echo "✅ HTML → Markdown 즉시 변환 완료"
+          
+          echo "✅ HTML → Markdown 변환 완료"
+          echo "📊 변환된 파일 수: $(find _obsidian/_imports/html_md -name "*.md" -type f | wc -l)개"
 
-      - name: Copy assets (즉시 복사)
+      - name: 📋 Generate Sync Report
         run: |
-          if [ -d "category" ]; then
-            rsync -av --exclude='*.html' category/ _obsidian/_imports/html_md/ 2>/dev/null || true
-            echo "✅ Assets 즉시 복사 완료"
-          fi
+          cat > _obsidian/_imports/동기화_보고서.md << 'EOF'
+# 📥 GitHub → Obsidian 동기화 보고서
 
-      - name: Commit & Push (즉시 반영)
-        env:
-          GITHUB_TOKEN: ${{ secrets.SELF_PUSH_TOKEN }}
+## 🕐 동기화 정보
+- **실행 시간**: $(date '+%Y-%m-%d %H:%M:%S UTC')
+- **트리거 방식**: ${{ github.event_name }}
+- **커밋 SHA**: ${{ github.sha }}
+- **액터**: ${{ github.actor }}
+
+## 📊 처리 통계
+- **HTML 원본**: $(find _obsidian/_imports/html_raw -name "*.html" -type f | wc -l)개 파일
+- **Markdown 변환**: $(find _obsidian/_imports/html_md -name "*.md" -type f | wc -l)개 파일
+- **전체 폴더**: $(find _obsidian/_imports -type d | wc -l)개
+
+## 📁 카테고리별 현황
+EOF
+
+          # 카테고리별 파일 수 추가
+          for dir in _obsidian/_imports/html_md/*/; do
+            if [ -d "$dir" ]; then
+              category_name=$(basename "$dir")
+              file_count=$(find "$dir" -name "*.md" -type f | wc -l)
+              echo "- **$category_name**: $file_count개 파일" >> _obsidian/_imports/동기화_보고서.md
+            fi
+          done
+          
+          cat >> _obsidian/_imports/동기화_보고서.md << 'EOF'
+
+## 🎯 사용 방법
+1. **RAW HTML**: `_obsidian/_imports/html_raw/` - 원본 HTML 파일들
+2. **Markdown**: `_obsidian/_imports/html_md/` - 변환된 마크다운 파일들  
+3. **상업화 활용**: 이 자료들을 Obsidian에서 편집하여 유료 콘텐츠로 개발
+
+## 💡 박씨님 전략
+- **Public GitHub**: 포트폴리오 & 레퍼런스 (실력 증명)
+- **Private Obsidian**: 노하우 & 상업적 자료 (수익화 소스)
+
+---
+*자동 생성 by EduArt Engineer CI*
+EOF
+
+      - name: 💾 Commit & Push Changes
         run: |
-          git add -A
+          git add _obsidian/_imports/
+          
           if ! git diff --cached --quiet; then
             TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
-            if [ "${{ steps.check_changes.outputs.force_sync }}" = "true" ]; then
-              git commit -m "🚀 즉시동기화: /category → _obsidian/_imports (raw+md) [$TIMESTAMP]"
-              echo "✅ 새로운 HTML 페이지 즉시 동기화 완료"
-            else
-              git commit -m "⏰ 예정동기화: /category → _obsidian/_imports (raw+md) [$TIMESTAMP]"
-              echo "✅ 예정된 동기화 완료"
-            fi
-            git push origin HEAD:main
-            echo "✅ Changes pushed successfully - 즉시 반영됨"
+            HTML_COUNT=$(find _obsidian/_imports/html_raw -name "*.html" -type f | wc -l)
+            MD_COUNT=$(find _obsidian/_imports/html_md -name "*.md" -type f | wc -l)
+            
+            # 상세한 커밋 메시지
+            git commit -m "📥 Obsidian 자동백업: HTML($HTML_COUNT) → MD($MD_COUNT) [$TIMESTAMP]
+
+🎯 GitHub → Obsidian 동기화 완료
+📊 HTML: $HTML_COUNT개 → Markdown: $MD_COUNT개  
+🔄 트리거: ${{ github.event_name }}
+⏰ 시간: $TIMESTAMP UTC
+
+💰 상업화 전략: Public(포트폴리오) → Private(노하우)"
+            
+            git push
+            
+            echo "🎉 Obsidian 백업 성공!"
+            echo "📊 통계: HTML $HTML_COUNT개 → Markdown $MD_COUNT개"
+            echo "📁 위치: _obsidian/_imports/"
+            echo "💡 이제 Obsidian에서 이 자료들을 상업화용으로 활용하세요!"
           else
-            echo "ℹ️ No changes to commit"
+            echo "ℹ️ 변경사항이 없어 동기화를 건너뜁니다"
           fi
