@@ -10,12 +10,14 @@ Write-Host "🎯 UncleParksy 백업시스템 복구 시작..." -ForegroundColor 
 # ===== 1단계: 현재 상태 진단 =====
 Write-Host "`n📋 1단계: 시스템 상태 진단" -ForegroundColor Yellow
 
-$obsidianPath = "C:\ObsidianVault"
+$documentsPath = "C:\Users\dtsli\Documents"
+$obsidianPath = "$documentsPath\ObsidianVault"
 $dtslibPath = "$obsidianPath\dtslib"
 $uncleParksyPath = "$obsidianPath\UncleParksy"
 
 Write-Host "🔍 Obsidian 볼트 경로 확인:"
-Write-Host "  - C:\ObsidianVault: $(Test-Path $obsidianPath)"
+Write-Host "  - Documents 폴더: C:\Users\dtsli\Documents"
+Write-Host "  - ObsidianVault: $(Test-Path $obsidianPath)"
 Write-Host "  - dtslib 폴더: $(Test-Path $dtslibPath)"  
 Write-Host "  - UncleParksy 폴더: $(Test-Path $uncleParksyPath)"
 
@@ -236,12 +238,12 @@ Write-Host "━━━━━━━━━━━━━━━━━━━━━━�
 
 Write-Host "`n📋 다음 단계:" -ForegroundColor Yellow
 Write-Host "1. Claude Desktop 재시작 (MCP 설정 반영)"
-Write-Host "2. Obsidian에서 'C:\ObsidianVault\UncleParksy' 볼트 열기"
+Write-Host "2. Obsidian에서 '$uncleParksyPath' 볼트 열기"
 Write-Host "3. Obsidian Git 플러그인 활성화 확인"
 Write-Host "4. Claude에서 'obsidian:list-available-vaults' 명령으로 연결 테스트"
 
 Write-Host "`n🎯 로컬 PC 컨트롤러 2.0 + EduArt Engineer CI 완성! 🚀" -ForegroundColor Green
-Write-Host "`n📍 중요: Obsidian에서 볼트 경로를 'C:\ObsidianVault\UncleParksy'로 설정하세요!" -ForegroundColor Red
+Write-Host "`n📍 중요: Obsidian에서 볼트 경로를 '$uncleParksyPath'로 설정하세요!" -ForegroundColor Red
 
 Write-Host "`n💡 문제 발생 시:" -ForegroundColor Cyan
 Write-Host "- 자동 동기화 로그: $uncleParksyPath\sync.log"
