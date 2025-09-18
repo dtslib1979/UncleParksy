@@ -1,0 +1,42 @@
+name: Tistory Blog Backup
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"  # 6시간마다 실행
+  workflow_dispatch:       # 수동 실행 가능
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      
+      - name: Install Dependencies
+        run: |
+          pip install requests feedparser
+      
+      - name: Run Backup Script
+        run: |
+          python scripts/tistory_backup.py
+      
+      - name: Commit and Push Changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add backup/raw/
+          if git diff --staged --quiet; then
+            echo "📝 새로운 백업 파일이 없습니다."
+          else
+            git commit -m "🔄 Tistory backup: $(date '+%Y-%m-%d %H:%M:%S')"
+            git push
+            echo "✅ 백업 파일이 업데이트되었습니다."
+          fi

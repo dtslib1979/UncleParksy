@@ -1,0 +1,86 @@
+name: pages-maintenance
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'category/**.html'
+      - 'category/**/**.html'
+      - 'index.html'
+      - 'assets/**'
+      - '.github/workflows/pages-maintenance.yml'
+jobs:
+  build-meta:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate sitemap.xml
+        run: |
+          SITE="${{ vars.SITE_URL || 'https://parksy.kr' }}"
+          echo '<?xml version="1.0" encoding="UTF-8"?>' > sitemap.xml
+          echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' >> sitemap.xml
+          while IFS= read -r f; do
+            url="${f#./}"
+            [[ "$url" == assets/* ]] && continue
+            [[ "$url" == 404.html ]] && continue
+            if [[ "$url" == */index.html ]]; then url="${url%index.html}"; fi
+            echo "  <url><loc>${SITE}/${url}</loc></url>" >> sitemap.xml
+          done < <(find . -type f -name "*.html" | sort)
+          echo '</urlset>' >> sitemap.xml
+
+      - name: Rebuild category indexes (latest first)
+        run: |
+          set -e
+          for d in category/system-configuration \
+                   category/writers-path \
+                   category/blog-transformation \
+                   category/device-chronicles \
+                   category/webappsbook-codex \
+                   category/webappsbookcast \
+                   category/thought-archaeology; do
+            [[ -d "$d" ]] || continue
+            # HTML 파일들을 찾아서 정렬 (한글 날짜와 영문 날짜 모두 지원)
+            LIST=$(find "$d" -maxdepth 1 -type f -name "*.html" ! -name "index.html" | sort -r)
+            [[ -f "$d/index.html" ]] || continue
+            awk -v list="$LIST" '
+              /<ul id="post-list">/ {
+                print; 
+                while ( ( "echo \"" list "\" " | getline line ) > 0 ) {
+                  gsub(/^\.\//,"",line)
+                  cmd="basename \"" line "\""; cmd | getline base; close(cmd)
+                  
+                  # 한글 날짜 형식 확인 (예: 2025년 8월 27일)
+                  if (match(base, /^([0-9]{4}년 [0-9]{1,2}월 [0-9]{1,2}일) (.+)\.html$/, arr)) {
+                    date = arr[1]
+                    title = arr[2]
+                  }
+                  # 영문 날짜 형식 확인 (예: 2025-08-27)  
+                  else if (match(base, /^([0-9]{4}-[0-9]{2}-[0-9]{2})-(.+)\.html$/, arr)) {
+                    # 영문 날짜를 한글로 변환
+                    split(arr[1], dateparts, "-")
+                    date = dateparts[1] "년 " (dateparts[2] + 0) "월 " (dateparts[3] + 0) "일"
+                    title = arr[2]
+                    gsub(/-/, " ", title)
+                  }
+                  # 날짜 없는 파일 (현재 날짜로 처리)
+                  else {
+                    "date +\"%Y년 %-m월 %-d일\"" | getline date; close("date +\"%Y년 %-m월 %-d일\"")
+                    title = base
+                    sub(/\.html$/, "", title)
+                  }
+                  
+                  printf("        <li><a href=\"/%s\">[%s] %s</a></li>\n", line, date, title)
+                }
+                skip=1; next
+              }
+              { print }
+            ' "$d/index.html" > "$d/index.tmp" && mv "$d/index.tmp" "$d/index.html"
+          done
+
+      - name: Commit sitemap & index updates
+        run: |
+          git config user.name "actions-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add sitemap.xml category/*/index.html || true
+          git diff --cached --quiet || git commit -m "ci: rebuild sitemap & category indexes"
+          git push

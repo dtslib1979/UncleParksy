@@ -1,0 +1,440 @@
+<!doctype html><html lang="ko"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>바이럴코딩 입버릇</title>
+<style>
+html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}
+body{margin:0;font-size:16px;line-height:1.7;word-break:keep-all;background:#f4e5c9;color:#2b2116}
+main{max-width:880px;margin:0 auto;padding:18px}
+img,video,iframe{max-width:100%;height:auto}
+[class*="wrap"],[class*="container"],[id*="content"]{max-width:100%!important;width:auto!important;margin:0!important;padding:0!important}
+.grid,.row{display:block!important}.sidebar{display:none!important}.content,.main{width:100%!important}
+table{display:block;width:100%;overflow-x:auto;border-collapse:collapse}
+pre,code{white-space:pre-wrap;word-wrap:break-word}
+h1{font-size:1.5rem;margin:.8rem 0} h2{font-size:1.25rem;margin:.7rem 0}
+.card{background:#fff8ea;border:1px solid rgba(0,0,0,.06);border-radius:14px;padding:14px;margin:10px 0}
+</style>
+<style type="text/css">
+/* Mobile-optimized CSS for archive files */
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background: #f7f5ef;
+}
+
+/* Responsive images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1rem auto;
+}
+
+/* Mobile-friendly layout */
+@media (max-width: 768px) {
+  body {
+    padding: 0 16px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  /* 헤더 모바일 최적화 */
+  .site-header, header {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding: 12px 16px;
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+  }
+  
+  /* 네비게이션 모바일 최적화 */
+  .nav, nav {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  
+  .nav a, nav a {
+    margin-left: 0;
+    flex: 0 0 auto;
+    padding: 8px 10px;
+    display: inline-block;
+  }
+  
+  /* 콘텐츠 영역 */
+  .container, .content, main {
+    max-width: 100%;
+    padding: 0 16px;
+    margin: 0 auto;
+  }
+  
+  /* 카드/박스 요소들 */
+  .card, .box, .widget {
+    margin: 16px 0;
+    padding: 16px;
+    border-radius: 12px;
+  }
+  
+  /* 텍스트 가독성 */
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.3;
+    margin: 1.5rem 0 1rem;
+  }
+  
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 1.6rem; }
+  h3 { font-size: 1.4rem; }
+  h4 { font-size: 1.2rem; }
+  
+  p {
+    margin: 1rem 0;
+    line-height: 1.6;
+  }
+  
+  /* 리스트 요소 */
+  ul, ol {
+    margin: 1rem 0;
+    padding-left: 2rem;
+  }
+  
+  li {
+    margin: 0.5rem 0;
+  }
+  
+  /* 테이블 반응형 */
+  table {
+    width: 100%;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    font-size: 14px;
+  }
+  
+  /* 버튼 터치 최적화 */
+  button, .btn, input[type="button"], input[type="submit"] {
+    min-height: 44px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* 폼 요소 */
+  input, textarea, select {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px; /* iOS 줌 방지 */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+  
+  /* 검색 폼 */
+  form[role="search"] {
+    width: 100%;
+    margin: 16px 0;
+  }
+  
+  form[role="search"] input {
+    width: calc(100% - 32px);
+    margin: 8px 16px 0;
+    padding: 12px 14px;
+    border: 1px solid rgba(0,0,0,.25);
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,.06);
+  }
+  
+  form[role="search"] input:focus {
+    outline: none;
+    border-color: #caa24b;
+    box-shadow: 0 3px 14px rgba(202,162,75,.25);
+  }
+  
+  /* 링크 터치 영역 확대 */
+  a {
+    min-height: 44px;
+    display: inline-block;
+    text-decoration: none;
+  }
+  
+  a:hover, a:focus {
+    text-decoration: underline;
+  }
+  
+  /* 사이드바 요소들 */
+  .sidebar, aside {
+    margin: 20px 0;
+  }
+  
+  .widget {
+    margin: 16px 0;
+    padding: 16px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+  }
+}
+
+/* 초소형 화면 (320px 이하) */
+@media (max-width: 320px) {
+  body {
+    font-size: 13px;
+    padding: 0 12px;
+  }
+  
+  .container, .content, main {
+    padding: 0 12px;
+  }
+  
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.4rem; }
+  h3 { font-size: 1.2rem; }
+  h4 { font-size: 1.1rem; }
+}
+
+/* 다크 모드 대응 */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #1a1a1a;
+    color: #e0e0e0;
+  }
+  
+  .widget, .card, .box {
+    background: #2a2a2a;
+    border-color: #404040;
+  }
+  
+  input, textarea, select {
+    background: #2a2a2a;
+    color: #e0e0e0;
+    border-color: #404040;
+  }
+}
+
+/* 애니메이션 줄이기 설정 */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+</head><body><main>
+<article class="card">
+<h1>바이럴코딩 입버릇</h1>
+<main id="app">
+<!-- Controls -->
+<section class="actions">
+<button class="copy-btn" onclick="copyFullHTML()">📋 이 페이지 전체 HTML/CSS 복사</button>
+<button class="copy-btn" onclick="copyWhitepaper()">📄 백서 원문 텍스트 복사</button>
+</section>
+<!-- Infographic (SVG only) -->
+<section class="ring-wrap card">
+<div class="kicker">SVG 인포그래픽 · 10 스테이지</div>
+<svg aria-label="개발 라이프사이클 10단계 링 다이어그램" class="ring" role="img" viewbox="0 0 800 520">
+<!-- outer ring -->
+<circle cx="400" cy="260" fill="none" opacity=".35" r="195" stroke="#daa520" stroke-width="8"></circle>
+<circle cx="400" cy="260" fill="none" opacity=".35" r="215" stroke="#cd853f" stroke-dasharray="10 8" stroke-width="2"></circle>
+<!-- center -->
+<circle cx="400" cy="260" fill="#fff7e6" r="78" stroke="#e3c089" stroke-width="2"></circle>
+<text fill="#3a2a17" font-size="16" font-weight="800" text-anchor="middle" x="400" y="255">LIFECYCLE</text>
+<text fill="#6b5e4a" font-size="12" text-anchor="middle" x="400" y="276">Architect · Prompt · Orchestrate</text>
+<!-- 10 labels around ring -->
+<circle cx="400" cy="45" fill="#fff3d6" r="18" stroke="#daa520"></circle><text fill="#3a2a17" font-size="11" text-anchor="middle" x="400" y="49">1 설정</text>
+<circle cx="603" cy="105" fill="#fff3d6" r="18" stroke="#daa520"></circle><text fill="#3a2a17" font-size="11" text-anchor="middle" x="603" y="109">2 데이터</text>
+<circle cx="713" cy="260" fill="#fff3d6" r="18" stroke="#daa520"></circle><text fill="#3a2a17" font-size="11" text-anchor="middle" x="713" y="264">3 백엔드</text>
+<circle cx="603" cy="415" fill="#fff3d6" r="18" stroke="#daa520"></circle><text fill="#3a2a17" font-size="11" text-anchor="middle" x="603" y="419">4 프론트</text>
+<circle cx="400" cy="475" fill="#fff3d6" r="18" stroke="#daa520"></circle><text fill="#3a2a17" font-size="11" text-anchor="middle" x="400" y="479">5 로직</text>
+<circle cx="197" cy="415" fill="#fff3d6" r="18" stroke="#daa520"></circle><text fill="#3a2a17" font-size="11" text-anchor="middle" x="197" y="419">6 테스트</text>
+<circle cx="87" cy="260" fill="#fff3d6" r="18" stroke="#daa520"></circle><text fill="#3a2a17" font-size="11" text-anchor="middle" x="87" y="264">7 디버깅</text>
+<circle cx="197" cy="105" fill="#fff3d6" r="18" stroke="#daa520"></circle><text fill="#3a2a17" font-size="11" text-anchor="middle" x="197" y="109">8 운영</text>
+<circle cx="292" cy="55" fill="#fff7e6" r="12" stroke="#cd853f"></circle><text fill="#3a2a17" font-size="10" text-anchor="middle" x="292" y="59">9 보안</text>
+<circle cx="508" cy="55" fill="#fff7e6" r="12" stroke="#cd853f"></circle><text fill="#3a2a17" font-size="10" text-anchor="middle" x="508" y="59">10 협업</text>
+<path d="M400,63 L603,123 L713,260 L603,397 L400,457 L197,397 L87,260 L197,123 L400,63" fill="none" stroke="#cd853f" stroke-opacity=".25" stroke-width="3"></path>
+</svg>
+<div class="legend">
+<span>1 설정</span><span>2 데이터</span><span>3 백엔드</span><span>4 프론트</span><span>5 로직</span><span>6 테스트</span><span>7 디버깅</span><span>8 운영</span><span>9 보안</span><span>10 협업</span>
+</div>
+</section>
+<!-- VERB 150 LIST -->
+<section class="grid" id="whitepaper">
+<!-- Part 1 -->
+<article class="card">
+<div class="kicker">Part 1 · 프로젝트 설정/환경 (15)</div>
+<h3>Project &amp; Environment<span class="badge">15 verbs</span></h3>
+<ul class="verb">
+<li>Initialize (초기화해)</li>
+<li>Configure (환경설정해)</li>
+<li>Install (설치해)</li>
+<li>Set up (셋업해)</li>
+<li>Clone (복제해)</li>
+<li>Load (불러와)</li>
+<li>Import (가져와)</li>
+<li>Export (내보내)</li>
+<li>Define Environment Variables (환경변수 정의해)</li>
+<li>Generate (생성해)</li>
+<li>Scaffold (뼈대 만들어)</li>
+<li>Connect (연결해)</li>
+<li>Authenticate (서비스에 인증해)</li>
+<li>Provision (자원 할당해)</li>
+<li>Bootstrap (부트스트랩해)</li>
+</ul>
+</article>
+<!-- Part 2 -->
+<article class="card">
+<div class="kicker">Part 2 · 데이터/데이터베이스 (20)</div>
+<h3>Data &amp; Database<span class="badge">20 verbs</span></h3>
+<ul class="verb">
+<li>Design (설계해)</li><li>Define (정의해)</li><li>Create (생성해)</li><li>Migrate (이전해)</li>
+<li>Query (조회해)</li><li>Insert (삽입해)</li><li>Update (수정해)</li><li>Delete (삭제해)</li>
+<li>Select (선택해)</li><li>Join (조인해)</li><li>Index (인덱스 걸어)</li><li>Normalize (정규화해)</li>
+<li>Backup (백업해)</li><li>Restore (복원해)</li><li>Alter (변경해)</li><li>Schema-sync (스키마 동기화해)</li>
+<li>Seed (초기 데이터 넣어)</li><li>Validate (데이터 유효성 검사해)</li><li>Model (모델링해)</li><li>Upsert (업서트해)</li>
+</ul>
+</article>
+<!-- Part 3 -->
+<article class="card">
+<div class="kicker">Part 3 · 백엔드/API (30)</div>
+<h3>Backend &amp; API<span class="badge">30 verbs</span></h3>
+<ul class="verb">
+<li>Implement (구현해)</li><li>Develop (개발해)</li><li>Build (빌드해)</li><li>Run (실행해)</li>
+<li>Debug (디버깅해)</li><li>Refactor (리팩토링해)</li><li>Extend (확장해)</li><li>Integrate (통합/연동해)</li>
+<li>Handle Request (요청 처리해)</li><li>Handle Response (응답 처리해)</li><li>Process (처리해)</li><li>Parse (파싱해/해석해)</li>
+<li>Serialize (직렬화해)</li><li>Deserialize (역직렬화해)</li><li>Authenticate (사용자 인증해)</li><li>Authorize (권한 부여해)</li>
+<li>Encrypt (암호화해)</li><li>Decrypt (복호화해)</li><li>Cache (캐시 처리해)</li><li>Log (로그 남겨)</li>
+<li>Route (라우팅해)</li><li>Serve (서빙해)</li><li>Listen (리스닝해)</li><li>Package (패키징해)</li>
+<li>Abstract (추상화해)</li><li>Encapsulate (캡슐화해)</li><li>Queue (큐잉해)</li><li>Schedule (스케줄링해)</li>
+<li>Stream (스트리밍해)</li><li>Rate-limit (요청 제한해)</li>
+</ul>
+</article>
+<!-- Part 4 -->
+<article class="card">
+<div class="kicker">Part 4 · 프론트엔드 (20)</div>
+<h3>Frontend<span class="badge">20 verbs</span></h3>
+<ul class="verb">
+<li>Render (화면에 그려)</li><li>Fetch (데이터 가져와)</li><li>Bind (데이터 바인딩해)</li><li>Manage State (상태 관리해)</li>
+<li>Style (스타일 입혀)</li><li>Layout (레이아웃 잡아)</li><li>Animate (애니메이션 적용해)</li><li>Handle Event (이벤트 처리해)</li>
+<li>Navigate (페이지 이동시켜)</li><li>Componentize (컴포넌트화해)</li><li>Bundle (번들링해)</li><li>Minify (코드 압축해)</li>
+<li>Transpile (트랜스파일해)</li><li>Hydrate (하이드레이션해)</li><li>Pre-render (미리 렌더링해)</li><li>Lazy-load (지연 로딩해)</li>
+<li>Debounce (디바운싱 처리해)</li><li>Throttle (쓰로틀링 처리해)</li><li>Paginate (페이지 나눠)</li><li>Validate Form (폼 유효성 검사해)</li>
+</ul>
+</article>
+<!-- Part 5 -->
+<article class="card">
+<div class="kicker">Part 5 · 핵심 로직/알고리즘 (17)</div>
+<h3>Logic &amp; Algorithms<span class="badge">17 verbs</span></h3>
+<ul class="verb">
+<li>Validate (입력값 검증해)</li><li>Calculate (계산해)</li><li>Compute (연산해)</li><li>Sort (정렬해)</li><li>Filter (필터링해)</li>
+<li>Map (매핑해)</li><li>Reduce (리듀싱해)</li><li>Search (검색해)</li><li>Match (매칭시켜)</li><li>Generate (알고리즘으로 생성해)</li>
+<li>Optimize (최적화해)</li><li>Analyze (분석해)</li><li>Predict (예측해)</li><li>Classify (분류해)</li><li>Cluster (군집화해)</li>
+<li>Encode (인코딩해)</li><li>Decode (디코딩해)</li>
+</ul>
+</article>
+<!-- Part 6 -->
+<article class="card">
+<div class="kicker">Part 6 · 테스트/품질 (10)</div>
+<h3>Test &amp; QA<span class="badge">10 verbs</span></h3>
+<ul class="verb">
+<li>Test (테스트해)</li><li>Assert (단언해)</li><li>Mock (모킹해)</li><li>Stub (스터빙해)</li><li>Spy (스파이 심어)</li>
+<li>Cover (커버리지 측정해)</li><li>Lint (린트 검사해)</li><li>Format (코드 포맷팅해)</li><li>Review (코드 리뷰해)</li><li>Snapshot (스냅샷 테스트해)</li>
+</ul>
+</article>
+<!-- Part 7 -->
+<article class="card">
+<div class="kicker">Part 7 · 디버깅/프로파일링 (5)</div>
+<h3>Debug &amp; Profile<span class="badge">5 verbs</span></h3>
+<ul class="verb">
+<li>Debug (디버깅해)</li><li>Trace (추적해)</li><li>Profile (프로파일링해)</li><li>Benchmark (벤치마크 측정해)</li><li>Inspect (상태 확인해)</li>
+</ul>
+</article>
+<!-- Part 8 -->
+<article class="card">
+<div class="kicker">Part 8 · 배포/운영 (15)</div>
+<h3>Deploy &amp; Operate<span class="badge">15 verbs</span></h3>
+<ul class="verb">
+<li>Deploy (배포해)</li><li>Release (릴리즈해)</li><li>Rollback (롤백해)</li><li>Promote (승격시켜)</li><li>Orchestrate (오케스트레이션해)</li>
+<li>Scale (스케일 조정해)</li><li>Monitor (모니터링해)</li><li>Alert (알림 설정해)</li><li>Log (로그 남겨)</li><li>Trace (분산 추적해)</li>
+<li>Visualize (시각화해)</li><li>Analyze (로그/데이터 분석해)</li><li>Tune (성능 튜닝해)</li><li>Rotate (시크릿/키 로테이트해)</li><li>Purge (캐시 비워)</li>
+</ul>
+</article>
+<!-- Part 9 -->
+<article class="card">
+<div class="kicker">Part 9 · 보안 (6)</div>
+<h3>Security<span class="badge">6 verbs</span></h3>
+<ul class="verb">
+<li>Secure (보안 강화해)</li><li>Harden (경화시켜)</li><li>Scan (취약점 스캔해)</li><li>Audit (보안 감사해)</li><li>Patch (패치 적용해)</li><li>Remediate (취약점 조치해)</li>
+</ul>
+</article>
+<!-- Part 10 -->
+<article class="card">
+<div class="kicker">Part 10 · 협업/버전관리 (10)</div>
+<h3>Collab &amp; VCS<span class="badge">10 verbs</span></h3>
+<ul class="verb">
+<li>Commit (커밋해)</li><li>Push (푸시해)</li><li>Pull (풀해)</li><li>Merge (병합해)</li><li>Branch (브랜치 만들어)</li>
+<li>Resolve Conflict (충돌 해결해)</li><li>Tag (태그 달아)</li><li>Checkout (체크아웃해)</li><li>Rebase (리베이스해)</li><li>Document (문서화해)</li>
+</ul>
+</article>
+</section>
+<!-- Prompt Templates (accordion Q&A style) -->
+<section class="card">
+<div class="kicker">프롬프트 템플릿 10 (질의응답형 아코디언)</div>
+<h2>말로 코딩 템플릿 — details/summary</h2>
+<details>
+<summary>1) 환경 세팅 — Initialize → Configure → Install → Set up</summary>
+<pre class="code">새 Python 프로젝트 Initialize하고 가상환경 Configure해. 필수 라이브러리 Install하고 SQLite DB Set up해.</pre>
+</details>
+<details>
+<summary>2) 데이터 처리 — Design → Migrate → Insert → Query</summary>
+<pre class="code">User 테이블 Schema Design 후 CSV 데이터 Migrate. Seed 데이터 Insert하고 이름 기준으로 Query.</pre>
+</details>
+<details>
+<summary>3) 백엔드 API — Implement → Handle Request → Process → Respond</summary>
+<pre class="code">로그인 API Implement. POST 요청 Handle → 비밀번호 Validate Process → JWT Respond.</pre>
+</details>
+<details>
+<summary>4) 프론트 — Render → Fetch → Bind → Handle Event</summary>
+<pre class="code">React로 로그인 UI Render. API Fetch → 상태 Bind → 로그인 버튼 Handle Event.</pre>
+</details>
+<details>
+<summary>5) 로직 — Validate → Compute → Sort → Optimize</summary>
+<pre class="code">입력 Validate → 평균 Compute → 점수 Sort → 상위 10 Optimize.</pre>
+</details>
+<details>
+<summary>6) 테스트 — Test → Mock → Assert → Review</summary>
+<pre class="code">회원가입 API Test. 가짜 유저 Mock → 상태코드 200 Assert → 결과 Review.</pre>
+</details>
+<details>
+<summary>7) 디버깅 — Debug → Trace → Profile → Fix</summary>
+<pre class="code">서버 Debug 모드. 호출 Trace → CPU Profile → 메모리 누수 Fix.</pre>
+</details>
+<details>
+<summary>8) 배포 — Build → Package → Deploy → Monitor</summary>
+<pre class="code">프로젝트 Build → Docker Package → AWS Deploy → CloudWatch Monitor.</pre>
+</details>
+<details>
+<summary>9) 보안 — Scan → Patch → Harden → Audit</summary>
+<pre class="code">취약점 Scan → SQLi Patch → 서버 Harden → 접근 로그 Audit.</pre>
+</details>
+<details>
+<summary>10) 협업 — Branch → Commit → Merge → Resolve Conflict</summary>
+<pre class="code">새 기능 Branch → 코드 Commit → 메인으로 Merge → 충돌 Resolve.</pre>
+</details>
+</section>
+
+</main>
+</article>
+<footer style="opacity:.7;font-size:.9rem;margin:16px 0">© Uncle Parksy Korean Learning Archive</footer>
+</main></body></html>

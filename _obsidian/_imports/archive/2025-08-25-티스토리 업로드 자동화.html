@@ -1,0 +1,401 @@
+<!doctype html><html lang="ko"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>티스토리 업로드 자동화?</title>
+<style>
+html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}
+body{margin:0;font-size:16px;line-height:1.7;word-break:keep-all;background:#f4e5c9;color:#2b2116}
+main{max-width:880px;margin:0 auto;padding:18px}
+img,video,iframe{max-width:100%;height:auto}
+[class*="wrap"],[class*="container"],[id*="content"]{max-width:100%!important;width:auto!important;margin:0!important;padding:0!important}
+.grid,.row{display:block!important}.sidebar{display:none!important}.content,.main{width:100%!important}
+table{display:block;width:100%;overflow-x:auto;border-collapse:collapse}
+pre,code{white-space:pre-wrap;word-wrap:break-word}
+h1{font-size:1.5rem;margin:.8rem 0} h2{font-size:1.25rem;margin:.7rem 0}
+.card{background:#fff8ea;border:1px solid rgba(0,0,0,.06);border-radius:14px;padding:14px;margin:10px 0}
+</style>
+<style type="text/css">
+/* Mobile-optimized CSS for archive files */
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background: #f7f5ef;
+}
+
+/* Responsive images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1rem auto;
+}
+
+/* Mobile-friendly layout */
+@media (max-width: 768px) {
+  body {
+    padding: 0 16px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  /* 헤더 모바일 최적화 */
+  .site-header, header {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding: 12px 16px;
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+  }
+  
+  /* 네비게이션 모바일 최적화 */
+  .nav, nav {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  
+  .nav a, nav a {
+    margin-left: 0;
+    flex: 0 0 auto;
+    padding: 8px 10px;
+    display: inline-block;
+  }
+  
+  /* 콘텐츠 영역 */
+  .container, .content, main {
+    max-width: 100%;
+    padding: 0 16px;
+    margin: 0 auto;
+  }
+  
+  /* 카드/박스 요소들 */
+  .card, .box, .widget {
+    margin: 16px 0;
+    padding: 16px;
+    border-radius: 12px;
+  }
+  
+  /* 텍스트 가독성 */
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.3;
+    margin: 1.5rem 0 1rem;
+  }
+  
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 1.6rem; }
+  h3 { font-size: 1.4rem; }
+  h4 { font-size: 1.2rem; }
+  
+  p {
+    margin: 1rem 0;
+    line-height: 1.6;
+  }
+  
+  /* 리스트 요소 */
+  ul, ol {
+    margin: 1rem 0;
+    padding-left: 2rem;
+  }
+  
+  li {
+    margin: 0.5rem 0;
+  }
+  
+  /* 테이블 반응형 */
+  table {
+    width: 100%;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    font-size: 14px;
+  }
+  
+  /* 버튼 터치 최적화 */
+  button, .btn, input[type="button"], input[type="submit"] {
+    min-height: 44px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* 폼 요소 */
+  input, textarea, select {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px; /* iOS 줌 방지 */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+  
+  /* 검색 폼 */
+  form[role="search"] {
+    width: 100%;
+    margin: 16px 0;
+  }
+  
+  form[role="search"] input {
+    width: calc(100% - 32px);
+    margin: 8px 16px 0;
+    padding: 12px 14px;
+    border: 1px solid rgba(0,0,0,.25);
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,.06);
+  }
+  
+  form[role="search"] input:focus {
+    outline: none;
+    border-color: #caa24b;
+    box-shadow: 0 3px 14px rgba(202,162,75,.25);
+  }
+  
+  /* 링크 터치 영역 확대 */
+  a {
+    min-height: 44px;
+    display: inline-block;
+    text-decoration: none;
+  }
+  
+  a:hover, a:focus {
+    text-decoration: underline;
+  }
+  
+  /* 사이드바 요소들 */
+  .sidebar, aside {
+    margin: 20px 0;
+  }
+  
+  .widget {
+    margin: 16px 0;
+    padding: 16px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+  }
+}
+
+/* 초소형 화면 (320px 이하) */
+@media (max-width: 320px) {
+  body {
+    font-size: 13px;
+    padding: 0 12px;
+  }
+  
+  .container, .content, main {
+    padding: 0 12px;
+  }
+  
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.4rem; }
+  h3 { font-size: 1.2rem; }
+  h4 { font-size: 1.1rem; }
+}
+
+/* 다크 모드 대응 */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #1a1a1a;
+    color: #e0e0e0;
+  }
+  
+  .widget, .card, .box {
+    background: #2a2a2a;
+    border-color: #404040;
+  }
+  
+  input, textarea, select {
+    background: #2a2a2a;
+    color: #e0e0e0;
+    border-color: #404040;
+  }
+}
+
+/* 애니메이션 줄이기 설정 */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+</head><body><main>
+<article class="card">
+<h1>티스토리 업로드 자동화?</h1>
+<div class="tt_article_useless_p_margin contents_style"><!DOCTYPE html>
+
+<!-- BEGIN STRUCTURED_DATA -->
+
+<!-- END STRUCTURED_DATA -->
+
+<div class="wrap">
+
+<!-- 1) 메인: 문답 아코디언만 -->
+<section aria-label="Q&amp;A Archive" class="card" id="qa">
+<!-- Q1 -->
+<details open="">
+<summary>Q1. 왜 원클릭 자동 발행이 막히나? <span class="chev">▶</span></summary>
+<div>
+<h3>핵심</h3>
+<ul>
+<li>티스토리 오픈 API 종료로 외부 앱에서 발행 불가(API/OAuth 차단).</li>
+<li>브라우저 보안(CORS/CSP)·세션 정책으로 외부 페이지가 에디터(DOM)를 직접 조작 불가.</li>
+<li>에디터 구조상 스크립트 삽입 차단(sanitizer) → 본문에 JS 불가.</li>
+</ul>
+<h3>결론</h3>
+<ul>
+<li>원클릭 자동 발행(X). 가능한 건 <b>수동 HTML 붙여넣기</b> 루틴만.</li>
+</ul>
+</div>
+</details>
+<!-- Q2 -->
+<details>
+<summary>Q2. APK 대신 웹(PWA)로 간 이유는? <span class="chev">▶</span></summary>
+<div>
+<ul>
+<li>APK는 서명·배포·업데이트 부담(스토어 워크플로우) → 목적(속도)과 불일치.</li>
+<li>PWA(Progressive Web App)는 설치감·오프라인(Service Worker)·경량 업데이트 장점.</li>
+<li>단, PWA도 발행 자체는 수동(Human-in-the-loop).</li>
+</ul>
+</div>
+</details>
+<!-- Q3 -->
+<details>
+<summary>Q3. 티스토리 내부 페이지에 도구를 넣으면 되지 않나? <span class="chev">▶</span></summary>
+<div>
+<ul>
+<li>티스토리 본문/공지 영역은 <b>&lt;script&gt;</b> 실행 제한 → JS 도구·PWA 등록 불가(Manifest/Service Worker 스코프 문제).</li>
+<li>현실 해법: 외부 호스팅(PWA) + 티스토리엔 <b>링크만</b> 배치.</li>
+</ul>
+</div>
+</details>
+<!-- Q4 -->
+<details>
+<summary>Q4. 최종 워크플로우는 어떻게 고정했나? <span class="chev">▶</span></summary>
+<div>
+<ul>
+<li><b>ChatGPT(ko)</b> → 정리본 HTML 생성(메타는 EN).</li>
+<li><b>PWA</b>에서 Generate/Copy/Open 실행.</li>
+<li><b>Tistory</b> 에디터 HTML 모드 붙여넣기 → 카테고리/공개 선택 → 발행.</li>
+<li><b>RSS/Crawling → GitHub</b> 장기 백업, <b>Claude MCP</b>에서 Artifact 마감.</li>
+</ul>
+</div>
+</details>
+<!-- Q5 -->
+<details>
+<summary>Q5. Tasker(자동화 앱) vs 직접 개발 판단은? <span class="chev">▶</span></summary>
+<div>
+<ul>
+<li>Tasker는 Android 자동화 도구(매크로)이지 앱 빌더가 아님.</li>
+<li>장점: 위젯 원탭 가능. 단점: UI 바뀌면 동선 꼬임·유지보수 ↑, 유료.</li>
+<li>결론: 안정성 중시 → PWA 수동 루틴. 실험용 원탭은 Tasker 보조.</li>
+</ul>
+</div>
+</details>
+<!-- Q6 -->
+<details>
+<summary>Q6. 왜 한국어 본문 + 영어 메타 전략인가? <span class="chev">▶</span></summary>
+<div>
+<ul>
+<li>본문은 한국어(속도·자연스러움).</li>
+<li>시스템 메타(파일명/태그/키워드)는 영어(검색·매칭 최적: GitHub/Obsidian/Claude).</li>
+</ul>
+</div>
+</details>
+<!-- Q7 -->
+<details>
+<summary>Q7. PWA 한 파일 버전은 왜 PWA처럼 설치가 안되나? <span class="chev">▶</span></summary>
+<div>
+<ul>
+<li>data: URL manifest/SW 등록 비권장·제한 → A2HS(홈 화면 추가) 불가.</li>
+<li>정상 PWA는 <b>/manifest.json</b>, <b>/sw.js</b> 분리 + HTTPS 정적 호스팅 필요.</li>
+</ul>
+</div>
+</details>
+<!-- Q8 -->
+<details>
+<summary>Q8. “12클릭 두 엄지” 루틴을 채택한 이유는? <span class="chev">▶</span></summary>
+<div>
+<ul>
+<li>항상 된다(예측 가능). API·자동화 꼬임 리스크 없음.</li>
+<li>익숙해지면 빠르다. 기존 텍스트 편집보다 효율적.</li>
+</ul>
+</div>
+</details>
+<!-- Q9 -->
+<details>
+<summary>Q9. 백업은 어떻게 보장하나? <span class="chev">▶</span></summary>
+<div>
+<ul>
+<li>Tistory 전체 RSS 또는 크롤링으로 HTML 정리본 수집.</li>
+<li>GitHub Actions 등으로 주기 아카이브(Repository).</li>
+</ul>
+</div>
+</details>
+<!-- Q10 -->
+<details>
+<summary>Q10. 결론 한 줄? <span class="chev">▶</span></summary>
+<div>
+<ul>
+<li><b>외부 PWA + 수동 HTML 붙여넣기</b>가 지금 가능한 최단·안정 루트.</li>
+</ul>
+</div>
+</details>
+</section>
+<!-- 2) 패턴 질문 리스트 -->
+<section aria-label="Pattern Questions" class="card">
+<h2 class="section-title">패턴 질문 리스트 (AI도 예측 어려운 전환 질문)</h2>
+<pre class="pkg" id="patternsText">- 티스토리 본문 영역에서 자바스크립트(PWA/Service Worker) 자체를 구동할 수 있는가?
+- 모바일(안드로이드) 편집 환경만으로도 실전 운영이 가능한가?
+- API가 막혀도 RSS/크롤링으로 장기 백업 파이프라인을 만들 수 있는가?
+- APK 없이도 설치감(Installation feel)을 주는 PWA만으로 목적 달성이 가능한가?
+- 한국어 본문 + 영어 메타(파일명/태그) 전략이 검색·자동화에 실효성 있는가?
+- Tasker 같은 접근성 매크로가 UI 변경에 얼마나 취약한가?
+- 티스토리 공지/페이지에 외부 도구를 삽입하지 않고도 링크만으로 UX를 간결화할 수 있는가?
+- GitHub Pages/Cloudflare Pages에 도구를 두고, 티스토리는 발행 채널로만 쓰는 구조가 최적화인가?</pre>
+</section>
+<!-- 3) 백서 요약 -->
+<section aria-label="Whitepaper Summary" class="card">
+<h2 class="section-title">백서 요약</h2>
+<ul>
+<li><b>취지/목적</b>: 모바일에서 ChatGPT 정리본 HTML을 가장 빠르고 안정적으로 티스토리에 게시.</li>
+<li><b>핵심 문답 요약</b>:
+        <ul>
+<li>원클릭(X) 이유: API 종료 + 브라우저 보안 + 에디터 구조.</li>
+<li>PWA 도구는 외부 호스팅, 티스토리는 링크로 접속.</li>
+<li>데이터 플로우: ChatGPT(ko) → PWA → Tistory → RSS/Crawl → GitHub → Claude(Artifact).</li>
+<li>운영: 수동 10~12클릭 루틴(두 엄지)로 안정성 확보.</li>
+</ul>
+</li>
+<li><b>패턴 질문</b>: 상단 리스트 참조.</li>
+</ul>
+</section>
+
+</div>
+<!-- 4) 복사 유틸리티 -->
+
+<div aria-hidden="false" class="toolbar">
+<div class="tb-inner">
+<button class="btn main" onclick="copyFullPage()">전체 HTML/CSS 복사</button>
+<button class="btn alt" onclick="copyAccordion()">문답 아코디언만 복사</button>
+<button class="btn ghost" onclick="copyPatterns()">패턴 질문 리스트 복사</button>
+</div>
+</div>
+
+</div>
+</article>
+<footer style="opacity:.7;font-size:.9rem;margin:16px 0">© Uncle Parksy Korean Learning Archive</footer>
+</main></body></html>

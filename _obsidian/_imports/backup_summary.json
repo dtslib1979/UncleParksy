@@ -1,0 +1,37 @@
+{
+  "timestamp": "2025-09-18T04:23:50.234233",
+  "components": {
+    "tistory": {
+      "status": "success",
+      "files_processed": 0,
+      "message": "Tistory RSS 백업 완료: 0개 새 파일"
+    },
+    "backup_mirror": {
+      "status": "success",
+      "files_processed": 0,
+      "message": "백업 파일 미러링 완료: 0개 파일"
+    },
+    "archive_mirror": {
+      "status": "success",
+      "files_processed": 0,
+      "message": "아카이브 파일 미러링 완료: 0개 파일"
+    },
+    "category_sync": {
+      "status": "success",
+      "files_processed": 19,
+      "message": "카테고리 동기화 완료: RAW 0개, MD 19개"
+    },
+    "assets": {
+      "status": "success",
+      "files_processed": 0,
+      "message": "Assets 백업 완료: 0개 파일"
+    },
+    "metadata": {
+      "status": "success",
+      "files_processed": 16,
+      "message": "메타데이터 백업 완료: 16개 파일"
+    }
+  },
+  "total_files": 0,
+  "errors": []
+}

@@ -1,0 +1,396 @@
+<!doctype html><html lang="ko"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>티스토리 어쩌지</title>
+<style>
+html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}
+body{margin:0;font-size:16px;line-height:1.7;word-break:keep-all;background:#f4e5c9;color:#2b2116}
+main{max-width:880px;margin:0 auto;padding:18px}
+img,video,iframe{max-width:100%;height:auto}
+[class*="wrap"],[class*="container"],[id*="content"]{max-width:100%!important;width:auto!important;margin:0!important;padding:0!important}
+.grid,.row{display:block!important}.sidebar{display:none!important}.content,.main{width:100%!important}
+table{display:block;width:100%;overflow-x:auto;border-collapse:collapse}
+pre,code{white-space:pre-wrap;word-wrap:break-word}
+h1{font-size:1.5rem;margin:.8rem 0} h2{font-size:1.25rem;margin:.7rem 0}
+.card{background:#fff8ea;border:1px solid rgba(0,0,0,.06);border-radius:14px;padding:14px;margin:10px 0}
+</style>
+<style type="text/css">
+/* Mobile-optimized CSS for archive files */
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background: #f7f5ef;
+}
+
+/* Responsive images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1rem auto;
+}
+
+/* Mobile-friendly layout */
+@media (max-width: 768px) {
+  body {
+    padding: 0 16px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  /* 헤더 모바일 최적화 */
+  .site-header, header {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding: 12px 16px;
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+  }
+  
+  /* 네비게이션 모바일 최적화 */
+  .nav, nav {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  
+  .nav a, nav a {
+    margin-left: 0;
+    flex: 0 0 auto;
+    padding: 8px 10px;
+    display: inline-block;
+  }
+  
+  /* 콘텐츠 영역 */
+  .container, .content, main {
+    max-width: 100%;
+    padding: 0 16px;
+    margin: 0 auto;
+  }
+  
+  /* 카드/박스 요소들 */
+  .card, .box, .widget {
+    margin: 16px 0;
+    padding: 16px;
+    border-radius: 12px;
+  }
+  
+  /* 텍스트 가독성 */
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.3;
+    margin: 1.5rem 0 1rem;
+  }
+  
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 1.6rem; }
+  h3 { font-size: 1.4rem; }
+  h4 { font-size: 1.2rem; }
+  
+  p {
+    margin: 1rem 0;
+    line-height: 1.6;
+  }
+  
+  /* 리스트 요소 */
+  ul, ol {
+    margin: 1rem 0;
+    padding-left: 2rem;
+  }
+  
+  li {
+    margin: 0.5rem 0;
+  }
+  
+  /* 테이블 반응형 */
+  table {
+    width: 100%;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    font-size: 14px;
+  }
+  
+  /* 버튼 터치 최적화 */
+  button, .btn, input[type="button"], input[type="submit"] {
+    min-height: 44px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* 폼 요소 */
+  input, textarea, select {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px; /* iOS 줌 방지 */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+  
+  /* 검색 폼 */
+  form[role="search"] {
+    width: 100%;
+    margin: 16px 0;
+  }
+  
+  form[role="search"] input {
+    width: calc(100% - 32px);
+    margin: 8px 16px 0;
+    padding: 12px 14px;
+    border: 1px solid rgba(0,0,0,.25);
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,.06);
+  }
+  
+  form[role="search"] input:focus {
+    outline: none;
+    border-color: #caa24b;
+    box-shadow: 0 3px 14px rgba(202,162,75,.25);
+  }
+  
+  /* 링크 터치 영역 확대 */
+  a {
+    min-height: 44px;
+    display: inline-block;
+    text-decoration: none;
+  }
+  
+  a:hover, a:focus {
+    text-decoration: underline;
+  }
+  
+  /* 사이드바 요소들 */
+  .sidebar, aside {
+    margin: 20px 0;
+  }
+  
+  .widget {
+    margin: 16px 0;
+    padding: 16px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+  }
+}
+
+/* 초소형 화면 (320px 이하) */
+@media (max-width: 320px) {
+  body {
+    font-size: 13px;
+    padding: 0 12px;
+  }
+  
+  .container, .content, main {
+    padding: 0 12px;
+  }
+  
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.4rem; }
+  h3 { font-size: 1.2rem; }
+  h4 { font-size: 1.1rem; }
+}
+
+/* 다크 모드 대응 */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #1a1a1a;
+    color: #e0e0e0;
+  }
+  
+  .widget, .card, .box {
+    background: #2a2a2a;
+    border-color: #404040;
+  }
+  
+  input, textarea, select {
+    background: #2a2a2a;
+    color: #e0e0e0;
+    border-color: #404040;
+  }
+}
+
+/* 애니메이션 줄이기 설정 */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+</head><body><main>
+<article class="card">
+<h1>티스토리 어쩌지</h1>
+<div class="tt_article_useless_p_margin contents_style"><!DOCTYPE html>
+
+<!-- BEGIN STRUCTURED_DATA -->
+
+<!-- END STRUCTURED_DATA -->
+
+<div class="wrap">
+
+<!-- 1) 취지·목표 Q&A 아코디언 -->
+<section class="card">
+<h2>1) 취지·목표 Q&amp;A (Accordion, No JS)</h2>
+<details open="">
+<summary>Q. 취지와 목표는? <span class="chev">▶</span></summary>
+<ul>
+<li>ChatGPT가 생성한 <b>HTML 백서(White paper)</b>를</li>
+<li><b>모바일 우선(Mobile-first)</b> 환경에서 간단 클릭으로 발행(Post)하는 루틴.</li>
+<li>APK 대신 <b>웹앱(Web app)</b>, 필요 시 홈 화면 추가(PWA-like).</li>
+</ul>
+</details>
+<details>
+<summary>Q. 왜 자동화가 막혔나? <span class="chev">▶</span></summary>
+<ul>
+<li><b>티스토리 오픈 API(Open API)</b> 신규 등록 중단 → OAuth 2.0 연동 불가.</li>
+<li>Cloudflare Workers(서버리스 프록시, serverless proxy) 전략은 구조상 가능하나, 신규 <b>Client ID/Secret</b> 부재로 실전 적용 불가.</li>
+</ul>
+</details>
+<details>
+<summary>Q. 현실적 대안은? <span class="chev">▶</span></summary>
+<ul>
+<li><b>수동 발행</b> 루틴(HTML 붙여넣기 → 카테고리(category) → 미리보기(preview) → 발행(post)).</li>
+<li>장기적으로 <b>GitHub Pages/Obsidian</b>을 본진(origin)으로, 티스토리는 <b>미러(mirror) 채널</b>로 운용.</li>
+</ul>
+</details>
+<details>
+<summary>Q. 백업/이관은 가능한가? <span class="chev">▶</span></summary>
+<ul>
+<li><b>RSS 전체공개(feed)</b> + <b>크롤링(crawling)</b>으로 본문 HTML 회수 가능.</li>
+<li>관리자 <b>백업(XML export)</b>로 일괄 추출 가능.</li>
+<li><b>GitHub Actions(CI/CD)</b>로 RSS/크롤링 파이프라인 자동화 가능.</li>
+</ul>
+</details>
+</section>
+<!-- 2) 아키텍처 & 인포그래픽 -->
+<section class="card">
+<h2>2) 아키텍처(Architecture) &amp; 인포그래픽</h2>
+<h3>핵심 구성</h3>
+<ul>
+<li>운영 루틴: 수동 발행(Manual), 검토(Review) 포함(<b>Human-in-the-loop</b>).</li>
+<li>장기 전략: <b>원본 저장소(Repository)</b> = GitHub/Obsidian, 티스토리는 유통 채널.</li>
+<li>백업 경로: RSS/크롤링/백업(XML) → GitHub 레포 동기화(Sync).</li>
+</ul>
+<h3>효율 지표(컨셉 수치, CSS Bar)</h3>
+
+<p class="hint">수치는 시각화를 위한 가상값.</p>
+<h3>역할 분담(파이, CSS)</h3>
+<div style="display:grid;justify-items:center">
+
+<ul class="legend">
+<li class="a"><b>AI 48%</b> — 콘텐츠 초안 생성(Generation)</li>
+<li class="b"><b>Human 32%</b> — 검토/승인(Review)</li>
+<li class="c"><b>Infra 20%</b> — 발행·백업 자동화(Automation)</li>
+</ul>
+</div>
+<h3>로드맵(타임라인)</h3>
+<ol class="timeline">
+<li>Day 0: 수동 발행 루틴 확정(모바일 최적)</li>
+<li>Day 1: RSS 전체공개·크롤링 선택</li>
+<li>Day 2: GitHub Actions로 백업 자동화</li>
+<li>Day 3+: 템플릿/태그 규칙·이미지 경로 정규화</li>
+</ol>
+<h3>원칙(마인드맵 풍)</h3>
+<ul class="mind">
+<li><b>Speed</b> — 10클릭 이내, 반복 최소화</li>
+<li><b>Safety</b> — 리뷰 포함, 책임 있는 발행</li>
+<li><b>Simplicity</b> — 무(無)JS, CSS-only 인터랙션</li>
+<li><b>Portability</b> — 원본은 GitHub/Obsidian</li>
+</ul>
+</section>
+<!-- 3) AI가 하기 어려운 아이디어(가설) -->
+<section class="card">
+<h2>3) “AI가 하기 어려운” 아이디어(가설, Hypotheses)</h2>
+<ul>
+<li>현장 감각(embodied sense)을 반영한 <b>촉각·후각·무게감</b> 체험 서술 보정.</li>
+<li>신앙·윤리 맥락에서의 <b>양심(conscience)</b>과 <b>책임(responsibility)</b> 판단.</li>
+<li>의도적 실수(intentional mistakes)·불완전성 미학(wabi-sabi)에 대한 창작 결단.</li>
+<li>독자 커뮤니티의 <b>정서 공명(affective resonance)</b>을 장기 톤으로 조율.</li>
+<li>법·사회적 파장 사전 고려 및 <b>자율 규제(self-regulation)</b> 설계.</li>
+</ul>
+<p class="hint">모두 가설(hypothesis)이며, 실제 반응 데이터로 검증 필요.</p>
+</section>
+<!-- 4) 전문가 평가 칼럼 -->
+<section class="card">
+<h2>4) 업계 전문가 평가(Industry View)</h2>
+<ul>
+<li><b>전략 적합성(Fit)</b>: 자동화 트렌드와의 정합성은 낮음(티스토리 API 종료 수순). 미러 채널 전략이 현실적.</li>
+<li><b>운영성(Operability)</b>: 수동 루틴은 숙달 시 10클릭 내외. 리뷰 포함(Human-in-the-loop)로 품질 유지 가능.</li>
+<li><b>확장성(Scalability)</b>: 원본을 GitHub/Obsidian에 두면 플랫폼 락인(lock-in) 회피, 다채널 퍼블리싱 용이.</li>
+<li><b>지속성(Sustainability)</b>: RSS/백업(XML)/크롤링으로 장기 백업 가능. API 의존 최소화 권장.</li>
+<li><b>권고(Recommendation)</b>: 본진은 GitHub/Obsidian, 티스토리는 한국 사용자 유입용 거울 채널.</li>
+</ul>
+</section>
+<!-- 5) 문답 패키지 텍스트 & 백서 전문: 복사/다운로드 (무JS) -->
+<section class="card">
+<h2>5) 문답 패키지 &amp; 백서 전문 — 복사/다운로드</h2>
+<h3>문답 패키지(텍스트, 수동 복사)</h3>
+<details>
+<summary>열기(길게 눌러 복사) <span class="chev">▶</span></summary>
+<pre class="pkg" id="pkg">
+[문답 패키지]
+- 취지: ChatGPT HTML 백서를 모바일에서 빠르게 발행.
+- 제약: Tistory Open API 신규 등록 불가 → 자동화 불가.
+- 대안: 수동 발행 루틴 + GitHub/Obsidian 본진 + 티스토리 미러.
+- 백업: RSS 전체공개 + 크롤링, 관리자 백업(XML), GitHub Actions 자동화.
+- 워크플로우: 붙여넣기 → 카테고리 → 미리보기 → 발행(Review 포함).
+        </pre>
+</details>
+<p class="hint">파일 저장 버튼은 <b>data: URL</b>로 동작(무JS). 텍스트는 브라우저/OS 인코딩 정책에 따라 줄바꿈이 다를 수 있음.</p>
+<!-- 문답 패키지 파일 저장 버튼 (data: URL, 무JS) -->
+<p>
+<a class="button alt" download="qna_package.txt" href="data:text/plain;charset=utf-8,[\uBB38\uB2F5 \uD328\uD0A4\uC9C0]%0A-%20\uCDE8\uC9C0:%20ChatGPT%20HTML%20\uBC31\uC11C%EB%A5%BC%20\uBAA8\uBC14\uC77C%EC%97%90\uC11C%20\uBE60\uB974\uAC8C%20\uBC1C\uD589.%0A-%20\uC81C\uC57D:%20Tistory%20Open%20API%20\uC2E0\uADDC%20\uB4F1\uB85D%20\uBD88\uAC00%20%E2%86%92%20\uC790\uB3D9\uD654%20\uBD88\uAC00.%0A-%20\uB300\uC548:%20\uC218\uB3D9%20\uBC1C\uD589%20\uB8E8\uD2F4%20%2B%20GitHub%2FObsidian%20\uBCF8\uC9C4%20%2B%20\uD2F0\uC2A4\uD1A0\uB9AC%20\uBBF8\uB7EC.%0A-%20\uBC31\uC5C5:%20RSS%20\uC804\uCCB4\uACF5\uAC1C%20%2B%20\uD06C\uB864\uB9C1%2C%20\uAD00\uB9AC\uC790%20\uBC31\uC5C5(XML)%2C%20GitHub%20Actions%20\uC790\uB3D9\uD654.%0A-%20\uC6CC\uD06C\uD50C\uB85C\uC6B0:%20\uBD99\uC5EC\uB123\uAE30%20%E2%86%92%20\uCE74\uD14C\uACE0\uB9AC%20%E2%86%92%20\uBBF8\uB9AC\uBCF4\uAE30%20%E2%86%92%20\uBC1C\uD589.">
+          문답 패키지 파일 저장(.txt)
+        </a>
+</p>
+<h3>백서 전문(요약본, 수동 복사)</h3>
+<details>
+<summary>열기(길게 눌러 복사) <span class="chev">▶</span></summary>
+<pre class="pkg" id="fulltext">
+[백서 전문 요약]
+- 목적: 모바일에서 ChatGPT HTML 백서를 간단 클릭으로 발행(웹앱, 무JS).
+- 사실: Tistory Open API 신규 등록 중단 → 자동 발행 불가(신규).
+- 대안: 수동 발행 숙달(10클릭 내외) + 검토 단계 포함(Human-in-the-loop).
+- 장기 전략: GitHub/Obsidian에 원본 저장, 티스토리는 거울 채널 운영.
+- 백업/이관: RSS 전체공개 + 크롤링, 관리자 백업(XML), GitHub Actions 자동화.
+- 권고: 자동화 친화 플랫폼(WordPress/Ghost/Hashnode 등)으로 확장 병행.
+- 표기: 저작권 dtslib.com · 저자 중년작가지망생 EduArt Engineer.
+        </pre>
+</details>
+<!-- 백서 전문 파일 저장 버튼 (data: URL, 무JS) -->
+<p>
+<a class="button" download="whitepaper_full.txt" href="data:text/plain;charset=utf-8,[\uBC31\uC11C%20\uC804\uBB38%20\uC694\uC57D]%0A-%20\uBAA9\uC801:%20\uBAA8\uBC14\uC77C%EC%97%90\uC11C%20ChatGPT%20HTML%20\uBC31\uC11C%20\uAC04\uB2E8%20\uD074\uB9AD%20\uBC1C\uD589.%0A-%20\uC0AC\uC2E4:%20Tistory%20Open%20API%20\uC2E0\uADDC%20\uB4F1\uB85D%20\uC911\uB2E8%20%E2%86%92%20\uC790\uB3D9%20\uBC1C\uD589%20\uBD88\uAC00.%0A-%20\uB300\uC548:%20\uC218\uB3D9%20\uB8E8\uD2F4%2010\uD074\uB9AD%20%2B%20Review%20\uD3EC\uD568(Human-in-the-loop).%0A-%20\uC7A5\uAE30%20\uC804\uB7B5:%20GitHub%2FObsidian%20\uC6D0\uBCF8%20%EC%A0%80\uC7A5%2C%20\uD2F0\uC2A4\uD1A0\uB9AC%20\uAC70\uC6B8%20\uCC44\uB110.%0A-%20\uBC31\uC5C5:%20RSS%2F\uD06C\uB864\uB9C1%2FXML%2FGitHub%20Actions%20\uC790\uB3D9\uD654.%0A-%20\uAD8C\uACE0:%20\uC790\uB3D9\uD654%20\uC9C4\uC5F0%20\uD50C\uB7AB\uD3FC(WordPress%2FGhost%2FHashnode)%20\uBCD1\uD569%20\uC6B4\uC601.%0A-%20\uD45C\uAE30:%20dtslib.com%20%C2%B7%20\uC911\uB144\uC791\uAC00\uC9C0\uB9DD\uC0DD%20EduArt%20Engineer">
+          백서 전문 파일 저장(.txt)
+        </a>
+</p>
+<p class="hint">무(無)JS 정책상 자동 복사 버튼은 제공하지 않음. 텍스트 박스에서 길게 눌러 복사하거나, 파일 저장 버튼으로 내려받아 사용.</p>
+</section>
+
+</div>
+<!-- 하단 고정 유틸(무JS) -->
+<div aria-hidden="true" class="sticky-cta">
+<div class="cta-inner">
+<a class="button ghost" href="#pkg">문답 패키지 보기</a>
+<a class="button alt" href="#fulltext">백서 전문 보기</a>
+</div>
+</div>
+
+```0</div>
+</article>
+<footer style="opacity:.7;font-size:.9rem;margin:16px 0">© Uncle Parksy Korean Learning Archive</footer>
+</main></body></html>

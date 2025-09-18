@@ -1,0 +1,484 @@
+<!doctype html><html lang="ko"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>깃허브란</title>
+<style>
+html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}
+body{margin:0;font-size:16px;line-height:1.7;word-break:keep-all;background:#f4e5c9;color:#2b2116}
+main{max-width:880px;margin:0 auto;padding:18px}
+img,video,iframe{max-width:100%;height:auto}
+[class*="wrap"],[class*="container"],[id*="content"]{max-width:100%!important;width:auto!important;margin:0!important;padding:0!important}
+.grid,.row{display:block!important}.sidebar{display:none!important}.content,.main{width:100%!important}
+table{display:block;width:100%;overflow-x:auto;border-collapse:collapse}
+pre,code{white-space:pre-wrap;word-wrap:break-word}
+h1{font-size:1.5rem;margin:.8rem 0} h2{font-size:1.25rem;margin:.7rem 0}
+.card{background:#fff8ea;border:1px solid rgba(0,0,0,.06);border-radius:14px;padding:14px;margin:10px 0}
+</style>
+<style type="text/css">
+/* Mobile-optimized CSS for archive files */
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background: #f7f5ef;
+}
+
+/* Responsive images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1rem auto;
+}
+
+/* Mobile-friendly layout */
+@media (max-width: 768px) {
+  body {
+    padding: 0 16px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  /* 헤더 모바일 최적화 */
+  .site-header, header {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding: 12px 16px;
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+  }
+  
+  /* 네비게이션 모바일 최적화 */
+  .nav, nav {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  
+  .nav a, nav a {
+    margin-left: 0;
+    flex: 0 0 auto;
+    padding: 8px 10px;
+    display: inline-block;
+  }
+  
+  /* 콘텐츠 영역 */
+  .container, .content, main {
+    max-width: 100%;
+    padding: 0 16px;
+    margin: 0 auto;
+  }
+  
+  /* 카드/박스 요소들 */
+  .card, .box, .widget {
+    margin: 16px 0;
+    padding: 16px;
+    border-radius: 12px;
+  }
+  
+  /* 텍스트 가독성 */
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.3;
+    margin: 1.5rem 0 1rem;
+  }
+  
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 1.6rem; }
+  h3 { font-size: 1.4rem; }
+  h4 { font-size: 1.2rem; }
+  
+  p {
+    margin: 1rem 0;
+    line-height: 1.6;
+  }
+  
+  /* 리스트 요소 */
+  ul, ol {
+    margin: 1rem 0;
+    padding-left: 2rem;
+  }
+  
+  li {
+    margin: 0.5rem 0;
+  }
+  
+  /* 테이블 반응형 */
+  table {
+    width: 100%;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    font-size: 14px;
+  }
+  
+  /* 버튼 터치 최적화 */
+  button, .btn, input[type="button"], input[type="submit"] {
+    min-height: 44px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* 폼 요소 */
+  input, textarea, select {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px; /* iOS 줌 방지 */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+  
+  /* 검색 폼 */
+  form[role="search"] {
+    width: 100%;
+    margin: 16px 0;
+  }
+  
+  form[role="search"] input {
+    width: calc(100% - 32px);
+    margin: 8px 16px 0;
+    padding: 12px 14px;
+    border: 1px solid rgba(0,0,0,.25);
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,.06);
+  }
+  
+  form[role="search"] input:focus {
+    outline: none;
+    border-color: #caa24b;
+    box-shadow: 0 3px 14px rgba(202,162,75,.25);
+  }
+  
+  /* 링크 터치 영역 확대 */
+  a {
+    min-height: 44px;
+    display: inline-block;
+    text-decoration: none;
+  }
+  
+  a:hover, a:focus {
+    text-decoration: underline;
+  }
+  
+  /* 사이드바 요소들 */
+  .sidebar, aside {
+    margin: 20px 0;
+  }
+  
+  .widget {
+    margin: 16px 0;
+    padding: 16px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+  }
+}
+
+/* 초소형 화면 (320px 이하) */
+@media (max-width: 320px) {
+  body {
+    font-size: 13px;
+    padding: 0 12px;
+  }
+  
+  .container, .content, main {
+    padding: 0 12px;
+  }
+  
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.4rem; }
+  h3 { font-size: 1.2rem; }
+  h4 { font-size: 1.1rem; }
+}
+
+/* 다크 모드 대응 */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #1a1a1a;
+    color: #e0e0e0;
+  }
+  
+  .widget, .card, .box {
+    background: #2a2a2a;
+    border-color: #404040;
+  }
+  
+  input, textarea, select {
+    background: #2a2a2a;
+    color: #e0e0e0;
+    border-color: #404040;
+  }
+}
+
+/* 애니메이션 줄이기 설정 */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+</head><body><main>
+<article class="card">
+<h1>깃허브란</h1>
+<div class="tt_article_useless_p_margin contents_style"><!DOCTYPE html>
+
+<!-- BEGIN STRUCTURED_DATA -->
+
+<!-- END STRUCTURED_DATA -->
+
+<div class="wrap">
+
+<!-- Q&A 아코디언 (요청: JS 없이 인터랙티브) -->
+<details open="">
+<summary>1. 깃허브란 무엇인가?</summary>
+<div class="panel">
+        깃허브(GitHub)는 코드와 지식 자산을 저장·공유·배포할 수 있는 클라우드 플랫폼입니다.
+        단순 저장소(Repository)를 넘어 <b>지식인 커뮤니티 + 오픈 출판 플랫폼</b> 역할을 수행합니다.
+        과거 블로그가 일기장(📓)이었다면, 깃허브는 <b>디지털 알렉산드리아 도서관(🏛️)</b>입니다.
+      </div>
+</details>
+<details>
+<summary>2. 나의 깃허브 활용 구상 (듀얼 아키텍처)</summary>
+<div class="panel">
+<b>① 뇌창고(Brain Archive)</b> — 아이디어 조각, 초안, 프롬프트, 모델링 코드 저장소(Private).<br/>
+<b>② 쇼룸(Showroom)</b> — 웹페이지/웹앱/인포그래픽/강의 링크/후원 버튼 전시(GitHub Pages, Public).
+      </div>
+</details>
+<details>
+<summary>3. 버전 관리에 대한 재해석</summary>
+<div class="panel">
+        전통적 버전 관리는 시행착오 기록 및 롤백 중심입니다. 그러나 AI 시대엔 시행착오는 AI가 흡수합니다.
+        1인 창작자에게 중요한 건 <b>최종본(Edition)</b>입니다. 즉, 출판물/앱 기준 <b>개정판</b>으로 관리합니다.
+      </div>
+</details>
+<details>
+<summary>4. 자동화(Actions) 개념</summary>
+<div class="panel">
+        GitHub Actions는 엑셀 매크로 같은 <b>자동화 로봇</b>입니다. 특정 이벤트(push/commit) 발생 시
+        미리 정의한 yml에 따라 동작합니다.<br/>
+        예) “뇌창고의 final → 쇼룸 자동 배포”, “wabc.html 수정 → Pages 반영”.
+      </div>
+</details>
+<details>
+<summary>5. 깃허브 vs 파이썬 (모듈 개념)</summary>
+<div class="panel">
+        파이썬은 <b>코드 모듈</b>을 가져다 엮어 실행하고, 깃허브는 <b>저장소 자체가 모듈</b>입니다.
+        결론적으로 깃허브는 <b>클라우드 모듈 오케스트라</b>입니다.
+      </div>
+</details>
+<details>
+<summary>6. 클라우드적 성격</summary>
+<div class="panel">
+        깃허브는 로컬 설치가 필요 없습니다. 브라우저와 Git만 있으면 플랫폼 제약 없이 사용 가능합니다.
+        이는 곧 “플랫폼 감옥”이자 동시에 “열린 도서관”입니다.
+      </div>
+</details>
+<details>
+<summary>7. 깃허브의 사회적 의미</summary>
+<div class="panel">
+        단순 코드 저장소를 넘어, <b>논문 게재·기고·학술 출판</b> 같은 신뢰 자산을 형성합니다.
+        누구나 접근 가능한 오픈 네트워크에서 <b>인정과 인용</b>이 곧 가치가 됩니다.
+      </div>
+</details>
+<details>
+<summary>8. WebAppsBook 구상</summary>
+<div class="panel">
+<b>구성 요소</b>: 1) 프롬프트 2) 메타 프롬프트 3) 웹앱 4) 출판(Hosting).<br/>
+        GitHub Pages에 HTML/JS 그대로 올려 <b>AI 블로그 환경</b>을 완성합니다.
+      </div>
+</details>
+<details>
+<summary>9. 결론 — GitHub Pages = AI 시대 블로그</summary>
+<div class="panel">
+        글과 코드가 하나로 엮이는 출판 공간. AI가 텍스트와 코드를 동시에 생성하므로
+        <b>GitHub Pages는 AI 시대에 가장 완벽한 블로그 플랫폼</b>입니다.
+      </div>
+</details>
+<!-- JS 없는 인포그래픽(보조) -->
+<h2 class="sec">🔎 흐름 요약 (CSS 인포그래픽)</h2>
+<div aria-label="뇌창고에서 쇼룸을 거쳐 WebAppsBook으로 이어지는 흐름" class="flow">
+<div class="node">🧠 뇌창고<br/><small>Private</small></div>
+
+<div class="node">🏪 쇼룸<br/><small>Public</small></div>
+
+<div class="node">📚 WebAppsBook<br/><small>Pages</small></div>
+</div>
+<!-- ✅ 이미지 자리 → 외부 링크 버튼으로 교체 -->
+<a class="cta" href="https://claude.ai/public/artifacts/8cd2c43b-f774-47ea-bb5c-49a608f99466" rel="noopener" target="_blank">
+      🔗 인포그래픽·아티팩트 열기 (Claude)
+      <small>새 탭에서 열림 · 링크 끊김 걱정 없는 외부 호스팅</small>
+</a>
+<!-- AI가 할 수 없는 아이디어 (가설) -->
+<h2 class="sec">🤔 AI가 할 수 없는 아이디어 (가설)</h2>
+<ul class="muted">
+<li>실제 인간 관계 속 감정 교류(오프라인 신뢰 축적)</li>
+<li>창작자의 개인적 생애사 기반 은유·맥락</li>
+<li>육체적 체험(노동·여행·질병·신앙 등)의 창작 전환</li>
+<li>사회적 금기·불편한 진실의 문학적 표현과 책임</li>
+</ul>
+<!-- 업계 전문가 평가 칼럼 -->
+<h2 class="sec">🧭 전문가 평가 칼럼 (Industry POV)</h2>
+<div class="copy-wrap">
+<p><b>총평</b> — 본 백서는 “창작 산출물 버전(Edition) 중심”이라는 선명한 관점을 제시한다. 이는
+      개인 크리에이터의 운영비를 최소화하고, 배포 루프를 단순화하는 전략으로 매우 유효하다.</p>
+<p><b>강점</b> — (1) 듀얼 아키텍처(Private/Public)로 보안·브랜딩 동시 달성,
+      (2) Actions 자동배포로 반복 작업 제거, (3) 콘텐츠=코드 철학으로 확장성 확보.</p>
+<p><b>리스크</b> — (1) Pages의 동적 한계(서버리스 제약), (2) 리포지토리 공개 범위 설정 미스,
+      (3) 외부 링크/아티팩트 수명 관리. → <b>대응</b>: 정적 우선 설계, 민감자산 별도 저장소,
+      링크 모니터링 워크플로우(yml) 추가.</p>
+<p><b>권고</b> — 초심자용 템플릿(README+Pages 스캐폴드)과 “final → showroom” 액션 샘플을
+      패키징해 배포하면 교육·수익화 모두 상승한다.</p>
+<p class="muted"><i>등급: A (실행력 중심의 설계, 교육 확장성 높음)</i></p>
+</div>
+<!-- 백서 전문 복사 -->
+<h2 class="sec">📦 백서 전문 복사</h2>
+<div class="copy-wrap" id="copyTarget">
+📖 AI 블로그로서의 GitHub 활용 백서
+
+저자: EduArt Engineer (중년 작가지망생)
+저작권: dtslib.com
+
+---
+
+1. 깃허브란 무엇인가?
+
+깃허브(GitHub)는 코드와 지식 자산을 저장, 공유, 배포할 수 있는 클라우드 플랫폼.
+
+단순 저장소(Repository)가 아니라, 지식인 커뮤니티 + 오픈 출판 플랫폼 역할을 수행.
+
+과거 블로그가 일기장(📓)이었다면, 깃허브는 디지털 알렉산드리아 도서관(🏛️).
+
+---
+
+2. 나의 깃허브 활용 구상 (듀얼 아키텍처)
+
+1. 뇌창고 (Brain Archive)
+
+아이디어 조각, 초안, 프롬프트, 모델링 코드 저장소.
+
+Private Repo로 비공개 관리.
+
+메모 앱(Obsidian, Notion) 대신, 모듈화된 아이디어 프로그래밍 공간.
+
+2. 쇼룸 (Showroom)
+
+웹 페이지, 웹앱, 인포그래픽, 강의 영상 링크, 후원 버튼 등을 전시.
+
+GitHub Pages 기반 Public Repo.
+
+정적인 웹페이지로 출판 + 도메인 연결 → 나만의 AI 시대 블로그.
+
+---
+
+3. 버전 관리에 대한 재해석
+
+전통적 버전 관리 = 시행착오 기록, 롤백(rollback).
+
+그러나 AI 시대에는 시행착오는 비효율로 간주되거나 AI가 흡수.
+
+개인 1인 창작자에게 중요한 건 최종본(프로덕트) 버전만 부여.
+
+→ 즉, 출판물/앱 기준 버전 = 개정판(Edition).
+
+---
+
+4. 자동화(Actions) 개념
+
+깃허브 액션(GitHub Actions)은 엑셀 매크로 같은 자동화 로봇.
+
+특정 이벤트(예: push, commit)가 발생하면 → 미리 작성한 yml 스크립트에 따라 자동 실행.
+
+활용 예시:
+
+“뇌창고에서 final 상태 콘텐츠 → 자동으로 쇼룸 배포”
+
+“wabc.html 수정 → 자동으로 Pages 반영”
+
+---
+
+5. 깃허브 vs 파이썬 (모듈 개념)
+
+파이썬은 코드 모듈을 가져다 엮어 실행.
+
+깃허브는 프로그램/문서/웹앱 저장소 자체가 모듈.
+
+즉, 깃허브는 클라우드 모듈 오케스트라.
+
+오늘 만든 WABC 대시보드도 React, Tailwind, FontAwesome 모듈을 섞어 배치한 조합.
+
+---
+
+6. 클라우드적 성격
+
+깃허브는 로컬에 설치 필요 없음.
+
+브라우저와 Git만 있으면 플랫폼 간 제약 없이 사용.
+
+이는 곧 “플랫폼 감옥”이기도 하지만, 동시에 “열린 도서관”.
+
+---
+
+7. 깃허브의 사회적 의미
+
+단순 코드 저장소 → 논문 게재, 기고, 학술 출판 같은 지식인 사회의 신뢰 자산.
+
+누구나 접근 가능한 오픈 네트워크에서 인정과 인용이 곧 가치가 됨.
+
+---
+
+8. WebAppsBook 구상
+
+뇌창고와 쇼룸의 연결로 만들어지는 AI 시대 블로그 모델: WebAppsBook.
+
+구성 요소:
+
+1. 프롬프트(Prompt)
+
+2. 메타 프롬프트(Meta-Prompt)
+
+3. 웹앱(WebApp)
+
+4. 출판(Showroom Hosting)
+
+GitHub Pages에 HTML/JS 그대로 올려 AI 블로그로서 완벽한 환경 구축.
+
+---
+
+9. 결론: GitHub Pages = AI 시대 블로그
+
+글과 코드가 하나로 엮이는 출판 공간.
+
+AI가 텍스트와 코드를 동시에 생성하므로,
+GitHub Pages는 AI 시대에 가장 완벽한 블로그 플랫폼이다.
+
+---
+
+✍️ 요약 비유
+
+옛날 블로그 = 일기장(📓)
+
+깃허브 Pages 블로그 = 디지털 학술지 + 실험실 노트 + 전시회 (🏛️)
+    </div>
+<button class="copy-btn" onclick="(async()=&gt;{try{const t=document.getElementById('copyTarget').innerText.trim(); if(navigator.clipboard&amp;&amp;window.isSecureContext){await navigator.clipboard.writeText(t);}else{const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();} alert('📄 백서 전문이 복사되었습니다. 티스토리에 그대로 붙여넣기 하세요!');}catch(e){alert('복사에 실패했습니다. 길게 눌러 전체 선택 후 수동 복사하세요.');}})()">📋 백서 전문 복사</button>
+
+</div>
+
+</div>
+</article>
+<footer style="opacity:.7;font-size:.9rem;margin:16px 0">© Uncle Parksy Korean Learning Archive</footer>
+</main></body></html>
