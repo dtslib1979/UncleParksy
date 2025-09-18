@@ -3,9 +3,11 @@
 
 Write-Host "🎯 폴더명 자동 수정 시작..." -ForegroundColor Cyan
 
-$uncleParksyPath = "C:\ObsidianVault\UncleParksy"
-$dtslibPath = "C:\ObsidianVault\dtslib"
-$backupPath = "C:\ObsidianVault\dtslib.backup_20250904_175209"
+$documentsPath = "C:\Users\dtsli\Documents"
+$obsidianPath = "$documentsPath\ObsidianVault"
+$uncleParksyPath = "$obsidianPath\UncleParksy"
+$dtslibPath = "$obsidianPath\dtslib"
+$backupPath = "$obsidianPath\dtslib.backup_20250904_175209"
 
 try {
     # 1. 기존 백업 폴더를 임시로 이동
@@ -43,7 +45,7 @@ try {
 **상태**: ✅ 성공
 
 ## MCP 연결 준비 완료
-- 경로: C:\ObsidianVault\dtslib
+- 경로: $dtslibPath
 - GitHub 연결: 정상
 - 자동 동기화: 활성
 
@@ -68,7 +70,7 @@ try {
 
     Write-Host "`n📋 다음 단계:" -ForegroundColor Yellow
     Write-Host "1. Claude Desktop 재시작"
-    Write-Host "2. Obsidian에서 'C:\ObsidianVault\dtslib' 볼트 열기"
+    Write-Host "2. Obsidian에서 '$dtslibPath' 볼트 열기"
     Write-Host "3. 'obsidian:list-available-vaults' 테스트"
 
     Write-Host "`n🎯 로컬PC 컨트롤러 직접 해결 완료! 🚀" -ForegroundColor Green
