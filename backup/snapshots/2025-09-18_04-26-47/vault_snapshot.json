@@ -1,0 +1,979 @@
+{
+  "timestamp": "2025-09-18_04-26-47",
+  "vault_structure": {
+    "directories": {},
+    "files": {
+      ".nojekyll": {
+        "size": 0,
+        "modified": "2025-09-18T04:19:09.621837",
+        "type": ""
+      },
+      "README.md": {
+        "size": 4405,
+        "modified": "2025-09-18T04:19:09.621837",
+        "type": ".md"
+      },
+      "requirements.txt": {
+        "size": 35,
+        "modified": "2025-09-18T04:19:09.656837",
+        "type": ".txt"
+      },
+      "CNAME": {
+        "size": 9,
+        "modified": "2025-09-18T04:19:09.621837",
+        "type": ""
+      },
+      "test-workflow.md": {
+        "size": 156,
+        "modified": "2025-09-18T04:19:09.657837",
+        "type": ".md"
+      },
+      "sitemap.xml": {
+        "size": 354,
+        "modified": "2025-09-18T04:19:09.657837",
+        "type": ".xml"
+      },
+      "구조평가보고서.md": {
+        "size": 6679,
+        "modified": "2025-09-18T04:19:09.657837",
+        "type": ".md"
+      },
+      "trigger-workflow.md": {
+        "size": 123,
+        "modified": "2025-09-18T04:19:09.657837",
+        "type": ".md"
+      },
+      "manifest.webmanifest": {
+        "size": 371,
+        "modified": "2025-09-18T04:19:09.656837",
+        "type": ".webmanifest"
+      },
+      "backup.log": {
+        "size": 11444,
+        "modified": "2025-09-18T04:26:47.907561",
+        "type": ".log"
+      },
+      "index.html": {
+        "size": 36248,
+        "modified": "2025-09-18T04:19:09.656837",
+        "type": ".html"
+      },
+      "feed.xml": {
+        "size": 457,
+        "modified": "2025-09-18T04:19:09.656837",
+        "type": ".xml"
+      },
+      "scripts/scheduled_backup.py": {
+        "size": 15294,
+        "modified": "2025-09-18T04:25:25.273725",
+        "type": ".py"
+      },
+      "scripts/fix-folder-rename.ps1": {
+        "size": 3224,
+        "modified": "2025-09-18T04:19:09.656837",
+        "type": ".ps1"
+      },
+      "scripts/mobilize_archive.py": {
+        "size": 8401,
+        "modified": "2025-09-18T04:19:09.656837",
+        "type": ".py"
+      },
+      "scripts/mirror_backup.py": {
+        "size": 1474,
+        "modified": "2025-09-18T04:19:09.656837",
+        "type": ".py"
+      },
+      "scripts/generate_category_index.py": {
+        "size": 1004,
+        "modified": "2025-09-18T04:19:09.656837",
+        "type": ".py"
+      },
+      "scripts/clean_archive_for_foreigners.py": {
+        "size": 12499,
+        "modified": "2025-09-18T04:19:09.656837",
+        "type": ".py"
+      },
+      "scripts/obsidian_full_backup.py": {
+        "size": 18077,
+        "modified": "2025-09-18T04:22:52.325059",
+        "type": ".py"
+      },
+      "scripts/auto_install.py": {
+        "size": 10442,
+        "modified": "2025-09-18T04:19:09.656837",
+        "type": ".py"
+      },
+      "scripts/clean_and_mobilize.py": {
+        "size": 15041,
+        "modified": "2025-09-18T04:19:09.656837",
+        "type": ".py"
+      },
+      "scripts/backup_automation.py": {
+        "size": 15305,
+        "modified": "2025-09-18T04:26:34.356585",
+        "type": ".py"
+      },
+      "scripts/backup_validator.py": {
+        "size": 21746,
+        "modified": "2025-09-18T04:24:19.066862",
+        "type": ".py"
+      },
+      "scripts/generate_manifest.py": {
+        "size": 3440,
+        "modified": "2025-09-18T04:19:09.656837",
+        "type": ".py"
+      },
+      "scripts/tistory_backup.py": {
+        "size": 1965,
+        "modified": "2025-09-18T04:19:09.656837",
+        "type": ".py"
+      },
+      "scripts/fix-obsidian-backup-system.ps1": {
+        "size": 9405,
+        "modified": "2025-09-18T04:19:09.656837",
+        "type": ".ps1"
+      },
+      "scripts/__pycache__/clean_archive_for_foreigners.cpython-312.pyc": {
+        "size": 12980,
+        "modified": "2025-09-18T04:19:09.656837",
+        "type": ".pyc"
+      },
+      "scripts/__pycache__/mirror_backup.cpython-312.pyc": {
+        "size": 1948,
+        "modified": "2025-09-18T04:22:43.524086",
+        "type": ".pyc"
+      },
+      "scripts/__pycache__/tistory_backup.cpython-312.pyc": {
+        "size": 2976,
+        "modified": "2025-09-18T04:22:43.428086",
+        "type": ".pyc"
+      },
+      "scripts/__pycache__/clean_and_mobilize.cpython-312.pyc": {
+        "size": 15756,
+        "modified": "2025-09-18T04:22:43.527086",
+        "type": ".pyc"
+      },
+      ".git/description": {
+        "size": 73,
+        "modified": "2025-09-18T04:19:08.603841",
+        "type": ""
+      },
+      ".git/shallow": {
+        "size": 41,
+        "modified": "2025-09-18T04:19:09.369838",
+        "type": ""
+      },
+      ".git/HEAD": {
+        "size": 65,
+        "modified": "2025-09-18T04:21:12.858371",
+        "type": ""
+      },
+      ".git/config": {
+        "size": 683,
+        "modified": "2025-09-18T04:19:09.723836",
+        "type": ""
+      },
+      ".git/index": {
+        "size": 17547,
+        "modified": "2025-09-18T04:21:12.858371",
+        "type": ""
+      },
+      ".git/packed-refs": {
+        "size": 156,
+        "modified": "2025-09-18T04:19:09.618837",
+        "type": ""
+      },
+      ".git/refs/heads/copilot/fix-839ca8c9-33c2-4ed6-9b45-b0a22c4b5dfd": {
+        "size": 41,
+        "modified": "2025-09-18T04:19:09.618837",
+        "type": ""
+      },
+      ".git/objects/pack/pack-bafddcd042b58322295abc5f61acf091c0d1fbb1.rev": {
+        "size": 664,
+        "modified": "2025-09-18T04:19:09.600837",
+        "type": ".rev"
+      },
+      ".git/objects/pack/pack-bafddcd042b58322295abc5f61acf091c0d1fbb1.idx": {
+        "size": 5356,
+        "modified": "2025-09-18T04:19:09.599837",
+        "type": ".idx"
+      },
+      ".git/objects/pack/pack-bafddcd042b58322295abc5f61acf091c0d1fbb1.pack": {
+        "size": 11371761,
+        "modified": "2025-09-18T04:19:09.599837",
+        "type": ".pack"
+      },
+      ".git/logs/HEAD": {
+        "size": 511,
+        "modified": "2025-09-18T04:21:12.858371",
+        "type": ""
+      },
+      ".git/logs/refs/heads/copilot/fix-839ca8c9-33c2-4ed6-9b45-b0a22c4b5dfd": {
+        "size": 221,
+        "modified": "2025-09-18T04:19:09.619837",
+        "type": ""
+      },
+      ".git/hooks/fsmonitor-watchman.sample": {
+        "size": 4726,
+        "modified": "2025-09-18T04:19:08.603841",
+        "type": ".sample"
+      },
+      ".git/hooks/pre-push.sample": {
+        "size": 1374,
+        "modified": "2025-09-18T04:19:08.603841",
+        "type": ".sample"
+      },
+      ".git/hooks/update.sample": {
+        "size": 3650,
+        "modified": "2025-09-18T04:19:08.604841",
+        "type": ".sample"
+      },
+      ".git/hooks/pre-merge-commit.sample": {
+        "size": 416,
+        "modified": "2025-09-18T04:19:08.604841",
+        "type": ".sample"
+      },
+      ".git/hooks/push-to-checkout.sample": {
+        "size": 2783,
+        "modified": "2025-09-18T04:19:08.604841",
+        "type": ".sample"
+      },
+      ".git/hooks/pre-commit.sample": {
+        "size": 1649,
+        "modified": "2025-09-18T04:19:08.604841",
+        "type": ".sample"
+      },
+      ".git/hooks/sendemail-validate.sample": {
+        "size": 2308,
+        "modified": "2025-09-18T04:19:08.604841",
+        "type": ".sample"
+      },
+      ".git/hooks/prepare-commit-msg.sample": {
+        "size": 1492,
+        "modified": "2025-09-18T04:19:08.605841",
+        "type": ".sample"
+      },
+      ".git/hooks/pre-rebase.sample": {
+        "size": 4898,
+        "modified": "2025-09-18T04:19:08.605841",
+        "type": ".sample"
+      },
+      ".git/hooks/commit-msg.sample": {
+        "size": 896,
+        "modified": "2025-09-18T04:19:08.605841",
+        "type": ".sample"
+      },
+      ".git/hooks/applypatch-msg.sample": {
+        "size": 478,
+        "modified": "2025-09-18T04:19:08.605841",
+        "type": ".sample"
+      },
+      ".git/hooks/pre-receive.sample": {
+        "size": 544,
+        "modified": "2025-09-18T04:19:08.606841",
+        "type": ".sample"
+      },
+      ".git/hooks/pre-applypatch.sample": {
+        "size": 424,
+        "modified": "2025-09-18T04:19:08.606841",
+        "type": ".sample"
+      },
+      ".git/hooks/post-update.sample": {
+        "size": 189,
+        "modified": "2025-09-18T04:19:08.606841",
+        "type": ".sample"
+      },
+      ".git/info/exclude": {
+        "size": 240,
+        "modified": "2025-09-18T04:19:08.607841",
+        "type": ""
+      },
+      ".github/workflows/obsidian-backup.yml": {
+        "size": 928,
+        "modified": "2025-09-18T04:19:09.621837",
+        "type": ".yml"
+      },
+      ".github/workflows/pages-maintenance.yml": {
+        "size": 3671,
+        "modified": "2025-09-18T04:19:09.621837",
+        "type": ".yml"
+      },
+      ".github/workflows/category-index.yml": {
+        "size": 1564,
+        "modified": "2025-09-18T04:19:09.621837",
+        "type": ".yml"
+      },
+      ".github/workflows/tistory-backup.yml": {
+        "size": 1135,
+        "modified": "2025-09-18T04:19:09.621837",
+        "type": ".yml"
+      },
+      ".github/workflows/mobilize.yml": {
+        "size": 1330,
+        "modified": "2025-09-18T04:19:09.621837",
+        "type": ".yml"
+      },
+      ".github/workflows/build-textstory.yml": {
+        "size": 5429,
+        "modified": "2025-09-18T04:19:09.621837",
+        "type": ".yml"
+      },
+      ".github/workflows/obsidian-sync.yml": {
+        "size": 4510,
+        "modified": "2025-09-18T04:19:09.621837",
+        "type": ".yml"
+      },
+      "assets/manifest.json": {
+        "size": 5721,
+        "modified": "2025-09-18T04:19:09.650837",
+        "type": ".json"
+      },
+      "assets/home.json": {
+        "size": 184,
+        "modified": "2025-09-18T04:19:09.639837",
+        "type": ".json"
+      },
+      "assets/categories-manifest.json": {
+        "size": 249,
+        "modified": "2025-09-18T04:19:09.639837",
+        "type": ".json"
+      },
+      "assets/css/style.css": {
+        "size": 925,
+        "modified": "2025-09-18T04:19:09.639837",
+        "type": ".css"
+      },
+      "assets/icons/README.md": {
+        "size": 302,
+        "modified": "2025-09-18T04:19:09.639837",
+        "type": ".md"
+      },
+      "assets/icons/apple-touch-icon.png": {
+        "size": 1600367,
+        "modified": "2025-09-18T04:19:09.642837",
+        "type": ".png"
+      },
+      "assets/icons/bgm-coin.png": {
+        "size": 2455600,
+        "modified": "2025-09-18T04:19:09.646837",
+        "type": ".png"
+      },
+      "assets/icons/favicon.png": {
+        "size": 953917,
+        "modified": "2025-09-18T04:19:09.647837",
+        "type": ".png"
+      },
+      "assets/img/README.md": {
+        "size": 158,
+        "modified": "2025-09-18T04:19:09.648837",
+        "type": ".md"
+      },
+      "assets/img/logo.png": {
+        "size": 1681821,
+        "modified": "2025-09-18T04:19:09.650837",
+        "type": ".png"
+      },
+      "assets/audio/home.mp3": {
+        "size": 2709628,
+        "modified": "2025-09-18T04:19:09.639837",
+        "type": ".mp3"
+      },
+      "assets/og/README.md": {
+        "size": 483,
+        "modified": "2025-09-18T04:19:09.650837",
+        "type": ".md"
+      },
+      "assets/og/cover.png": {
+        "size": 1771237,
+        "modified": "2025-09-18T04:19:09.652837",
+        "type": ".png"
+      },
+      "backup/scheduled_results_2025-09-18_04-25-32.json": {
+        "size": 2522,
+        "modified": "2025-09-18T04:25:32.700711",
+        "type": ".json"
+      },
+      "backup/README.md": {
+        "size": 929,
+        "modified": "2025-09-18T04:19:09.652837",
+        "type": ".md"
+      },
+      "backup/TRIGGER_AUTOMATION.md": {
+        "size": 429,
+        "modified": "2025-09-18T04:19:09.652837",
+        "type": ".md"
+      },
+      "backup/backup_report_2025-09-18_04-22-58.md": {
+        "size": 2572,
+        "modified": "2025-09-18T04:22:58.384041",
+        "type": ".md"
+      },
+      "backup/backup_status_dashboard.html": {
+        "size": 10613,
+        "modified": "2025-09-18T04:25:32.692711",
+        "type": ".html"
+      },
+      "backup/last_validate_run.json": {
+        "size": 2425,
+        "modified": "2025-09-18T04:25:32.699711",
+        "type": ".json"
+      },
+      "backup/scheduled_backup.log": {
+        "size": 500,
+        "modified": "2025-09-18T04:25:32.700711",
+        "type": ".log"
+      },
+      "backup/snapshots/2025-09-18_04-22-43/vault_snapshot.json": {
+        "size": 28485,
+        "modified": "2025-09-18T04:22:43.603086",
+        "type": ".json"
+      },
+      "backup/snapshots/2025-09-18_04-22-58/vault_snapshot.json": {
+        "size": 29012,
+        "modified": "2025-09-18T04:22:58.381041",
+        "type": ".json"
+      },
+      "backup/raw/2025-09-01-국내 AI 프로그래밍 유튜버3.html": {
+        "size": 72765,
+        "modified": "2025-09-18T04:19:09.653837",
+        "type": ".html"
+      },
+      "backup/raw/2025-08-25-티스토리 가치.html": {
+        "size": 62276,
+        "modified": "2025-09-18T04:19:09.653837",
+        "type": ".html"
+      },
+      "backup/raw/2025-08-23-티스토리 어쩌지.html": {
+        "size": 62862,
+        "modified": "2025-09-18T04:19:09.653837",
+        "type": ".html"
+      },
+      "backup/raw/2025-09-16-코딩 프로그래밍에 대한 자세.html": {
+        "size": 66327,
+        "modified": "2025-09-18T04:19:09.654837",
+        "type": ".html"
+      },
+      "backup/raw/2025-08-19-사진저장법.html": {
+        "size": 53755,
+        "modified": "2025-09-18T04:19:09.653837",
+        "type": ".html"
+      },
+      "backup/raw/2025-08-29-바이럴코딩 입버릇.html": {
+        "size": 74358,
+        "modified": "2025-09-18T04:19:09.653837",
+        "type": ".html"
+      },
+      "backup/raw/2025-08-25-티스토리 솔루션.html": {
+        "size": 58809,
+        "modified": "2025-09-18T04:19:09.653837",
+        "type": ".html"
+      },
+      "backup/raw/2025-09-16-핸드폰 생산자전환.html": {
+        "size": 62303,
+        "modified": "2025-09-18T04:19:09.654837",
+        "type": ".html"
+      },
+      "backup/raw/2025-09-16-AI 프로그래밍 독학법.html": {
+        "size": 63240,
+        "modified": "2025-09-18T04:19:09.654837",
+        "type": ".html"
+      },
+      "backup/raw/2025-09-03-ChatGPT 성우 설정.html": {
+        "size": 58825,
+        "modified": "2025-09-18T04:19:09.654837",
+        "type": ".html"
+      },
+      "backup/raw/2025-08-19-깃허브란.html": {
+        "size": 61392,
+        "modified": "2025-09-18T04:19:09.653837",
+        "type": ".html"
+      },
+      "backup/raw/2025-09-01-챗gpt 사용후기.html": {
+        "size": 58769,
+        "modified": "2025-09-18T04:19:09.654837",
+        "type": ".html"
+      },
+      "backup/raw/2025-08-16-설치 가이드 AI 파트너 클로드.html": {
+        "size": 66639,
+        "modified": "2025-09-18T04:19:09.652837",
+        "type": ".html"
+      },
+      "backup/raw/2025-08-22-클라우드 컴 쇼핑모델.html": {
+        "size": 76253,
+        "modified": "2025-09-18T04:19:09.653837",
+        "type": ".html"
+      },
+      "backup/raw/2025-09-05-네이버블로그메뉴.html": {
+        "size": 63200,
+        "modified": "2025-09-18T04:19:09.654837",
+        "type": ".html"
+      },
+      "backup/raw/2025-08-25-티스토리 활용.html": {
+        "size": 64765,
+        "modified": "2025-09-18T04:19:09.653837",
+        "type": ".html"
+      },
+      "backup/raw/2025-08-17-디바이스기반 콘텐츠 워크플로우.html": {
+        "size": 69660,
+        "modified": "2025-09-18T04:19:09.652837",
+        "type": ".html"
+      },
+      "backup/raw/2025-08-25-티스토리 업로드 자동화.html": {
+        "size": 60046,
+        "modified": "2025-09-18T04:19:09.653837",
+        "type": ".html"
+      },
+      "backup/json/backup_manifest_2025-09-18_04-22-43.json": {
+        "size": 650,
+        "modified": "2025-09-18T04:22:43.605086",
+        "type": ".json"
+      },
+      "backup/json/validation_results_2025-09-18_04-25-32.json": {
+        "size": 17012,
+        "modified": "2025-09-18T04:25:32.692711",
+        "type": ".json"
+      },
+      "backup/json/backup_manifest_2025-09-18_04-22-58.json": {
+        "size": 863,
+        "modified": "2025-09-18T04:22:58.383041",
+        "type": ".json"
+      },
+      "backup/json/validation_results_2025-09-18_04-24-26.json": {
+        "size": 16642,
+        "modified": "2025-09-18T04:24:26.517852",
+        "type": ".json"
+      },
+      "backup/json/obsidian_config/2025-09-18_04-22-43/config_manifest.json": {
+        "size": 462,
+        "modified": "2025-09-18T04:22:43.588086",
+        "type": ".json"
+      },
+      "backup/json/obsidian_config/2025-09-18_04-26-47/config_manifest.json": {
+        "size": 462,
+        "modified": "2025-09-18T04:26:47.907561",
+        "type": ".json"
+      },
+      "backup/json/obsidian_config/2025-09-18_04-22-58/config_manifest.json": {
+        "size": 462,
+        "modified": "2025-09-18T04:22:58.367041",
+        "type": ".json"
+      },
+      "_obsidian/_imports/html_raw/system-configuration/README.md": {
+        "size": 270,
+        "modified": "2025-09-18T04:19:09.623837",
+        "type": ".md"
+      },
+      "_obsidian/_imports/html_raw/system-configuration/2025-09-03-immediate-sync-test.html": {
+        "size": 3872,
+        "modified": "2025-09-18T04:19:09.623837",
+        "type": ".html"
+      },
+      "_obsidian/_imports/html_raw/system-configuration/index.html": {
+        "size": 236,
+        "modified": "2025-09-18T04:19:09.623837",
+        "type": ".html"
+      },
+      "_obsidian/_imports/html_raw/device-chronicles/2025-08-27-uncleparksy-site-launch.html": {
+        "size": 1937,
+        "modified": "2025-09-18T04:19:09.623837",
+        "type": ".html"
+      },
+      "_obsidian/_imports/html_raw/device-chronicles/2025-08-29 샘플.html": {
+        "size": 27161,
+        "modified": "2025-09-18T04:19:09.623837",
+        "type": ".html"
+      },
+      "_obsidian/_imports/html_raw/device-chronicles/index.html": {
+        "size": 304,
+        "modified": "2025-09-18T04:19:09.623837",
+        "type": ".html"
+      },
+      "_obsidian/_imports/html_raw/webappsbookcast/README.md": {
+        "size": 304,
+        "modified": "2025-09-18T04:19:09.624837",
+        "type": ".md"
+      },
+      "_obsidian/_imports/html_raw/webappsbookcast/2025-09-03 check2.html": {
+        "size": 28179,
+        "modified": "2025-09-18T04:19:09.624837",
+        "type": ".html"
+      },
+      "_obsidian/_imports/html_raw/webappsbookcast/index.html": {
+        "size": 200,
+        "modified": "2025-09-18T04:19:09.624837",
+        "type": ".html"
+      },
+      "_obsidian/_imports/html_raw/writers-path/2025-09-03 CHECK1.html": {
+        "size": 28168,
+        "modified": "2025-09-18T04:19:09.624837",
+        "type": ".html"
+      },
+      "_obsidian/_imports/html_raw/writers-path/index.html": {
+        "size": 194,
+        "modified": "2025-09-18T04:19:09.624837",
+        "type": ".html"
+      },
+      "_obsidian/_imports/html_raw/webappsbook-codex/index.html": {
+        "size": 138,
+        "modified": "2025-09-18T04:19:09.624837",
+        "type": ".html"
+      },
+      "_obsidian/_imports/html_raw/blog-transformation/2025년 8월 29일 깃허브설정.html": {
+        "size": 16625,
+        "modified": "2025-09-18T04:19:09.623837",
+        "type": ".html"
+      },
+      "_obsidian/_imports/html_raw/blog-transformation/2025-08-29 test.html": {
+        "size": 16625,
+        "modified": "2025-09-18T04:19:09.623837",
+        "type": ".html"
+      },
+      "_obsidian/_imports/html_raw/blog-transformation/index.html": {
+        "size": 304,
+        "modified": "2025-09-18T04:19:09.623837",
+        "type": ".html"
+      },
+      "_obsidian/_imports/html_raw/thought-archaeology/2025-09-02 VAMEW.html": {
+        "size": 22190,
+        "modified": "2025-09-18T04:19:09.624837",
+        "type": ".html"
+      },
+      "_obsidian/_imports/html_raw/thought-archaeology/2025-08-29 테스트.html": {
+        "size": 27161,
+        "modified": "2025-09-18T04:19:09.623837",
+        "type": ".html"
+      },
+      "_obsidian/_imports/html_raw/thought-archaeology/2025-08-30 Verbal coding wordmaster.html": {
+        "size": 8294,
+        "modified": "2025-09-18T04:19:09.624837",
+        "type": ".html"
+      },
+      "_obsidian/_imports/html_raw/thought-archaeology/2025년 8월 27일 기독교모델.html": {
+        "size": 17745,
+        "modified": "2025-09-18T04:19:09.624837",
+        "type": ".html"
+      },
+      "_obsidian/_imports/html_raw/thought-archaeology/index.html": {
+        "size": 480,
+        "modified": "2025-09-18T04:19:09.624837",
+        "type": ".html"
+      },
+      "_obsidian/_imports/html_md/system-configuration/README.md": {
+        "size": 270,
+        "modified": "2025-09-18T04:19:09.622837",
+        "type": ".md"
+      },
+      "_obsidian/_imports/html_md/system-configuration/2025-09-03-immediate-sync-test.md": {
+        "size": 1659,
+        "modified": "2025-09-18T04:19:09.622837",
+        "type": ".md"
+      },
+      "_obsidian/_imports/html_md/system-configuration/index.md": {
+        "size": 128,
+        "modified": "2025-09-18T04:19:09.622837",
+        "type": ".md"
+      },
+      "_obsidian/_imports/html_md/device-chronicles/index.md": {
+        "size": 180,
+        "modified": "2025-09-18T04:19:09.622837",
+        "type": ".md"
+      },
+      "_obsidian/_imports/html_md/device-chronicles/2025-08-29 샘플.md": {
+        "size": 16257,
+        "modified": "2025-09-18T04:19:09.622837",
+        "type": ".md"
+      },
+      "_obsidian/_imports/html_md/device-chronicles/2025-08-27-uncleparksy-site-launch.md": {
+        "size": 1152,
+        "modified": "2025-09-18T04:19:09.621837",
+        "type": ".md"
+      },
+      "_obsidian/_imports/html_md/webappsbookcast/README.md": {
+        "size": 304,
+        "modified": "2025-09-18T04:19:09.622837",
+        "type": ".md"
+      },
+      "_obsidian/_imports/html_md/webappsbookcast/index.md": {
+        "size": 94,
+        "modified": "2025-09-18T04:19:09.622837",
+        "type": ".md"
+      },
+      "_obsidian/_imports/html_md/webappsbookcast/2025-09-03 check2.md": {
+        "size": 16453,
+        "modified": "2025-09-18T04:19:09.622837",
+        "type": ".md"
+      },
+      "_obsidian/_imports/html_md/writers-path/index.md": {
+        "size": 88,
+        "modified": "2025-09-18T04:19:09.622837",
+        "type": ".md"
+      },
+      "_obsidian/_imports/html_md/writers-path/2025-09-03 CHECK1.md": {
+        "size": 15929,
+        "modified": "2025-09-18T04:19:09.622837",
+        "type": ".md"
+      },
+      "_obsidian/_imports/html_md/webappsbook-codex/index.md": {
+        "size": 47,
+        "modified": "2025-09-18T04:19:09.622837",
+        "type": ".md"
+      },
+      "_obsidian/_imports/html_md/blog-transformation/index.md": {
+        "size": 186,
+        "modified": "2025-09-18T04:19:09.621837",
+        "type": ".md"
+      },
+      "_obsidian/_imports/html_md/blog-transformation/2025년 8월 29일 깃허브설정.md": {
+        "size": 7845,
+        "modified": "2025-09-18T04:19:09.621837",
+        "type": ".md"
+      },
+      "_obsidian/_imports/html_md/blog-transformation/2025-08-29 test.md": {
+        "size": 7845,
+        "modified": "2025-09-18T04:19:09.621837",
+        "type": ".md"
+      },
+      "_obsidian/_imports/html_md/thought-archaeology/index.md": {
+        "size": 336,
+        "modified": "2025-09-18T04:19:09.622837",
+        "type": ".md"
+      },
+      "_obsidian/_imports/html_md/thought-archaeology/2025-08-30 Verbal coding wordmaster.md": {
+        "size": 4152,
+        "modified": "2025-09-18T04:19:09.622837",
+        "type": ".md"
+      },
+      "_obsidian/_imports/html_md/thought-archaeology/2025-09-02 VAMEW.md": {
+        "size": 17073,
+        "modified": "2025-09-18T04:19:09.622837",
+        "type": ".md"
+      },
+      "_obsidian/_imports/html_md/thought-archaeology/2025년 8월 27일 기독교모델.md": {
+        "size": 9601,
+        "modified": "2025-09-18T04:19:09.622837",
+        "type": ".md"
+      },
+      "_obsidian/_imports/html_md/thought-archaeology/2025-08-29 테스트.md": {
+        "size": 16257,
+        "modified": "2025-09-18T04:19:09.622837",
+        "type": ".md"
+      },
+      "archive/2025-09-01-국내 AI 프로그래밍 유튜버3.html": {
+        "size": 16739,
+        "modified": "2025-09-18T04:19:09.626837",
+        "type": ".html"
+      },
+      "archive/2025-08-25-티스토리 가치.html": {
+        "size": 10456,
+        "modified": "2025-09-18T04:19:09.626837",
+        "type": ".html"
+      },
+      "archive/2025-08-23-티스토리 어쩌지.html": {
+        "size": 14611,
+        "modified": "2025-09-18T04:19:09.625837",
+        "type": ".html"
+      },
+      "archive/2025-09-16-코딩 프로그래밍에 대한 자세.html": {
+        "size": 11608,
+        "modified": "2025-09-18T04:19:09.627837",
+        "type": ".html"
+      },
+      "archive/2025-08-19-사진저장법.html": {
+        "size": 8176,
+        "modified": "2025-09-18T04:19:09.625837",
+        "type": ".html"
+      },
+      "archive/2025-08-29-바이럴코딩 입버릇.html": {
+        "size": 17855,
+        "modified": "2025-09-18T04:19:09.626837",
+        "type": ".html"
+      },
+      "archive/2025-08-25-티스토리 솔루션.html": {
+        "size": 10859,
+        "modified": "2025-09-18T04:19:09.626837",
+        "type": ".html"
+      },
+      "archive/2025-09-16-핸드폰 생산자전환.html": {
+        "size": 13216,
+        "modified": "2025-09-18T04:19:09.627837",
+        "type": ".html"
+      },
+      "archive/2025-09-16-AI 프로그래밍 독학법.html": {
+        "size": 12307,
+        "modified": "2025-09-18T04:19:09.626837",
+        "type": ".html"
+      },
+      "archive/backup_status_dashboard.html": {
+        "size": 10613,
+        "modified": "2025-09-18T04:25:32.692711",
+        "type": ".html"
+      },
+      "archive/2025-09-03-ChatGPT 성우 설정.html": {
+        "size": 9105,
+        "modified": "2025-09-18T04:19:09.626837",
+        "type": ".html"
+      },
+      "archive/2025-08-19-깃허브란.html": {
+        "size": 15197,
+        "modified": "2025-09-18T04:19:09.625837",
+        "type": ".html"
+      },
+      "archive/2025-09-01-챗gpt 사용후기.html": {
+        "size": 12802,
+        "modified": "2025-09-18T04:19:09.626837",
+        "type": ".html"
+      },
+      "archive/2025-08-16-설치 가이드 AI 파트너 클로드.html": {
+        "size": 17248,
+        "modified": "2025-09-18T04:19:09.625837",
+        "type": ".html"
+      },
+      "archive/2025-08-22-클라우드 컴 쇼핑모델.html": {
+        "size": 6145,
+        "modified": "2025-09-18T04:19:09.625837",
+        "type": ".html"
+      },
+      "archive/2025-09-05-네이버블로그메뉴.html": {
+        "size": 12956,
+        "modified": "2025-09-18T04:19:09.626837",
+        "type": ".html"
+      },
+      "archive/2025-08-25-티스토리 활용.html": {
+        "size": 10631,
+        "modified": "2025-09-18T04:19:09.626837",
+        "type": ".html"
+      },
+      "archive/2025-08-17-디바이스기반 콘텐츠 워크플로우.html": {
+        "size": 21895,
+        "modified": "2025-09-18T04:19:09.625837",
+        "type": ".html"
+      },
+      "archive/2025-08-25-티스토리 업로드 자동화.html": {
+        "size": 11662,
+        "modified": "2025-09-18T04:19:09.626837",
+        "type": ".html"
+      },
+      "archive/index.html": {
+        "size": 22013,
+        "modified": "2025-09-18T04:19:09.627837",
+        "type": ".html"
+      },
+      "category/system-configuration/README.md": {
+        "size": 270,
+        "modified": "2025-09-18T04:19:09.655837",
+        "type": ".md"
+      },
+      "category/system-configuration/2025-09-03-immediate-sync-test.html": {
+        "size": 3872,
+        "modified": "2025-09-18T04:19:09.655837",
+        "type": ".html"
+      },
+      "category/system-configuration/index.html": {
+        "size": 236,
+        "modified": "2025-09-18T04:19:09.655837",
+        "type": ".html"
+      },
+      "category/device-chronicles/2025-08-27-uncleparksy-site-launch.html": {
+        "size": 1937,
+        "modified": "2025-09-18T04:19:09.654837",
+        "type": ".html"
+      },
+      "category/device-chronicles/2025-08-29 샘플.html": {
+        "size": 27161,
+        "modified": "2025-09-18T04:19:09.655837",
+        "type": ".html"
+      },
+      "category/device-chronicles/index.html": {
+        "size": 304,
+        "modified": "2025-09-18T04:19:09.655837",
+        "type": ".html"
+      },
+      "category/webappsbookcast/README.md": {
+        "size": 304,
+        "modified": "2025-09-18T04:19:09.655837",
+        "type": ".md"
+      },
+      "category/webappsbookcast/2025-09-03 check2.html": {
+        "size": 28179,
+        "modified": "2025-09-18T04:19:09.655837",
+        "type": ".html"
+      },
+      "category/webappsbookcast/index.html": {
+        "size": 200,
+        "modified": "2025-09-18T04:19:09.655837",
+        "type": ".html"
+      },
+      "category/writers-path/10testaments.html": {
+        "size": 27310,
+        "modified": "2025-09-18T04:19:09.655837",
+        "type": ".html"
+      },
+      "category/writers-path/2025-09-03 CHECK1.html": {
+        "size": 28168,
+        "modified": "2025-09-18T04:19:09.655837",
+        "type": ".html"
+      },
+      "category/writers-path/index.html": {
+        "size": 250,
+        "modified": "2025-09-18T04:19:09.656837",
+        "type": ".html"
+      },
+      "category/webappsbook-codex/index.html": {
+        "size": 138,
+        "modified": "2025-09-18T04:19:09.655837",
+        "type": ".html"
+      },
+      "category/blog-transformation/2025년 8월 29일 깃허브설정.html": {
+        "size": 16625,
+        "modified": "2025-09-18T04:19:09.654837",
+        "type": ".html"
+      },
+      "category/blog-transformation/2025-08-29 test.html": {
+        "size": 16625,
+        "modified": "2025-09-18T04:19:09.654837",
+        "type": ".html"
+      },
+      "category/blog-transformation/index.html": {
+        "size": 304,
+        "modified": "2025-09-18T04:19:09.654837",
+        "type": ".html"
+      },
+      "category/thought-archaeology/2025-09-02 VAMEW.html": {
+        "size": 22190,
+        "modified": "2025-09-18T04:19:09.655837",
+        "type": ".html"
+      },
+      "category/thought-archaeology/2025-08-29 테스트.html": {
+        "size": 27161,
+        "modified": "2025-09-18T04:19:09.655837",
+        "type": ".html"
+      },
+      "category/thought-archaeology/2025-08-30 Verbal coding wordmaster.html": {
+        "size": 8294,
+        "modified": "2025-09-18T04:19:09.655837",
+        "type": ".html"
+      },
+      "category/thought-archaeology/2025년 8월 27일 기독교모델.html": {
+        "size": 17745,
+        "modified": "2025-09-18T04:19:09.655837",
+        "type": ".html"
+      },
+      "category/thought-archaeology/index.html": {
+        "size": 480,
+        "modified": "2025-09-18T04:19:09.655837",
+        "type": ".html"
+      }
+    },
+    "statistics": {
+      "total_files": 192,
+      "total_size_bytes": 24933977,
+      "total_size_mb": 23.78
+    }
+  },
+  "backup_verification": {},
+  "system_info": {
+    "platform": "posix",
+    "python_version": "3.12.3",
+    "working_directory": "/home/runner/work/UncleParksy/UncleParksy"
+  }
+}
