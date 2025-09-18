@@ -1,0 +1,15 @@
+{
+  "timestamp": "2025-09-18T04:25:32.644987",
+  "tasks_executed": [
+    {
+      "task": "validate",
+      "result": {
+        "status": "success",
+        "stdout": "\n\ud83c\udfaf \ubc31\uc5c5 \uac80\uc99d \uc644\ub8cc!\n\ud83d\udcca \uc0c1\ud0dc: warning\n\ud83d\udcc1 \ub514\ub809\ud1a0\ub9ac: 4/5 \uc815\uc0c1\n\ud83d\udcc4 \ucd1d \ud30c\uc77c: 65\uac1c\n\ud83d\udcca \ub300\uc2dc\ubcf4\ub4dc: /home/runner/work/UncleParksy/UncleParksy/backup/backup_status_dashboard.html\n",
+        "stderr": "2025-09-18 04:25:32,682 - INFO - \ud83d\ude80 Starting comprehensive backup validation...\n2025-09-18 04:25:32,682 - INFO - \ud83d\udd0d Validating raw directory: /home/runner/work/UncleParksy/UncleParksy/backup/raw\n2025-09-18 04:25:32,684 - INFO - \u2705 raw: 18 files, 1.1 MB\n2025-09-18 04:25:32,684 - INFO - \ud83d\udd0d Validating md directory: /home/runner/work/UncleParksy/UncleParksy/_obsidian/_imports/html_md\n2025-09-18 04:25:32,686 - INFO - \u2705 md: 20 files, 0.11 MB\n2025-09-18 04:25:32,687 - INFO - \ud83d\udd0d Validating html directory: /home/runner/work/UncleParksy/UncleParksy/_obsidian/_imports/html_raw\n2025-09-18 04:25:32,689 - INFO - \u2705 html: 20 files, 0.19 MB\n2025-09-18 04:25:32,689 - INFO - \ud83d\udd0d Validating json directory: /home/runner/work/UncleParksy/UncleParksy/backup/json\n2025-09-18 04:25:32,690 - INFO - \u2705 json: 5 files, 0.02 MB\n2025-09-18 04:25:32,690 - INFO - \ud83d\udd0d Validating snapshots directory: /home/runner/work/UncleParksy/UncleParksy/backup/snapshots\n2025-09-18 04:25:32,690 - INFO - \u2705 snapshots: 2 files, 0.05 MB\n2025-09-18 04:25:32,690 - INFO - \ud83d\udccb Validating backup manifests...\n2025-09-18 04:25:32,691 - WARNING - Error reading manifest /home/runner/work/UncleParksy/UncleParksy/backup/json/backup_manifest_2025-09-18_04-22-43.json: Expecting value: line 16 column 17 (char 650)\n2025-09-18 04:25:32,691 - INFO - \u23f0 Checking backup freshness...\n2025-09-18 04:25:32,692 - WARNING - \u26a0\ufe0f Unhealthy directories found: ['snapshots']\n2025-09-18 04:25:32,693 - INFO - \ud83d\udcca Generating status dashboard...\n2025-09-18 04:25:32,693 - INFO - \u2705 Validation completed. Results: /home/runner/work/UncleParksy/UncleParksy/backup/json/validation_results_2025-09-18_04-25-32.json\n2025-09-18 04:25:32,693 - INFO - \ud83d\udcca Dashboard: /home/runner/work/UncleParksy/UncleParksy/backup/backup_status_dashboard.html\n",
+        "timestamp": "2025-09-18T04:25:32.700281"
+      }
+    }
+  ],
+  "overall_status": "success"
+}
