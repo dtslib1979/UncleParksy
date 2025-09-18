@@ -3,9 +3,10 @@ name: 📥 GitHub → Obsidian 자동 백업 & 동기화
 on:
   # 더 안정적인 트리거들
   push:
-    branches: [main]
+    branches: [main]  # Restored to main only after testing
     paths:
       - 'category/**'
+      - '.github/workflows/obsidian-sync.yml'  # 워크플로우 변경시에도 실행
   workflow_dispatch:  # 수동 실행
   schedule:
     - cron: "0 */3 * * *"  # 3시간마다 (더 자주, 더 안정적)
@@ -93,22 +94,25 @@ jobs:
 
       - name: 📋 Generate Sync Report
         run: |
-          cat > _obsidian/_imports/동기화_보고서.md << 'EOF'
-# 📥 GitHub → Obsidian 동기화 보고서
-
-## 🕐 동기화 정보
-- **실행 시간**: $(date '+%Y-%m-%d %H:%M:%S UTC')
-- **트리거 방식**: ${{ github.event_name }}
-- **커밋 SHA**: ${{ github.sha }}
-- **액터**: ${{ github.actor }}
-
-## 📊 처리 통계
-- **HTML 원본**: $(find _obsidian/_imports/html_raw -name "*.html" -type f | wc -l)개 파일
-- **Markdown 변환**: $(find _obsidian/_imports/html_md -name "*.md" -type f | wc -l)개 파일
-- **전체 폴더**: $(find _obsidian/_imports -type d | wc -l)개
-
-## 📁 카테고리별 현황
-EOF
+          TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S UTC')
+          HTML_COUNT=$(find _obsidian/_imports/html_raw -name "*.html" -type f 2>/dev/null | wc -l || echo 0)
+          MD_COUNT=$(find _obsidian/_imports/html_md -name "*.md" -type f 2>/dev/null | wc -l || echo 0)
+          FOLDER_COUNT=$(find _obsidian/_imports -type d 2>/dev/null | wc -l || echo 0)
+          
+          echo "# 📥 GitHub → Obsidian 동기화 보고서" > _obsidian/_imports/동기화_보고서.md
+          echo "" >> _obsidian/_imports/동기화_보고서.md
+          echo "## 🕐 동기화 정보" >> _obsidian/_imports/동기화_보고서.md
+          echo "- **실행 시간**: $TIMESTAMP" >> _obsidian/_imports/동기화_보고서.md
+          echo "- **트리거 방식**: ${{ github.event_name }}" >> _obsidian/_imports/동기화_보고서.md
+          echo "- **커밋 SHA**: ${{ github.sha }}" >> _obsidian/_imports/동기화_보고서.md
+          echo "- **액터**: ${{ github.actor }}" >> _obsidian/_imports/동기화_보고서.md
+          echo "" >> _obsidian/_imports/동기화_보고서.md
+          echo "## 📊 처리 통계" >> _obsidian/_imports/동기화_보고서.md
+          echo "- **HTML 원본**: ${HTML_COUNT}개 파일" >> _obsidian/_imports/동기화_보고서.md
+          echo "- **Markdown 변환**: ${MD_COUNT}개 파일" >> _obsidian/_imports/동기화_보고서.md
+          echo "- **전체 폴더**: ${FOLDER_COUNT}개" >> _obsidian/_imports/동기화_보고서.md
+          echo "" >> _obsidian/_imports/동기화_보고서.md
+          echo "## 📁 카테고리별 현황" >> _obsidian/_imports/동기화_보고서.md
 
           # 카테고리별 파일 수 추가
           for dir in _obsidian/_imports/html_md/*/; do
@@ -119,20 +123,18 @@ EOF
             fi
           done
           
-          cat >> _obsidian/_imports/동기화_보고서.md << 'EOF'
-
-## 🎯 사용 방법
-1. **RAW HTML**: `_obsidian/_imports/html_raw/` - 원본 HTML 파일들
-2. **Markdown**: `_obsidian/_imports/html_md/` - 변환된 마크다운 파일들  
-3. **상업화 활용**: 이 자료들을 Obsidian에서 편집하여 유료 콘텐츠로 개발
-
-## 💡 박씨님 전략
-- **Public GitHub**: 포트폴리오 & 레퍼런스 (실력 증명)
-- **Private Obsidian**: 노하우 & 상업적 자료 (수익화 소스)
-
----
-*자동 생성 by EduArt Engineer CI*
-EOF
+          echo "" >> _obsidian/_imports/동기화_보고서.md
+          echo "## 🎯 사용 방법" >> _obsidian/_imports/동기화_보고서.md
+          echo "1. **RAW HTML**: \`_obsidian/_imports/html_raw/\` - 원본 HTML 파일들" >> _obsidian/_imports/동기화_보고서.md
+          echo "2. **Markdown**: \`_obsidian/_imports/html_md/\` - 변환된 마크다운 파일들" >> _obsidian/_imports/동기화_보고서.md
+          echo "3. **상업화 활용**: 이 자료들을 Obsidian에서 편집하여 유료 콘텐츠로 개발" >> _obsidian/_imports/동기화_보고서.md
+          echo "" >> _obsidian/_imports/동기화_보고서.md
+          echo "## 💡 박씨님 전략" >> _obsidian/_imports/동기화_보고서.md
+          echo "- **Public GitHub**: 포트폴리오 & 레퍼런스 (실력 증명)" >> _obsidian/_imports/동기화_보고서.md
+          echo "- **Private Obsidian**: 노하우 & 상업적 자료 (수익화 소스)" >> _obsidian/_imports/동기화_보고서.md
+          echo "" >> _obsidian/_imports/동기화_보고서.md
+          echo "---" >> _obsidian/_imports/동기화_보고서.md
+          echo "*자동 생성 by EduArt Engineer CI*" >> _obsidian/_imports/동기화_보고서.md
 
       - name: 💾 Commit & Push Changes
         run: |
@@ -143,15 +145,9 @@ EOF
             HTML_COUNT=$(find _obsidian/_imports/html_raw -name "*.html" -type f | wc -l)
             MD_COUNT=$(find _obsidian/_imports/html_md -name "*.md" -type f | wc -l)
             
-            # 상세한 커밋 메시지
-            git commit -m "📥 Obsidian 자동백업: HTML($HTML_COUNT) → MD($MD_COUNT) [$TIMESTAMP]
-
-🎯 GitHub → Obsidian 동기화 완료
-📊 HTML: $HTML_COUNT개 → Markdown: $MD_COUNT개  
-🔄 트리거: ${{ github.event_name }}
-⏰ 시간: $TIMESTAMP UTC
-
-💰 상업화 전략: Public(포트폴리오) → Private(노하우)"
+            # 상세한 커밋 메시지  
+            EVENT_NAME="${{ github.event_name }}"
+            git commit -m "📥 Obsidian 자동백업: HTML($HTML_COUNT) → MD($MD_COUNT) [$TIMESTAMP] - 트리거: $EVENT_NAME"
             
             git push
             
