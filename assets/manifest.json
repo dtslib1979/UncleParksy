@@ -1,140 +1,96 @@
 {
-  "title": "EduArt Engineer's Grimoire - Digital Knowledge Archive",
-  "description": "완전 자동화 시스템으로 관리되는 디지털 지식 아카이브",
-  "lastUpdate": "2025-09-18T06:31:30.781673Z",
+  "generated": "2025-09-18T08:24:30.475290Z",
   "count": 18,
-  "automationInfo": {
-    "system": "EduArt Engineer CI v2.0",
-    "manualWork": "0%",
-    "processType": "완전 자동화 - 원본 파일 보존",
-    "updateFrequency": "매 3시간 또는 변경 시"
-  },
   "items": [
     {
+      "path": "archive/2025-09-16-핸드폰 생산자전환.html",
       "title": "핸드폰 생산자전환",
-      "date": "2025-09-16",
-      "path": "/archive/2025-09-16-핸드폰 생산자전환.html",
-      "description": "핸드폰 생산자전환 - 자동화 시스템으로 처리됨",
-      "processed": "2025-09-18T06:31:30.780519"
+      "date": "2025-09-16"
     },
     {
+      "path": "archive/2025-09-16-코딩 프로그래밍에 대한 자세.html",
       "title": "코딩 프로그래밍에 대한 자세",
-      "date": "2025-09-16",
-      "path": "/archive/2025-09-16-코딩 프로그래밍에 대한 자세.html",
-      "description": "코딩 프로그래밍에 대한 자세 - 자동화 시스템으로 처리됨",
-      "processed": "2025-09-18T06:31:30.780618"
+      "date": "2025-09-16"
     },
     {
+      "path": "archive/2025-09-16-AI 프로그래밍 독학법.html",
       "title": "AI 프로그래밍 독학법",
-      "date": "2025-09-16",
-      "path": "/archive/2025-09-16-AI 프로그래밍 독학법.html",
-      "description": "AI 프로그래밍 독학법 - 자동화 시스템으로 처리됨",
-      "processed": "2025-09-18T06:31:30.780696"
+      "date": "2025-09-16"
     },
     {
+      "path": "archive/2025-09-05-네이버블로그메뉴.html",
       "title": "네이버블로그메뉴",
-      "date": "2025-09-05",
-      "path": "/archive/2025-09-05-네이버블로그메뉴.html",
-      "description": "네이버블로그메뉴 - 자동화 시스템으로 처리됨",
-      "processed": "2025-09-18T06:31:30.780750"
+      "date": "2025-09-05"
     },
     {
+      "path": "archive/2025-09-03-ChatGPT 성우 설정.html",
       "title": "ChatGPT 성우 설정",
-      "date": "2025-09-03",
-      "path": "/archive/2025-09-03-ChatGPT 성우 설정.html",
-      "description": "ChatGPT 성우 설정 - 자동화 시스템으로 처리됨",
-      "processed": "2025-09-18T06:31:30.780811"
+      "date": "2025-09-03"
     },
     {
+      "path": "archive/2025-09-01-챗gpt 사용후기.html",
       "title": "챗gpt 사용후기",
-      "date": "2025-09-01",
-      "path": "/archive/2025-09-01-챗gpt 사용후기.html",
-      "description": "챗gpt 사용후기 - 자동화 시스템으로 처리됨",
-      "processed": "2025-09-18T06:31:30.780860"
+      "date": "2025-09-01"
     },
     {
+      "path": "archive/2025-09-01-국내 AI 프로그래밍 유튜버3.html",
       "title": "국내 AI 프로그래밍 유튜버3",
-      "date": "2025-09-01",
-      "path": "/archive/2025-09-01-국내 AI 프로그래밍 유튜버3.html",
-      "description": "국내 AI 프로그래밍 유튜버3 - 자동화 시스템으로 처리됨",
-      "processed": "2025-09-18T06:31:30.780946"
+      "date": "2025-09-01"
     },
     {
+      "path": "archive/2025-08-29-바이럴코딩 입버릇.html",
       "title": "바이럴코딩 입버릇",
-      "date": "2025-08-29",
-      "path": "/archive/2025-08-29-바이럴코딩 입버릇.html",
-      "description": "바이럴코딩 입버릇 - 자동화 시스템으로 처리됨",
-      "processed": "2025-09-18T06:31:30.781130"
+      "date": "2025-08-29"
     },
     {
+      "path": "archive/2025-08-25-티스토리 활용.html",
       "title": "티스토리 활용?",
-      "date": "2025-08-25",
-      "path": "/archive/2025-08-25-티스토리 활용.html",
-      "description": "티스토리 활용? - 자동화 시스템으로 처리됨",
-      "processed": "2025-09-18T06:31:30.781186"
+      "date": "2025-08-25"
     },
     {
+      "path": "archive/2025-08-25-티스토리 업로드 자동화.html",
       "title": "티스토리 업로드 자동화?",
-      "date": "2025-08-25",
-      "path": "/archive/2025-08-25-티스토리 업로드 자동화.html",
-      "description": "티스토리 업로드 자동화? - 자동화 시스템으로 처리됨",
-      "processed": "2025-09-18T06:31:30.781241"
+      "date": "2025-08-25"
     },
     {
+      "path": "archive/2025-08-25-티스토리 솔루션.html",
       "title": "티스토리 솔루션",
-      "date": "2025-08-25",
-      "path": "/archive/2025-08-25-티스토리 솔루션.html",
-      "description": "티스토리 솔루션 - 자동화 시스템으로 처리됨",
-      "processed": "2025-09-18T06:31:30.781288"
+      "date": "2025-08-25"
     },
     {
+      "path": "archive/2025-08-25-티스토리 가치.html",
       "title": "티스토리 가치",
-      "date": "2025-08-25",
-      "path": "/archive/2025-08-25-티스토리 가치.html",
-      "description": "티스토리 가치 - 자동화 시스템으로 처리됨",
-      "processed": "2025-09-18T06:31:30.781331"
+      "date": "2025-08-25"
     },
     {
+      "path": "archive/2025-08-23-티스토리 어쩌지.html",
       "title": "티스토리 어쩌지",
-      "date": "2025-08-23",
-      "path": "/archive/2025-08-23-티스토리 어쩌지.html",
-      "description": "티스토리 어쩌지 - 자동화 시스템으로 처리됨",
-      "processed": "2025-09-18T06:31:30.781382"
+      "date": "2025-08-23"
     },
     {
+      "path": "archive/2025-08-22-클라우드 컴 쇼핑모델.html",
       "title": "클라우드 컴 쇼핑모델",
-      "date": "2025-08-22",
-      "path": "/archive/2025-08-22-클라우드 컴 쇼핑모델.html",
-      "description": "클라우드 컴 쇼핑모델 - 자동화 시스템으로 처리됨",
-      "processed": "2025-09-18T06:31:30.781418"
+      "date": "2025-08-22"
     },
     {
+      "path": "archive/2025-08-19-사진저장법.html",
       "title": "사진저장법",
-      "date": "2025-08-19",
-      "path": "/archive/2025-08-19-사진저장법.html",
-      "description": "사진저장법 - 자동화 시스템으로 처리됨",
-      "processed": "2025-09-18T06:31:30.781465"
+      "date": "2025-08-19"
     },
     {
+      "path": "archive/2025-08-19-깃허브란.html",
       "title": "깃허브란",
-      "date": "2025-08-19",
-      "path": "/archive/2025-08-19-깃허브란.html",
-      "description": "깃허브란 - 자동화 시스템으로 처리됨",
-      "processed": "2025-09-18T06:31:30.781549"
+      "date": "2025-08-19"
     },
     {
+      "path": "archive/2025-08-17-디바이스기반 콘텐츠 워크플로우.html",
       "title": "디바이스기반 콘텐츠 워크플로우",
-      "date": "2025-08-17",
-      "path": "/archive/2025-08-17-디바이스기반 콘텐츠 워크플로우.html",
-      "description": "디바이스기반 콘텐츠 워크플로우 - 자동화 시스템으로 처리됨",
-      "processed": "2025-09-18T06:31:30.781611"
+      "date": "2025-08-17"
     },
     {
+      "path": "archive/2025-08-16-설치 가이드 AI 파트너 클로드.html",
       "title": "설치 가이드 AI 파트너 클로드",
-      "date": "2025-08-16",
-      "path": "/archive/2025-08-16-설치 가이드 AI 파트너 클로드.html",
-      "description": "설치 가이드 AI 파트너 클로드 - 자동화 시스템으로 처리됨",
-      "processed": "2025-09-18T06:31:30.781671"
+      "date": "2025-08-16"
     }
   ]
 }
