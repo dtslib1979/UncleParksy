@@ -1,6 +1,652 @@
-<!doctype html><html lang='ko'><meta charset='utf-8'>
-<title>device-chronicles (2)</title>
-<h1>device-chronicles (2)</h1><ul>
-<li><a href='./2025-08-29 샘플.html'>2025-08-29 샘플</a></li>
-<li><a href='./2025-08-27-uncleparksy-site-launch.html'>2025-08-27-uncleparksy-site-launch</a></li>
-</ul></html>
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Device Chronicles — UncleParksy Category</title>
+<meta name="description" content="Device chronicles and technology stories from the EduArt Engineer's digital archive" />
+
+<!-- Same fonts as main page -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pirata+One&family:Philosopher:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+/* Same root variables as main page */
+:root{
+  --primary-gold:#d4af37; --dark-gold:#b8860b; --light-gold:#f4e4aa;
+  --parchment:#f7f3e8; --dark-parchment:#e8dcc0;
+  --ink:#1a0f0a; --ink-2:#2d1b12; --ink-3:#4a2c1a;
+  --purple:#6a4c93; --blue:#4a90e2; --red:#c44536;
+  --shadow-d:rgba(26,15,10,.4); --shadow-m:rgba(26,15,10,.2); --shadow-l:rgba(26,15,10,.1);
+  --ring:rgba(0,0,0,.08);
+}
+
+/* Base styles - same as main page */
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family: 'Philosopher', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 15% 25%, rgba(212,175,55,.05) 0%, transparent 40%),
+    radial-gradient(circle at 85% 75%, rgba(106,76,147,.04) 0%, transparent 40%),
+    linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+  min-height:100vh; overflow-x:hidden; position:relative;
+}
+
+/* Parchment grain effect */
+body::before{
+  content:""; position:fixed; inset:0; z-index:1; pointer-events:none;
+  background:
+    repeating-linear-gradient(45deg, transparent,transparent 1px, rgba(212,175,55,.015) 1px, rgba(212,175,55,.015) 2px),
+    repeating-linear-gradient(-45deg, transparent,transparent 1px, rgba(74,44,26,.015) 1px, rgba(74,44,26,.015) 2px);
+}
+
+/* Korean particles */
+.korean-particle{
+  position:fixed; z-index:4; pointer-events:none; 
+  font-family: 'Philosopher', serif; font-weight:300;
+  color: var(--primary-gold); opacity:0;
+  animation: floatUp 8s linear infinite;
+}
+@keyframes floatUp{
+  0%{opacity:0; transform:translateY(calc(100vh + 20px)) scale(.6) rotate(0deg)}
+  5%{opacity:.4} 
+  95%{opacity:.1}
+  100%{opacity:0; transform:translateY(-50px) scale(1.1) rotate(180deg)}
+}
+
+/* Header */
+.archive-header{
+  position:relative; z-index:10; padding:clamp(1rem,4vw,2rem);
+  text-align:center; margin-bottom:clamp(1rem,3vw,2rem);
+}
+
+.archive-title{
+  font-family:'Pirata One', cursive; 
+  font-size:clamp(2.2rem,6vw,3.8rem);
+  background:linear-gradient(135deg, var(--primary-gold) 0%, var(--light-gold) 25%, var(--dark-gold) 50%, var(--purple) 75%, var(--primary-gold) 100%);
+  background-size:200% 200%; 
+  -webkit-background-clip:text; background-clip:text; 
+  -webkit-text-fill-color:transparent;
+  text-shadow:2px 2px 4px var(--shadow-m), 0 0 20px rgba(212,175,55,.3);
+  letter-spacing:clamp(1px,.3vw,3px); margin:0 0 .5rem; 
+  line-height:1.1; text-transform:uppercase; 
+  animation:titleShine 8s ease-in-out infinite;
+}
+@keyframes titleShine{0%,100%{background-position:0% 50%} 50%{background-position:100% 50%}}
+
+.archive-subtitle{
+  font-size:clamp(.9rem,2.2vw,1.1rem); 
+  color:var(--ink-2); opacity:.85; margin:0 0 1.5rem;
+}
+
+/* 📊 Counter Display */
+.file-counter{
+  position:relative; z-index:10;
+  text-align:center; margin:1rem 0;
+  padding:1rem; border-radius:20px;
+  background:linear-gradient(135deg, rgba(212,175,55,.15), rgba(106,76,147,.1));
+  border:2px solid rgba(212,175,55,.3);
+  box-shadow:0 4px 16px var(--shadow-l);
+}
+
+.counter-text{
+  font-family:'Philosopher', serif; font-weight:700;
+  font-size:clamp(1rem,2.5vw,1.3rem);
+  color:var(--ink);
+  margin:0;
+}
+
+.counter-number{
+  display:inline-block;
+  font-family:'Pirata One', cursive;
+  font-size:clamp(1.5rem,4vw,2rem);
+  background:linear-gradient(135deg, var(--primary-gold), var(--purple));
+  -webkit-background-clip:text; background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin:0 .5rem;
+  text-shadow:0 0 10px rgba(212,175,55,.5);
+}
+
+/* Navigation & Controls */
+.archive-controls{
+  position:relative; z-index:10; 
+  display:flex; justify-content:space-between; align-items:center; 
+  flex-wrap:wrap; gap:1rem; padding:0 clamp(1rem,4vw,2rem);
+  margin-bottom:clamp(1rem,3vw,2rem);
+}
+
+.back-link{
+  font-family:'Philosopher', serif; font-weight:700; 
+  text-decoration:none; color:var(--ink);
+  padding:.6rem 1.2rem; border-radius:20px;
+  background:linear-gradient(135deg, rgba(212,175,55,.1), rgba(212,175,55,.2));
+  border:2px solid rgba(212,175,55,.3);
+  transition:all .3s ease;
+}
+.back-link:hover{
+  background:linear-gradient(135deg, rgba(212,175,55,.2), rgba(212,175,55,.3));
+  border-color:var(--primary-gold);
+  transform:translateY(-2px);
+}
+
+.sort-controls{
+  display:flex; gap:.5rem; flex-wrap:wrap;
+}
+.sort-btn{
+  padding:.5rem 1rem; border:none; border-radius:15px; cursor:pointer;
+  font-family:'Philosopher', serif; font-weight:700; font-size:.85rem;
+  background:linear-gradient(135deg, rgba(247,243,232,.8), rgba(232,220,192,.9));
+  color:var(--ink-2); border:2px solid rgba(212,175,55,.2);
+  transition:all .3s ease; text-transform:uppercase; letter-spacing:.5px;
+}
+.sort-btn.active{
+  background:linear-gradient(135deg, var(--primary-gold), var(--dark-gold));
+  color:var(--ink); border-color:var(--dark-gold);
+  box-shadow:0 4px 12px rgba(212,175,55,.4);
+}
+.sort-btn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 6px 16px rgba(212,175,55,.3);
+}
+
+/* Treasure scroll container */
+.treasure-container{
+  position:relative; z-index:10; 
+  max-width:1200px; margin:0 auto; padding:0 clamp(1rem,4vw,2rem);
+}
+
+.scroll-viewer{
+  position:relative; overflow:hidden; 
+  background:linear-gradient(135deg, rgba(247,243,232,.95) 0%, rgba(232,220,192,.92) 50%, rgba(228,216,188,.9) 100%);
+  backdrop-filter:blur(18px); border-radius:26px; 
+  border:3px solid rgba(212,175,55,.4);
+  box-shadow:0 34px 110px var(--shadow-m), inset 0 2px 6px rgba(255,255,255,.5), inset 0 -2px 6px rgba(212,175,55,.15);
+  padding:clamp(1.5rem,5vw,3rem);
+}
+
+/* Treasure cards grid */
+.treasure-grid{
+  display:grid; 
+  grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
+  gap:clamp(1.2rem,3.5vw,2rem);
+  margin-bottom:2rem;
+}
+
+/* Individual treasure cards */
+.treasure-card{
+  position:relative; min-height:200px; 
+  background:linear-gradient(135deg, rgba(255,255,255,.2) 0%, rgba(247,243,232,.95) 30%, rgba(232,220,192,.9) 100%);
+  border-radius:18px; padding:clamp(1rem,3vw,1.5rem); 
+  border:2px solid rgba(212,175,55,.25);
+  cursor:pointer; text-decoration:none; color:inherit;
+  transition:all .35s ease;
+  box-shadow:0 8px 24px var(--shadow-l);
+  
+  /* Random rotation and offset for "삐뚤빼뚤" effect */
+  transform:rotate(var(--random-rotate)) translate(var(--random-x), var(--random-y));
+}
+
+.treasure-card::before{
+  content:""; position:absolute; inset:0; left:-100%;
+  background:linear-gradient(90deg, transparent, rgba(212,175,55,.15), transparent);
+  transition:left .55s ease; z-index:1; border-radius:18px;
+}
+
+.treasure-card:hover{
+  transform:rotate(0deg) translate(0, -8px) scale(1.02);
+  border-color:var(--primary-gold);
+  box-shadow:0 16px 48px var(--shadow-d), 0 0 32px rgba(212,175,55,.35);
+}
+.treasure-card:hover::before{left:100%}
+
+.card-content{
+  position:relative; z-index:2; height:100%; 
+  display:flex; flex-direction:column; justify-content:space-between;
+}
+
+.card-label{
+  display:inline-block; padding:.3rem .8rem; border-radius:12px; 
+  font-size:.75rem; font-weight:700; text-transform:uppercase; 
+  letter-spacing:.5px; margin-bottom:.8rem;
+  background:linear-gradient(135deg, var(--blue), #4a90e2); 
+  color:#fff; text-shadow:1px 1px 2px rgba(0,0,0,.3);
+}
+
+.card-title{
+  font-weight:700; font-size:clamp(1.1rem,2.8vw,1.4rem); 
+  color:var(--ink); margin:0 0 .8rem; line-height:1.3;
+}
+
+.card-date{
+  font-size:.9rem; color:var(--ink-3); opacity:.7; 
+  margin-top:auto; font-style:italic;
+}
+
+/* Pagination */
+.pagination{
+  display:flex; justify-content:center; align-items:center; 
+  gap:1rem; margin-top:2rem; flex-wrap:wrap;
+}
+
+.page-btn{
+  padding:.7rem 1.2rem; border:none; border-radius:20px; cursor:pointer;
+  font-family:'Philosopher', serif; font-weight:700;
+  background:linear-gradient(135deg, rgba(247,243,232,.8), rgba(232,220,192,.9));
+  color:var(--ink-2); border:2px solid rgba(212,175,55,.2);
+  transition:all .3s ease; min-width:48px;
+}
+.page-btn:hover:not(:disabled){
+  background:linear-gradient(135deg, var(--primary-gold), var(--dark-gold));
+  color:var(--ink); transform:translateY(-2px);
+  box-shadow:0 6px 16px rgba(212,175,55,.4);
+}
+.page-btn:disabled{
+  opacity:.4; cursor:not-allowed;
+}
+
+.page-dots{
+  display:flex; gap:.5rem;
+}
+.page-dot{
+  width:12px; height:12px; border-radius:50%; border:none; cursor:pointer;
+  background:rgba(212,175,55,.3); transition:all .3s ease;
+}
+.page-dot.active{
+  background:var(--primary-gold); transform:scale(1.3);
+}
+
+.page-info{
+  font-size:.9rem; color:var(--ink-3); 
+  padding:.5rem 1rem; opacity:.8;
+}
+
+/* Loading state */
+.loading-message{
+  text-align:center; padding:3rem; font-size:1.1rem; color:var(--ink-2);
+}
+
+/* Error state */
+.error-message{
+  text-align:center; padding:2rem; color:var(--red);
+  background:rgba(196,69,54,.1); border-radius:12px; margin:1rem 0;
+}
+
+/* Mobile touch interactions */
+@media (pointer: coarse){
+  .treasure-card{
+    min-height:180px;
+  }
+  .treasure-card:hover{
+    transform:rotate(var(--random-rotate)) translate(var(--random-x), var(--random-y));
+  }
+  .treasure-card:active{
+    transform:rotate(0deg) translate(0, -4px) scale(1.01);
+  }
+}
+
+/* Tablet layout */
+@media (min-width:768px) and (max-width:1200px){
+  .treasure-grid{
+    grid-template-columns:repeat(2, 1fr);
+    gap:1.5rem;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion:reduce){
+  .korean-particle{display:none}
+  *{animation-duration:.01ms !important; animation-iteration-count:1 !important}
+  .treasure-card{transform:none !important}
+}
+
+/* Print styles */
+@media print{
+  .korean-particle, .archive-controls, .pagination{display:none}
+  body{background:#fff; color:#000}
+  .treasure-card{box-shadow:none; border:1px solid #ccc}
+}
+</style>
+</head>
+
+<body>
+  <!-- Korean floating particles -->
+  <div id="korean-particles"></div>
+
+  <!-- Header -->
+  <header class="archive-header">
+    <h1 class="archive-title">📱 Device Chronicles</h1>
+    <p class="archive-subtitle">기기와 기술 발전의 연대기</p>
+  </header>
+
+  <!-- 📊 File Counter Display -->
+  <div class="file-counter">
+    <p class="counter-text">
+      총 <span class="counter-number" id="file-count">0</span>개의 기술 이야기가 보관되어 있습니다
+    </p>
+  </div>
+
+  <!-- Controls -->
+  <nav class="archive-controls">
+    <a href="../../index.html" class="back-link">← 그리모어로 돌아가기</a>
+    
+    <div class="sort-controls">
+      <button class="sort-btn active" data-sort="random">🎲 랜덤</button>
+      <button class="sort-btn" data-sort="newest">📅 최신순</button>
+      <button class="sort-btn" data-sort="oldest">📜 오래된순</button>
+      <button class="sort-btn" data-sort="title">🔤 제목순</button>
+    </div>
+  </nav>
+
+  <!-- Main treasure container -->
+  <main class="treasure-container">
+    <div class="scroll-viewer">
+      <div id="loading" class="loading-message">
+        📚 기술 이야기를 불러오는 중...
+      </div>
+      
+      <div id="error" class="error-message" style="display:none">
+        ❌ 기술 이야기를 불러올 수 없습니다. 나중에 다시 시도해주세요.
+      </div>
+      
+      <div id="content" style="display:none">
+        <div class="treasure-grid" id="treasure-grid">
+          <!-- Cards will be populated by JavaScript -->
+        </div>
+        
+        <!-- Pagination -->
+        <div class="pagination" id="pagination">
+          <button class="page-btn" id="prev-btn">이전</button>
+          <div class="page-dots" id="page-dots"></div>
+          <div class="page-info" id="page-info"></div>
+          <button class="page-btn" id="next-btn">다음</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // State management
+    let allItems = [];
+    let filteredItems = [];
+    let currentPage = 0;
+    const itemsPerPage = 10;
+    let currentSort = 'random';
+    const categoryName = 'device-chronicles';
+
+    // Korean characters for particles
+    const koreanChars = [
+      '가', '나', '다', '라', '마', '바', '사', '아', '자', '차', '카', '타', '파', '하',
+      '기', '기', '술', '디', '바', '이', '스', '연', '대', '기', '혁', '신'
+    ];
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', async () => {
+      await loadCategoryFiles();
+      initSortControls();
+      initKoreanParticles();
+      initTouchSupport();
+    });
+
+    // Load category files directly from the directory
+    async function loadCategoryFiles() {
+      try {
+        console.log('📡 Loading category files...');
+        
+        // Fallback: predefined files for this category
+        const knownFiles = [
+          { title: '2025-08-29 샘플', path: './2025-08-29 샘플.html', date: '2025-08-29' },
+          { title: '2025-08-27-uncleparksy-site-launch', path: './2025-08-27-uncleparksy-site-launch.html', date: '2025-08-27' }
+        ];
+        
+        allItems = knownFiles;
+        console.log(`📊 Found ${allItems.length} items in ${categoryName}`);
+        
+        // Update file counter
+        updateFileCounter(allItems.length);
+        
+        // Apply initial sort
+        applySort(currentSort);
+        renderCurrentPage();
+        
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('content').style.display = 'block';
+        
+        console.log('🎉 Category loaded successfully!');
+        
+      } catch (error) {
+        console.error('❌ Error loading category files:', error);
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('error').style.display = 'block';
+      }
+    }
+
+    // 📊 Update file counter display
+    function updateFileCounter(count) {
+      const counterElement = document.getElementById('file-count');
+      if (counterElement) {
+        counterElement.textContent = count;
+        console.log(`📊 Counter updated: ${count} files`);
+      }
+    }
+
+    // Sort functions
+    function applySort(sortType) {
+      currentSort = sortType;
+      
+      switch (sortType) {
+        case 'random':
+          filteredItems = [...allItems].sort(() => Math.random() - 0.5);
+          break;
+        case 'newest':
+          filteredItems = [...allItems].sort((a, b) => 
+            new Date(b.date || 0) - new Date(a.date || 0)
+          );
+          break;
+        case 'oldest':
+          filteredItems = [...allItems].sort((a, b) => 
+            new Date(a.date || 0) - new Date(b.date || 0)
+          );
+          break;
+        case 'title':
+          filteredItems = [...allItems].sort((a, b) => 
+            (a.title || '').localeCompare(b.title || '', 'ko')
+          );
+          break;
+        default:
+          filteredItems = [...allItems];
+      }
+      
+      currentPage = 0; // Reset to first page
+    }
+
+    // Render current page
+    function renderCurrentPage() {
+      const startIdx = currentPage * itemsPerPage;
+      const endIdx = startIdx + itemsPerPage;
+      const pageItems = filteredItems.slice(startIdx, endIdx);
+      
+      const grid = document.getElementById('treasure-grid');
+      grid.innerHTML = '';
+      
+      pageItems.forEach((item, index) => {
+        const card = createTreasureCard(item, startIdx + index);
+        grid.appendChild(card);
+      });
+      
+      updatePagination();
+    }
+
+    // Create treasure card element
+    function createTreasureCard(item, index) {
+      const card = document.createElement('a');
+      card.className = 'treasure-card';
+      card.href = item.path;
+      
+      console.log(`🔗 Card link: ${card.href}`);
+      
+      // Random rotation and translation for "삐뚤빼뚤" effect
+      const rotate = (Math.random() - 0.5) * 4; // -2deg to 2deg
+      const translateX = (Math.random() - 0.5) * 8; // -4px to 4px
+      const translateY = (Math.random() - 0.5) * 8; // -4px to 4px
+      
+      card.style.setProperty('--random-rotate', `${rotate}deg`);
+      card.style.setProperty('--random-x', `${translateX}px`);
+      card.style.setProperty('--random-y', `${translateY}px`);
+      
+      const formattedDate = item.date 
+        ? new Date(item.date).toLocaleDateString('ko-KR', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          })
+        : '날짜 미상';
+      
+      card.innerHTML = `
+        <div class="card-content">
+          <div>
+            <span class="card-label">Device Tech</span>
+            <h3 class="card-title">${item.title || '제목 없음'}</h3>
+          </div>
+          <div class="card-date">${formattedDate}</div>
+        </div>
+      `;
+      
+      return card;
+    }
+
+    // Update pagination controls
+    function updatePagination() {
+      const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+      
+      // Update buttons
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+      
+      prevBtn.disabled = currentPage === 0;
+      nextBtn.disabled = currentPage >= totalPages - 1;
+      
+      prevBtn.onclick = () => {
+        if (currentPage > 0) {
+          currentPage--;
+          renderCurrentPage();
+        }
+      };
+      
+      nextBtn.onclick = () => {
+        if (currentPage < totalPages - 1) {
+          currentPage++;
+          renderCurrentPage();
+        }
+      };
+      
+      // Update dots
+      const dotsContainer = document.getElementById('page-dots');
+      dotsContainer.innerHTML = '';
+      
+      for (let i = 0; i < totalPages && i < 5; i++) { // Limit to 5 dots
+        const dot = document.createElement('button');
+        dot.className = `page-dot ${i === currentPage ? 'active' : ''}`;
+        dot.onclick = () => {
+          currentPage = i;
+          renderCurrentPage();
+        };
+        dotsContainer.appendChild(dot);
+      }
+      
+      // Update info
+      const pageInfo = document.getElementById('page-info');
+      const startItem = currentPage * itemsPerPage + 1;
+      const endItem = Math.min((currentPage + 1) * itemsPerPage, filteredItems.length);
+      pageInfo.textContent = `${startItem}-${endItem} / ${filteredItems.length}`;
+    }
+
+    // Initialize sort controls
+    function initSortControls() {
+      const sortBtns = document.querySelectorAll('.sort-btn');
+      
+      sortBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // Update active state
+          sortBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          
+          // Apply sort
+          const sortType = btn.dataset.sort;
+          applySort(sortType);
+          renderCurrentPage();
+        });
+      });
+    }
+
+    // Korean particles effect
+    function initKoreanParticles() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      
+      const container = document.getElementById('korean-particles');
+      let particleCount = 0;
+      const maxParticles = 12;
+      
+      function createParticle() {
+        if (particleCount >= maxParticles) return;
+        
+        const particle = document.createElement('div');
+        particle.className = 'korean-particle';
+        particle.textContent = koreanChars[Math.floor(Math.random() * koreanChars.length)];
+        
+        particle.style.left = Math.random() * 100 + 'vw';
+        particle.style.fontSize = (Math.random() * 0.5 + 0.8) + 'rem';
+        particle.style.animationDelay = Math.random() * 8 + 's';
+        
+        container.appendChild(particle);
+        particleCount++;
+        
+        setTimeout(() => {
+          particle.remove();
+          particleCount--;
+        }, 8000);
+      }
+      
+      // Create particles periodically
+      setInterval(() => {
+        if (!document.hidden) {
+          createParticle();
+        }
+      }, 1000);
+    }
+
+    // Touch support for mobile
+    function initTouchSupport() {
+      if (!('ontouchstart' in window)) return;
+      
+      let startX = 0;
+      const grid = document.getElementById('treasure-grid');
+      
+      grid.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+      }, { passive: true });
+      
+      grid.addEventListener('touchend', (e) => {
+        const endX = e.changedTouches[0].clientX;
+        const diffX = startX - endX;
+        
+        // Swipe threshold
+        if (Math.abs(diffX) > 50) {
+          if (diffX > 0) {
+            // Swipe left - next page
+            const nextBtn = document.getElementById('next-btn');
+            if (!nextBtn.disabled) nextBtn.click();
+          } else {
+            // Swipe right - previous page
+            const prevBtn = document.getElementById('prev-btn');
+            if (!prevBtn.disabled) prevBtn.click();
+          }
+        }
+      }, { passive: true });
+    }
+  </script>
+</body>
+</html>
