@@ -3,7 +3,7 @@ name: 📥 GitHub → Obsidian 자동 백업 & 동기화
 on:
   # 더 안정적인 트리거들
   push:
-    branches: [main]
+    branches: ["*"]  # All branches for testing
     paths:
       - 'category/**'
       - '.github/workflows/obsidian-sync.yml'  # 워크플로우 변경시에도 실행
