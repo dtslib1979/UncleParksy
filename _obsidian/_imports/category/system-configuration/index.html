@@ -151,7 +151,8 @@ body::before{
   </div>
 
   <nav class="controls">
-    <a href="../index.html" class="link">← Back to Grimoire</a>
+    <!-- ✅ root로 고정: 폴더 깊이에 상관없이 404 방지 -->
+    <a href="/" class="link">← Back to Grimoire</a>
     <div class="btn-row">
       <button class="btn active" data-sort="section">🗂️ Section</button>
       <button class="btn" data-sort="newest">📅 Newest</button>
@@ -254,7 +255,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 /* ---------- 1) Try manifest ---------- */
 async function loadFromManifest(){
-  const tried = [];
   for (const path of MANIFEST_CANDIDATES){
     try{
       const res = await fetch(path, {cache:'no-cache'});
@@ -262,7 +262,7 @@ async function loadFromManifest(){
       const data  = await res.json();
       const items = Array.isArray(data.items) ? data.items : (Array.isArray(data) ? data : []);
       const cleaned = normalizeItems(items).filter(inThisCategory);
-      if (cleaned.length === 0) { tried.push(path); continue; }
+      if (cleaned.length === 0) continue;
 
       allItems = cleaned;
       document.getElementById('file-count').textContent = allItems.length;
@@ -271,11 +271,8 @@ async function loadFromManifest(){
       document.getElementById('content').style.display='block';
       applySort(currentSort);
       return true;
-    }catch(e){
-      tried.push(path);
-    }
+    }catch{}
   }
-  // show attempted paths in error only if fallback also fails (handled below)
   return false;
 }
 
@@ -294,7 +291,7 @@ async function loadFromGitHub(){
     const htmlFiles = list.filter(e => e.type === 'file' && /\.html?$/i.test(e.name) && e.name.toLowerCase() !== 'index.html');
     if (htmlFiles.length === 0) throw new Error('No HTML files found in this folder.');
 
-    allItems = htmlFiles.map((f,i)=>({
+    allItems = htmlFiles.map((f)=>({
       title: decodeURIComponent(f.name.replace(/\.html?$/i,'')),
       path: `./${encodeURIComponent(f.name)}`,
       section: 'General',
@@ -432,3 +429,4 @@ function esc(s){ return (s??'').toString().replace(/[&<>"']/g, m=>({ '&':'&amp;'
 </script>
 </body>
 </html>
+
