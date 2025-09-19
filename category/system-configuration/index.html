@@ -239,6 +239,9 @@ let filtered = [];
 let currentPage = 0;
 let currentSort = 'section';
 
+// current category directory (e.g. "/category/system-configuration/")
+const CURRENT_DIR = location.pathname.replace(/[^\/]*$/, '');
+
 document.addEventListener('DOMContentLoaded', async () => {
   await loadManifest();
   initSorting();
@@ -252,10 +255,14 @@ async function loadManifest(){
     try{
       const res = await fetch(path, {cache:'no-cache'});
       if(!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
+      const data  = await res.json();
       const items = Array.isArray(data.items) ? data.items : (Array.isArray(data) ? data : []);
-      allItems = normalizeItems(items);
-      document.getElementById('file-count').textContent = data.count || allItems.length;
+
+      const cleaned = normalizeItems(items);
+      // keep only files that live under the same directory as this index
+      allItems = cleaned.filter(inThisCategory);
+
+      document.getElementById('file-count').textContent = allItems.length;
       document.getElementById('manifest-path').textContent = `• manifest: ${path}`;
       document.getElementById('loading').style.display='none';
       document.getElementById('content').style.display='block';
@@ -265,7 +272,6 @@ async function loadManifest(){
       tried.push(path);
     }
   }
-  // failed
   document.getElementById('loading').style.display='none';
   const err = document.getElementById('error');
   err.style.display='block';
@@ -276,7 +282,7 @@ function normalizeItems(items){
   return items.map((it, i) => {
     const x = {...it};
     x.title   = (it.title ?? it.name ?? `Untitled #${i+1}`).toString();
-    x.path    = normalizePath(it.path ?? it.url ?? '');
+    x.path    = (it.path ?? it.url ?? '').toString().trim();
     x.section = (it.section ?? it.category ?? 'General').toString();
     x.type    = (it.type ?? it.kind ?? '').toString();
     x.tags    = Array.isArray(it.tags) ? it.tags : (typeof it.tags === 'string' ? it.tags.split(',').map(s=>s.trim()).filter(Boolean) : []);
@@ -284,12 +290,12 @@ function normalizeItems(items){
     return x;
   });
 }
-function normalizePath(p){
-  if(!p) return '';
-  let s = p.trim();
-  if (s.startsWith('/')) return s;      // absolute OK
-  // keep relative as-is (this index can live under /category/*)
-  return s;
+
+// only show items whose resolved absolute pathname begins with CURRENT_DIR
+function inThisCategory(item){
+  if (!item.path) return false;
+  const abs = new URL(item.path, location.href).pathname;
+  return abs.startsWith(CURRENT_DIR);
 }
 
 /* sorting + view */
@@ -328,42 +334,24 @@ function showView(which){
 
 /* renderers */
 function renderAll(){ renderTable(); renderCards(); renderPagination(); }
-function pageSlice(){
-  const start = currentPage * itemsPerPage;
-  return filtered.slice(start, start + itemsPerPage);
-}
+function pageSlice(){ const start = currentPage * itemsPerPage; return filtered.slice(start, start + itemsPerPage); }
+
 function renderTable(){
   const tbody = document.getElementById('tbody');
   tbody.innerHTML = '';
   for (const item of pageSlice()){
     const tr = document.createElement('tr');
-
-    const tdSec = document.createElement('td');
-    tdSec.innerHTML = `<span class="badge">${esc(item.section)}</span>`;
-    tr.appendChild(tdSec);
-
-    const tdTitle = document.createElement('td');
-    tdTitle.innerHTML = `<strong>${esc(item.title)}</strong>`;
-    tr.appendChild(tdTitle);
-
-    const tdType = document.createElement('td'); tdType.textContent = item.type || '-'; tr.appendChild(tdType);
-
-    const tdDate = document.createElement('td');
-    tdDate.textContent = item.date ? item.date.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}) : 'No date';
-    tr.appendChild(tdDate);
-
-    const tdTags = document.createElement('td');
-    tdTags.append(...(item.tags||[]).map(t=>{ const s=document.createElement('span'); s.className='tag'; s.textContent=t; return s; }));
-    tr.appendChild(tdTags);
-
-    const tdOpen = document.createElement('td');
-    if(item.path){ const a=document.createElement('a'); a.className='open'; a.href=item.path; a.textContent='Open'; tdOpen.appendChild(a); }
-    else{ tdOpen.innerHTML = '<span class="small">-</span>'; }
-    tr.appendChild(tdOpen);
-
+    tr.innerHTML = `
+      <td><span class="badge">${esc(item.section)}</span></td>
+      <td><strong>${esc(item.title)}</strong></td>
+      <td>${esc(item.type || '-')}</td>
+      <td>${item.date ? item.date.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}) : 'No date'}</td>
+      <td>${(item.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</td>
+      <td>${item.path ? `<a class="open" href="${item.path}">Open</a>` : '<span class="small">-</span>'}</td>`;
     tbody.appendChild(tr);
   }
 }
+
 function renderCards(){
   const wrap = document.getElementById('cards');
   wrap.innerHTML = '';
@@ -381,6 +369,7 @@ function renderCards(){
     wrap.appendChild(d);
   }
 }
+
 function renderPagination(){
   const totalPages = Math.max(1, Math.ceil(filtered.length / itemsPerPage));
   const prev = document.getElementById('prev-btn');
