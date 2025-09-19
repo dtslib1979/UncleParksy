@@ -15,15 +15,14 @@
   --sand:#efe6cf; --papyrus:#f8f1d9; --papyrus-deep:#e7d9b6;
   --ink:#2a2014; --ink-2:#4a3a24; --ink-3:#7a613e;
   --gold:#d4af37; --gold-deep:#b8860b;
+  --ring:rgba(0,0,0,.08);
   --shadow-m:rgba(42,32,20,.22); --shadow-l:rgba(42,32,20,.10);
 }
 
-/* reset */
+/* reset & base */
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
 img{max-width:100%;height:auto;display:block}
-
-/* page bg (papyrus) */
 body{
   font-family:'Philosopher',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
   color:var(--ink);
@@ -32,23 +31,48 @@ body{
     radial-gradient(circle at 88% 82%, rgba(163,97,43,.08) 0%, transparent 40%),
     linear-gradient(135deg, var(--sand) 0%, #e9dfc3 100%);
   min-height:100vh;
+  -webkit-text-size-adjust:100%;
 }
+h1,h2,h3,p,a,span{overflow-wrap:anywhere}
 
-/* header (shared look) */
+/* ---------- header (sticky, mobile-wrap) ---------- */
 .header{
-  display:flex; align-items:center; justify-content:space-between; gap:12px;
-  padding: max(12px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) 12px max(16px, env(safe-area-inset-left));
+  position:sticky; top:0; z-index:20;
+  display:flex; align-items:center; gap:12px; row-gap:8px; flex-wrap:wrap;
+  padding: max(10px, env(safe-area-inset-top))
+           max(16px, env(safe-area-inset-right))
+           10px
+           max(16px, env(safe-area-inset-left));
+  background:color-mix(in hsl, var(--papyrus) 85%, #fff 15%);
+  border-bottom:1px solid #e6ddc8;
+  backdrop-filter:saturate(1.1) blur(6px);
 }
-.brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:inherit}
+.brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:inherit; min-width:0}
 .brand img{height:40px; width:auto}
-.brand-title{font-family:'Pirata One',cursive; font-size:1.4rem; letter-spacing:1px}
-.nav a{margin-left:12px; font-weight:700; text-decoration:none; color:inherit}
-.nav a:hover{text-decoration:underline}
+.brand-title{font-family:'Pirata One',cursive; font-size:clamp(1.15rem,3.5vw,1.4rem); letter-spacing:1px}
+.nav{
+  display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+  margin-left:auto;
+}
+.nav a{
+  text-decoration:none; color:inherit; font-weight:700;
+  padding:8px 10px; border-radius:10px; line-height:1;
+  min-height:44px; display:flex; align-items:center;
+}
+.nav a[aria-current="page"], .nav a:hover{background:#fff; outline:1px solid var(--ring)}
 
-/* shell */
-.wrap{max-width:1100px; margin:0 auto; padding:0 clamp(16px,4vw,24px) clamp(28px,6vw,48px)}
+/* ---------- content shell ---------- */
+.wrap{
+  max-width:1100px;
+  margin:0 auto;
+  padding:
+    clamp(8px,1.5vw,16px)
+    max(16px, env(safe-area-inset-right))
+    clamp(28px,6vw,48px)
+    max(16px, env(safe-area-inset-left));
+}
 
-/* card panel */
+/* ---------- panel (papyrus card) ---------- */
 .panel{
   position:relative;
   background:linear-gradient(180deg, rgba(248,241,217,.96), rgba(231,217,182,.93));
@@ -62,7 +86,7 @@ body{
 .title{
   font-family:'Pirata One',cursive;
   font-size:clamp(2rem,6vw,3rem);
-  margin:.2rem 0 1rem;
+  margin:.2rem 0 .6rem;
   text-align:center;
   background:linear-gradient(180deg,#caa766 0%, #8f6a2d 55%, #5f4520 100%);
   -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
@@ -70,24 +94,25 @@ body{
 }
 .subtitle{
   text-align:center; color:var(--ink-2);
-  font-size:clamp(1rem,2.4vw,1.15rem); margin:0 0 1.25rem;
+  font-size:clamp(1rem,2.6vw,1.15rem); margin:0 0 1rem;
 }
 
 /* email CTA */
-.email{
-  display:flex; justify-content:center; margin:1.1rem 0 1.6rem;
-}
+.email{display:flex; justify-content:center; margin:.6rem 0 1.4rem}
 .email a{
   text-decoration:none; color:#000; font-weight:800; letter-spacing:.2px;
-  padding:.75rem 1.25rem; border-radius:14px; border:2px solid rgba(143,106,45,.35);
+  padding:clamp(.8rem,2.6vw,1rem) clamp(1.2rem,4vw,1.4rem);
+  border-radius:14px; border:2px solid rgba(143,106,45,.35);
   background:linear-gradient(180deg, var(--gold), var(--gold-deep));
   box-shadow:0 10px 24px rgba(212,175,55,.35), inset 0 1px 0 rgba(255,255,255,.35);
+  min-height:44px; display:flex; align-items:center;
 }
 .email a:active{transform:translateY(1px)}
 
-/* placeholders (map/papyrus frame look) */
+/* ---------- placeholders (video/image) ---------- */
 .placeholders{
-  display:grid; grid-template-columns:1fr 1fr; gap:clamp(14px,3vw,18px);
+  display:grid; gap:clamp(14px,3vw,18px);
+  grid-template-columns:1fr 1fr;
 }
 .card{
   background:
@@ -100,32 +125,30 @@ body{
   box-shadow:0 10px 28px var(--shadow-l);
   display:flex; flex-direction:column; gap:.6rem;
 }
-.card h3{margin:.1rem 0 .2rem}
+.card h3{margin:.1rem 0 .2rem; font-size:clamp(1.05rem,3.8vw,1.15rem)}
 .card p{margin:0; color:var(--ink-3); font-size:.95rem}
 
-/* dashed content box to avoid overflow clipping */
+/* dashed content boxes with fixed aspect ratios to avoid clipping */
 .box{
   border:2px dashed rgba(143,106,45,.4);
-  border-radius:12px; padding:10px;
-  min-height:160px; display:flex; align-items:center; justify-content:center;
-  overflow:hidden;
+  border-radius:12px;
+  padding:10px;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden; background:rgba(255,255,255,.35);
 }
+.box.video{aspect-ratio:16/9; min-height:160px}
+.box.image{aspect-ratio:4/3; min-height:160px}
 .box a{color:inherit; text-decoration:none}
-.box .hint{opacity:.7}
+.box .hint{opacity:.75; font-size:clamp(.95rem,3.5vw,1rem)}
 
 /* footer */
 .footer{padding:20px 16px; text-align:center; color:#6b6b6b; font-size:.9rem}
 .footer a{color:inherit}
 
-/* mobile polish */
-@media (max-width:700px){
-  .nav{display:flex; gap:14px; flex-wrap:wrap}
-  .nav a{margin-left:0}
+/* ---------- mobile polish ---------- */
+@media (max-width:900px){
   .placeholders{grid-template-columns:1fr}
-  .box{min-height:140px}
 }
-
-/* reduced motion */
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important}
 }
@@ -146,19 +169,19 @@ body{
 <main class="wrap" id="main" role="main">
   <section class="panel" aria-labelledby="contact-title">
     <h1 class="title" id="contact-title">Contact</h1>
-    <p class="subtitle">Simple & direct. Reach me by email.</p>
+    <p class="subtitle">Simple &amp; direct. Reach me by email.</p>
 
     <!-- Email only (open) -->
     <div class="email">
-      <a href="mailto:dimas@dtslib.com">dimas@dtslib.com</a>
+      <a href="mailto:dimas@dtslib.com" aria-label="Email dimas@dtslib.com">dimas@dtslib.com</a>
     </div>
 
-    <!-- Placeholders (you can replace later) -->
+    <!-- Placeholders (fill these later) -->
     <div class="placeholders">
       <div class="card">
         <h3>Video</h3>
         <p>Add your link later.</p>
-        <div class="box">
+        <div class="box video">
           <!-- Put your video URL in href -->
           <a href="#" target="_blank" rel="noopener" class="hint">[ Video Link Placeholder ]</a>
         </div>
@@ -167,10 +190,10 @@ body{
       <div class="card">
         <h3>Image</h3>
         <p>Add your image later.</p>
-        <div class="box">
+        <div class="box image">
           <!-- Put your image URL into src -->
           <a href="#" class="hint" aria-label="Image placeholder">
-            <img src="" alt="Image placeholder (empty)" style="width:100%;max-height:260px;object-fit:contain">
+            <img src="" alt="Image placeholder (empty)" style="width:100%;height:100%;object-fit:contain">
           </a>
         </div>
       </div>
