@@ -147,7 +147,7 @@ body::before{
   </header>
 
   <div class="counter">
-    <p><b id="file-count">0</b> items are ready on the platter <small id="manifest-path"></small></p>
+    <p><b id="file-count">0</b> items are ready on the platter <small id="source-note"></small></p>
   </div>
 
   <nav class="controls">
@@ -205,28 +205,30 @@ body::before{
   </main>
 
 <script>
+/* ========= Repo info for fallback (GitHub Contents API) ========= */
+const GH_OWNER  = 'dtslib1979';
+const GH_REPO   = 'UncleParksy';
+const GH_BRANCH = 'main';
+/* =============================================================== */
+
 /* ===== Manifest candidates (first successful path wins) ===== */
 const MANIFEST_CANDIDATES = [
   './assets/system-config.manifest.json',
   './assets/manifest-system.json',
   './assets/system/manifest.json',
   './assets/manifest.json',
-
   '../assets/system-config.manifest.json',
   '../assets/manifest-system.json',
   '../assets/system/manifest.json',
   '../assets/manifest.json',
-
   '../../assets/system-config.manifest.json',
   '../../assets/manifest-system.json',
   '../../assets/system/manifest.json',
   '../../assets/manifest.json',
-
   '/assets/system-config.manifest.json',
   '/assets/manifest-system.json',
   '/assets/system/manifest.json',
   '/assets/manifest.json',
-
   // same-dir fallbacks
   './system-config.manifest.json',
   './manifest-system.json',
@@ -243,13 +245,15 @@ let currentSort = 'section';
 const CURRENT_DIR = location.pathname.replace(/[^\/]*$/, '');
 
 document.addEventListener('DOMContentLoaded', async () => {
-  await loadManifest();
+  const ok = await loadFromManifest();
+  if (!ok) await loadFromGitHub();   // 👈 if manifest doesn't include this folder, list .html files directly
   initSorting();
   initViewToggle();
   renderAll();
 });
 
-async function loadManifest(){
+/* ---------- 1) Try manifest ---------- */
+async function loadFromManifest(){
   const tried = [];
   for (const path of MANIFEST_CANDIDATES){
     try{
@@ -257,27 +261,60 @@ async function loadManifest(){
       if(!res.ok) throw new Error(`HTTP ${res.status}`);
       const data  = await res.json();
       const items = Array.isArray(data.items) ? data.items : (Array.isArray(data) ? data : []);
+      const cleaned = normalizeItems(items).filter(inThisCategory);
+      if (cleaned.length === 0) { tried.push(path); continue; }
 
-      const cleaned = normalizeItems(items);
-      // keep only files that live under the same directory as this index
-      allItems = cleaned.filter(inThisCategory);
-
+      allItems = cleaned;
       document.getElementById('file-count').textContent = allItems.length;
-      document.getElementById('manifest-path').textContent = `• manifest: ${path}`;
+      document.getElementById('source-note').textContent = `• manifest: ${path}`;
       document.getElementById('loading').style.display='none';
       document.getElementById('content').style.display='block';
       applySort(currentSort);
-      return;
+      return true;
     }catch(e){
       tried.push(path);
     }
   }
-  document.getElementById('loading').style.display='none';
-  const err = document.getElementById('error');
-  err.style.display='block';
-  err.innerHTML = `❌ Could not load data.<br><small>Paths tried:</small><br><small>${tried.join(' , ')}</small>`;
+  // show attempted paths in error only if fallback also fails (handled below)
+  return false;
 }
 
+/* ---------- 2) Fallback: list files in this folder via GitHub API ---------- */
+async function loadFromGitHub(){
+  const loading = document.getElementById('loading');
+  const note = document.getElementById('source-note');
+  const err = document.getElementById('error');
+  try{
+    const repoDir = CURRENT_DIR.replace(/^\/+|\/+$/g,''); // trim leading/trailing slashes
+    const api = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${repoDir}?ref=${encodeURIComponent(GH_BRANCH)}`;
+    const res = await fetch(api, {headers:{'Accept':'application/vnd.github+json'}});
+    if(!res.ok) throw new Error(`GitHub API ${res.status}`);
+    const list = await res.json();
+
+    const htmlFiles = list.filter(e => e.type === 'file' && /\.html?$/i.test(e.name) && e.name.toLowerCase() !== 'index.html');
+    if (htmlFiles.length === 0) throw new Error('No HTML files found in this folder.');
+
+    allItems = htmlFiles.map((f,i)=>({
+      title: decodeURIComponent(f.name.replace(/\.html?$/i,'')),
+      path: `./${encodeURIComponent(f.name)}`,
+      section: 'General',
+      type: 'HTML',
+      date: guessDateFromName(f.name),
+      tags: []
+    }));
+
+    document.getElementById('file-count').textContent = allItems.length;
+    note.textContent = '• source: GitHub Contents API';
+    loading.style.display='none'; document.getElementById('content').style.display='block';
+    applySort(currentSort);
+  }catch(e){
+    loading.style.display='none';
+    err.style.display='block';
+    err.innerHTML = `❌ Could not load data.<br><small>${e.message}</small>`;
+  }
+}
+
+/* ---------- helpers ---------- */
 function normalizeItems(items){
   return items.map((it, i) => {
     const x = {...it};
@@ -290,12 +327,16 @@ function normalizeItems(items){
     return x;
   });
 }
-
-// only show items whose resolved absolute pathname begins with CURRENT_DIR
 function inThisCategory(item){
   if (!item.path) return false;
   const abs = new URL(item.path, location.href).pathname;
   return abs.startsWith(CURRENT_DIR);
+}
+function guessDateFromName(name){
+  const m = name.match(/(20\d{2})[-_\.](\d{2})[-_\.](\d{2})/);
+  if(!m) return null;
+  const [_,y,mo,d] = m;
+  try{ return new Date(`${y}-${mo}-${d}T00:00:00Z`); }catch{ return null; }
 }
 
 /* sorting + view */
