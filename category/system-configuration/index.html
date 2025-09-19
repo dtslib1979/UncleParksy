@@ -1,5 +1,411 @@
-<!doctype html><html lang='ko'><meta charset='utf-8'>
-<title>system-configuration (1)</title>
-<h1>system-configuration (1)</h1><ul>
-<li><a href='./2025-09-03-immediate-sync-test.html'>2025-09-03-immediate-sync-test</a></li>
-</ul></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>System Configuration — UncleParksy Archive</title>
+<meta name="description" content="Essential setup spells for any digital craftsman. System Lab index with auto-updating table view." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Philosopher:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --primary-gold:#d4af37; --dark-gold:#b8860b; --light-gold:#f4e4aa;
+  --parchment:#f7f3e8; --dark-parchment:#e8dcc0;
+  --ink:#1a0f0a; --ink-2:#2d1b12; --ink-3:#4a2c1a;
+  --purple:#6a4c93; --blue:#4a90e2; --red:#c44536;
+  --shadow-d:rgba(26,15,10,.4); --shadow-m:rgba(26,15,10,.2); --shadow-l:rgba(26,15,10,.1);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Philosopher', system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 15% 25%, rgba(212,175,55,.05) 0%, transparent 40%),
+    radial-gradient(circle at 85% 75%, rgba(106,76,147,.04) 0%, transparent 40%),
+    linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+  min-height:100vh; overflow-x:hidden; position:relative;
+}
+body::before{
+  content:""; position:fixed; inset:0; z-index:1; pointer-events:none;
+  background:
+    repeating-linear-gradient(45deg, transparent,transparent 1px, rgba(212,175,55,.015) 1px, rgba(212,175,55,.015) 2px),
+    repeating-linear-gradient(-45deg, transparent,transparent 1px, rgba(74,44,26,.015) 1px, rgba(74,44,26,.015) 2px);
+}
+
+/* Header */
+.archive-header{position:relative;z-index:10;padding:clamp(1rem,4vw,2rem);text-align:center;margin-bottom:clamp(1rem,3vw,2rem)}
+.archive-title{
+  font-family:'Pirata One',cursive;
+  font-size:clamp(2.2rem,6vw,3.8rem);
+  background:linear-gradient(135deg,var(--primary-gold) 0%,var(--light-gold) 25%,var(--dark-gold) 50%,var(--purple) 75%,var(--primary-gold) 100%);
+  background-size:200% 200%;
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+  text-shadow:2px 2px 4px var(--shadow-m),0 0 20px rgba(212,175,55,.3);
+  letter-spacing:.5px;margin:0 0 .5rem;line-height:1.1;text-transform:uppercase;
+  animation:titleShine 8s ease-in-out infinite;
+}
+@keyframes titleShine{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.archive-subtitle{font-size:clamp(.9rem,2.2vw,1.1rem);color:var(--ink-2);opacity:.85;margin:0 0 1.5rem}
+
+/* Counter */
+.file-counter{
+  position:relative;z-index:10;text-align:center;margin:1rem auto;padding:1rem;border-radius:20px;
+  background:linear-gradient(135deg, rgba(212,175,55,.15), rgba(106,76,147,.1));
+  border:2px solid rgba(212,175,55,.3); box-shadow:0 4px 16px var(--shadow-l);
+  max-width:900px;
+}
+.counter-text{font-weight:700}
+.counter-number{
+  display:inline-block;font-family:'Pirata One',cursive;font-size:clamp(1.5rem,4vw,2rem);
+  background:linear-gradient(135deg,var(--primary-gold),var(--purple));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  margin:0 .35rem;text-shadow:0 0 10px rgba(212,175,55,.5);
+}
+
+/* Controls */
+.archive-controls{
+  position:relative;z-index:10;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem;
+  padding:0 clamp(1rem,4vw,2rem); margin:0 auto 1rem; max-width:1200px;
+}
+.back-link{
+  font-weight:700;text-decoration:none;color:var(--ink);padding:.6rem 1.2rem;border-radius:20px;
+  background:linear-gradient(135deg, rgba(212,175,55,.1), rgba(212,175,55,.2));
+  border:2px solid rgba(212,175,55,.3);transition:.25s;
+}
+.back-link:hover{transform:translateY(-2px);border-color:var(--primary-gold)}
+.sort-controls{display:flex;gap:.5rem;flex-wrap:wrap}
+.sort-btn,.view-btn{
+  padding:.5rem 1rem;border:none;border-radius:15px;cursor:pointer;font-weight:700;font-size:.85rem;
+  background:linear-gradient(135deg, rgba(247,243,232,.8), rgba(232,220,192,.9));
+  color:var(--ink-2); border:2px solid rgba(212,175,55,.2); transition:.25s; text-transform:uppercase; letter-spacing:.5px;
+}
+.sort-btn.active,.view-btn.active{
+  background:linear-gradient(135deg, var(--primary-gold), var(--dark-gold));
+  color:var(--ink); border-color:var(--dark-gold); box-shadow:0 4px 12px rgba(212,175,55,.35);
+}
+
+/* Shell */
+.container{position:relative;z-index:10;max-width:1200px;margin:0 auto;padding:0 clamp(1rem,4vw,2rem)}
+.scroll-viewer{
+  position:relative;overflow:hidden;background:linear-gradient(135deg, rgba(247,243,232,.95) 0%, rgba(232,220,192,.92) 50%, rgba(228,216,188,.9) 100%);
+  backdrop-filter:blur(18px);border-radius:26px;border:3px solid rgba(212,175,55,.4);
+  box-shadow:0 34px 110px var(--shadow-m), inset 0 2px 6px rgba(255,255,255,.5), inset 0 -2px 6px rgba(212,175,55,.15);
+  padding:clamp(1.25rem,4.5vw,2rem);
+}
+
+/* Table view */
+.table-wrap{width:100%;overflow:auto;border-radius:14px;border:2px solid rgba(212,175,55,.25);background:rgba(255,255,255,.6)}
+.table{width:100%;border-collapse:separate;border-spacing:0}
+.table thead th{
+  position:sticky;top:0;background:linear-gradient(180deg, rgba(247,243,232,.95), rgba(232,220,192,.9));
+  font-size:.9rem;text-align:left;padding:.8rem;border-bottom:2px solid rgba(212,175,55,.35);z-index:1
+}
+.table tbody td{
+  padding:.75rem;border-bottom:1px dashed rgba(212,175,55,.25);vertical-align:top;font-size:.95rem
+}
+.badge{display:inline-block;padding:.2rem .5rem;border-radius:.6rem;font-size:.75rem;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--purple),#8a2be2)}
+.tag{display:inline-block;margin:.1rem .25rem 0 0;padding:.18rem .55rem;border-radius:.7rem;font-size:.72rem;background:rgba(212,175,55,.25);border:1px solid rgba(212,175,55,.35)}
+.open-btn{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .7rem;border-radius:.6rem;border:2px solid rgba(212,175,55,.35);background:rgba(255,255,255,.6);font-weight:700;text-decoration:none;color:var(--ink-2)}
+.open-btn:hover{transform:translateY(-1px);border-color:var(--primary-gold)}
+.small{opacity:.8;font-size:.85rem}
+
+/* Card view (mobile fallback) */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem}
+.card{
+  border:2px solid rgba(212,175,55,.25);border-radius:16px;background:linear-gradient(135deg, rgba(255,255,255,.2) 0%, rgba(247,243,232,.95) 30%, rgba(232,220,192,.9) 100%);
+  padding:1rem;box-shadow:0 8px 24px var(--shadow-l)
+}
+.card h3{margin:.35rem 0 .25rem}
+.card .meta{font-size:.85rem;color:var(--ink-3);opacity:.85}
+.card .foot{display:flex;justify-content:space-between;align-items:center;gap:.5rem;margin-top:.6rem}
+
+/* Pagination */
+.pagination{display:flex;justify-content:center;align-items:center;gap:1rem;margin-top:1.25rem;flex-wrap:wrap}
+.page-btn{padding:.7rem 1.2rem;border:none;border-radius:20px;cursor:pointer;font-weight:700;background:linear-gradient(135deg, rgba(247,243,232,.8), rgba(232,220,192,.9));color:var(--ink-2);border:2px solid rgba(212,175,55,.2);transition:.25s;min-width:48px}
+.page-btn:hover:not(:disabled){background:linear-gradient(135deg,var(--primary-gold),var(--dark-gold));color:var(--ink);transform:translateY(-2px)}
+.page-btn:disabled{opacity:.4;cursor:not-allowed}
+.page-info{font-size:.9rem;color:var(--ink-3);padding:.5rem 1rem;opacity:.8}
+
+/* View toggle defaults */
+#table-view{display:block}
+#card-view{display:none}
+@media (max-width: 640px){
+  #table-view{display:none !important}
+  #card-view{display:block !important}
+}
+
+/* Reduced motion / print */
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;animation-iteration-count:1 !important}}
+@media print{.archive-controls,.pagination{display:none}body{background:#fff;color:#000}.scroll-viewer{box-shadow:none}}
+</style>
+</head>
+
+<body>
+  <header class="archive-header">
+    <h1 class="archive-title">⚙️ System Configuration</h1>
+    <p class="archive-subtitle">Essential setup spells for any digital craftsman.</p>
+  </header>
+
+  <div class="file-counter">
+    <p class="counter-text">
+      <span class="counter-number" id="file-count">0</span> items are ready on the platter
+      <span class="small" id="manifest-path"></span>
+    </p>
+  </div>
+
+  <nav class="archive-controls">
+    <a href="../index.html" class="back-link">← Back to Grimoire</a>
+    <div class="sort-controls">
+      <button class="sort-btn active" data-sort="section">🗂️ Section</button>
+      <button class="sort-btn" data-sort="newest">📅 Newest</button>
+      <button class="sort-btn" data-sort="oldest">📜 Oldest</button>
+      <button class="sort-btn" data-sort="title">🔤 Title</button>
+    </div>
+    <div class="sort-controls" aria-label="view">
+      <button class="view-btn active" id="btn-table">📋 Table</button>
+      <button class="view-btn" id="btn-cards">🧩 Cards</button>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="scroll-viewer">
+      <div id="loading" class="loading-message">🍽️ Preparing the platter…</div>
+      <div id="error" class="error-message" style="display:none"></div>
+
+      <section id="content" style="display:none">
+        <!-- TABLE VIEW -->
+        <div id="table-view">
+          <div class="table-wrap">
+            <table class="table" id="data-table" aria-describedby="file-count">
+              <thead>
+                <tr>
+                  <th style="width:16ch;">Section</th>
+                  <th>Title</th>
+                  <th style="width:12ch;">Type</th>
+                  <th style="width:16ch;">Date</th>
+                  <th style="width:22ch;">Tags</th>
+                  <th style="width:10ch;">Open</th>
+                </tr>
+              </thead>
+              <tbody id="tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- CARD VIEW -->
+        <div id="card-view">
+          <div class="cards" id="cards"></div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination" id="pagination">
+          <button class="page-btn" id="prev-btn">Prev</button>
+          <div class="page-info" id="page-info"></div>
+          <button class="page-btn" id="next-btn">Next</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+<script>
+/* ===== Manifest candidates (first that loads wins) ===== */
+const MANIFEST_CANDIDATES = [
+  '../assets/system-config.manifest.json',
+  '../assets/manifest-system.json',
+  '../assets/system/manifest.json',
+  '../assets/manifest.json' // fallback
+];
+
+const itemsPerPage = 15;
+let allItems = [];
+let filtered = [];
+let currentPage = 0;
+let currentSort = 'section';
+
+document.addEventListener('DOMContentLoaded', async () => {
+  await loadManifestFromCandidates();
+  initSort();
+  initViewToggle();
+  render();
+});
+
+async function loadManifestFromCandidates(){
+  const loading = document.getElementById('loading');
+  for (const path of MANIFEST_CANDIDATES){
+    try{
+      const res = await fetch(path, {cache:'no-cache'});
+      if(!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      const items = Array.isArray(data.items) ? data.items : (Array.isArray(data) ? data : []);
+      allItems = sanitizeItems(items);
+      document.getElementById('file-count').textContent = data.count || allItems.length;
+      document.getElementById('manifest-path').textContent = `• manifest: ${path.replace('../','')}`;
+      loading.style.display='none';
+      document.getElementById('content').style.display='block';
+      applySort(currentSort);
+      return;
+    }catch(e){ /* try next */ }
+  }
+  loading.style.display='none';
+  const err = document.getElementById('error');
+  err.style.display='block';
+  err.innerHTML = `❌ Could not load index.<br><small>Paths tried: ${MANIFEST_CANDIDATES.join(' , ')}</small>`;
+}
+
+/* ---- schema guard ---- */
+function sanitizeItems(items){
+  return items.map((it, i) => {
+    const x = {...it};
+    x.title   = (it.title ?? it.name ?? `Untitled #${i+1}`).toString();
+    x.path    = normalizePath(it.path ?? it.url ?? '');
+    x.section = (it.section ?? it.category ?? 'General').toString();
+    x.type    = (it.type ?? it.kind ?? '').toString();
+    x.tags    = Array.isArray(it.tags) ? it.tags : (typeof it.tags === 'string' ? it.tags.split(',').map(s=>s.trim()).filter(Boolean) : []);
+    x.date    = it.date ? new Date(it.date) : null;
+    return x;
+  });
+}
+function normalizePath(p){
+  if(!p) return '';
+  let s = p.trim();
+  if (s.startsWith('/')) s = s.slice(1);
+  return '../' + s;
+}
+
+/* ---- sort & view ---- */
+function initSort(){
+  document.querySelectorAll('.sort-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      currentSort = btn.dataset.sort;
+      applySort(currentSort);
+      currentPage = 0;
+      render();
+    });
+  });
+}
+function applySort(type){
+  filtered = [...allItems];
+  switch(type){
+    case 'newest':
+      filtered.sort((a,b)=>(b.date?.getTime()||0)-(a.date?.getTime()||0)); break;
+    case 'oldest':
+      filtered.sort((a,b)=>(a.date?.getTime()||0)-(b.date?.getTime()||0)); break;
+    case 'title':
+      filtered.sort((a,b)=>a.title.localeCompare(b.title,'en')); break;
+    case 'section':
+    default:
+      filtered.sort((a,b)=>a.section.localeCompare(b.section,'en') || a.title.localeCompare(b.title,'en'));
+  }
+}
+function initViewToggle(){
+  const btnTable = document.getElementById('btn-table');
+  const btnCards = document.getElementById('btn-cards');
+  btnTable.addEventListener('click', ()=>{
+    btnTable.classList.add('active'); btnCards.classList.remove('active');
+    document.getElementById('table-view').style.display='block';
+    document.getElementById('card-view').style.display='none';
+  });
+  btnCards.addEventListener('click', ()=>{
+    btnCards.classList.add('active'); btnTable.classList.remove('active');
+    document.getElementById('table-view').style.display='none';
+    document.getElementById('card-view').style.display='block';
+  });
+}
+
+/* ---- renderers ---- */
+function render(){
+  renderTable();
+  renderCards();
+  renderPagination();
+}
+function renderTable(){
+  const tbody = document.getElementById('tbody');
+  tbody.innerHTML = '';
+  for (const item of pageSlice()){
+    const tr = document.createElement('tr');
+
+    const tdSec = document.createElement('td');
+    tdSec.innerHTML = `<span class="badge">${escapeHtml(item.section)}</span>`;
+    tr.appendChild(tdSec);
+
+    const tdTitle = document.createElement('td');
+    tdTitle.innerHTML = `<strong>${escapeHtml(item.title)}</strong>`;
+    tr.appendChild(tdTitle);
+
+    const tdType = document.createElement('td');
+    tdType.textContent = item.type || '-';
+    tr.appendChild(tdType);
+
+    const tdDate = document.createElement('td');
+    tdDate.textContent = item.date ? item.date.toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'}) : 'No date';
+    tr.appendChild(tdDate);
+
+    const tdTags = document.createElement('td');
+    tdTags.append(...(item.tags||[]).map(t=>{
+      const span = document.createElement('span'); span.className='tag'; span.textContent=t; return span;
+    }));
+    tr.appendChild(tdTags);
+
+    const tdOpen = document.createElement('td');
+    if(item.path){
+      const a = document.createElement('a'); a.className='open-btn'; a.href=item.path; a.textContent='Open';
+      tdOpen.appendChild(a);
+    }else{
+      tdOpen.innerHTML = '<span class="small">-</span>';
+    }
+    tr.appendChild(tdOpen);
+
+    tbody.appendChild(tr);
+  }
+}
+function renderCards(){
+  const wrap = document.getElementById('cards');
+  wrap.innerHTML = '';
+  for (const item of pageSlice()){
+    const div = document.createElement('div'); div.className='card';
+    const dateStr = item.date ? item.date.toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'}) : 'No date';
+    div.innerHTML = `
+      <span class="badge">${escapeHtml(item.section)}</span>
+      <h3>${escapeHtml(item.title)}</h3>
+      <div class="meta">${escapeHtml(item.type || '-')} · ${dateStr}</div>
+      <div class="foot">
+        <div>${(item.tags||[]).map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join('')}</div>
+        ${item.path ? `<a class="open-btn" href="${item.path}">Open</a>` : ''}
+      </div>
+    `;
+    wrap.appendChild(div);
+  }
+}
+function pageSlice(){
+  const start = currentPage * itemsPerPage;
+  return filtered.slice(start, start + itemsPerPage);
+}
+function renderPagination(){
+  const total = Math.max(1, Math.ceil(filtered.length / itemsPerPage));
+  const prev = document.getElementById('prev-btn');
+  const next = document.getElementById('next-btn');
+  const info = document.getElementById('page-info');
+
+  prev.disabled = currentPage <= 0;
+  next.disabled = currentPage >= total - 1;
+
+  prev.onclick = ()=>{ if(currentPage>0){currentPage--; render();} };
+  next.onclick = ()=>{ if(currentPage<total-1){currentPage++; render();} };
+
+  const startItem = filtered.length ? (currentPage*itemsPerPage + 1) : 0;
+  const endItem = Math.min((currentPage+1)*itemsPerPage, filtered.length);
+  info.textContent = `${startItem}-${endItem} / ${filtered.length}`;
+}
+
+/* utils */
+function escapeHtml(s){ return (s??'').toString().replace(/[&<>"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m])) }
+</script>
+</body>
+</html>
