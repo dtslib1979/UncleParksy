@@ -238,6 +238,11 @@ body::before{
 <script>
 /* ===== Manifest candidates (first successful path wins) ===== */
 const MANIFEST_CANDIDATES = [
+  // same-directory manifests (highest priority)
+  './thought-archaeology.manifest.json',
+  './manifest-thought.json',
+  './manifest.json',
+
   './assets/thought-archaeology.manifest.json',
   './assets/manifest-thought.json',
   './assets/manifest.json',
@@ -252,12 +257,7 @@ const MANIFEST_CANDIDATES = [
 
   '/assets/thought-archaeology.manifest.json',
   '/assets/manifest-thought.json',
-  '/assets/manifest.json',
-
-  // same-directory fallbacks
-  './thought-archaeology.manifest.json',
-  './manifest-thought.json',
-  './manifest.json'
+  '/assets/manifest.json'
 ];
 
 const itemsPerPage = 15;
