@@ -2,89 +2,170 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <title>About — UncleParksy</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Philosopher:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
-:root {
+:root{
   --bg:#f9f5e7; --bg-2:#f5efe1; --panel:#fffdf7;
   --ink:#2e2620; --ink-2:#4b3f34;
   --gold:#e6c45d; --gold-2:#c7a843;
-  --shadow:rgba(0,0,0,.15);
+  --ring:rgba(0,0,0,.08); --shadow:rgba(0,0,0,.12);
 }
+
+/* reset */
 *{box-sizing:border-box}
-body{margin:0;padding:0;font-family:'Philosopher',serif;background:var(--bg);color:var(--ink);}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Philosopher',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background:
+    radial-gradient(circle at 15% 25%, rgba(230,196,93,.07) 0%, transparent 40%),
+    radial-gradient(circle at 85% 75%, rgba(199,168,67,.06) 0%, transparent 40%),
+    linear-gradient(135deg,var(--bg) 0%,var(--bg-2) 100%);
+  color:var(--ink);
+  -webkit-text-size-adjust:100%;
+  overflow-x:hidden;
+}
 
-/* nav */
-.navbar{display:flex;align-items:center;gap:1.5rem;padding:.8rem 1rem;background:var(--bg-2);border-bottom:1px solid #e2dac5;}
-.navbar img{width:42px;height:42px;border-radius:50%;}
-.brand{font-family:'Pirata One',cursive;font-size:1.5rem;}
-.navbar a{text-decoration:none;color:var(--ink);font-weight:700;}
-.navbar a.active{text-decoration:underline}
+/* ---- nav ---- */
+.navbar{
+  position:sticky; top:0; z-index:20;
+  display:flex; align-items:center; gap:12px; row-gap:8px; flex-wrap:wrap;
+  padding:10px max(16px, env(safe-area-inset-left)) 10px max(16px, env(safe-area-inset-right));
+  background:color-mix(in hsl, var(--bg-2) 88%, white 12%);
+  border-bottom:1px solid #e6ddc8;
+  backdrop-filter:saturate(1.1) blur(6px);
+}
+.brand-area{display:flex; align-items:center; gap:10px; min-width:0}
+.brand-area img{width:40px;height:40px;display:block}
+.brand{font-family:'Pirata One',cursive;font-size:clamp(1.2rem,3.8vw,1.6rem)}
+.navlinks{
+  display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+  margin-left:auto; width:auto;
+}
+.navlinks a{
+  text-decoration:none; color:var(--ink); font-weight:700;
+  padding:6px 8px; border-radius:10px;
+}
+.navlinks a:hover{background:rgba(0,0,0,.03)}
+.navlinks a.active{outline:2px solid var(--ring); background:#fff}
 
-/* header */
-.header{text-align:center;padding:2rem 1rem;}
-.header h1{font-family:'Pirata One',serif;font-size:2.4rem;margin:.3rem 0;color:var(--ink);}
-.header p{color:var(--ink-2);font-size:1.1rem;margin:0;}
+/* ---- header ---- */
+.header{
+  text-align:center;
+  padding:clamp(24px,6vw,48px) max(16px, env(safe-area-inset-left)) 8px max(16px, env(safe-area-inset-right));
+}
+.header h1{
+  font-family:'Pirata One',serif;
+  font-size:clamp(2rem,7vw,3rem);
+  margin:.2rem 0 .6rem;
+}
+.header p{
+  color:var(--ink-2);
+  font-size:clamp(1rem,3.5vw,1.15rem);
+  margin:0 auto; max-width:720px;
+}
 
-/* card */
+/* ---- card ---- */
 .card{
-  max-width:800px;margin:1rem auto;padding:1.5rem;border-radius:16px;
-  background:var(--panel);box-shadow:0 6px 16px var(--shadow);
-  border:2px solid var(--gold-2);position:relative;
+  max-width:min(920px, 100%);
+  margin:16px auto;
+  padding:clamp(16px,4vw,24px);
+  border-radius:18px;
+  background:var(--panel);
+  border:2px solid var(--gold-2);
+  box-shadow:0 10px 28px var(--shadow);
+  position:relative;
 }
-.card h2{font-family:'Pirata One',serif;font-size:1.6rem;margin-top:0;color:var(--ink);}
-.card p{line-height:1.6;margin:.5rem 0;}
 .card::before{
-  content:"";position:absolute;top:0;left:0;right:0;height:8px;
-  border-radius:16px 16px 0 0;
-  background:linear-gradient(90deg,var(--gold),var(--gold-2));
+  content:""; position:absolute; inset:0; border-radius:18px; padding:2px;
+  background:linear-gradient(135deg, var(--gold) 0%, var(--gold-2) 50%, var(--gold) 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude;
+  pointer-events:none;
+}
+.card h2{
+  font-family:'Pirata One',serif;
+  font-size:clamp(1.4rem,4.5vw,1.8rem);
+  margin:0 0 .6rem;
+}
+.card p{margin:.4rem 0; line-height:1.7; word-break:keep-all}
+
+/* ---- grid ---- */
+.grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:clamp(12px,3vw,18px);
+  max-width:min(1000px, 100%);
+  margin:24px auto 40px;
+  padding:0 max(16px, env(safe-area-inset-left)) 0 max(16px, env(safe-area-inset-right));
+}
+.info-card{
+  background:var(--panel);
+  border:1px solid #e7ddc6;
+  border-radius:16px;
+  padding:clamp(14px,3.8vw,18px);
+  box-shadow:0 6px 18px var(--shadow);
+}
+.info-card h3{
+  font-family:'Pirata One',serif;
+  margin:.2rem 0 .4rem;
+  font-size:clamp(1.15rem,4vw,1.35rem);
+}
+.info-card p{margin:.25rem 0; line-height:1.6}
+
+/* ---- responsive ---- */
+@media (min-width:640px){
+  .grid{grid-template-columns:1fr 1fr}
+}
+@media (min-width:980px){
+  .grid{grid-template-columns:repeat(3,1fr)}
 }
 
-/* grid */
-.grid{display:grid;gap:1rem;max-width:1000px;margin:2rem auto;padding:0 1rem;}
-.info-card{
-  background:var(--panel);border-radius:14px;padding:1rem 1.2rem;
-  box-shadow:0 4px 12px var(--shadow);
-  border:1px solid #e4dbc3;
+/* safe text wrapping for tiny screens */
+h1,h2,h3,p,a,span{overflow-wrap:anywhere}
+
+/* reduce motion */
+@media (prefers-reduced-motion:reduce){
+  *{scroll-behavior:auto}
 }
-.info-card h3{font-family:'Pirata One',serif;margin-top:0;font-size:1.3rem;color:var(--ink);}
-.info-card p{margin:.3rem 0;line-height:1.5;}
 </style>
 </head>
 
 <body>
-  <nav class="navbar">
-    <img src="./assets/avatar.png" alt="UncleParksy logo">
-    <span class="brand">UncleParksy</span>
-    <a href="/index.html">Home</a>
-    <a href="/archive.html">Archive</a>
-    <a href="/about.html" class="active">About</a>
-    <a href="/contact.html">Contact</a>
+  <!-- NAV -->
+  <nav class="navbar" role="navigation" aria-label="Primary">
+    <div class="brand-area">
+      <img src="/assets/img/logo.png" alt="UncleParksy logo">
+      <span class="brand">UncleParksy</span>
+    </div>
+    <div class="navlinks">
+      <a href="/" >Home</a>
+      <a href="/archive/index.html">Archive</a>
+      <a href="/about.html" class="active">About</a>
+      <a href="/contact.html">Contact</a>
+    </div>
   </nav>
 
+  <!-- HEADER -->
   <header class="header">
     <h1>About This Grimoire</h1>
     <p>Unveiling the path of the EduArt Engineer.</p>
   </header>
 
-  <section class="card">
-    <h2>Philosophy</h2>
-    <p>
-      This digital grimoire is more than a blog — it is a workshop of ideas where 
-      education, art, and engineering merge. Every note, comic, and prototype 
-      reflects the pursuit of meaningful creation.
-    </p>
-    <p>
-      The mission is simple: <em>transform knowledge into living artifacts</em> that 
-      can be shared, remixed, and reborn across platforms.
-    </p>
+  <!-- PHILOSOPHY -->
+  <section class="card" aria-labelledby="ph-title">
+    <h2 id="ph-title">Philosophy</h2>
+    <p>This digital grimoire is more than a blog — it is a workshop of ideas where education, art, and engineering merge. Every note, comic, and prototype reflects the pursuit of meaningful creation.</p>
+    <p>The mission is simple: <em>transform knowledge into living artifacts</em> that can be shared, remixed, and reborn across platforms.</p>
   </section>
 
-  <section class="grid">
+  <!-- THREE PILLARS -->
+  <section class="grid" aria-label="Three pillars">
     <div class="info-card">
       <h3>📖 Learning</h3>
       <p>Recasting knowledge into reproducible lessons and guides, accessible to all who seek wisdom.</p>
