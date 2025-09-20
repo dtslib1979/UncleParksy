@@ -12,16 +12,8 @@ for cat in os.listdir(root):
     files.sort(reverse=True)
     count = len(files)
 
-    # 카테고리 index.html 갱신
-    with open(os.path.join(path, "index.html"), "w", encoding="utf-8") as f:
-        f.write("<!doctype html><html lang='ko'><meta charset='utf-8'>\n")
-        f.write(f"<title>{cat} ({count})</title>\n")
-        f.write(f"<h1>{cat} ({count})</h1><ul>\n")
-        for file in files:
-            title = file.replace(".html","")
-            f.write(f"<li><a href='./{file}'>{title}</a></li>\n")
-        f.write("</ul></html>")
-
+    # Note: Advanced index.html files are now preserved
+    # Only update home_data for count tracking
     home_data[cat] = count
 
 # 홈 카드 카운트 저장 (JSON으로)
