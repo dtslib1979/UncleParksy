@@ -1,5 +1,20 @@
 import os, datetime, json
 
+def is_manual_edit(index_path):
+    """
+    수동 편집본인지 확인하는 함수
+    파일 최상단에 <!-- MANUAL EDIT --> 마크가 있으면 수동 편집본으로 판단
+    """
+    if not os.path.exists(index_path):
+        return False
+    
+    try:
+        with open(index_path, "r", encoding="utf-8") as f:
+            content = f.read(100)  # 처음 100자만 확인하면 충분
+            return "<!-- MANUAL EDIT -->" in content
+    except:
+        return False
+
 root = "category"
 home_data = {}
 
@@ -12,8 +27,16 @@ for cat in os.listdir(root):
     files.sort(reverse=True)
     count = len(files)
 
-    # 카테고리 index.html 갱신
-    with open(os.path.join(path, "index.html"), "w", encoding="utf-8") as f:
+    index_path = os.path.join(path, "index.html")
+    
+    # 수동 편집본 확인 - 수동 편집본이면 자동 갱신 건너뜀
+    if is_manual_edit(index_path):
+        print(f"⚠️  수동 편집본 감지됨: {index_path} - 자동 갱신 건너뜀")
+        home_data[cat] = count
+        continue
+
+    # 카테고리 index.html 갱신 (자동 생성본만)
+    with open(index_path, "w", encoding="utf-8") as f:
         f.write("<!doctype html><html lang='ko'><meta charset='utf-8'>\n")
         f.write(f"<title>{cat} ({count})</title>\n")
         f.write(f"<h1>{cat} ({count})</h1><ul>\n")
