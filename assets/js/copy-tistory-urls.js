@@ -28,8 +28,8 @@
   }
   function deriveBackupPathIfPossible(path) {
     // Try mapping archive → backup/raw (best-effort)
-    if (typeof path === 'string' && path.includes('/archive/')) {
-      return path.replace('/archive/', '/backup/raw/');
+    if (typeof path === 'string' && path.includes('archive/')) {
+      return path.replace('archive/', 'backup/raw/');
     }
     return null;
   }
