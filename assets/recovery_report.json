@@ -1,0 +1,28 @@
+{
+  "timestamp": "2025-09-21T14:32:42.242575",
+  "recovery_simulation": "UncleParksy 재해복구 설계도 기반 복구",
+  "total_steps": 13,
+  "success_steps": 13,
+  "warning_steps": 0,
+  "recovery_steps": [
+    "✅ category 구조 복원 완료",
+    "✅ scripts 구조 복원 완료",
+    "✅ assets 구조 복원 완료",
+    "✅ archive 구조 복원 완료",
+    "✅ .github/workflows 구조 복원 완료",
+    "✅ _obsidian 구조 복원 완료",
+    "✅ 7개 워크플로우 복원 완료",
+    "✅ 9개 스크립트 복원 완료",
+    "✅ 메인 페이지 복원 완료",
+    "✅ 7개 카테고리 복원 완료",
+    "✅ 매니페스트 시스템 복원 완료 (18개 항목)",
+    "✅ 18개 아카이브 파일 복원 완료",
+    "✅ PWA 지원 복원 완료"
+  ],
+  "recommendations": [
+    "🔄 정기적인 백업 실행",
+    "📊 자동화 시스템 모니터링",
+    "✅ 복구 스크립트 테스트",
+    "📝 문서 업데이트"
+  ]
+}
