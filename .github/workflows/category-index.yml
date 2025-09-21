@@ -8,6 +8,10 @@ on:
       - "scripts/generate_category_index.py"
   workflow_dispatch:
 
+concurrency:
+  group: category-index-build
+  cancel-in-progress: false
+
 permissions:
   contents: write
 
@@ -33,6 +37,7 @@ jobs:
           git config user.email "actions@github.com"
           git add category/*/index.html assets/home.json || true
           git commit -m "auto: update category indexes" || echo "no changes"
+          git pull --rebase origin main || true
           git push
 
       - name: 🚀 Trigger 즉시 Obsidian Sync
