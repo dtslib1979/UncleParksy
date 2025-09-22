@@ -1,0 +1,250 @@
+<!doctype html><html lang="ko"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>티스토리 공략법</title>
+<style>
+html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}
+body{margin:0;font-size:16px;line-height:1.7;word-break:keep-all;background:#f4e5c9;color:#2b2116}
+main{max-width:880px;margin:0 auto;padding:18px}
+img,video,iframe{max-width:100%;height:auto}
+[class*="wrap"],[class*="container"],[id*="content"]{max-width:100%!important;width:auto!important;margin:0!important;padding:0!important}
+.grid,.row{display:block!important}.sidebar{display:none!important}.content,.main{width:100%!important}
+table{display:block;width:100%;overflow-x:auto;border-collapse:collapse}
+pre,code{white-space:pre-wrap;word-wrap:break-word}
+h1{font-size:1.5rem;margin:.8rem 0} h2{font-size:1.25rem;margin:.7rem 0}
+.card{background:#fff8ea;border:1px solid rgba(0,0,0,.06);border-radius:14px;padding:14px;margin:10px 0}
+</style>
+</head><body><main>
+<article class="card">
+<h1>티스토리 공략법</h1>
+<main class="wrap">
+<!-- 1) 문답 아카이브 -->
+<section aria-label="문답 아카이브" id="qa-accordion">
+<details open="">
+<summary><span class="badge">Q1</span> “짭” 개념으로 티스토리를 핵심 파이프라인에 넣어도 되는가?</summary>
+<div class="qa-body">
+<p class="q">질문</p>
+<p class="a">정식 도구가 아닌 대용(짭)으로도, 실전 파이프라인의 뼈대를 세울 수 있는가?</p>
+<ul class="list">
+<li>의도: GitHub Pages(GitHub Pages)·Notion(Notion)·API(API) 없이도, HTML(HTML) 발행/분류/백업이 가능한가.</li>
+<li>맥락: JS(JavaScript) 제약이 있는 티스토리지만, 즉시 배포·카테고리·AdSense(AdSense) 등 실전성이 있음.</li>
+</ul>
+<p class="q">답변/합의</p>
+<p class="a">가능. 티스토리는 **짭깃허브**(HTML 발행 + 카테고리)로, **짭노션**(리포트 HTML 저장 + 무료 URL)로, **짭ChatGPT 커넥터**(공개 URL 읽기 레퍼런스)로 작동한다. 핵심은 <strong>“읽기 중심, 즉시 발행, 카테고리=목차”</strong>다.</p>
+</div>
+</details>
+<details>
+<summary><span class="badge">Q2</span> 왜 Markdown 대신 HTML 인가?</summary>
+<div class="qa-body">
+<p class="q">질문</p>
+<p class="a">ChatGPT·Claude가 바로 HTML 코드를 생성하는데, Markdown으로 중간 변환할 이유가 있는가?</p>
+<p class="q">답변/합의</p>
+<ul class="list">
+<li>굳이 없음. HTML은 시각·인터랙션(정책 허용 범위)을 즉시 반영한다.</li>
+<li>티스토리는 HTML 모드 지원. 네이버는 HTML 모드 불가 → 동적 표현 제한.</li>
+<li>결론: **직접 HTML 제작 → 티스토리에 즉시 발행**이 연속성·가독성에 유리.</li>
+</ul>
+<p class="note">참고: JS 전면 허용은 아님(플랫폼 정책/보안). CI/CD(CI/CD) 없이 “즉시 게시”가 강점.</p>
+</div>
+</details>
+<details>
+<summary><span class="badge">Q3</span> “짭깃허브”로 불러도 되나? (JS 제한 vs 실전성)</summary>
+<div class="qa-body">
+<p class="q">질문</p>
+<p class="a">GitHub Pages처럼 JS 풀 스택을 못 쓰는데도, 깃허브 대용으로 명명 가능한가?</p>
+<p class="q">답변/합의</p>
+<ul class="list">
+<li>가능. 이름은 “짭”이지만 목적은 **HTML 발행·분류·수익화**.</li>
+<li>장점: 즉시게시, 카테고리=교재 인덱스, 애드센스, 검색 유입(SEO(SEO)) 잠재력.</li>
+<li>보완: RSS(RSS)/API(API)로 GitHub 백업·미러링(반자동) 설계.</li>
+</ul>
+</div>
+</details>
+<details>
+<summary><span class="badge">Q4</span> 카테고리를 “교재 목차(Outline)”로 쓰는 방식</summary>
+<div class="qa-body">
+<p class="q">질문</p>
+<p class="a">HTML 포스트를 카테고리로 묶어 **책/교재**처럼 보여줄 수 있는가?</p>
+<p class="q">답변/합의</p>
+<ul class="list">
+<li>가능. 카테고리를 챕터·섹션처럼 설계 → 블로그=교재형 인덱스.</li>
+<li>개별 포스트=단원/레슨. 링크=목차 간 연결.</li>
+<li>즉시 게시로 “연재형 교재” 운영이 쉬움.</li>
+</ul>
+</div>
+</details>
+<details>
+<summary><span class="badge">Q5</span> 수익화 경로: 검색 유입 × AdSense</summary>
+<div class="qa-body">
+<p class="q">질문</p>
+<p class="a">네이버만큼의 노출은 아니어도 실질 수익화가 가능한가?</p>
+<p class="q">답변/합의</p>
+<ul class="list">
+<li>가능. 노출이 붙으면 페이지 열람→AdSense로 소액 수익.</li>
+<li>교재형 콘텐츠는 체류시간·회독률을 올려 광고 효율을 보강.</li>
+<li>긴 호흡의 “백서·강의노트”는 구독 동선 확보에 유리.</li>
+</ul>
+</div>
+</details>
+<details>
+<summary><span class="badge">Q6</span> GitHub와의 연동: RSS/API로 백업·관리</summary>
+<div class="qa-body">
+<p class="q">질문</p>
+<p class="a">티스토리와 GitHub를 어떻게 연결할까?</p>
+<p class="q">답변/합의</p>
+<ul class="list">
+<li>RSS를 주기적으로 긁어 HTML 아카이브 저장.</li>
+<li>API 또는 수동 스크립트로 포스트 백업/버전관리.</li>
+<li>역방향: GitHub → 티스토리 발행도 가능(반자동).</li>
+</ul>
+<p class="note">핵심: <strong>프론트(티스토리) / 백엔드(GitHub)</strong> 이원화.</p>
+</div>
+</details>
+<details>
+<summary><span class="badge">Q7</span> “짭노션”: 메모 소환이 아니라 HTML 리포트 저장소</summary>
+<div class="qa-body">
+<p class="q">질문</p>
+<p class="a">Notion처럼 노트를 쌓는 게 아니라, HTML 리포트/아이디어를 바로 저장·발행하는 모델이 유효한가?</p>
+<p class="q">답변/합의</p>
+<ul class="list">
+<li>유효. ChatGPT/Claude가 HTML로 즉시 출력 → 티스토리에 붙여넣기.</li>
+<li>무료 퍼블릭 URL 자동 생성 → 배포/공유 용이.</li>
+<li>카테고리=목차, URL=레퍼런스. Notion 권한/로그인 장벽 회피.</li>
+</ul>
+</div>
+</details>
+<details>
+<summary><span class="badge">Q8</span> “짭ChatGPT 커넥터”: 읽기 전용 Second Brain</summary>
+<div class="qa-body">
+<p class="q">질문</p>
+<p class="a">Notion/GitHub를 직접 커넥터로 붙이면 느리고 토큰 낭비. 대안?</p>
+<p class="q">답변/합의</p>
+<ul class="list">
+<li>티스토리 공개 URL 목록을 ChatGPT Projects/Claude 프로젝트 지침에 등록.</li>
+<li>에이전트는 DB 쓰기 대신 <strong>URL 읽기</strong>로 참조(Reference)만 수행.</li>
+<li>쓰기 실패/지연 리스크 제거, 비용 절감, 속도 향상.</li>
+</ul>
+<p class="note">핵심: <strong>쓰기(Write) 욕심을 버리고, 레퍼런스(Read)로 최적화</strong>.</p>
+</div>
+</details>
+<details>
+<summary><span class="badge">Q9</span> 진짜 자산은 리포트가 아니라 “대화 로그”다</summary>
+<div class="qa-body">
+<p class="q">질문</p>
+<p class="a">프롬프트만 주면 리포트는 재생산 가능. 무엇을 자산화할 것인가?</p>
+<p class="q">답변/합의</p>
+<ul class="list">
+<li><strong>대화 로그 자체</strong>. 사고과정/수정/반복의 흐름.</li>
+<li>모국어(한국어) 대화가 속도·정확도에서 우위.</li>
+<li>정리된 HTML 회의록으로 아카이브 → 티스토리에 게시.</li>
+</ul>
+</div>
+</details>
+<details>
+<summary><span class="badge">Q10</span> 아카이브 운영: 정리→HTML→게시의 루틴화</summary>
+<div class="qa-body">
+<p class="q">질문</p>
+<p class="a">대화 로그를 어떻게 꾸준히 적산(積算)할까?</p>
+<ul class="list">
+<li>세션 종료→핵심 문답 정리→HTML 변환→티스토리 게시.</li>
+<li>카테고리로 맥락 분류(교재형 인덱스).</li>
+<li>주기적 GitHub 미러링으로 장기 백업.</li>
+</ul>
+</div>
+</details>
+<details>
+<summary><span class="badge">Q11</span> 한국어 교재 플랫폼으로의 확장</summary>
+<div class="qa-body">
+<p class="q">질문</p>
+<p class="a">티스토리는 GitHub도 네이버도 아닌 중간 지점. 글로벌 한국어 학습 플랫폼 가능?</p>
+<p class="q">답변/합의</p>
+<ul class="list">
+<li>전 세계 사용자 ID 개방. 퍼블릭 URL 배포 용이.</li>
+<li>상식적·평이한 문체의 필터링 자료=한국어 읽기 교재로 최적.</li>
+<li>카테고리 기반 커리큘럼 구성 → 반복 노출로 학습 효율 향상.</li>
+</ul>
+</div>
+</details>
+<details>
+<summary><span class="badge">Q12</span> 최종 구조: “5축 티스토리 워크플로우”</summary>
+<div class="qa-body">
+<ul class="list">
+<li>① 짭깃허브: HTML 발행 + 카테고리 인덱스 + AdSense + RSS/API 연동.</li>
+<li>② 짭노션: HTML 리포트 저장 + 무료 퍼블릭 URL.</li>
+<li>③ 짭ChatGPT 커넥터: 공개 URL 읽기 전용 참조 = second brain.</li>
+<li>④ 대화로그 아카이브: 회의록 중심 자산화(한국어 우선).</li>
+<li>⑤ 한국어 교재 플랫폼: 글로벌 대상 읽기 교재 허브.</li>
+</ul>
+<p class="note">명명은 “짭”이지만, 기능적 목적은 **실전 출판/학습 운영체계**다.</p>
+</div>
+</details>
+</section>
+<!-- 2) 패턴 질문 추출 -->
+<section aria-label="패턴 질문" class="card">
+<h2>패턴 질문 리스트 (AI도 예측 못한 전환 질문)</h2>
+<div class="block">
+<ul id="pattern-questions-list">
+<li>정식 커넥터 없이 공개 URL만으로 second brain(second brain)을 현실적으로 대체할 수 있는가?</li>
+<li>보고서가 무한 복제되는데, 무엇을 “유일 자산”으로 정의해야 하는가?</li>
+<li>JS(JavaScript) 제한 플랫폼에서 “교재형 출판”을 어떻게 성립시키는가?</li>
+<li>카테고리를 목차(Outline)로 고정하면 연재와 교재가 동시에 가능해지는가?</li>
+<li>Notion(Notion)의 공유/권한 장벽 없이, 무료 공개 URL만으로 글로벌 독자를 확보할 수 있는가?</li>
+<li>읽기 전용(Reference) 최적화가 쓰기(Write) 자동화의 미련을 지울 만큼 효율적인가?</li>
+<li>HTML(HTML) 우선 전략이 Markdown 우선보다 확장성(표현/연동)에서 우위인가?</li>
+<li>AdSense(AdSense) + SEO(SEO) 조합으로 “교재형 블로그”의 체류시간을 수익으로 환전할 수 있는가?</li>
+<li>대화 로그를 “회의록 데이터베이스”로 표준화하면 창작 속도가 가속되는가?</li>
+<li>티스토리의 애매한 포지션이 오히려 “한국어 읽기 교재” 틈새에서 경쟁력이 되는가?</li>
+<li>RSS(RSS)/API(API) 반자동 백업이 장기 보존성에서 어떤 임계점을 만들어내는가?</li>
+</ul>
+</div>
+<div class="row">
+<button class="secondary" id="btnCopyPQ2">패턴 질문 리스트 복사</button>
+</div>
+</section>
+<!-- 3) 백서 생성 (요약) -->
+<section aria-label="백서 요약" class="card">
+<h2>백서 요약</h2>
+<div class="block">
+<p><strong>취지/목적</strong></p>
+<ul class="list">
+<li>티스토리를 HTML 중심의 라이트 출판·학습 OS(OS)로 전환.</li>
+<li>정식 커넥터 대신 공개 URL 참조로 second brain 구현.</li>
+<li>대화 로그를 자산화하여 교재/연재/수익화로 연결.</li>
+</ul>
+<p><strong>문답 요약 리스트</strong></p>
+<ul class="list">
+<li>짭 전략 유효: 읽기 중심 + 즉시 발행 + 카테고리 인덱스.</li>
+<li>Markdown 대신 HTML: 시각·동적 표현·연동에 유리.</li>
+<li>짭깃허브: JS 제한 대신 운영 민첩성과 수익화.</li>
+<li>짭노션: HTML 리포트 저장 + 무료 퍼블릭 URL.</li>
+<li>짭ChatGPT 커넥터: URL 리스트로 빠른 레퍼런스.</li>
+<li>대화로그 아카이브: 유일 자산은 사고흐름.</li>
+<li>한국어 교재 플랫폼: 글로벌 독자에게 읽기 자료 허브.</li>
+</ul>
+<p><strong>추출된 패턴 질문</strong></p>
+<ul class="list">
+<li>공개 URL만으로 second brain이 성립하는가?</li>
+<li>유일 자산은 무엇인가(리포트 vs 로그)?</li>
+<li>제한된 JS 환경에서 교재형 출판은 어떻게 구현되는가?</li>
+</ul>
+</div>
+</section>
+<!-- 4) 복사용 원시 저장소 -->
+<section aria-label="수동 복사 영역" class="card">
+<h2>수동 복사용 저장소</h2>
+<div class="block">
+<p class="note">아래 박스들은 JS가 차단된 환경에서 수동 복사를 위한 백업입니다.</p>
+<p class="mono"><strong>문답 아코디언 원문</strong></p>
+<textarea class="copy-bin" id="qa-raw" readonly=""></textarea>
+<p class="mono"><strong>패턴 질문 리스트 원문</strong></p>
+<textarea class="copy-bin" id="pq-raw" readonly=""></textarea>
+<div class="row">
+<button class="ghost" id="btnFillRaw">수동 복사용 박스 채우기</button>
+</div>
+</div>
+</section>
+
+</main>
+</article>
+<footer style="opacity:.7;font-size:.9rem;margin:16px 0">© Uncle Parksy Korean Learning Archive</footer>
+</main></body></html>
