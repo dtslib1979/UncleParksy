@@ -1,0 +1,83 @@
+# OS Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Logs
+logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+*.cache
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Jekyll (if ever needed)
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+
+# Local development
+.env
+.env.local
+*.local
+
+# Build outputs (if any)
+dist/
+out/
