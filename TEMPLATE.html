@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>페이지 제목을 여기에 입력하세요</title>
+  
+  <!-- 기본 스타일 -->
+  <style>
+    /* 모바일 최적화 기본 스타일 */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: #f7f3e8;
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    article {
+      background: white;
+      border-radius: 14px;
+      padding: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: #1a0f0a;
+    }
+    
+    h2 {
+      font-size: 1.5rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      color: #2d1b12;
+    }
+    
+    h3 {
+      font-size: 1.25rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: #4a2c1a;
+    }
+    
+    p {
+      margin-bottom: 1rem;
+    }
+    
+    .meta {
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .card {
+      background: #fff8ea;
+      border: 1px solid rgba(0,0,0,.06);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    
+    code {
+      background: #f5f5f5;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9em;
+    }
+    
+    pre {
+      background: #f5f5f5;
+      padding: 15px;
+      border-radius: 6px;
+      overflow-x: auto;
+      margin: 15px 0;
+    }
+    
+    pre code {
+      padding: 0;
+      background: none;
+    }
+    
+    ul, ol {
+      margin-left: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    li {
+      margin-bottom: 0.5rem;
+    }
+    
+    a {
+      color: #4a90e2;
+      text-decoration: none;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    
+    .back-link {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid #eee;
+    }
+    
+    /* 모바일 최적화 */
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+      
+      article {
+        padding: 20px;
+      }
+      
+      h1 {
+        font-size: 1.5rem;
+      }
+      
+      h2 {
+        font-size: 1.25rem;
+      }
+      
+      h3 {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <article>
+    <!-- 제목 -->
+    <h1>페이지 제목</h1>
+    
+    <!-- 메타 정보 (날짜, 카테고리 등) -->
+    <div class="meta">
+      📅 2025년 9월 3일 | 📁 카테고리명 | ✍️ 작성자명
+    </div>
+    
+    <!-- 본문 내용 -->
+    <section>
+      <h2>섹션 제목</h2>
+      <p>여기에 본문 내용을 작성하세요. 단락은 자동으로 간격이 조정됩니다.</p>
+      
+      <p>여러 단락을 작성할 수 있습니다. HTML의 기본 태그들을 자유롭게 사용하세요.</p>
+      
+      <h3>하위 섹션 제목</h3>
+      <p>세부적인 내용을 여기에 작성합니다.</p>
+      
+      <!-- 카드 스타일 박스 -->
+      <div class="card">
+        <strong>💡 팁:</strong> 이런 식으로 강조하고 싶은 내용을 박스로 표현할 수 있습니다.
+      </div>
+      
+      <!-- 리스트 -->
+      <h3>리스트 예시</h3>
+      <ul>
+        <li>첫 번째 항목</li>
+        <li>두 번째 항목</li>
+        <li>세 번째 항목</li>
+      </ul>
+      
+      <!-- 코드 예시 -->
+      <h3>코드 예시</h3>
+      <p>인라인 코드: <code>console.log('Hello World')</code></p>
+      
+      <p>코드 블록:</p>
+      <pre><code>function hello() {
+  console.log('Hello, UncleParksy!');
+  return true;
+}</code></pre>
+      
+      <!-- 이미지 삽입 예시 -->
+      <h3>이미지 삽입</h3>
+      <p>이미지를 삽입하려면 다음과 같이 작성하세요:</p>
+      <!-- <img src="/assets/images/example.png" alt="이미지 설명"> -->
+      
+      <!-- 링크 예시 -->
+      <h3>링크</h3>
+      <p>다른 페이지로 링크: <a href="/">메인 페이지</a></p>
+      <p>외부 링크: <a href="https://github.com" target="_blank">GitHub</a></p>
+    </section>
+    
+    <!-- 뒤로 가기 링크 -->
+    <div class="back-link">
+      <a href="/">← 메인으로 돌아가기</a>
+    </div>
+  </article>
+  
+  <!-- 선택사항: 구글 애널리틱스나 기타 스크립트 -->
+  <!-- <script src="/assets/js/script.js"></script> -->
+</body>
+</html>
