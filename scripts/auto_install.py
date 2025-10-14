@@ -73,10 +73,12 @@ class AutoInstallSystem:
         logger.info("🪞 원본 파일 그대로 자동 미러링 시작...")
         
         mirrored_count = 0
-        backup_files = list(self.backup_dir.glob("*.html"))
+        # 🔥 수정: backup/raw/ 디렉토리에서 HTML 파일 검색
+        raw_dir = self.backup_dir / "raw"
+        backup_files = list(raw_dir.glob("*.html")) if raw_dir.exists() else []
         
         if not backup_files:
-            logger.warning("⚠️ 백업 HTML 파일 없음")
+            logger.warning(f"⚠️ 백업 HTML 파일 없음 (검색 위치: {raw_dir})")
             return 0
         
         for src_file in backup_files:
@@ -208,8 +210,9 @@ class AutoInstallSystem:
         """🔍 결과 자동 검증"""
         logger.info("🔍 결과 검증 중...")
         
-        # 파일 개수 확인
-        backup_count = len(list(self.backup_dir.glob("*.html")))
+        # 파일 개수 확인 (backup/raw/ 에서 검색)
+        raw_dir = self.backup_dir / "raw"
+        backup_count = len(list(raw_dir.glob("*.html"))) if raw_dir.exists() else 0
         archive_count = len([f for f in self.archive_dir.glob("*.html") if f.name != "index.html"])
         
         logger.info(f"📊 백업: {backup_count}개, 아카이브: {archive_count}개")
