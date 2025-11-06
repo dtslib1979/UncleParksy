@@ -57,6 +57,21 @@ UncleParksy/
 
 ## 🚀 시작하기
 
+### 📝 컨텐츠 발행하기 (가장 쉬운 방법)
+
+이 레포지토리는 **GitHub Pages**로 자동 배포됩니다. 파일을 업로드하면 바로 웹페이지로 발행됩니다!
+
+**빠른 가이드:**
+1. `category/` 폴더에 HTML 파일 업로드
+2. 자동으로 https://parksy.kr 에 발행됨
+3. 약 1-2분 후 웹에서 확인 가능
+
+**📚 가이드 문서:**
+- [⚡ 빠른 시작 (3분)](./QUICK_START_KR.md) - 지금 바로 시작하기
+- [📖 상세 발행 가이드](./PUBLISHING_GUIDE.md) - 전체 기능 설명
+- [🔧 GitHub Pages 설정](./GITHUB_PAGES_SETUP.md) - 기술적 세부사항
+- [📄 HTML 템플릿](./TEMPLATE.html) - 복사해서 사용하기
+
 ### 로컬 개발환경 설정
 
 ```bash
