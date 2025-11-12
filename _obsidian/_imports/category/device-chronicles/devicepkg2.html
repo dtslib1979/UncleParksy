@@ -1,0 +1,389 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<title>Parksy Device Strategy Protocol v4.0 Final</title>
+<link rel="manifest" href='data:application/manifest+json,{"name":"Parksy Device Protocol v4.0","short_name":"Parksy DSP","start_url":"./","display":"standalone","background_color":"%230a0a0a","theme_color":"%230a0a0a","icons":[{"src":"data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 256 256%22%3E%3Crect width=%22256%22 height=%22256%22 rx=%2248%22 fill=%22%230a0a0a%22/%3E%3Ctext x=%2250%25%22 y=%2257%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%22160%22 fill=%22%23ffffff%22%3EP%3C/text%3E%3C/svg%3E","sizes":"256x256","type":"image/svg+xml"}]}'/>
+<meta name="theme-color" content="#0a0a0a"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<style>
+:root{--bg:#0a0a0a;--panel:#121212;--card:#1a1a1a;--ink:#e6e6e6;--dim:#999;--line:#2a2a2a;--accent:#4dd0e1;--ok:#29b66f;--warn:#e24a6a}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--ink);font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.container{max-width:800px;margin:0 auto;padding:40px 24px 60px}
+header{margin-bottom:48px;border-bottom:1px solid var(--line);padding-bottom:24px}
+h1{font-size:28px;font-weight:700;margin-bottom:8px;letter-spacing:-0.02em}
+.meta{color:var(--dim);font-size:13px;display:flex;gap:12px;flex-wrap:wrap}
+.tag{background:var(--panel);border:1px solid var(--line);padding:4px 10px;border-radius:6px;font-size:12px}
+nav{position:sticky;top:0;background:var(--bg);z-index:10;padding:12px 0;margin:0 0 32px;border-bottom:1px solid var(--line)}
+nav a{color:var(--dim);text-decoration:none;margin-right:16px;font-size:13px;font-weight:500}
+nav a:hover{color:var(--accent)}
+section{margin:56px 0}
+h2{font-size:22px;margin-bottom:16px;font-weight:600;letter-spacing:-0.01em}
+h3{font-size:18px;margin:28px 0 12px;font-weight:600;color:var(--accent)}
+h4{font-size:15px;margin:20px 0 8px;font-weight:600;color:var(--dim)}
+p{margin:12px 0}
+ul,ol{margin:12px 0;padding-left:24px}
+li{margin:6px 0}
+code{background:var(--panel);border:1px solid var(--line);padding:2px 6px;border-radius:4px;font-size:13px;font-family:ui-monospace,Menlo,Monaco,monospace}
+pre{background:var(--panel);border:1px solid var(--line);padding:16px;border-radius:8px;overflow-x:auto;margin:16px 0;font-size:13px;line-height:1.5}
+.box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px;margin:16px 0}
+.box.warn{border-color:var(--warn)}
+.box.ok{border-color:var(--ok)}
+table{width:100%;border-collapse:collapse;margin:16px 0}
+th,td{padding:10px;text-align:left;border-bottom:1px solid var(--line)}
+th{font-weight:600;font-size:13px;color:var(--dim);text-transform:uppercase;letter-spacing:0.05em}
+blockquote{border-left:3px solid var(--accent);padding-left:20px;margin:20px 0;color:var(--dim);font-style:italic}
+.install-btn{position:fixed;bottom:24px;right:24px;background:var(--accent);color:#000;padding:14px 24px;border-radius:999px;border:none;font-weight:600;cursor:pointer;box-shadow:0 4px 12px rgba(77,208,225,0.3);display:none;z-index:100}
+.install-btn:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(77,208,225,0.4)}
+footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);color:var(--dim);font-size:13px}
+@media(max-width:640px){
+  .container{padding:24px 16px 40px}
+  h1{font-size:24px}
+  h2{font-size:20px}
+  nav{overflow-x:auto;white-space:nowrap}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+<h1>📘 Parksy Device Strategy Protocol v4.0</h1>
+<div class="meta">
+<span class="tag">3-Year Forced Execution Model</span>
+<span class="tag">2025–2028 Deadline</span>
+<span class="tag">Final Version</span>
+</div>
+</header>
+
+<nav>
+<a href="#premise">Premise</a>
+<a href="#architecture">Architecture</a>
+<a href="#timeline">Timeline</a>
+<a href="#finance">Finance</a>
+<a href="#devices">Devices</a>
+<a href="#kpi">KPI</a>
+<a href="#sop">SOP</a>
+<a href="#risk">Risk</a>
+<a href="#declaration">Declaration</a>
+</nav>
+
+<section id="premise">
+<h2>🎯 Core Premise</h2>
+<div class="box">
+<p><strong>Context:</strong> Cheapest office in a redevelopment zone. <strong>Hard deadline: 2028 Q3 eviction.</strong></p>
+<p><strong>Strategy:</strong> Relocation cost = Device refresh budget. No other options.</p>
+<p><strong>Goal:</strong> Complete creative pipeline + force device upgrade within 36 months.</p>
+<p><strong>Ethos:</strong> <em>"Devices are not assets — they're survival tools."</em></p>
+</div>
+</section>
+
+<section id="architecture">
+<h2>📐 System Architecture: 4+1 Layer Stack</h2>
+
+<h3>Layer 1: STT Input</h3>
+<p>Voice-first interface. Eliminate typing. Galaxy STT / ChatGPT voice / Gemini Mic → Claude refine → Markdown → Git.</p>
+<p><strong>KPIs:</strong></p>
+<ul>
+<li>Transcription accuracy ≥ 90%</li>
+<li>≥ 3 sessions/day</li>
+<li>≥ 5 min avg session length</li>
+</ul>
+
+<h3>Layer 2: Project Orchestration</h3>
+<p>Map ideas to executable units. Samsung Notes → GitHub Projects → Kanban. Repos: <code>eae.kr</code> / <code>parksy.kr</code> / <code>dtslib.com</code></p>
+<p><strong>KPIs:</strong></p>
+<ul>
+<li>Category mapping rate ≥ 80%</li>
+<li>Weekly "Done" items ≥ 10</li>
+<li>Uncategorized items ≤ 5%</li>
+</ul>
+
+<h3>Layer 3: Cloud Publishing</h3>
+<p>CPU-only builds. PWA deployment via GitHub Actions/Pages. n8n webhooks → multi-platform (Tistory/Twitter/Slack).</p>
+<p><strong>KPIs:</strong></p>
+<ul>
+<li>Deploy success rate ≥ 95%</li>
+<li>≥ 3 posts/week</li>
+<li>Build time ≤ 3 min</li>
+</ul>
+
+<h3>Layer 4: Agent Control</h3>
+<p>Claude MCP Desktop for file/CLI automation. n8n for API wiring. Human directs, AI executes.</p>
+<p><strong>KPIs:</strong></p>
+<ul>
+<li>Automation rate ≥ 70% (repetitive tasks)</li>
+<li>Active n8n flows ≥ 5</li>
+<li>Manual intervention ≤ 1/day</li>
+</ul>
+
+<h3>Layer 5: GPU Production (Conditional)</h3>
+<div class="box warn">
+<p><strong>Activate ONLY if all conditions met:</strong></p>
+<ol>
+<li>Monthly revenue ≥ $2,000</li>
+<li>Monthly GPU tasks ≥ 20 (image/video) or ≥ 8 (music)</li>
+<li>Cloud GPU cost ≥ $200/mo for 3 consecutive months</li>
+</ol>
+<p><strong>Priority:</strong> Cloud GPU (RunPod/Lambda) → Local GPU (if sustained)</p>
+</div>
+</section>
+
+<section id="timeline">
+<h2>⏱️ 3-Year Forced Timeline</h2>
+<table>
+<tr><th>Date</th><th>Checkpoint</th><th>Criteria</th></tr>
+<tr><td>2025 Q4</td><td>L1–L4 Integration</td><td>All 4 layers operational</td></tr>
+<tr><td>2026 Q2</td><td>Production Rhythm</td><td>≥3 posts/week for 12 weeks</td></tr>
+<tr><td>2026 Q4</td><td>Annual Output</td><td>≥150 published items</td></tr>
+<tr><td>2027 Q4</td><td>Revenue Signal</td><td>≥$500/mo × 3 months</td></tr>
+<tr><td>2028 Q2</td><td><strong>Transition Evaluation</strong></td><td>Run decision logic</td></tr>
+<tr><td>2028 Q3</td><td><strong>Eviction + Refresh</strong></td><td>No postponement</td></tr>
+</table>
+
+<h3>Decision Logic</h3>
+<pre>
+if (subscribers >= 10000 AND
+    revenue >= 1000 AND
+    rdf_balance >= 10000 AND
+    kpi_pass_3_months):
+    → Plan A: Apple Expansion ($10K)
+elif (rdf_balance >= 3000):
+    → Plan B: Samsung Upgrade (~₩5.5M)
+else:
+    → Plan C: Delay ≤ 12 months (final option)
+</pre>
+</section>
+
+<section id="finance">
+<h2>💰 Relocation Device Fund (RDF)</h2>
+
+<div class="box ok">
+<h4>Target</h4>
+<p><strong>$10,000 / 36 months</strong> → ≥ $278/month locked in separate account</p>
+
+<h4>Allocation</h4>
+<ul>
+<li>Devices: 60% ($6,000)</li>
+<li>AI/Cloud licenses: 25% ($2,500)</li>
+<li>Operations: 15% ($1,500)</li>
+</ul>
+
+<h4>Prohibited Expenses</h4>
+<ul>
+<li>Car purchase/lease</li>
+<li>New office contract</li>
+<li>Furniture (beyond essentials)</li>
+</ul>
+
+<h4>Penalty Clause</h4>
+<p>If RDF deposit < $278 for 2 consecutive months → Increase posting +20% OR cut expenses OR side income.</p>
+</div>
+
+<h3>ROI Targets</h3>
+<ul>
+<li><strong>2028:</strong> ROI ≥ 100% (break-even on device investment)</li>
+<li><strong>2031:</strong> ROI ≥ 200% (2× return)</li>
+</ul>
+
+<pre>
+ROI = (cumulative_revenue / device_cost) × 100
+</pre>
+</section>
+
+<section id="devices">
+<h2>🎛️ Device Portfolio</h2>
+
+<h3>Foundation Phase (2025–2028)</h3>
+<div class="box">
+<ul>
+<li><strong>Galaxy S25 Ultra</strong> — STT, camera, AI console (≈₩1.8M / 36mo installment)</li>
+<li><strong>Galaxy Tab S9 FE</strong> (used) — Drawing, notes (≈₩700K)</li>
+<li><strong>Dell XPS 13</strong> (used 2022-23) — VS Code, MCP, n8n (≈₩800K)</li>
+</ul>
+<p><strong>Total:</strong> ≈₩3.3M (~$2.5K)</p>
+</div>
+
+<h3>Expansion Phase Plan A (2028–2031)</h3>
+<div class="box">
+<ul>
+<li><strong>MacBook Pro 14"</strong> (M-series Max, 36GB) — Logic Pro, ComfyUI, Final Cut ($4K)</li>
+<li><strong>iPad Pro 12.9" + Apple Pencil</strong> — Procreate, Sidecar ($1.5K)</li>
+<li><strong>iPhone Pro</strong> — ProRes video, STT continuity ($1.3K)</li>
+<li><strong>Audio gear</strong> — Interface, monitors, cables ($1K)</li>
+</ul>
+<p><strong>Total:</strong> $7.8K–10K</p>
+<p><strong>Condition:</strong> RDF $10K + revenue $1K/mo + subs 10K + L1-L4 KPI pass</p>
+</div>
+
+<h3>Expansion Phase Plan B (2028–2031)</h3>
+<div class="box">
+<ul>
+<li><strong>Galaxy S28 Ultra</strong> (≈₩1.8M)</li>
+<li><strong>Galaxy Tab S11</strong> (≈₩1.2M)</li>
+<li><strong>Dell XPS 15 / Lenovo X1</strong> (≈₩2.5M)</li>
+</ul>
+<p><strong>Total:</strong> ≈₩5.5M (~$4.2K)</p>
+<p><strong>Condition:</strong> RDF $3K minimum</p>
+<p><strong>GPU:</strong> Cloud only (RunPod)</p>
+</div>
+</section>
+
+<section id="kpi">
+<h2>📊 KPI Measurement Formulas</h2>
+
+<h3>Efficiency</h3>
+<pre>
+efficiency = weekly_posts / weekly_hours
+target: ≥ 0.5 (0.5 posts per hour)
+</pre>
+
+<h3>STT Accuracy</h3>
+<pre>
+accuracy = (correct_words / total_words) × 100
+target: ≥ 90%
+</pre>
+
+<h3>Deploy Success</h3>
+<pre>
+success_rate = (successful_deploys / total_attempts) × 100
+target: ≥ 95%
+</pre>
+
+<h3>Automation Rate</h3>
+<pre>
+automation = (automated_tasks / total_repetitive) × 100
+target: ≥ 70%
+</pre>
+
+<h3>Project Mapping</h3>
+<pre>
+mapping_rate = (categorized_items / total_items) × 100
+target: ≥ 80%
+</pre>
+
+<h3>ROI</h3>
+<pre>
+roi = (period_revenue / period_device_cost) × 100
+2028 target: 100%
+2031 target: 200%
+</pre>
+</section>
+
+<section id="sop">
+<h2>📋 Standard Operating Procedures</h2>
+
+<h3>Daily</h3>
+<ul>
+<li>07:00 — Wake, check schedule</li>
+<li>09:00 — STT Session #1 (morning ideas)</li>
+<li>12:00 — L2 Kanban update</li>
+<li>15:00 — STT Session #2 (afternoon refinement)</li>
+<li>18:00 — Deploy work (PWA/posts)</li>
+<li>21:00 — STT Session #3 (evening review)</li>
+<li>22:00 — Auto KPI measurement (Actions)</li>
+<li>23:00 — MCP sync, Git push</li>
+</ul>
+
+<h3>Weekly</h3>
+<ul>
+<li><strong>Monday:</strong> Weekly planning, Kanban cleanup</li>
+<li><strong>Tue/Thu/Sat:</strong> Post deployment (1 each)</li>
+<li><strong>Wednesday:</strong> n8n flow health check</li>
+<li><strong>Friday:</strong> Weekly KPI review</li>
+<li><strong>Sunday:</strong> Backups, Layer health check</li>
+</ul>
+
+<h3>Monthly</h3>
+<ul>
+<li>1st — RDF deposit verification</li>
+<li>5th — Monthly KPI aggregation</li>
+<li>10th — Financial report generation</li>
+<li>15th — Flow refactoring</li>
+<li>20th — Roadmap re-evaluation</li>
+<li>End — Next month planning</li>
+</ul>
+
+<h3>Quarterly</h3>
+<ul>
+<li>Q start — Transition condition check</li>
+<li>Q mid — Plan A/B/C gate review</li>
+<li>Q end — Next quarter goal setting</li>
+</ul>
+</section>
+
+<section id="risk">
+<h2>⚠️ Risk Registry</h2>
+
+<table>
+<tr><th>Risk</th><th>Indicator</th><th>Response</th></tr>
+<tr><td>Revenue shortfall</td><td>Monthly < $1,000</td><td>Switch to Plan B, +20% posting</td></tr>
+<tr><td>Automation failure</td><td>Deploy success < 95%</td><td>Split pipelines, manual backup</td></tr>
+<tr><td>STT quality drop</td><td>Accuracy < 90%</td><td>Sentence templates, diction practice</td></tr>
+<tr><td>Schedule slip</td><td>Weekly posts < 3</td><td>Hard time-blocks (Tue/Thu/Sat)</td></tr>
+<tr><td>RDF delay</td><td>Monthly < $278</td><td>Side income or expense cut</td></tr>
+<tr><td>Layer failure</td><td>2+ layers fail KPI</td><td>Emergency debug, tool replacement</td></tr>
+<tr><td>API/Quota outage</td><td>3+ hours down</td><td>Local backup, manual procedure</td></tr>
+</table>
+</section>
+
+<section id="declaration">
+<h2>🏁 Final Declaration</h2>
+<blockquote>
+<p>I will vacate by <strong>September 30, 2028</strong> and hold a refreshed device set.</p>
+<p>If conditions pass — I go Apple.<br>
+If not — I upgrade Samsung.<br>
+Either way, I move forward.</p>
+<p>This protocol builds no escape hatch.<br>
+This protocol lays down rails to execute.</p>
+<p><strong>36 months. 1,095 days. 26,280 hours.</strong></p>
+<p>At the end, I evolve.</p>
+</blockquote>
+</section>
+
+<section>
+<h2>🧩 Protocol Principles</h2>
+<ol>
+<li><strong>Deadline Absolutism</strong> — 2028 Q3 eviction = unconditional device refresh</li>
+<li><strong>Measurability</strong> — All KPIs quantified, no subjective evaluation</li>
+<li><strong>Forced Savings</strong> — RDF = lockbox, withdrawal triggers guilt</li>
+<li><strong>Layer Independence</strong> — Each layer operates independently, partial recovery possible</li>
+<li><strong>AI-Centric</strong> — AI = partner, Human = director</li>
+<li><strong>Cloud-First</strong> — Local = interface, Cloud = storage</li>
+<li><strong>Minimal Complexity</strong> — Simple > Perfect, 80% solution first</li>
+</ol>
+</section>
+
+<footer>
+<p><strong>Parksy Device Strategy Protocol v4.0 Final</strong></p>
+<p>3-Year Forced Execution Model (2025–2028)</p>
+<p>Single-file PWA · Installable · GitHub Pages ready</p>
+</footer>
+
+</div>
+
+<button class="install-btn" id="installBtn">➕ Install App</button>
+
+<script>
+let deferredPrompt;
+const btn = document.getElementById('installBtn');
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  btn.style.display = 'block';
+});
+btn.addEventListener('click', async () => {
+  if(!deferredPrompt) return;
+  deferredPrompt.prompt();
+  await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  btn.style.display = 'none';
+});
+</script>
+
+</body>
+</html>
+```
