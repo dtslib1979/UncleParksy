@@ -1,0 +1,810 @@
+<!DOCTYPE html><html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>자기평가 엔진 v1.0 | 5D 벡터 · 5 드라이버</title>  <!-- PWA 기본 설정 -->  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#020617" />  <style>
+    :root {
+      --bg: #020617;
+      --bg-soft: #0b1220;
+      --card: #020617;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --accent-strong: #0ea5e9;
+      --text: #e5e7eb;
+      --text-soft: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.4);
+      --danger: #f97373;
+      --radius-xl: 1.25rem;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.85);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #020617 0, #020617 40%, #020617 100%);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 1.75rem 1.25rem 3rem;
+    }
+
+    header {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+      color: var(--text-soft);
+      font-size: 0.85rem;
+    }
+
+    .badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), transparent 60%);
+    }
+
+    .title-block h1 {
+      font-size: clamp(1.8rem, 3vw, 2.2rem);
+      margin: 0 0 0.4rem;
+      letter-spacing: -0.02em;
+    }
+
+    .title-block p {
+      margin: 0;
+      font-size: 0.98rem;
+      color: var(--text-soft);
+      max-width: 640px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.6fr);
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 880px) {
+      .grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.14), transparent 55%),
+                  radial-gradient(circle at bottom, rgba(15, 23, 42, 0.9), #020617);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+      padding: 1.25rem 1.4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(148, 163, 184, 0.22), transparent 40%, transparent 60%, rgba(15, 23, 42, 0.85));
+      mix-blend-mode: soft-light;
+      opacity: 0.65;
+      pointer-events: none;
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    h2 {
+      font-size: 1.1rem;
+      margin: 0 0 0.6rem;
+      letter-spacing: -0.01em;
+    }
+
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-bottom: 0.8rem;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .pill {
+      font-size: 0.75rem;
+      padding: 0.18rem 0.65rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: rgba(15, 23, 42, 0.85);
+      color: var(--text-soft);
+    }
+
+    .equation {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      font-size: 0.86rem;
+      margin-top: 0.3rem;
+    }
+
+    .equation strong {
+      color: var(--accent);
+      letter-spacing: -0.01em;
+    }
+
+    .equation small {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    .list {
+      list-style: none;
+      padding: 0;
+      margin: 0.2rem 0 0;
+      font-size: 0.9rem;
+    }
+
+    .list li {
+      padding: 0.2rem 0;
+      display: flex;
+      gap: 0.4rem;
+      align-items: flex-start;
+    }
+
+    .list li::before {
+      content: "·";
+      color: var(--accent);
+      margin-top: -0.1rem;
+    }
+
+    .metric-grid {
+      margin-top: 0.75rem;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.5rem;
+      font-size: 0.82rem;
+    }
+
+    .metric {
+      padding: 0.4rem 0.5rem;
+      border-radius: 0.75rem;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(31, 41, 55, 0.95);
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .metric span.label {
+      color: var(--text-soft);
+    }
+
+    .metric span.value {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .metric span.desc {
+      color: var(--text-soft);
+      opacity: 0.8;
+    }
+
+    .section-title {
+      margin: 2.2rem 0 0.75rem;
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-title span.tag {
+      font-size: 0.72rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: var(--text-soft);
+    }
+
+    .sliders {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      margin-top: 0.4rem;
+    }
+
+    .slider-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 2fr);
+      gap: 0.75rem;
+      align-items: center;
+      font-size: 0.86rem;
+    }
+
+    @media (max-width: 640px) {
+      .slider-row {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .slider-label strong {
+      color: var(--text);
+    }
+
+    .slider-label small {
+      display: block;
+      color: var(--text-soft);
+      font-size: 0.78rem;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(31, 41, 55, 0.9);
+      outline: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent-strong);
+      box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.3);
+      cursor: pointer;
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent-strong);
+      box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.3);
+      cursor: pointer;
+      border: none;
+    }
+
+    .slider-value {
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      margin-top: 0.1rem;
+    }
+
+    .output-box {
+      margin-top: 1rem;
+      padding: 0.75rem 0.9rem;
+      border-radius: 1rem;
+      background: var(--accent-soft);
+      border: 1px solid rgba(56, 189, 248, 0.6);
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      font-size: 0.88rem;
+    }
+
+    .output-main {
+      display: flex;
+      align-items: baseline;
+      gap: 0.45rem;
+    }
+
+    .output-main span.score {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: var(--accent-strong);
+    }
+
+    .output-main span.label {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+    }
+
+    .output-detail {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.2rem;
+    }
+
+    .chip {
+      font-size: 0.72rem;
+      padding: 0.12rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--text-soft);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 2fr);
+      gap: 1.25rem;
+      align-items: flex-start;
+      margin-top: 0.5rem;
+    }
+
+    @media (max-width: 880px) {
+      .two-col {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    pre.mermaid {
+      background: #020617;
+      border-radius: 1rem;
+      padding: 0.75rem;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 0.8rem;
+      overflow: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+
+    th, td {
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      padding: 0.55rem 0.6rem;
+      vertical-align: top;
+    }
+
+    th {
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--text-soft);
+      font-weight: 500;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    tbody tr:nth-child(odd) td {
+      background: rgba(15, 23, 42, 0.7);
+    }
+
+    tbody tr:nth-child(even) td {
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .footnote {
+      margin-top: 0.75rem;
+      font-size: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    code.inline {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.78rem;
+      background: rgba(15, 23, 42, 0.9);
+      padding: 0.12rem 0.32rem;
+      border-radius: 0.35rem;
+      border: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+  </style>  <!-- Mermaid for diagram -->  <script defer src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      if (window.mermaid) {
+        mermaid.initialize({ startOnLoad: true, theme: "dark" });
+      }
+    });
+  </script></head>
+<body>
+  <div class="page">
+    <header>
+      <div class="badge-row">
+        <span class="badge">자기평가 엔진 v1.0 · 5D Vector × 5 Drivers</span>
+        <span>EduArt Engineer · Self-System Modeling</span>
+      </div>
+      <div class="title-block">
+        <h1>자기평가 엔진 v1.0 — 5D 벡터 &amp; 드라이버 기반 자기운영 모델</h1>
+        <p>
+          이 페이지는 박씨가 설계한 <strong>Multiplicative Self-System</strong>을 PWA 스타일로 정리한 백서 겸 대시보드입니다.
+          5개의 독립 벡터(V₁~V₅)와 5개의 엔지니어링 드라이버(D₁~D₅), 그리고
+          <code class="inline">Output = ∏ Vᵢ</code>라는 곱셈 구조를 한 번에 시각화·조작·자기 평가할 수 있도록 구성했습니다.
+        </p>
+      </div>
+    </header><section class="grid" aria-label="모델 개요 및 요약">
+  <article class="card">
+    <div class="card-inner">
+      <h2>5D 벡터 — 독립 모듈(Self Vectors)</h2>
+      <p class="subtitle">각 벡터는 서로 섞이지 않는 독립 모듈이며, 최종 출력에서는 곱셈으로 결합됩니다.</p>
+
+      <ul class="list">
+        <li><strong>V₁: 자기 객관화</strong> — 나를 외부 시점에서 바라보는 관찰·메타인지 엔진.</li>
+        <li><strong>V₂: 자기 확신</strong> — 내가 나에게 Pitch 가능한지 여부, 근거 기반 Self-Efficacy.</li>
+        <li><strong>V₃: 자기수용(자기사랑 스타일)</strong> — 왜곡 없이 나를 있는 그대로 인정하는 투명한 수용력.</li>
+        <li><strong>V₄: 행동(싱크로)</strong> — 내부 상태가 외부 행동으로 동시 정렬되어 출력되는 실행 벡터.</li>
+        <li><strong>V₅: 현실감</strong> — 내부 구조(모델)와 외부 패턴(세계)이 맞물리는 Reality-Testing 벡터.</li>
+      </ul>
+
+      <div class="equation">
+        <strong>Output = V₁ × V₂ × V₃ × V₄ × V₅</strong>
+        <small> — 어느 하나라도 0에 가까워지면 전체 출력이 떨어지는 Multiplicative System</small>
+      </div>
+
+      <div class="metric-grid">
+        <div class="metric">
+          <span class="label">독립성</span>
+          <span class="value">5 / 5</span>
+          <span class="desc">벡터 간 기능·영역이 중복 없이 분리됨 (Orthogonality)</span>
+        </div>
+        <div class="metric">
+          <span class="label">모델 타입</span>
+          <span class="value">곱셈형</span>
+          <span class="desc">리비히 최소량의 법칙 기반: 가장 약한 벡터가 전체 한계 결정</span>
+        </div>
+        <div class="metric">
+          <span class="label">적용 범위</span>
+          <span class="value">정체성 · 판단 · 행동</span>
+          <span class="desc">사고·정서·행동 전 레이어 커버</span>
+        </div>
+        <div class="metric">
+          <span class="label">엔지니어링 성격</span>
+          <span class="value">High</span>
+          <span class="desc">모든 조정은 드라이버(Dᵢ)를 통한 파라미터 조작</span>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-inner">
+      <h2>5 드라이버 — 조작 가능한 엔지니어링 파라미터</h2>
+      <p class="subtitle">박씨가 직접 제어할 수 있는 Self-Engineering Control Layer.</p>
+
+      <div class="pill-row">
+        <span class="pill">D₁: 역할극(Roleplay)</span>
+        <span class="pill">D₂: 자기설득(Self-Persuasion)</span>
+        <span class="pill">D₃: 투명성(Transparency)</span>
+        <span class="pill">D₄: 타이밍(Timing)</span>
+        <span class="pill">D₅: 구조주의+퀀텀정렬</span>
+      </div>
+
+      <ul class="list">
+        <li><strong>D₁ → V₁</strong> — 역할극을 통해 시점을 전환하고 자기 객관화를 점화.</li>
+        <li><strong>D₂ → V₂</strong> — 자기설득으로 신념·논리의 정합성을 확보, 자기 확신을 활성화.</li>
+        <li><strong>D₃ → V₃</strong> — 투명성(왜곡 없는 보기)을 통해 건강한 자기수용·자기사랑을 가능하게 함.</li>
+        <li><strong>D₄ → V₄</strong> — 타이밍이 내부 상태와 외부 상황의 위상을 맞추며 행동 싱크로를 점화.</li>
+        <li><strong>D₅ → V₅</strong> — 구조주의적 모델링과 퀀텀점프 준비가 현실감·패턴 인식을 고차원화.</li>
+      </ul>
+
+      <div class="equation">
+        <strong>Vᵢ = f(Dᵢ)</strong>
+        <small> — 각 벡터는 오직 해당 드라이버를 통해 활성화되는 1:1 매핑</small>
+      </div>
+
+      <p class="subtitle" style="margin-top:0.7rem;">
+        즉, <strong>드라이버 5개는 ‘조작 가능한 엔진’</strong>이고, 벡터 5개는 그 엔진이 만들어내는 <strong>상태값</strong>입니다.
+      </p>
+    </div>
+  </article>
+</section>
+
+<section aria-label="자기평가 대시보드">
+  <h2 class="section-title">Self-Assessment Dashboard <span class="tag">실시간 자기평가</span></h2>
+  <p class="subtitle">
+    아래 슬라이더는 각 벡터(V₁~V₅)의 현재 상태를 0~1 스케일(0~100%)로 추정하는 인터페이스입니다.
+    박씨의 체감에 맞게 조정하면, 엔진이 <code class="inline">Output = ∏ Vᵢ</code>를 자동 계산해 줍니다.
+  </p>
+
+  <div class="card">
+    <div class="card-inner">
+      <div class="sliders" id="sliderContainer">
+        <div class="slider-row">
+          <div class="slider-label">
+            <strong>V₁: 자기 객관화</strong>
+            <small>관찰자 시점에서 나를 볼 수 있는 정도 (메타인지, 디센터링)</small>
+          </div>
+          <div>
+            <input type="range" min="0" max="100" value="90" data-role="vector-slider" data-vector="V1" />
+            <div class="slider-value">현재 값: <span data-vector-value="V1">0.90</span></div>
+          </div>
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-label">
+            <strong>V₂: 자기 확신</strong>
+            <small>내가 나에게 Pitch했을 때 “그래, 이건 된다”라고 납득되는 정도</small>
+          </div>
+          <div>
+            <input type="range" min="0" max="100" value="85" data-role="vector-slider" data-vector="V2" />
+            <div class="slider-value">현재 값: <span data-vector-value="V2">0.85</span></div>
+          </div>
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-label">
+            <strong>V₃: 자기수용(자기사랑 스타일)</strong>
+            <small>꾸미지 않고, 덜도 말고 더도 말고 있는 그대로 받아들이는 정도</small>
+          </div>
+          <div>
+            <input type="range" min="0" max="100" value="70" data-role="vector-slider" data-vector="V3" />
+            <div class="slider-value">현재 값: <span data-vector-value="V3">0.70</span></div>
+          </div>
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-label">
+            <strong>V₄: 행동(싱크로)</strong>
+            <small>머릿속 연산·이해가 실제 행동과 맞물려서 출력되는 동시 정렬 정도</small>
+          </div>
+          <div>
+            <input type="range" min="0" max="100" value="75" data-role="vector-slider" data-vector="V4" />
+            <div class="slider-value">현재 값: <span data-vector-value="V4">0.75</span></div>
+          </div>
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-label">
+            <strong>V₅: 현실감</strong>
+            <small>내 내부 구조(모델)와 바깥 세상 패턴이 얼라인되어 보이는 정도</small>
+          </div>
+          <div>
+            <input type="range" min="0" max="100" value="85" data-role="vector-slider" data-vector="V5" />
+            <div class="slider-value">현재 값: <span data-vector-value="V5">0.85</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="output-box" id="outputBox">
+        <div class="output-main">
+          <span class="score" id="outputScore">0.27</span>
+          <span class="label">현재 전체 시스템 출력 (0 ~ 1)</span>
+        </div>
+        <div class="output-detail" id="outputDetail">
+          Multiplicative Model 기준으로, 지금 상태는 <strong>“중간 이상, 일부 벡터 보강 필요”</strong>에 해당합니다.
+        </div>
+        <div class="chip-row" id="outputChips">
+          <!-- JS에서 각 벡터 상태에 따라 설명 칩 생성 -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section aria-label="Appendix: 이론적 근거 및 학자 맵핑">
+  <h2 class="section-title">[Appendix] 자기평가 엔진 v1.0 — 이론적 근거 &amp; 학자 맵핑 <span class="tag">Evidence</span></h2>
+  <p class="subtitle">
+    이 섹션은 <strong>Vᵢ = f(Dᵢ)</strong> 매핑과 <strong>Output = ∏ Vᵢ</strong> 구조를 지지하는
+    심리학·인지과학·철학 이론을 박씨 백서 스타일로 정리한 부분입니다.
+  </p>
+
+  <div class="two-col">
+    <div>
+      <h3 style="font-size:0.92rem;margin-top:0;">1. 시스템 구조 도식화 (Mermaid)</h3>
+      <pre class="mermaid">
+
+graph TD subgraph Layer1["Layer 1: 조작 파라미터 (Drivers)"] D1[D1: 역할극] D2[D2: 자기설득] D3[D3: 투명성] D4[D4: 타이밍] D5[D5: 구조주의+퀀텀정렬] end
+
+subgraph Layer2["Layer 2: 독립 모듈 (Vectors)"]
+    V1[V1: 자기 객관화]
+    V2[V2: 자기 확신]
+    V3[V3: 자기수용]
+    V4[V4: 행동(싱크로)]
+    V5[V5: 현실감]
+end
+
+subgraph Layer3["Layer 3: 최종 출력 (Multiplicative System)"]
+    Output((Total Output = ∏ Vᵢ))
+end
+
+D1 -- "f(D₁)" --> V1
+D2 -- "f(D₂)" --> V2
+D3 -- "f(D₃)" --> V3
+D4 -- "f(D₄)" --> V4
+D5 -- "f(D₅)" --> V5
+
+V1 -- "×" --> Output
+V2 -- "×" --> Output
+V3 -- "×" --> Output
+V4 -- "×" --> Output
+V5 -- "×" --> Output
+      </pre>
+      <p class="footnote">
+        Layer 1은 <strong>조작 가능한 엔지니어링 파라미터(D₁~D₅)</strong>, Layer 2는 각 파라미터에 1:1로 대응하는
+        <strong>독립 심리 모듈(V₁~V₅)</strong>, Layer 3는 이 벡터들이 곱셈으로 결합된 
+        <strong>최종 Self-System Output</strong>을 나타냅니다.
+      </p>
+    </div>
+
+    <div>
+      <h3 style="font-size:0.92rem;margin-top:0;">2. 핵심 이론 및 학자 맵핑 테이블</h3>
+      <div style="overflow:auto;max-height:400px;">
+        <table>
+          <thead>
+            <tr>
+              <th>매핑 (Vᵢ ← Dᵢ)</th>
+              <th>핵심 이론 (Key Theory)</th>
+              <th>대표 학자 (Key Scholar)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>V₁. 자기 객관화 ← D₁. 역할극</strong></td>
+              <td>
+                인지적 거리두기(Cognitive Distancing), 디센터링(Decentering)<br />
+                게슈탈트 치료의 빈 의자(Empty Chair) 역할극 기법
+              </td>
+              <td>Aaron T. Beck, Fritz Perls</td>
+            </tr>
+            <tr>
+              <td><strong>V₂. 자기 확신 ← D₂. 자기설득</strong></td>
+              <td>
+                자기 효능감(Self-Efficacy)의 언어적 설득(Verbal Persuasion)<br />
+                인지 부조화 이론(Cognitive Dissonance) 기반 자기합리화·자기설득
+              </td>
+              <td>Albert Bandura, Leon Festinger</td>
+            </tr>
+            <tr>
+              <td><strong>V₃. 자기수용 ← D₃. 투명성</strong></td>
+              <td>
+                인간중심치료(Person-Centered Therapy)의 무조건적 긍정적 수용(Unconditional Positive Regard)<br />
+                마음챙김(Mindfulness)과 자기 자비(Self-Compassion)에서의 "있는 그대로 보기"
+              </td>
+              <td>Carl Rogers, Kristin Neff</td>
+            </tr>
+            <tr>
+              <td><strong>V₄. 행동(싱크로) ← D₄. 타이밍</strong></td>
+              <td>
+                실행 의도(Implementation Intentions): "상황 X가 오면 행동 Y를 하겠다"는 타이밍 기반 행동 모델<br />
+                몰입 이론(Flow Theory): 과제 난이도와 능력이 위상 정렬될 때 발생하는 최적 실행 상태
+              </td>
+              <td>Peter Gollwitzer, Mihaly Csikszentmihalyi</td>
+            </tr>
+            <tr>
+              <td><strong>V₅. 현실감 ← D₅. 구조주의+퀀텀정렬</strong></td>
+              <td>
+                인지 구조주의(Cognitive Structuralism): 스키마(Schema)를 통한 현실 이해(동화/조절)<br />
+                패러다임 전환(Paradigm Shift): 누적된 변칙 사례가 기존 구조를 넘어서며 발생하는 퀀텀 점프적 현실 재구성
+              </td>
+              <td>Jean Piaget, Thomas Kuhn (비유적 확장)</td>
+            </tr>
+            <tr>
+              <td><strong>System: Output = ∏ Vᵢ</strong></td>
+              <td>
+                리비히의 최소량의 법칙(Law of the Minimum): 성장·출력이 전체 자원 합이 아니라, 가장 부족한 단일 요소에 의해 제한됨
+              </td>
+              <td>Justus von Liebig</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="footnote">
+        특히 <strong>Output = ∏ Vᵢ</strong> 구조는, 5개 벡터 중 하나라도 붕괴되면 전체 Self-System 성능이 크게 떨어지는
+        박씨의 체감 구조를 수학적으로 설명하기 위한 모델입니다.
+      </p>
+    </div>
+  </div>
+
+  <div style="margin-top:1.25rem;font-size:0.86rem;color:var(--text-soft);">
+    <h3 style="font-size:0.9rem;">3. 매핑별 해석 요약</h3>
+    <ul class="list">
+      <li><strong>V₁ ← D₁:</strong> 역할극(Roleplay)을 통해 '나'를 타자화(Other-ing)하면, 디센터링과 인지적 거리두기가 발생하고, 이것이 곧 자기 객관화 벡터의 활성화로 이어진다.</li>
+      <li><strong>V₂ ← D₂:</strong> 자기 확신은 맹신이 아니라, 자기 효능감 이론에서 말하는 언어적 설득·자기설득 과정을 통해 형성되는 근거 기반 신념이다.</li>
+      <li><strong>V₃ ← D₃:</strong> 자기사랑을 과장·허세가 아니라 투명한 자기수용으로 재정의할 때, 왜곡 없이 나를 인정하는 건강한 자기 연결이 가능해진다.</li>
+      <li><strong>V₄ ← D₄:</strong> 행동은 '의지 총량'이 아니라, 내부 준비 상태와 외부 상황이 맞물리는 타이밍에서 발생하는 싱크로(Output)로 보는 것이 더 정확하다.</li>
+      <li><strong>V₅ ← D₅:</strong> 현실감은 내부 구조(스키마/패러다임)와 외부 패턴이 한순간에 정렬되는 퀀텀 점프적 인지 전환으로 설명할 수 있다.</li>
+    </ul>
+  </div>
+</section>
+
+  </div>  <script>
+    // PWA: 서비스 워커 등록 (sw.js는 별도 작성 필요)
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker.register("sw.js").catch(function () {
+          // 조용히 실패 무시 (로컬 미구현 시)
+        });
+      });
+    }
+
+    // 자기평가 엔진 계산 로직
+    document.addEventListener("DOMContentLoaded", function () {
+      const sliders = document.querySelectorAll('[data-role="vector-slider"]');
+      const valueSpans = document.querySelectorAll('[data-vector-value]');
+      const scoreEl = document.getElementById("outputScore");
+      const detailEl = document.getElementById("outputDetail");
+      const chipsEl = document.getElementById("outputChips");
+
+      function getLabel(vector) {
+        switch (vector) {
+          case "V1": return "자기 객관화";
+          case "V2": return "자기 확신";
+          case "V3": return "자기수용";
+          case "V4": return "행동(싱크로)";
+          case "V5": return "현실감";
+          default: return vector;
+        }
+      }
+
+      function describeScore(score) {
+        if (score >= 0.7) return "전체적으로 엔진이 잘 돌아가는 상태입니다. 약한 축을 보강하면 퀀텀 점프를 노려볼 수 있는 구간.";
+        if (score >= 0.4) return "중간 출력 구간입니다. 한두 개 벡터가 병목이 되고 있을 가능성이 높습니다.";
+        if (score > 0) return "저출력 상태입니다. 특정 벡터가 거의 0에 가까운지 확인하고, 해당 드라이버(Dᵢ)를 집중 조정하는 편이 효율적입니다.";
+        return "출력이 0입니다. 적어도 한 개 이상의 벡터가 완전히 꺼져 있는 상태.";
+      }
+
+      function describeVector(value) {
+        if (value >= 0.8) return "핵심 강점 축";
+        if (value >= 0.6) return "안정 구간";
+        if (value >= 0.4) return "보강 필요";
+        if (value > 0) return "위험 구간";
+        return "붕괴 상태";
+      }
+
+      function recalc() {
+        let product = 1;
+        const state = {};
+
+        sliders.forEach(slider => {
+          const vKey = slider.getAttribute("data-vector");
+          const raw = Number(slider.value) || 0;
+          const norm = Math.round((raw / 100) * 100) / 100; // 0~1, 소수 둘째 자리
+          state[vKey] = norm;
+          const span = document.querySelector(`[data-vector-value="${vKey}"]`);
+          if (span) span.textContent = norm.toFixed(2);
+        });
+
+        Object.keys(state).forEach(k => {
+          product *= state[k];
+        });
+
+        product = Math.round(product * 1000) / 1000; // 3 decimal
+        scoreEl.textContent = product.toFixed(3);
+        detailEl.textContent = describeScore(product);
+
+        // 칩 업데이트
+        chipsEl.innerHTML = "";
+        Object.keys(state).forEach(k => {
+          const chip = document.createElement("span");
+          chip.className = "chip";
+          chip.textContent = `${getLabel(k)}: ${state[k].toFixed(2)} · ${describeVector(state[k])}`;
+          chipsEl.appendChild(chip);
+        });
+      }
+
+      sliders.forEach(slider => {
+        slider.addEventListener("input", recalc);
+      });
+
+      recalc();
+    });
+  </script></body>
+</html>
