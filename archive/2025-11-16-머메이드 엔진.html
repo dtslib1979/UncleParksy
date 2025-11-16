@@ -1,0 +1,132 @@
+<!doctype html><html lang="ko"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>머메이드 엔진</title>
+<style>
+html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}
+body{margin:0;font-size:16px;line-height:1.7;word-break:keep-all;background:#f4e5c9;color:#2b2116}
+main{max-width:880px;margin:0 auto;padding:18px}
+img,video,iframe{max-width:100%;height:auto}
+[class*="wrap"],[class*="container"],[id*="content"]{max-width:100%!important;width:auto!important;margin:0!important;padding:0!important}
+.grid,.row{display:block!important}.sidebar{display:none!important}.content,.main{width:100%!important}
+table{display:block;width:100%;overflow-x:auto;border-collapse:collapse}
+pre,code{white-space:pre-wrap;word-wrap:break-word}
+h1{font-size:1.5rem;margin:.8rem 0} h2{font-size:1.25rem;margin:.7rem 0}
+.card{background:#fff8ea;border:1px solid rgba(0,0,0,.06);border-radius:14px;padding:14px;margin:10px 0}
+</style>
+</head><body><main>
+<article class="card">
+<h1>머메이드 엔진</h1>
+<div class="tt_article_useless_p_margin contents_style"><!DOCTYPE html>
+
+<!-- BEGIN STRUCTURED_DATA -->
+
+<!-- END STRUCTURED_DATA -->
+
+<div class="container">
+
+<div class="builder-container">
+<!-- 설정 패널 -->
+<div class="config-panel">
+<h2 style="color:#c47b24;font-size:18px;margin:0 0 12px;">⚙️ 다이어그램 설정</h2>
+<!-- 다이어그램 타입 -->
+<div class="section">
+<h3>1. 다이어그램 타입</h3>
+<div class="form-group">
+<label for="diagramType">종류 선택</label>
+<select id="diagramType">
+<option value="flow">Flowchart (브레이크다운 / 노선도 느낌)</option>
+<option value="sequence">Sequence (대화 / 시간 흐름)</option>
+<option value="mindmap">Mindmap (개념 퍼지기)</option>
+<option value="timeline">Timeline (연표)</option>
+<option value="class">Class Diagram (분류표)</option>
+</select>
+</div>
+<div class="form-group">
+<label for="flowDirection">Flowchart 방향</label>
+<select id="flowDirection">
+<option value="TD">위 → 아래 (TD)</option>
+<option value="LR">왼쪽 → 오른쪽 (LR)</option>
+</select>
+</div>
+<div class="form-group">
+<label for="patternPreset">패턴 프리셋</label>
+<select id="patternPreset">
+<option value="custom">커스텀 (아래 체크박스 사용)</option>
+<option value="linear">직선 브레이크다운 (1→2→3→…)</option>
+<option value="hub">허브 (1→모든 노드)</option>
+<option value="ladder">사다리 (1→2→3… + 1→모두)</option>
+<option value="fishbone">피시본 (1 = 결과, 나머지 = 원인)</option>
+</select>
+</div>
+</div>
+<!-- 노드 설정 -->
+<div class="section">
+<h3>2. 노드 / 모듈 설정</h3>
+<div class="form-group">
+<label for="nodeCount">노드 개수 (최대 8개)</label>
+
+</div>
+<div class="form-group">
+<label>노드 라벨 (공백이면 자동 이름)</label>
+
+</div>
+</div>
+<!-- 옵션 -->
+<div class="section">
+<h3>3. 연결 옵션 (커스텀 모드에서만 적용)</h3>
+<div class="checkbox-row">
+<label class="checkbox-item">
+<input checked="" id="sequentialEdges" type="checkbox"/>
+<span>연속 연결 (1→2→3…)</span>
+</label>
+<label class="checkbox-item">
+<input id="fromFirst" type="checkbox"/>
+<span>첫 노드에서 모두로 (1→2,1→3…)</span>
+</label>
+<label class="checkbox-item">
+<input checked="" id="addComments" type="checkbox"/>
+<span>주석 블록 포함</span>
+</label>
+</div>
+</div>
+<!-- 메타 정보 -->
+<div class="section">
+<h3>4. 메타 정보</h3>
+<div class="form-group">
+<label for="diagramTitle">다이어그램 제목 (선택)</label>
+<input id="diagramTitle" placeholder="예: Feed → Digest → Expression" type="text"/>
+</div>
+<div class="form-group">
+<label for="diagramNote">간단 설명 (선택)</label>
+<input id="diagramNote" placeholder="예: EduArt 모듈 브레이크다운" type="text"/>
+</div>
+</div>
+<button class="generate-btn" id="generateBtn">🚀 Mermaid 코드 생성하기</button>
+</div>
+<!-- 출력 패널 -->
+<div class="output-panel">
+<h2 style="color:#c47b24;font-size:18px;margin:0 0 12px;">📋 생성된 Mermaid 코드</h2>
+<div class="output-area" id="codeOutput">
+flowchart TD
+    N1[예시 노드 1] --&gt; N2[예시 노드 2]
+    N2 --&gt; N3[예시 노드 3]
+      </div>
+<button class="copy-btn" id="copyBtn">📋 코드 복사하기</button>
+<div class="preview-section">
+<div class="preview-title">🔍 다이어그램 미리보기</div>
+<div class="mermaid" id="diagramPreview">
+flowchart TD
+    N1[예시 노드 1] --&gt; N2[예시 노드 2]
+    N2 --&gt; N3[예시 노드 3]
+        </div>
+</div>
+</div>
+</div>
+
+</div>
+
+</div>
+</article>
+<footer style="opacity:.7;font-size:.9rem;margin:16px 0">© Uncle Parksy Korean Learning Archive</footer>
+</main></body></html>
