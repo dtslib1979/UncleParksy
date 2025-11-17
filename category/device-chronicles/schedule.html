@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>PARKSY MASTER SCHEDULING WHITEPAPER – Orbit Model</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #050810;
+      --fg: #f5f5f7;
+      --accent: #5cf0c0;
+      --muted: #999;
+      --card: #111827;
+      --border: #1f2937;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 24px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #111827 0, var(--bg) 55%);
+      color: var(--fg);
+    }
+    h1, h2, h3 {
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      margin: 0 0 12px;
+    }
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.2rem; margin-top: 32px; }
+    p {
+      margin: 4px 0 10px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(15,23,42,.85);
+      font-size: 0.75rem;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .badge span.dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+    }
+    .card {
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      padding: 18px 18px 12px;
+      background: linear-gradient(145deg, rgba(15,23,42,.96), rgba(3,7,18,.98));
+      box-shadow: 0 18px 45px rgba(0,0,0,.7);
+      margin-bottom: 24px;
+    }
+    pre.mermaid {
+      background: transparent;
+      border-radius: 12px;
+      padding: 8px;
+      overflow: auto;
+    }
+    footer {
+      margin-top: 16px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: right;
+    }
+  </style>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: "dark",
+      themeVariables: {
+        primaryColor: "#111827",
+        primaryBorderColor: "#5cf0c0",
+        primaryTextColor: "#e5e7eb",
+        lineColor: "#6b7280",
+        secondaryColor: "#020617",
+        tertiaryColor: "#020617"
+      }
+    });
+  </script>
+</head>
+<body>
+  <div class="card">
+    <div class="badge"><span class="dot"></span><span>PARKSY ORBIT SYSTEM · 5 Orbits · 25 Modulebooks</span></div>
+    <h1>PARKSY MASTER SCHEDULING WHITEPAPER</h1>
+    <p>8주 공전(Orbit)×5회독 구조로 5개 도메인·25개 모듈북을 순환시키는 EduArt Engineer 파이프라인 요약.</p>
+  </div>
+
+  <!-- 1. DOMAIN × MODULEBOOK MAP (실제 프로젝트/모듈 이름 매칭) -->
+  <div class="card">
+    <h2>1. Domain × Modulebook Map (5 Domains × 25 Modulebooks)</h2>
+    <p>엑셀 로드맵에 있는 실제 프로젝트/모듈북 이름을 5개 도메인으로 재배치한 구조 맵.</p>
+    <pre class="mermaid">
+flowchart LR
+  %% DOMAINS
+  subgraph D1["PARKSY SERIES · parksy.kr · Galaxy S25 Ultra"]
+    P1["GitHub Base Course<br/>(2Github page · basic course)"]
+    P2["Phone Base Production<br/>(Naver/Instagram Phone 기반)"]
+    P3["Persona Pack · Parksy<br/>(Technician / Blogger / Philosopher / Visualizer / Musician)"]
+    P4["WEBTOON BASE<br/>(웹툰/스토리 월드 베이스)"]
+    P5["KR Core · korean-parksy<br/>(한국어 감성·세계관 모듈)"]
+  end
+
+  subgraph D2["EAE SERIES · eae.kr · Galaxy Tab S9"]
+    E1["Skillset6 Base Course"]
+    E2["Tablet Base Production"]
+    E3["PatchTech & MinMix Lab<br/>(노트·패치·실습 랩)"]
+    E4["MAL Webappbook Cast<br/>(앱북·PWA 실습 모듈)"]
+    E5["PenOn & QSketch / EML<br/>(손그림·감정 컴포지션)"]
+  end
+
+  subgraph D3["DTSLIB SERIES · dtslib.com · Dell XPS i7"]
+    T1["Biz MRT Base<br/>(Making $ from Digital Asset)"]
+    T2["PC Base Production"]
+    T3["Sam Finance & Legal<br/>(재무·법무 구조 모듈)"]
+    T4["Digital Asset Selling<br/>(데이터·콘텐츠 세일즈)"]
+    T5["MRT = GenUnderstanding<br/>(구조 분석·이해 모듈)"]
+  end
+
+  subgraph D4["DTSLIB 1K · 중년고딩 시리즈"]
+    K1["중년고딩 과학"]
+    K2["중년고딩 철학"]
+    K3["중년고딩 사회"]
+    K4["중년고딩 언어"]
+    K5["중년고딩 예술/수학<br/>(선택형 심화 모듈)"]
+  end
+
+  subgraph D5["DTSLIB 2K · KR-Merit World"]
+    M1["kr-merit-bluff"]
+    M2["kr-merit-halfblood"]
+    M3["kr-merit-aggro"]
+    M4["kr-merit-shaman"]
+    M5["korean-parksy / KR-meta mix"]
+  end
+
+  %% LOOSE RELATIONS (OPTIONAL EDGES)
+  D1 --> D2
+  D2 --> D3
+  D3 --> D4
+  D4 --> D5
+    </pre>
+  </div>
+
+  <!-- 2. ORBIT SCHEDULING (5회독 스케줄) -->
+  <div class="card">
+    <h2>2. Orbit Scheduling · 5 Iterations (2024–2025)</h2>
+    <p>각 Orbit는 8주(수·목 집중 30h)로 구성되며, 25개 모듈북을 동일한 프레임으로 왕복 회전.</p>
+    <pre class="mermaid">
+gantt
+  dateFormat  YYYY-MM-DD
+  title PARKSY 8-Week Orbit Timeline (5 Iterations)
+
+  section Orbit 1 · 설계
+  "1회독: 전체 쓰레드→엑셀 · 25 모듈북 프레임 확정"  :active, o1, 2024-11-26, 2025-01-20
+
+  section Orbit 2 · 정제
+  "2회독: 구조 정제 · 네이밍 룰 · Master Table v2"  :o2, 2025-01-21, 2025-03-15
+
+  section Orbit 3 · 프로덕션
+  "3회독: PWA/Tistory Engine v2 · 3분 소개 영상 KR" :o3, 2025-03-16, 2025-05-10
+
+  section Orbit 4 · 한국어 인간판
+  "4회독: Galaxy 판서 · 한국어 풀강의 시리즈"       :o4, 2025-05-11, 2025-07-05
+
+  section Orbit 5 · 글로벌 표준판
+  "5회독: AI 성우 · 자동편집 · 다국어 Export Edition" :crit, o5, 2025-07-06, 2025-08-15
+    </pre>
+  </div>
+
+  <!-- 3. SCIENTIFIC APPENDIX MAPPING -->
+  <div class="card">
+    <h2>3. Scientific Appendix · Orbit ↔ Brain / Learning / Productivity</h2>
+    <p>뇌과학·학습과학·인지부하·생산성 공학의 근거와 각 Orbit의 역할 연결 다이어그램.</p>
+    <pre class="mermaid">
+flowchart TD
+  subgraph NEURO["Neuroscience · 신경가소성"]
+    N1["12~16주 = 패턴 체화<br/>(Neuro Acquisition)"]
+    N2["반복 회독 → 회로 강화<br/>(Neuro Consolidation)"]
+  end
+
+  subgraph LEARN["Learning Science · Spaced Repetition"]
+    L1["간격 반복(Spaced Repetition)<br/>1·2·3·4·5회독"]
+    L2["각 회독마다 같은 25 모듈북 재순환"]
+  end
+
+  subgraph COG["Cognitive Load Theory"]
+    C1["최대 작업 부하는 60% 수준이 최적"]
+    C2["수·목 30h 집중, 나머지 요일은 Digest/정리"]
+  end
+
+  subgraph PROD["Productivity Engineering"]
+    P1["Exploration vs Exploitation 2-Phase 모델"]
+    P2["1~2 Orbit = 설계·탐색(Exploration)"]
+    P3["3~5 Orbit = 실행·수확(Exploitation)"]
+  end
+
+  subgraph ORBITS["Orbit Roles"]
+    O1["Orbit 1: 설계 · 전체 쓰레드→엑셀"]
+    O2["Orbit 2: 구조 정제 · 네이밍 · Master Table"]
+    O3["Orbit 3: 프로덕션 개시(PWA·Tistory·3분 영상)"]
+    O4["Orbit 4: 한국어 판서 인간판"]
+    O5["Orbit 5: 글로벌 AI 표준판"]
+  end
+
+  %% MAPPINGS
+  N1 --> O1
+  N1 --> O2
+  N2 --> O3
+  N2 --> O4
+  N2 --> O5
+
+  L1 --> O1
+  L1 --> O2
+  L1 --> O3
+  L1 --> O4
+  L1 --> O5
+  L2 --> ORBITS
+
+  C1 --> C2
+  C2 --> O3
+  C2 --> O4
+  C2 --> O5
+
+  P1 --> P2
+  P1 --> P3
+  P2 --> O1
+  P2 --> O2
+  P3 --> O3
+  P3 --> O4
+  P3 --> O5
+    </pre>
+  </div>
+
+  <footer>
+    PARKSY ORBIT SYSTEM · v1.0 · Single-file HTML diagram for roadmap, scheduling, and scientific appendix.
+  </footer>
+</body>
+</html>
