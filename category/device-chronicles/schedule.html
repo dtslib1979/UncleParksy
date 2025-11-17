@@ -20,7 +20,7 @@
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      padding: 24px;
+      padding: 16px;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background:
         radial-gradient(circle at 0% 0%, #111827 0, var(--bg) 55%),
@@ -32,29 +32,29 @@
       font-weight: 700;
       letter-spacing: .04em;
     }
-    h1 { font-size: 1.7rem; }
-    h2 { font-size: 1.15rem; margin-top: 28px; }
+    h1 { font-size: 1.4rem; }
+    h2 { font-size: 1.05rem; margin-top: 20px; }
     p {
       margin: 4px 0 10px;
       color: var(--muted);
-      font-size: .9rem;
+      font-size: .85rem;
       line-height: 1.4;
     }
     .wrap {
-      max-width: 1080px;
+      max-width: 960px;
       margin: 0 auto;
     }
     .badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 4px 12px;
+      padding: 4px 10px;
       border-radius: 999px;
       border: 1px solid var(--border);
       background: rgba(15,23,42,.9);
       color: var(--accent);
-      font-size: .75rem;
-      margin-bottom: 12px;
+      font-size: .7rem;
+      margin-bottom: 10px;
     }
     .badge span.dot {
       width: 7px;
@@ -64,40 +64,41 @@
       box-shadow: 0 0 12px var(--accent);
     }
     .card {
-      border-radius: 20px;
+      border-radius: 16px;
       border: 1px solid var(--border);
       background: linear-gradient(145deg, rgba(15,23,42,.98), rgba(3,7,18,.98));
-      padding: 20px 20px 14px;
+      padding: 16px 16px 12px;
       box-shadow: var(--shadow);
-      margin-bottom: 24px;
+      margin-bottom: 16px;
     }
     .subtitle {
-      font-size: .8rem;
+      font-size: .75rem;
       text-transform: uppercase;
-      letter-spacing: .18em;
+      letter-spacing: .16em;
       color: var(--muted);
       margin-bottom: 4px;
     }
     pre.mermaid {
       background: radial-gradient(circle at top, rgba(15,23,42,.9), rgba(3,7,18,1));
-      border-radius: 14px;
-      padding: 10px;
+      border-radius: 12px;
+      padding: 8px;
       overflow-x: auto;
-      font-size: .78rem;
+      font-size: .72rem;
+      margin-bottom: 4px;
     }
     footer {
-      margin-top: 18px;
-      padding-bottom: 12px;
+      margin-top: 12px;
+      padding-bottom: 10px;
       text-align: right;
-      font-size: .75rem;
+      font-size: .7rem;
       color: var(--muted);
     }
     .priority-legend {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin: 6px 0 10px;
-      font-size: .78rem;
+      gap: 6px;
+      margin: 6px 0 8px;
+      font-size: .75rem;
       color: var(--muted);
     }
     .priority-pill {
@@ -111,6 +112,77 @@
     }
     .priority-pill span.mark {
       font-size: .8rem;
+    }
+
+    /* 섹션 토글 버튼 영역 */
+    .section-toggle {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      margin: 8px 0 14px;
+      padding: 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: radial-gradient(circle at 0 0, rgba(15,23,42,.95), rgba(3,7,18,.98));
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: space-between;
+    }
+    .toggle-btn {
+      flex: 1 1 calc(33.3% - 6px);
+      min-width: 80px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(15,23,42,.9);
+      color: var(--muted);
+      font-size: .75rem;
+      padding: 6px 8px;
+      text-align: center;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .toggle-btn.small {
+      flex: 1 1 calc(25% - 6px);
+      font-size: .7rem;
+    }
+    .toggle-btn.active {
+      color: var(--fg);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(92,240,192,.25);
+      background: radial-gradient(circle at 50% 0, rgba(92,240,192,.12), rgba(3,7,18,1));
+    }
+
+    .section-card {
+      display: none;
+    }
+    .section-card.active {
+      display: block;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 10px;
+      }
+      h1 { font-size: 1.2rem; }
+      h2 { font-size: 1rem; }
+      .card {
+        padding: 14px 12px 10px;
+      }
+      .section-toggle {
+        border-radius: 12px;
+      }
+      .toggle-btn {
+        flex: 1 1 calc(50% - 6px);
+        padding: 5px 6px;
+        font-size: .72rem;
+      }
+      .toggle-btn.small {
+        flex: 1 1 calc(33.3% - 6px);
+      }
+      pre.mermaid {
+        font-size: .68rem;
+      }
     }
   </style>
   <script>
@@ -128,12 +200,44 @@
         noteTextColor: "#e5e7eb"
       }
     });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const buttons = document.querySelectorAll(".toggle-btn");
+      const sections = document.querySelectorAll(".section-card");
+
+      function showSection(target) {
+        sections.forEach(sec => {
+          if (target === "all") {
+            sec.classList.add("active");
+          } else {
+            sec.classList.toggle(
+              "active",
+              sec.dataset.section === target
+            );
+          }
+        });
+
+        buttons.forEach(btn => {
+          btn.classList.toggle("active", btn.dataset.targetSection === target);
+        });
+      }
+
+      buttons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const target = btn.dataset.targetSection;
+          showSection(target);
+        });
+      });
+
+      // 기본: 섹션1(도메인맵)만 표시
+      showSection("s1");
+    });
   </script>
 </head>
 <body>
 <div class="wrap">
 
-  <!-- HEADER -->
+  <!-- HEADER (항상 보이는 영역) -->
   <div class="card">
     <div class="badge">
       <span class="dot"></span>
@@ -153,8 +257,17 @@
     </p>
   </div>
 
+  <!-- 섹션 토글 버튼 -->
+  <div class="section-toggle">
+    <button class="toggle-btn small" data-target-section="s1">섹션 1 · 도메인맵</button>
+    <button class="toggle-btn small" data-target-section="s2">섹션 2 · 오빗 스케줄</button>
+    <button class="toggle-btn small" data-target-section="s3">섹션 3 · 파이프라인</button>
+    <button class="toggle-btn small" data-target-section="s4">섹션 4 · 사이언스</button>
+    <button class="toggle-btn small" data-target-section="all">ALL · 전체 보기</button>
+  </div>
+
   <!-- 1. DOMAIN × MODULEBOOK MAP -->
-  <div class="card">
+  <div class="card section-card" data-section="s1">
     <div class="subtitle">section 1</div>
     <h2>Domain × Modulebook Map (5 Domains × 25 Modulebooks · Priority Tier)</h2>
     <p>
@@ -225,13 +338,13 @@ flowchart LR
   D4 --> D5
   D5 --> D1
     </pre>
-    <p style="font-size:.78rem; color:var(--muted); margin-top:6px;">
+    <p style="font-size:.72rem; color:var(--muted); margin-top:4px;">
       ※ G/S/B 표시는 1차 제안안이며, 실제 운용 시 박씨의 주관적 자신감·성과를 기준으로 Orbit마다 재조정 가능.
     </p>
   </div>
 
   <!-- 2. ORBIT SCHEDULING -->
-  <div class="card">
+  <div class="card section-card" data-section="s2">
     <div class="subtitle">section 2</div>
     <h2>Orbit Scheduling · 5 Iterations (2024–2025)</h2>
     <p>
@@ -271,8 +384,8 @@ gantt
     </pre>
   </div>
 
-  <!-- 3. PIPELINE: FEED → DIGEST → EXPRESSION -->
-  <div class="card">
+  <!-- 3. PIPELINE -->
+  <div class="card section-card" data-section="s3">
     <div class="subtitle">section 3</div>
     <h2>Pipeline · Feed → Digest → Expression (LLM + Excel + PWA + YouTube)</h2>
     <p>
@@ -317,7 +430,7 @@ flowchart LR
   </div>
 
   <!-- 4. SCIENTIFIC APPENDIX -->
-  <div class="card">
+  <div class="card section-card" data-section="s4">
     <div class="subtitle">section 4</div>
     <h2>Scientific Appendix · Orbit ↔ Brain / Learning / Productivity</h2>
     <p>
