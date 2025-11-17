@@ -92,6 +92,26 @@
       font-size: .75rem;
       color: var(--muted);
     }
+    .priority-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 6px 0 10px;
+      font-size: .78rem;
+      color: var(--muted);
+    }
+    .priority-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(15,23,42,.9);
+    }
+    .priority-pill span.mark {
+      font-size: .8rem;
+    }
   </style>
   <script>
     mermaid.initialize({
@@ -119,7 +139,7 @@
       <span class="dot"></span>
       <span>PARKSY ORBIT SYSTEM · 5 ORBITS · 25 MODULEBOOKS</span>
     </div>
-    <div class="subtitle">master scheduling whitepaper · v1.1</div>
+    <div class="subtitle">master scheduling whitepaper · v1.2 (priority mapping)</div>
     <h1>PARKSY MASTER SCHEDULING WHITEPAPER</h1>
     <p>
       8주 공전(Orbit) × 5회독 구조로<br/>
@@ -129,60 +149,73 @@
     <p>
       <b>1~2 Orbit</b>은 설계/정제(비공개), <b>3 Orbit</b>부터 PWA·Tistory 프로덕션,
       <b>4 Orbit</b>은 한국어 판서 인간판, <b>5 Orbit</b>은 AI 성우·자동편집이 포함된 글로벌 Export Edition이다.
+      각 모듈북은 <b>G/S/B 우선순위</b>에 따라 Orbit별 투입 강도가 달라진다.
     </p>
   </div>
 
   <!-- 1. DOMAIN × MODULEBOOK MAP -->
   <div class="card">
     <div class="subtitle">section 1</div>
-    <h2>Domain × Modulebook Map (5 Domains × 25 Modulebooks)</h2>
+    <h2>Domain × Modulebook Map (5 Domains × 25 Modulebooks · Priority Tier)</h2>
     <p>
       엑셀 로드맵(<i>Roadmap – 저장됨</i>)에 있는 실제 항목을 5개 도메인·25개 모듈북으로 구조화한 맵.
       Naver Magazine 3개 트랙은 제외하고, 장기적으로 유지될 핵심 25개만 공전 루프에 태운다.
     </p>
 
+    <div class="priority-legend">
+      <div class="priority-pill">
+        <span class="mark">⭐ G</span><span>Gold · 5 Orbit 풀코스 (핵심 간판 모듈)</span>
+      </div>
+      <div class="priority-pill">
+        <span class="mark">◎ S</span><span>Silver · 3 Orbit 풀 + 4·5 Orbit 라이트</span>
+      </div>
+      <div class="priority-pill">
+        <span class="mark">○ B</span><span>Bronze · 뼈대/요약 중심 · 다음 Orbit에 승격 후보</span>
+      </div>
+    </div>
+
     <pre class="mermaid">
 flowchart LR
-  %% DOMAINS: 5 × 5 MODULEBOOKS
+  %% DOMAINS: 5 × 5 MODULEBOOKS WITH PRIORITY (G/S/B)
 
   subgraph D1["PARKSY SERIES · parksy.kr · Galaxy S25 Ultra"]
-    P1["P1. GitHub Base Course<br/>(2Github page · basic course)"]
-    P2["P2. Phone Base Production<br/>(Instagram / Naver Phone 기반)"]
-    P3["P3. Persona Pack · Parksy<br/>(Technician·Blogger·Philosopher·Visualizer·Musician)"]
-    P4["P4. WEBTOON BASE<br/>(웹툰/애니 · KR 79's Middle-aged 세계관)"]
-    P5["P5. KR-Core Essay<br/>(korean-parksy · 감성/에세이 베이스)"]
+    P1["⭐ G · P1. GitHub Base Course<br/>(2Github page · basic course)"]
+    P2["◎ S · P2. Phone Base Production<br/>(Instagram / Naver Phone 기반)"]
+    P3["◎ S · P3. Persona Pack · Parksy<br/>(Technician·Blogger·Philosopher·Visualizer·Musician)"]
+    P4["◎ S · P4. WEBTOON BASE<br/>(웹툰/애니 · KR 79's Middle-aged 세계관)"]
+    P5["○ B · P5. KR-Core Essay<br/>(korean-parksy · 감성/에세이 베이스)"]
   end
 
   subgraph D2["EAE SERIES · eae.kr · Galaxy Tab S9"]
-    E1["E1. Skillset6 Base<br/>(에듀아트 엔지니어 기본 코스)"]
-    E2["E2. Tablet Base Production<br/>(Galaxy Tab · 노트/드로잉 실습)"]
-    E3["E3. PatchTech & MinMix Lab<br/>(PatchTech + MinMix 실험실)"]
-    E4["E4. MAL Webappbook Cast<br/>(웹앱북 PWA 시리즈 캐스트)"]
-    E5["E5. PenOn & QSketch / EML<br/>(손그림·EML 감정 컴포지션)"]
+    E1["⭐ G · E1. Skillset6 Base<br/>(에듀아트 엔지니어 기본 코스)"]
+    E2["◎ S · E2. Tablet Base Production<br/>(Galaxy Tab · 노트/드로잉 실습)"]
+    E3["◎ S · E3. PatchTech & MinMix Lab<br/>(PatchTech + MinMix 실험실)"]
+    E4["○ B · E4. MAL Webappbook Cast<br/>(웹앱북 PWA 시리즈 캐스트)"]
+    E5["○ B · E5. PenOn & QSketch / EML<br/>(손그림·EML 감정 컴포지션)"]
   end
 
   subgraph D3["DTSLIB SERIES · dtslib.com · Dell XPS i7"]
-    T1["T1. Biz MRT Base<br/>(Making $ from Digital Asset)"]
-    T2["T2. PC Base Production<br/>(엑셀·Python 기반 자동화)"]
-    T3["T3. Sam Finance & Legal<br/>(재무/법무 구조 설계)"]
-    T4["T4. Digital Asset Selling<br/>(데이터·콘텐츠 세일즈 시스템)"]
-    T5["T5. MRT = GenUnderstanding<br/>(구조 분석 · 이해 모듈)"]
+    T1["⭐ G · T1. Biz MRT Base<br/>(Making $ from Digital Asset)"]
+    T2["◎ S · T2. PC Base Production<br/>(엑셀·Python 기반 자동화)"]
+    T3["○ B · T3. Sam Finance & Legal<br/>(재무/법무 구조 설계)"]
+    T4["◎ S · T4. Digital Asset Selling<br/>(데이터·콘텐츠 세일즈 시스템)"]
+    T5["○ B · T5. MRT = GenUnderstanding<br/>(구조 분석 · 이해 모듈)"]
   end
 
   subgraph D4["DTSLIB 1K · 중년고딩 시리즈"]
-    K1["K1. 중년고딩 과학"]
-    K2["K2. 중년고딩 철학"]
-    K3["K3. 중년고딩 사회"]
-    K4["K4. 중년고딩 언어"]
-    K5["K5. 중년고딩 예술/수학<br/>(선택형 심화 모듈)"]
+    K1["○ B · K1. 중년고딩 과학"]
+    K2["⭐ G · K2. 중년고딩 철학"]
+    K3["◎ S · K3. 중년고딩 사회"]
+    K4["○ B · K4. 중년고딩 언어"]
+    K5["○ B · K5. 중년고딩 예술/수학<br/>(선택형 심화 모듈)"]
   end
 
   subgraph D5["DTSLIB 2K · KR-Merit World"]
-    M1["M1. kr-merit-bluff"]
-    M2["M2. kr-merit-halfblood"]
-    M3["M3. kr-merit-aggro"]
-    M4["M4. kr-merit-shaman"]
-    M5["M5. KR-Merit Meta Mix<br/>(korean-parksy × KR-Merit 통합)"]
+    M1["◎ S · M1. kr-merit-bluff"]
+    M2["◎ S · M2. kr-merit-halfblood"]
+    M3["○ B · M3. kr-merit-aggro"]
+    M4["○ B · M4. kr-merit-shaman"]
+    M5["⭐ G · M5. KR-Merit Meta Mix<br/>(korean-parksy × KR-Merit 통합)"]
   end
 
   %% HIGH-LEVEL RELATION LOOP
@@ -192,6 +225,9 @@ flowchart LR
   D4 --> D5
   D5 --> D1
     </pre>
+    <p style="font-size:.78rem; color:var(--muted); margin-top:6px;">
+      ※ G/S/B 표시는 1차 제안안이며, 실제 운용 시 박씨의 주관적 자신감·성과를 기준으로 Orbit마다 재조정 가능.
+    </p>
   </div>
 
   <!-- 2. ORBIT SCHEDULING -->
@@ -203,6 +239,14 @@ flowchart LR
       1·2 Orbit은 비공개 설계/정제, 3 Orbit에서 프로덕션 시작, 4 Orbit에서 한국어 판서,
       5 Orbit에서 글로벌 Export Edition을 완성한다.
     </p>
+    <p style="font-size:.8rem; color:var(--muted);">
+      <b>최소 성공 조건(minimum success rule)</b><br/>
+      · Orbit 1: 25개 중 ≥ 18개 프레임만 잡혀도 성공<br/>
+      · Orbit 2: 그중 ≥ 15개 네이밍/구조 정제되면 성공<br/>
+      · Orbit 3: G/S 모듈 중심으로 ≥ 10개 PWA+Tistory 세트 완성 시 성공<br/>
+      · Orbit 4: Gold 5개 풀 판서 완료 시 성공 (Silver/Bronze는 요약판)<br/>
+      · Orbit 5: Gold 5개 다국어/AI 성우판 나오면 성공 (나머지는 KR/요약판)
+    </p>
 
     <pre class="mermaid">
 gantt
@@ -211,19 +255,19 @@ gantt
   title PARKSY 8-Week Orbit Timeline (5 Iterations)
 
   section Orbit_1_Design
-  "1회독: 설계 · 전체 쓰레드→엑셀 · 25 모듈북 프레임 확정" :o1, 2024-11-26, 2025-01-20
+  "1회독: 설계 · 전체 쓰레드→엑셀 · 25 모듈북 프레임 확정 (≥18개 완성 시 성공)" :o1, 2024-11-26, 2025-01-20
 
   section Orbit_2_Refine
-  "2회독: 구조 정제 · 네이밍 룰 · Master Table v2" :o2, 2025-01-21, 2025-03-15
+  "2회독: 구조 정제 · 네이밍 룰 · Master Table v2 (≥15개 정제 시 성공)" :o2, 2025-01-21, 2025-03-15
 
   section Orbit_3_Production
-  "3회독: PWA/Tistory Engine v2 · 3분 소개 영상 KR" :o3, 2025-03-16, 2025-05-10
+  "3회독: PWA/Tistory Engine v2 · G/S 기준 ≥10개 모듈 프로덕션" :o3, 2025-03-16, 2025-05-10
 
   section Orbit_4_KR_Handwriting
-  "4회독: Galaxy 판서 · 한국어 풀 강의 시리즈" :o4, 2025-05-11, 2025-07-05
+  "4회독: Galaxy 판서 · Gold 5개 풀 강의 + Silver/Bronze 요약판" :o4, 2025-05-11, 2025-07-05
 
   section Orbit_5_Global_AI
-  "5회독: AI 성우 · 자동편집 · 다국어 Export Edition (ENG/JP/ES)" :o5, 2025-07-06, 2025-08-15
+  "5회독: Gold 5개 AI 성우 · 자동편집 · 다국어 Export Edition (ENG/JP/ES)" :o5, 2025-07-06, 2025-08-15
     </pre>
   </div>
 
@@ -234,6 +278,7 @@ gantt
     <p>
       한 모듈북 단위 작업의 실제 흐름. Galaxy STT로 말을 던지고, LLM 정리/엑셀 구조화 후,
       PWA·Tistory·YouTube·GitHub Pages로 순차 출력한다. 이 파이프라인이 25개 모듈북에 공통 적용된다.
+      우선순위(G/S/B)에 따라 각 단계에서 투입 강도와 검수 레벨이 달라진다.
     </p>
 
     <pre class="mermaid">
@@ -244,7 +289,7 @@ flowchart LR
   end
 
   subgraph DIGEST["DIGEST · 구조화/정제"]
-    XL["Excel Master Table<br/>(25 Modulebooks × Part × Chapter)"]
+    XL["Excel Master Table<br/>(25 Modulebooks × Part × Chapter<br/>+ G/S/B Priority Flag)"]
     PROMPT["Prompt Engine Generator<br/>(Tistory/PWA 프롬프트 세트)"]
     NOTE["Tablet Notes / 드로잉<br/>(PenOn · QSketch)"]
   end
@@ -277,7 +322,8 @@ flowchart LR
     <h2>Scientific Appendix · Orbit ↔ Brain / Learning / Productivity</h2>
     <p>
       8주 공전과 5회독 구조가 뇌과학·학습과학·인지부하이론·생산성 공학과 어떻게 연결되는지
-      한 번에 보여주는 개념도.
+      한 번에 보여주는 개념도. G/S/B 우선순위는 인지 부하를 60% 근처로 유지하면서
+      핵심 모듈에 더 많은 반복 노출을 주기 위한 장치다.
     </p>
 
     <pre class="mermaid">
@@ -289,26 +335,26 @@ flowchart TD
 
   subgraph LEARN["Learning Science · Spaced Repetition"]
     L1["간격 반복(Spaced Repetition)<br/>1·2·3·4·5회독 커브"]
-    L2["동일 모듈(25 Modulebooks)을<br/>간격 두고 재노출"]
+    L2["동일 모듈(25 Modulebooks)을<br/>간격 두고 재노출<br/>(Gold에 더 많은 노출)"]
   end
 
   subgraph COG["Cognitive Load Theory"]
     C1["작업 부하 최적점 ≈ 60%"]
-    C2["수·목 30h 집중 + 나머지 요일 Digest<br/>→ 과부하 방지"]
+    C2["수·목 30h 집중 + 나머지 요일 Digest<br/>→ 과부하 방지<br/>(Silver/Bronze는 라이트 모드 운용)"]
   end
 
   subgraph PROD["Productivity Engineering"]
     P1["Exploration vs Exploitation<br/>2-Phase 모델"]
-    P2["Exploration: 설계/탐색 (Orbit 1~2)"]
-    P3["Exploitation: 실행/수확 (Orbit 3~5)"]
+    P2["Exploration: 설계/탐색 (Orbit 1~2)<br/>(G/S/B 초안 태깅)"]
+    P3["Exploitation: 실행/수확 (Orbit 3~5)<br/>(Gold 풀코스 · Silver 하이브리드 · Bronze 카탈로그)"]
   end
 
   subgraph ORBITS["Orbit Role Mapping"]
-    O1["Orbit 1 · 설계<br/>쓰레드→엑셀 · 25 모듈북 프레임"]
-    O2["Orbit 2 · 정제<br/>네이밍·Master Table v2"]
-    O3["Orbit 3 · 프로덕션<br/>PWA·Tistory·YouTube 3분 영상"]
-    O4["Orbit 4 · 한국어 인간판<br/>Galaxy 판서 시리즈"]
-    O5["Orbit 5 · 글로벌 AI판<br/>AI 성우·자동편집 Export Edition"]
+    O1["Orbit 1 · 설계<br/>쓰레드→엑셀 · 25 모듈북 프레임<br/>+ 1차 G/S/B 배정"]
+    O2["Orbit 2 · 정제<br/>네이밍·Master Table v2<br/>+ 우선순위 조정"]
+    O3["Orbit 3 · 프로덕션<br/>PWA·Tistory·YouTube 3분 영상<br/>(Gold/Silver 우선 프로덕션)"]
+    O4["Orbit 4 · 한국어 인간판<br/>Galaxy 판서 시리즈<br/>(Gold 풀판서 · Silver 요약판)"]
+    O5["Orbit 5 · 글로벌 AI판<br/>AI 성우·자동편집 Export Edition<br/>(Gold 다국어 우선)"]
   end
 
   N1 --> O1
@@ -340,7 +386,7 @@ flowchart TD
   </div>
 
   <footer>
-    PARKSY ORBIT SYSTEM · v1.1 · Single-file HTML diagram for roadmap, scheduling, pipeline and scientific appendix.
+    PARKSY ORBIT SYSTEM · v1.2 · Single-file HTML diagram for roadmap, scheduling, priority mapping, pipeline and scientific appendix.
   </footer>
 
 </div>
