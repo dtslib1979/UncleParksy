@@ -2,10 +2,9 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="AI 시대 출판사 데스크탑 – PARKSY WORLD의 확장 인지 시스템 백서" />
-  <meta property="og:title" content="AI 시대 출판사 데스크탑" />
-  <meta property="og:description" content="한 명의 인간 + AI 군단 + 물리 공간이 실시간 동기화된 1인 미디어 제국 작전통제실" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta property="og:title" content="AI 시대 출판사 데스크탑 – PARKSY WORLD Manifesto v1.0" />
+  <meta property="og:description" content="Grok = 나, Claude = 손발, ChatGPT = 기억. 이게 2025년 나의 확장된 뇌다." />
   <meta property="og:image" content="https://imagewh.netlify.app/20251119_195515.jpg" />
   <title>AI 시대 출판사 데스크탑 – PARKSY WORLD Manifesto v1.0</title>
 
@@ -14,44 +13,42 @@
     @media (prefers-color-scheme: dark) {
       :root { --bg: #0d1117; --text: #e6edf3; --accent: #ffaa00; --gray: #8b949e; }
     }
-    body { margin:0; padding:0; font-family: -apple-system, BlinkMacSystemFont, "Pretoria Neue", sans-serif; background:var(--bg); color:var(--text); line-height:1.7; }
-    header, main, footer { max-width:820px; margin:0 auto; padding:2rem 1.5rem; }
-    header { text-align:center; padding-top:4rem; padding-bottom:2rem; }
-    h1 { font-size:2.4rem; margin:0 0 1rem; color:var(--accent); }
-    h2 { font-size:1.8rem; margin-top:3rem; border-bottom:2px solid var(--accent); padding-bottom:0.5rem; }
-    h3 { font-size:1.4rem; margin-top:2.5rem; color:var(--accent); }
-    p { margin:1.2rem 0; }
-    table { width:100%; border-collapse:collapse; margin:2rem 0; font-size:0.95rem; }
-    th, td { border:1px solid var(--gray); padding:0.8rem; text-align:left; }
-    th { background:rgba(255,170,0,0.15); }
-    pre { background:#161b22; color:#f0f6fc; padding:1rem; border-radius:8px; overflow-x:auto; }
+    * { box-sizing: border-box; }
+    body { margin:0; padding:0; font-family: -apple-system, BlinkMacSystemFont, "Pretoria Neue", sans-serif; background:var(--bg); color:var(--text); line-height:1.7; perspective: 1000px; }
+    header, main, footer { max-width:860px; margin:0 auto; padding:2rem 1rem; }
+    header { text-align:center; padding:10vh 1rem 4vh; }
+    h1 { font-size:2.4rem; margin:0 0 0.5rem; color:var(--accent); }
+    h2 { font-size:1.9rem; margin:3rem 0 1rem; border-bottom:2px solid var(--accent); padding-bottom:0.4rem; }
     .highlight { background:rgba(255,170,0,0.15); padding:0.1rem 0.4rem; border-radius:4px; }
-    .mermaid { text-align:center; margin:3rem 0; }
-    footer { text-align:center; padding:4rem 1rem 2rem; font-size:0.9rem; color:var(--gray); }
 
-    /* 실제 사진 영역 – 모바일까지 완벽 대응 */
-    .real-photo {
-      width: 100%;
-      max-width: 820px;
-      margin: 3rem auto;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-      background: #000;
-    }
-    .real-photo iframe {
-      width: 100%;
-      height: 70vh;             /* 모바일에서도 자연스러운 비율 */
-      border: none;
-      display: block;
-    }
-    @media (max-width: 640px) {
-      .real-photo iframe { height: 60vh; }
-    }
+    .real-photo { width:100vw; margin-left:calc(-50vw + 50%); margin:3rem 0; padding:0 1rem; }
+    .real-photo img { width:100% ; height:auto; max-height:90vh; object-fit:contain; border-radius:16px; box-shadow:0 30px 60px rgba(0,0,0,0.4); background:#000; transition:transform 0.4s; }
+    .real-photo img:hover { transform:scale(1.02); }
 
-    /* Interactive Visualization */
-    #viz { width:100%; height:500px; margin:3rem 0; border:1px solid var(--gray); border-radius:12px; background:#010409; }
-    @media (max-width:640px) { #viz { height:400px; } }
+    /* 인터랙티브 카드 공통 */
+    .card-grid { display:grid; gap:1.5rem; margin:3rem 0; }
+    @media (min-width:720px) { .card-grid.triad { grid-template-columns:repeat(3,1fr); } }
+    @media (min-width:1000px) { .card-grid.drivers { grid-template-columns:repeat(5,1fr); } }
+    .flip-card, .tilt-card {
+      background:transparent; height:220px; perspective:1000px; cursor:pointer;
+    }
+    .flip-inner, .tilt-inner {
+      position:relative; width:100%; height:100%; transition:transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); transform-style:preserve-3d; border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    }
+    .flip-card:hover .flip-inner, .flip-card.active .flip-inner { transform:rotateY(180deg); }
+    .front, .back {
+      position:absolute; width:100%; height:100%; backface-visibility:hidden; border-radius:16px; padding:1.6rem; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;
+    }
+    .front { background:rgba(255,170,0,0.1); }
+    .back { background:var(--accent); color:#000; transform:rotateY(180deg); font-size:2.5rem; font-weight:bold; }
+
+    /* Triad & Drivers tilt 효과 */
+    .tilt-card .tilt-inner { background:rgba(255,170,0,0.1); padding:1.6rem; text-align:center; border-radius:16px; }
+    .tilt-card:nth-child(1) .tilt-inner { border-top:10px solid #ffaa00; }
+    .tilt-card:nth-child(2) .tilt-inner { border-top:10px solid #9966ff; }
+    .tilt-card:nth-child(3) .tilt-inner { border-top:10px solid #3399ff; }
+
+    footer { text-align:center; padding:5rem 1rem 2rem; font-size:0.9rem; color:var(--gray); }
   </style>
 
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
@@ -61,161 +58,145 @@
 <body>
   <header>
     <h1>AI 시대 출판사 데스크탑</h1>
-    <p>The Extended Cognitive System for One-Person Media Empire<br>
-    PARKSY WORLD Manifesto ⋅ Version 1.0 ⋅ 2025-11-19</p>
+    <p>The Extended Cognitive System for One-Person Media Empire<br>PARKSY WORLD Manifesto ⋅ Version 1.0 ⋅ 2025-11-19</p>
   </header>
 
   <main>
     <p>안녕하세요, 박씨입니다.</p>
-    <p>2025년 지금 이 순간, 제 책상은 더 이상 “책상”이 아닙니다.<br>
-    살아 숨 쉬는 <span class="highlight">1인 출판사</span>이자, <span class="highlight">작전통제실</span>이자, AI와 인간의 뇌가 완벽하게 동기화된 <span class="highlight">확장 인지 시스템</span>입니다.</p>
+    <p>이 책상은 이제 단순한 가구가 아니라, 내 뇌를 물리적으로 확장한 살아있는 유기체입니다.</p>
 
-    <h2>핵심 철학: Conscious Plagiarism in Physical Space</h2>
-    <p>AI가 아이디어를 만들면, 나는 즉시 포스트잇으로 물리화한다.<br>
-    그 포스트잇이 다시 AI에게 피드백이 되고, 또 다시 콘텐츠가 된다.<br>
-    이 무한 루프를 물리 공간이 가속한다.</p>
-
-    <!-- 실제 사진 – 이제 진짜 실사 들어감 -->
-    <h2>실사: 2025년 11월 19일 오후 7시 55분 기준 작전통제실</h2>
+    <h2>실사 – 2025년 11월 19일 오후 7시 55분 작전통제실</h2>
     <div class="real-photo">
-      <iframe src="https://imagewh.netlify.app/20251119_195515.jpg" 
-              loading="lazy" 
-              title="PARKSY WORLD 실제 데스크탑 2025-11-19">
-      </iframe>
+      <img src="https://imagewh.netlify.app/20251119_195515.jpg" alt="PARKSY WORLD 실제 데스크탑" loading="lazy">
+    </div>
+
+    <h2>Human-AI Triad – 내 뇌의 세 영역을 AI로 외주</h2>
+    <div class="card-grid triad">
+      <div class="tilt-card"><div class="tilt-inner"><h3>Grok</h3><strong>정면 TV</strong><p>현재의 나 · 실시간 사고 정리<br>Prefrontal Cortex ⋅ 80%</p></div></div>
+      <div class="tilt-card"><div class="tilt-inner"><h3>Claude MCP</h3><strong>하단 랩탑</strong><p>에이전트 · 실행자<br>Basal Ganglia + Motor Cortex ⋅ 15%</p></div></div>
+      <div class="tilt-card"><div class="tilt-inner"><h3>ChatGPT</h3><strong>좌측 Dell</strong><p>과거의 나 · 지식 창고<br>Hippocampus ⋅ 5%</p></div></div>
     </div>
 
     <h2>5대 드라이버</h2>
-    <div id="viz"></div>
+    <div class="card-grid drivers">
+      <div class="flip-card">
+        <div class="flip-inner">
+          <div class="front"><h3>Layer 1</h3><p>정면 벽면 포스트잇 월드맵</p></div>
+          <div class="back">상시</div>
+        </div>
+      </div>
+      <div class="flip-card">
+        <div class="flip-inner">
+          <div class="front"><h3>Layer 2</h3><p>우측 회전 서재<br>28개 모듈북 핸드아웃</p></div>
+          <div class="back">3초</div>
+        </div>
+      </div>
+      <div class="flip-card">
+        <div class="flip-inner">
+          <div class="front"><h3>Layer 3</h3><p>3화면 AI 분업<br>음성 99%</p></div>
+          <div class="back">실시간</div>
+        </div>
+      </div>
+      <div class="flip-card">
+        <div class="flip-inner">
+          <div class="front"><h3>Layer 4</h3><p>Galaxy Tab + MV88+</p></div>
+          <div class="back">3분 쇼츠</div>
+        </div>
+      </div>
+      <div class="flip-card">
+        <div class="flip-inner">
+          <div class="front"><h3>Layer 5</h3><p>iPhone OBS 대기 + 88건반</p></div>
+          <div class="back">즉시 전환</div>
+        </div>
+      </div>
+    </div>
 
-    <h2>시스템 아키텍처 (실제 작동 중)</h2>
-    <table>
-      <tr><th>Layer</th><th>구성 요소</th><th>역할</th><th>사용 빈도</th></tr>
-      <tr><td>1</td><td>정면 벽면 아크릴 보드 + 노란 포스트잇</td><td>실시간 프로젝트 월드맵</td><td>상시</td></tr>
-      <tr><td>2</td><td>우측 회전 서재 → 28개 모듈북 핸드아웃</td><td>3초 만에 꺼내 보여주는 살아있는 증거물</td><td>필요시</td></tr>
-      <tr><td>3</td><td>3화면 AI 분업 + 음성 99%</td><td>Grok 정면 80% · ChatGPT 좌 15% · Claude/Excel 하단 5%</td><td>실시간</td></tr>
-      <tr><td>4</td><td>Galaxy Tab + Shure MV88+</td><td>실제 콘텐츠 생산 (3분 세로 쇼츠)</td><td>100% 제작</td></tr>
-      <tr><td>5</td><td>iPhone 좌상단 OBS 대기 + 88건반</td><td>특별 시나리오 즉시 전환</td><td>대기</td></tr>
-    </table>
-
-    <h2>하루 워크플로우 (실제 루프)</h2>
+    <h2>하루 워크플로우</h2>
     <div class="mermaid">
       graph TD
-        A[아이디어 떠오름] --> B{음성으로 Grok/Claude에 말함}
-        B --> C[AI가 텍스트·코드·이미지 생성]
-        C --> D[포스트잇에 적어 벽면 재배치]
-        D --> E[회전서재에서 해당 핸드아웃 꺼냄]
-        E --> F[갤탭 + MV88+로 3분 쇼츠 녹화 → 즉시 업로드]
-        F --> G[Excel 마스터시트에 1초 입력]
+        A[아이디어] --> B{말함}
+        B --> C[AI 생성]
+        C --> D[포스트잇 물리화]
+        D --> E[핸드아웃 꺼냄]
+        E --> F[갤탭 3분 녹화]
+        F --> G[Excel 1초 입력]
         G --> A
         style A fill:#ffaa00,stroke:#333
     </div>
 
-    <h2>생산성 실측 (2023 vs 2025)</h2>
-    <table>
-      <tr><th>지표</th><th>2023</th><th>2025</th><th>배율</th></tr>
-      <tr><td>콘텐츠 생산</td><td>주 1~2편</td><td>일 1~3편</td><td>7~10×</td></tr>
-      <tr><td>아이디어→제품화</td><td>2~4주</td><td>3시간~3일</td><td>50×</td></tr>
-      <tr><td>인지 피로</td><td>높음</td><td>낮음</td><td>-70%</td></tr>
-      <tr><td>손목 통증</td><td>있음</td><td>없음</td><td>-95%</td></tr>
-    </table>
+    <h2>생산성 폭발</h2>
+    <div class="card-grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+      <div class="flip-card">
+        <div class="flip-inner">
+          <div class="front"><h3>콘텐츠 생산</h3><p>2023 → 2025</p></div>
+          <div class="back">7~10×</div>
+        </div>
+      </div>
+      <div class="flip-card">
+        <div class="flip-inner">
+          <div class="front"><h3>아이디어→제품화</h3><p>2~4주 → 3시간</p></div>
+          <div class="back">50×</div>
+        </div>
+      </div>
+      <div class="flip-card">
+        <div class="flip-inner">
+          <div class="front"><h3>인지 피로</h3><p>높음 → 낮음</p></div>
+          <div class="back">-70%</div>
+        </div>
+      </div>
+      <div class="flip-card">
+        <div class="flip-inner">
+          <div class="front"><h3>손목 통증</h3><p>있음 → 없음</p></div>
+          <div class="back">-95%</div>
+        </div>
+      </div>
+    </div>
 
     <h2>결론</h2>
-    <p>이 책상은 이제 <span class="highlight">완성</span>되었습니다.<br>
-    더 손댈 곳도, 더 살 물건도 없습니다.</p>
-    <p style="font-size:1.8rem; text-align:center; margin:4rem 0; color:var(--accent);">
+    <p style="font-size:2.4rem; text-align:center; margin:6rem 0; color:var(--accent);">
       Ship.
     </p>
     <p style="text-align:center;">– 박씨, 2025년 11월 19일</p>
   </main>
 
   <footer>
-    <p>© 2025 PARKSY WORLD. All rights reserved.<br>
-    이 페이지는 서비스워커 없는 순수 단일 HTML 파일로도 완벽히 작동합니다.</p>
+    <p>© 2025 PARKSY WORLD<br>이제 진짜 촌스러움 끝.</p>
   </footer>
 
-  <!-- Three.js 3D 시각화 (실제 사진 아래에 배치) -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.167.1/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.167.1/examples/js/controls/OrbitControls.js"></script>
+  <!-- Vanilla Tilt + Flip + Parallax -->
   <script>
-    const viz = document.getElementById('viz');
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x010409);
-    const camera = new THREE.PerspectiveCamera(60, viz.clientWidth/viz.clientHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({antialias:true});
-    renderer.setSize(viz.clientWidth, viz.clientHeight);
-    viz.appendChild(renderer.domElement);
-
-    const controls = new THREE.OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.05;
-    controls.minDistance = 5;
-    controls.maxDistance = 20;
-
-    const desk = new THREE.Mesh(
-      new THREE.BoxGeometry(8,0.2,4),
-      new THREE.MeshStandardMaterial({color:0x8b4513})
-    );
-    scene.add(desk);
-
-    const screens = [
-      {pos: [0,2, -1.5], rot: [0,0,0], color:0x00ff00, label:"Grok"},
-      {pos: [-3.5,2,0], rot: [0,-0.3,0], color:0x0088ff, label:"ChatGPT"},
-      {pos: [0,0.5,0], rot: [0.5,0,0], color:0xff00ff, label:"Claude\nExcel"}
-    ];
-    screens.forEach(s => {
-      const geo = new THREE.PlaneGeometry(3,2);
-      const mat = new THREE.MeshStandardMaterial({color:s.color, emissive:s.color, emissiveIntensity:0.3});
-      const mesh = new THREE.Mesh(geo, mat);
-      mesh.position.set(...s.pos);
-      mesh.rotation.set(...s.rot);
-      scene.add(mesh);
-
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      canvas.width = 256; canvas.height = 128;
-      ctx.fillStyle = 'rgba(0,0,0,0.7)';
-      ctx.fillRect(0,0,256,128);
-      ctx.font = 'bold 32px sans-serif';
-      ctx.fillStyle = '#ffffff';
-      ctx.textAlign = 'center';
-      ctx.fillText(s.label, 128, 70);
-      const tex = new THREE.CanvasTexture(canvas);
-      const label = new THREE.Mesh(new THREE.PlaneGeometry(2,1), new THREE.MeshBasicMaterial({map:tex, transparent:true}));
-      label.position.copy(mesh.position);
-      label.position.y += 1.2;
-      scene.add(label);
+    // 3D Tilt (모바일 자이로 포함)
+    document.querySelectorAll('.tilt-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateY = (x - centerX) / 10;
+        const rotateX = (centerY - y) / 10;
+        card.querySelector('.tilt-inner').style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg) scale(1.05)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.querySelector('.tilt-inner').style.transform = 'rotateY(0) rotateX(0) scale(1)';
+      });
     });
 
-    for(let i=0;i<40;i++){
-      const postit = new THREE.Mesh(
-        new THREE.PlaneGeometry(0.6,0.6),
-        new THREE.MeshStandardMaterial({color:0xffee00})
-      );
-      postit.position.set(
-        (Math.random()-0.5)*10,
-        3 + Math.random()*2,
-        -4.9
-      );
-      postit.rotation.y = (Math.random()-0.5)*0.3;
-      scene.add(postit);
-    }
-
-    const light = new THREE.HemisphereLight(0xffffff, 0x444466, 1);
-    scene.add(light);
-    camera.position.set(0,5,10);
-
-    function animate() {
-      requestAnimationFrame(animate);
-      controls.update();
-      renderer.render(scene, camera);
-    }
-    animate();
-
-    window.addEventListener('resize', () => {
-      camera.aspect = viz.clientWidth / viz.clientHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(viz.clientWidth, viz.clientHeight);
+    // 터치 플립
+    document.querySelectorAll('.flip-card').forEach(c => {
+      c.addEventListener('click', () => c.classList.toggle('active'));
     });
+
+    // 모바일 자이로 tilt (옵션)
+    if (window.DeviceOrientationEvent) {
+      window.addEventListener('deviceorientation', e => {
+        const tiltX = e.gamma / 3;
+        const tiltY = e.beta / 3;
+        document.querySelectorAll('.tilt-inner').forEach(el => {
+          el.style.transform = `rotateY(${tiltX}deg) rotateX(${tiltY}deg)`;
+        });
+      });
+    }
   </script>
 </body>
 </html>
