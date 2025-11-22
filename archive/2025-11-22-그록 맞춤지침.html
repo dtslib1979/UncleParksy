@@ -1,0 +1,91 @@
+<!doctype html><html lang="ko"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>그록 맞춤지침</title>
+<style>
+html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}
+body{margin:0;font-size:16px;line-height:1.7;word-break:keep-all;background:#f4e5c9;color:#2b2116}
+main{max-width:880px;margin:0 auto;padding:18px}
+img,video,iframe{max-width:100%;height:auto}
+[class*="wrap"],[class*="container"],[id*="content"]{max-width:100%!important;width:auto!important;margin:0!important;padding:0!important}
+.grid,.row{display:block!important}.sidebar{display:none!important}.content,.main{width:100%!important}
+table{display:block;width:100%;overflow-x:auto;border-collapse:collapse}
+pre,code{white-space:pre-wrap;word-wrap:break-word}
+h1{font-size:1.5rem;margin:.8rem 0} h2{font-size:1.25rem;margin:.7rem 0}
+.card{background:#fff8ea;border:1px solid rgba(0,0,0,.06);border-radius:14px;padding:14px;margin:10px 0}
+</style>
+</head><body><main>
+<article class="card">
+<h1>그록 맞춤지침</h1>
+<div class="tt_article_useless_p_margin contents_style"><!-- GROK Instruction Engine – Tistory-Friendly HTML Prototype v2 -->
+<!DOCTYPE html>
+
+<!-- BEGIN STRUCTURED_DATA -->
+
+<!-- END STRUCTURED_DATA -->
+
+<div class="wrap">
+<h1>⚙️ Grok Instruction Engine · PARKSY WORLD</h1>
+<div class="subtitle">옵션만 고르면, 박씨 전용 Grok 인스트럭션 문구가 자동 생성됩니다. (Tistory HTML에 그대로 붙여쓰기용)</div>
+<div class="grid">
+<!-- LEFT: 옵션 영역 -->
+<div>
+<div class="card">
+<h2>1️⃣ Version 선택</h2>
+<div class="row" id="version-row">
+<div class="chip active" data-value="creator">Creator Ver. (콘텐츠/유튜브 중심)</div>
+<div class="chip" data-value="edu">Edu Ver. (튜토리얼/수업용)</div>
+</div>
+<label for="bias">엔진 비율 (Dual-Engine Ratio)</label>
+<select id="bias">
+<option value="balanced">기본: Exploration 20 / Execution 70 / Re-Exploration 10</option>
+<option value="explore-heavy">Exploration 40 / Execution 50 / Re-Exploration 10</option>
+<option value="exec-heavy">Exploration 10 / Execution 80 / Re-Exploration 10</option>
+</select>
+</div>
+<div class="card">
+<h2>2️⃣ 롤 &amp; 톤 선택</h2>
+<label>역할 (Role)</label>
+<div class="row" id="role-row">
+<div class="chip active" data-value="philosopher">철학 코치 · Worldview</div>
+<div class="chip" data-value="engineer">시스템/전략 · CTO 모드</div>
+<div class="chip" data-value="artist">서사/감정 · 아티스트 모드</div>
+</div>
+<label>톤 옵션 (Tone)</label>
+<div class="row" id="tone-row">
+<div class="chip active" data-value="woody">Woody Allen식 위트 + 분석</div>
+<div class="chip" data-value="clean">드라이 &amp; 최소 위트</div>
+</div>
+</div>
+<div class="card">
+<h2>3️⃣ 모드 사용 범위</h2>
+<label>Season~Media 범위</label>
+<div class="row" id="scope-row">
+<div class="chip active" data-value="full">풀 파이프라인 (Season → Media)</div>
+<div class="chip" data-value="prod-only">Production 중심 (60분 공장만)</div>
+</div>
+<div class="btn-row">
+<button class="primary" onclick="generateInstruction()" type="button">⚡ 인스트럭션 생성</button>
+<button class="secondary" onclick="copyInstruction()" type="button">📋 복사하기</button>
+</div>
+<div class="hint">※ 생성 후 바로 복사해서 Grok Custom Instructions에 붙여 넣으면 됨.</div>
+</div>
+</div>
+<!-- RIGHT: 출력 영역 -->
+<div>
+<div class="card">
+<div class="output-label">
+<span>🔧 Generated Instruction</span>
+<span class="badge" id="meta-badge">대기 중…</span>
+</div>
+<textarea id="output" placeholder="여기에 Grok 맞춤 인스트럭션이 생성됩니다." spellcheck="false"></textarea>
+<div class="hint">복사 버튼이 안 먹힐 경우, 이 영역 전체를 수동 드래그/복사해서 붙여넣으면 됩니다.</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</article>
+<footer style="opacity:.7;font-size:.9rem;margin:16px 0">© Uncle Parksy Korean Learning Archive</footer>
+</main></body></html>
