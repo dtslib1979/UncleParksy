@@ -827,9 +827,8 @@ ${baseIntro}
 `);
       }
 
-      var finalText = sections.join('
-
-');
+      // 🔧 핵심 버그 수정된 부분: 줄바꿈 두 개짜리 일반 문자열로 join
+      var finalText = sections.join('\n\n');
       document.getElementById('prompt-output').value = finalText;
       document.getElementById('status').innerHTML = '<strong>완료:</strong> 선택한 LLM 세트에 맞춰 프로젝트 프롬프트를 생성했습니다.';
       updateMeta();
@@ -868,7 +867,6 @@ ${baseIntro}
         if (!header) return;
         var item = header.closest('.accordion-item');
         if (!item) return;
-        // 단일 오픈이 부담스러우면 이 부분을 주석 처리하면 됨
         // 모든 아이템 닫기 후 현재만 열기
         var all = acc.querySelectorAll('.accordion-item');
         all.forEach(function (el) {
