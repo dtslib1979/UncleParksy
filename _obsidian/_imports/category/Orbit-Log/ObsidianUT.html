@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tablet-First Publishing Studio — Technical Whitepaper v1.2</title>
+
+  <!-- PWA (unchanged) -->
+  <link rel="manifest" href="data:application/json,{&quot;name&quot;:&quot;Publishing Studio Guide&quot;,&quot;short_name&quot;:&quot;PubStudio&quot;,&quot;start_url&quot;:&quot;.&quot;,&quot;display&quot;:&quot;standalone&quot;,&quot;theme_color&quot;:&quot;%23007AFF&quot;,&quot;background_color&quot;:&quot;%23000000&quot;,&quot;icons&quot;:[{&quot;src&quot;:&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192' fill='%23007AFF'%3E%3Crect width='192' height='192' rx='48' fill='%23000'/%3E%3Ctext x='96' y='120' text-anchor='middle' font-size='60' fill='%23007AFF'%3E📱%3C/text%3E%3C/svg%3E&quot;,&quot;sizes&quot;:&quot;192x192&quot;,&quot;type&quot;:&quot;image/svg+xml&quot;}]}">
+  <meta name="theme-color" content="#007AFF" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <style>
+    :root{
+      --primary:#007AFF;--secondary:#5856D6;--accent:#FF9500;--success:#34C759;--error:#FF3B30;--warning:#FFD60A;
+      --bg-primary:#000;--bg-secondary:#1C1C1E;--bg-tertiary:#2C2C2E;--bg-elevated:#3A3A3C;
+      --text-primary:#FFF;--text-secondary:#EBEBF5;--text-tertiary:#98989D;--text-accent:#64D2FF;
+      --border:rgba(255,255,255,.1);--shadow:rgba(0,0,0,.3);--blur:blur(40px);
+      --font-system:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',Roboto,sans-serif;
+      --font-mono:'SF Mono',Monaco,'Cascadia Code',monospace
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:var(--font-system);background:var(--bg-primary);color:var(--text-primary);line-height:1.6;overflow-x:hidden;scroll-behavior:smooth}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+    .nav{position:fixed;top:0;width:100%;z-index:1000;padding:1rem 2rem;transition:.3s}
+    .nav.scrolled{background:rgba(0,0,0,.8);backdrop-filter:var(--blur);border-bottom:1px solid var(--border)}
+    .nav-content{display:flex;justify-content:space-between;align-items:center;max-width:1400px;margin:0 auto}
+    .logo{font-weight:700;font-size:1.1rem;display:flex;align-items:center;gap:.5rem}
+    .nav-menu{display:flex;gap:1.25rem;list-style:none}
+    .nav-menu a{color:var(--text-secondary);text-decoration:none;font-weight:500;font-size:.95rem;transition:.2s;padding:.5rem .75rem;border-radius:8px}
+    .nav-menu a:hover{color:var(--text-primary);background:rgba(255,255,255,.05)}
+
+    .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;background:
+      radial-gradient(ellipse at center,rgba(0,122,255,.2) 0%,transparent 70%),
+      linear-gradient(135deg,var(--bg-primary) 0%,var(--bg-secondary) 100%);position:relative;overflow:hidden}
+    .hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23007AFF' fill-opacity='.02'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/svg%3E") repeat;animation:drift 30s linear infinite}
+    @keyframes drift{to{transform:translate(-60px,-60px)}}
+    .hero-content{text-align:center;z-index:2;max-width:920px;padding:2rem}
+    .hero h1{font-size:clamp(2.5rem,8vw,4.5rem);font-weight:800;margin-bottom:1rem;background:linear-gradient(135deg,var(--text-primary),var(--text-accent));
+      -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;opacity:0;animation:slideUp 1s ease .3s forwards}
+    .hero .tagline{font-size:clamp(1.2rem,3vw,1.8rem);color:var(--text-secondary);margin-bottom:.5rem;opacity:0;animation:slideUp 1s ease .5s forwards}
+    .hero .subtitle{font-size:clamp(1rem,2.5vw,1.3rem);color:var(--text-tertiary);margin-bottom:2rem;opacity:0;animation:slideUp 1s ease .7s forwards}
+    @keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+    .workflow-indicators{display:flex;justify-content:center;gap:.75rem;margin-bottom:2rem;opacity:0;animation:slideUp 1s ease .9s forwards;flex-wrap:wrap}
+    .indicator{display:flex;align-items:center;gap:.5rem;padding:.65rem 1rem;background:var(--bg-tertiary);border-radius:20px;border:1px solid var(--border);font-size:.9rem;color:var(--text-secondary)}
+
+    .section{padding:6rem 1.25rem;max-width:1400px;margin:0 auto}
+    .section-header{text-align:center;margin-bottom:3rem}
+    .section-title{font-size:clamp(2rem,5vw,3.25rem);font-weight:800;margin-bottom:.75rem;background:linear-gradient(135deg,var(--primary),var(--secondary));
+      -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+    .section-subtitle{font-size:1.1rem;color:var(--text-tertiary);max-width:720px;margin:0 auto}
+
+    .grid{display:grid;gap:1.5rem}
+    .grid-3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+    .card{background:var(--bg-secondary);border:1px solid var(--border);border-radius:18px;padding:2rem;transition:.25s}
+    .card:hover{transform:translateY(-4px);box-shadow:0 16px 32px var(--shadow);border-color:rgba(0,122,255,.3)}
+    .card .icon{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;margin-bottom:1rem}
+
+    .tech-term{color:var(--text-accent);font-weight:600;font-family:var(--font-mono);font-size:.9rem}
+
+    .workflow{background:var(--bg-secondary);border:1px solid var(--border);border-radius:28px;padding:3rem;margin-top:2rem}
+    .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.25rem;margin-top:1.75rem}
+    .step{background:var(--bg-tertiary);border:1px solid var(--border);border-radius:14px;padding:1.5rem;position:relative}
+    .step .num{position:absolute;top:-10px;left:18px;background:var(--primary);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem}
+
+    .directory{background:var(--bg-tertiary);border:1px solid var(--border);border-radius:14px;padding:1.5rem;font-family:var(--font-mono);color:var(--text-secondary);overflow:auto}
+
+    .table{width:100%;border-collapse:collapse;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+    .table th,.table td{border-bottom:1px solid var(--border);padding:.9rem 1rem;text-align:left}
+    .table thead th{background:var(--bg-tertiary);font-weight:700}
+    .hint{font-size:.95rem;color:var(--text-secondary);margin-top:.5rem}
+
+    .checklist{background:var(--bg-secondary);border:1px solid var(--border);border-radius:16px;padding:1.75rem}
+    .check{display:flex;gap:.8rem;align-items:flex-start;padding:.75rem 0;border-bottom:1px solid rgba(255,255,255,.06)}
+    .check:last-child{border-bottom:none}
+    .box{width:20px;height:20px;border:2px solid var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;margin-top:2px}
+    .box.checked{background:var(--success);border-color:var(--success)}
+    .box.checked::after{content:'✓';color:#fff;font-weight:700;font-size:.8rem}
+
+    .progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(135deg,var(--primary),var(--secondary));z-index:1001;transition:width .1s}
+
+    .toolbar{position:fixed;bottom:1.25rem;right:1.25rem;display:flex;flex-direction:column;gap:.8rem;z-index:1000}
+    .fab{width:56px;height:56px;border:none;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 16px rgba(0,122,255,.35);transition:.2s}
+    .fab:hover{transform:scale(1.07)}
+
+    .fade{opacity:0;transform:translateY(22px);transition:opacity .6s,transform .6s}
+    .fade.visible{opacity:1;transform:translateY(0)}
+
+    @media (max-width:900px){.nav-menu{display:none}.section{padding:4.5rem 1rem}}
+    @media (prefers-reduced-motion:reduce){
+      *{animation:none!important;transition:none!important}
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" id="progressBar" aria-hidden="true"></div>
+
+  <nav class="nav" id="navbar" aria-label="Primary">
+    <div class="nav-content">
+      <div class="logo" aria-label="Publishing Studio logo"><span aria-hidden="true">📱</span>Publishing Studio</div>
+      <ul class="nav-menu" role="menubar">
+        <li role="none"><a role="menuitem" href="#scope">Scope</a></li>
+        <li role="none"><a role="menuitem" href="#workflow">Workflow</a></li>
+        <li role="none"><a role="menuitem" href="#setup">Setup</a></li>
+        <li role="none"><a role="menuitem" href="#architecture">Architecture</a></li>
+        <li role="none"><a role="menuitem" href="#costs">Costs</a></li>
+        <li role="none"><a role="menuitem" href="#decision">Should I use this?</a></li>
+        <li role="none"><a role="menuitem" href="#troubleshoot">Troubleshoot</a></li>
+        <li role="none"><a role="menuitem" href="#templates">Templates</a></li>
+        <li role="none"><a role="menuitem" href="#checklist">Checklist</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero" role="banner">
+    <div class="hero-content">
+      <h1>Tablet-First Publishing Studio</h1>
+      <p class="tagline">Visual thinking for spatial, non-linear publishing</p>
+      <p class="subtitle">From hand sketch to live site — editor as artist, tools as brushes.</p>
+      <div class="workflow-indicators" aria-label="Pipeline">
+        <div class="indicator">🎨 Sketch <span class="tech-term">(Vector)</span></div>
+        <div class="indicator">🗺️ Canvas <span class="tech-term">(Spatial Map)</span></div>
+        <div class="indicator">☁️ CDN <span class="tech-term">(Assets)</span></div>
+        <div class="indicator">🚀 Publish <span class="tech-term">(Deploy)</span></div>
+      </div>
+      <p class="hint" aria-live="polite">This guide is opinionated and niche by design. See <a href="#scope">Scope & Audience</a>.</p>
+    </div>
+  </header>
+
+  <!-- SCOPE & AUDIENCE -->
+  <section class="section" id="scope" aria-labelledby="scope-title">
+    <div class="section-header">
+      <h2 class="section-title" id="scope-title">Scope & Audience</h2>
+      <p class="section-subtitle">Clarity on who benefits — and who should use alternatives.</p>
+    </div>
+    <div class="grid grid-3 fade">
+      <article class="card">
+        <div class="icon">🎯</div>
+        <h3>Who this is for</h3>
+        <ul>
+          <li>Tablet + stylus creators prioritizing <strong>visual thinking</strong>.</li>
+          <li>Individuals who prefer <strong>CDN-hosted assets</strong> and Markdown.</li>
+          <li>Obsidian users who value <strong>Canvas/Excalidraw</strong> and publishing.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <div class="icon">⚠️</div>
+        <h3>Who should skip</h3>
+        <ul>
+          <li>Teams needing live multi-user editing or databases → consider Notion/Confluence.</li>
+          <li>WYSIWYG book layout (page-perfect PDFs) → consider InDesign/Affinity.</li>
+          <li>Zero-cost hosting and no custom domain → consider GitHub Pages/Hugo.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <div class="icon">🔁</div>
+        <h3>Assumptions</h3>
+        <ul>
+          <li>You're ok with a <strong>paid</strong> Obsidian Publish plan (optional alternatives listed below).</li>
+          <li>You can manage simple <strong>CDN URLs</strong> and basic versioning (e.g., <code>hero_v3.png</code>).</li>
+          <li>PC is available for heavy tasks; tablet is the main studio.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- WORKFLOW -->
+  <section class="section" id="workflow" aria-labelledby="flow-title">
+    <div class="section-header">
+      <h2 class="section-title" id="flow-title">Production Workflow</h2>
+      <p class="section-subtitle">Four stages from ideation to deployment.</p>
+    </div>
+    <div class="workflow fade">
+      <div class="steps" role="list">
+        <div class="step" role="listitem">
+          <div class="num" aria-hidden="true">1</div>
+          <h3>Sketch</h3>
+          <p>Draft vectors in Excalidraw; isolate text vs visuals. Export transparent PNG/SVG to your CDN.</p>
+        </div>
+        <div class="step" role="listitem">
+          <div class="num" aria-hidden="true">2</div>
+          <h3>Map Canvas</h3>
+          <p>Build a "treasure map" with zoom levels (overview 25%, chapter 60%, detail 120%). Link nodes to notes/media.</p>
+        </div>
+        <div class="step" role="listitem">
+          <div class="num" aria-hidden="true">3</div>
+          <h3>Integrate CDN</h3>
+          <p>Reference external assets only. Keep the vault lightweight and portable.</p>
+        </div>
+        <div class="step" role="listitem">
+          <div class="num" aria-hidden="true">4</div>
+          <h3>Publish</h3>
+          <p>Deploy via Obsidian Publish or a static host. Validate mobile UX and accessibility.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SETUP (step-by-step) -->
+  <section class="section" id="setup" aria-labelledby="setup-title">
+    <div class="section-header">
+      <h2 class="section-title" id="setup-title">Essential Setup</h2>
+      <p class="section-subtitle">Hardware, plugins, accounts — with practical steps.</p>
+    </div>
+
+    <div class="grid grid-3 fade">
+      <article class="card">
+        <div class="icon">📱</div>
+        <h3>Hardware</h3>
+        <ul>
+          <li>Tablet + stylus (Galaxy Tab + S-Pen recommended, iPad + Pencil works too).</li>
+          <li>Built-in screen recorder (1440p/60fps suggested) for tutorials.</li>
+          <li>Enable palm rejection; reduce gesture conflicts.</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <div class="icon">🔌</div>
+        <h3>Plugins (Obsidian)</h3>
+        <ol>
+          <li>Core: <strong>Canvas</strong> (enable in Settings → Core plugins)</li>
+          <li>Community: <strong>Excalidraw</strong>, <strong>Media Extended</strong>, <strong>Templater</strong></li>
+          <li>Optional: Advanced Tables, Style Settings + Minimal Theme, Graph Analysis</li>
+        </ol>
+        <p class="hint">Keep plugin count minimal to avoid mobile slowdown.</p>
+      </article>
+
+      <article class="card">
+        <div class="icon">☁️</div>
+        <h3>CDN & Domains</h3>
+        <ul>
+          <li>GitHub Pages / Netlify (static), Cloudinary (image/video transforms)</li>
+          <li>Name assets with versions: <code>cover_v4.png</code></li>
+          <li>Test public access in an incognito window.</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="card fade" style="margin-top:1.25rem">
+      <h3>Obsidian Publish (optional) — Quick Start</h3>
+      <ol>
+        <li>Create a <code>/_publish</code> folder; put public pages inside.</li>
+        <li>Settings → Publish → Select Vault folder(s) → <em>Publish</em>.</li>
+        <li>(Optional) Connect a custom domain via CNAME per provider docs.</li>
+      </ol>
+      <p class="hint">Prefer zero-cost? See <a href="#alternatives">Alternatives</a>.</p>
+    </div>
+  </section>
+
+  <!-- ARCHITECTURE -->
+  <section class="section" id="architecture" aria-labelledby="arch-title">
+    <div class="section-header">
+      <h2 class="section-title" id="arch-title">Vault Architecture</h2>
+      <p class="section-subtitle">Suggested structure for clarity and portability.</p>
+    </div>
+
+    <div class="directory fade" role="region" aria-label="Directory tree">
+<pre>
+/vault
+  /_publish                 # public site root
+    index.md                # landing hub
+    /maps                   # Canvas boards (treasure maps)
+      00_overview.canvas
+      01_workflow.canvas
+    /draws                  # Excalidraw sources
+      intro.excalidraw
+    /whitepapers            # finished docs
+      tablet-guide.md
+    /snippets               # embed-only fragments
+      embeds.md
+  /_templates               # Templater skeletons
+    whitepaper.md
+    checklist.md
+    video-note.md
+  /_styles                  # publish CSS tweaks
+    publish.css
+  /_notebook                # private scratch area (not published)
+</pre>
+    </div>
+
+    <div class="card fade" id="alternatives" style="margin-top:1rem">
+      <h3>Embedding & CDN Patterns</h3>
+      <table class="table" role="table" aria-label="CDN patterns">
+        <thead><tr><th>Provider</th><th>Example</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>GitHub Pages</td><td><code>https://username.github.io/repo/assets/img/hero_v3.png</code></td><td>Free; great for static assets.</td></tr>
+          <tr><td>Netlify</td><td><code>https://site-name.netlify.app/assets/audio/loop_v2.mp3</code></td><td>Edge CDN; easy deploys.</td></tr>
+          <tr><td>Cloudinary</td><td><code>https://res.cloudinary.com/&lt;cloud&gt;/image/upload/v.../sketch.png</code></td><td>Transforms & optimization.</td></tr>
+        </tbody>
+      </table>
+      <p class="hint"><strong>Markdown embeds</strong>:
+        <code>![Sketch](https://cdn.example.com/img/intro_v1.png)</code>,
+        <code>&lt;audio controls src="https://.../audio_v2.mp3"&gt;&lt;/audio&gt;</code>,
+        <code>&lt;video controls src="https://.../demo_v1.mp4"&gt;&lt;/video&gt;</code>
+      </p>
+    </div>
+  </section>
+
+  <!-- COSTS & ALTERNATIVES -->
+  <section class="section" id="costs" aria-labelledby="cost-title">
+    <div class="section-header">
+      <h2 class="section-title" id="cost-title">Costs & Alternatives</h2>
+      <p class="section-subtitle">Transparent trade-offs so you can choose wisely.</p>
+    </div>
+
+    <div class="card fade">
+      <table class="table" role="table" aria-label="Cost comparison">
+        <thead>
+          <tr><th>Component</th><th>Typical Cost</th><th>Free/Alt Option</th><th>When to pick alt</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Obsidian Publish</td><td>Paid (monthly)</td><td>GitHub Pages + Hugo</td><td>When budget is tight or you want CI/CD control</td></tr>
+          <tr><td>CDN (Netlify/Cloudinary)</td><td>Free tiers, paid overages</td><td>GitHub Pages only</td><td>Small sites with lightweight assets</td></tr>
+          <tr><td>Canvas/Excalidraw</td><td>Free (Obsidian plugins)</td><td>tldraw / Excalidraw web</td><td>When you want browser-only editing</td></tr>
+          <tr><td>Custom Domain</td><td>~$10–$20/yr</td><td>Provider subdomain</td><td>Prototyping, internal sharing</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- DECISION MATRIX -->
+  <section class="section" id="decision" aria-labelledby="decision-title">
+    <div class="section-header">
+      <h2 class="section-title" id="decision-title">Should I Use This?</h2>
+      <p class="section-subtitle">When this studio shines — and when it doesn't.</p>
+    </div>
+
+    <div class="grid grid-3 fade">
+      <article class="card">
+        <div class="icon">✅</div>
+        <h3>Best fit</h3>
+        <ul>
+          <li>Solo creators prioritizing sketches, maps, and visual teaching.</li>
+          <li>Publishing living documents (not page-perfect PDFs).</li>
+          <li>Tablet-centric capture with occasional PC automation.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <div class="icon">🟨</div>
+        <h3>Maybe</h3>
+        <ul>
+          <li>Small teams with light collaboration needs.</li>
+          <li>Mixed media sites with modest traffic.</li>
+          <li>Comfortable with basic Git/CDN concepts.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <div class="icon">⛔</div>
+        <h3>Not ideal</h3>
+        <ul>
+          <li>Heavily relational content (databases, kanban, formulas).</li>
+          <li>Strict corporate governance or complex permissions.</li>
+          <li>Print-first workflows requiring precise pagination.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- TROUBLESHOOTING -->
+  <section class="section" id="troubleshoot" aria-labelledby="tr-title">
+    <div class="section-header">
+      <h2 class="section-title" id="tr-title">Troubleshooting & Performance</h2>
+      <p class="section-subtitle">Most common issues, quick fixes, and safeguards.</p>
+    </div>
+
+    <div class="grid grid-3 fade">
+      <article class="card">
+        <div class="icon">🔗</div>
+        <h3>CDN links not visible after publish</h3>
+        <ul>
+          <li>Open the URL in an incognito window (check 403/404/CORS).</li>
+          <li>Ensure the asset is public; avoid signed/expired URLs.</li>
+          <li>Cache-bust with <code>?v=4</code> or increment file versions.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <div class="icon">📉</div>
+        <h3>Canvas feels slow on mobile</h3>
+        <ul>
+          <li>Split one giant board into overview/detail boards.</li>
+          <li>Reduce embedded previews; link out where possible.</li>
+          <li>Disable unused plugins; restart app to clear memory.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <div class="icon">🖊️</div>
+        <h3>Excalidraw stroke issues</h3>
+        <ul>
+          <li>Increase zoom while drawing; export at 2x.</li>
+          <li>Fix pen thickness presets (thin/medium/bold) and one highlight color.</li>
+          <li>Separate text and visuals onto distinct layers.</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="card fade" style="margin-top:1rem">
+      <h3>Accessibility & SEO</h3>
+      <ul>
+        <li>Add <code>alt</code> text for meaningful images; use captions for complex diagrams.</li>
+        <li>Maintain heading order (h1→h2→h3), keyboard focus, and color contrast.</li>
+        <li>Static titles/metadata per page; keep link labels descriptive.</li>
+      </ul>
+    </div>
+
+    <div class="card fade" style="margin-top:1rem">
+      <h3>Privacy & Licensing</h3>
+      <ul>
+        <li>Prefer on-device AI tools for sketch assists when available.</li>
+        <li>Ensure you have rights to all media; track licenses in a note.</li>
+        <li>Avoid embedding sensitive data in public vaults.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- TEMPLATES -->
+  <section class="section" id="templates" aria-labelledby="tpl-title">
+    <div class="section-header">
+      <h2 class="section-title" id="tpl-title">Templates (copy-paste)</h2>
+      <p class="section-subtitle">Practical scaffolds for repeatable quality.</p>
+    </div>
+
+    <div class="card fade">
+      <h3>Whitepaper (Templater)</h3>
+      <pre class="directory" aria-label="whitepaper template">
+---
+title: &lt;% tp.file.title %>
+version: v1.0
+updated: &lt;% tp.date.now("YYYY-MM-DD") %>
+tags: [whitepaper, publish, tablet-first]
+---
+
+# &lt;%= tp.file.title %>
+&gt; One-line value statement.
+
+## 1) Why this matters
+- Problem & reader outcomes in 3 bullets.
+
+## 2) Principles
+- Tools as brushes / Publish-first / Tablet-first
+
+## 3) Workflow (TL;DR)
+1. Sketch → 2. Canvas → 3. CDN → 4. Publish
+
+## 4) Setup (links)
+- Plugins, CDN, domain
+
+## 5) Example
+- Embedded image/audio/video samples
+
+## 6) Checklist
+- [ ] Links public · [ ] Mobile read · [ ] Version tagged
+
+## 7) Review request
+- Short DM copy for peers
+      </pre>
+    </div>
+
+    <div class="card fade" style="margin-top:1rem">
+      <h3>Publishing Checklist (Markdown)</h3>
+      <pre class="directory" aria-label="checklist template">
+- [ ] Hub Canvas (overview/workflow) updated
+- [ ] All CDN links load in incognito
+- [ ] Mobile readability (phone/tablet) OK
+- [ ] Excalidraw text/visual layers tidy
+- [ ] index.md reflects latest work
+- [ ] Version + updated date visible
+- [ ] Peer review request sent
+      </pre>
+    </div>
+
+    <div class="card fade" style="margin-top:1rem">
+      <h3>Embed Snippets</h3>
+      <pre class="directory" aria-label="embed snippets">
+![Sketch alt text](https://cdn.example.com/assets/img/intro_v4.png)
+
+<audio controls src="https://cdn.example.com/assets/audio/ambient_v2.mp3"></audio>
+
+<video controls playsinline src="https://cdn.example.com/assets/video/demo_v1.mp4"></video>
+      </pre>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE DEMO -->
+  <section class="section" id="demo" aria-labelledby="demo-title">
+    <div class="section-header">
+      <h2 class="section-title" id="demo-title">Interactive Workflow</h2>
+      <p class="section-subtitle">Simulate the pipeline actions.</p>
+    </div>
+
+    <div class="card fade" style="text-align:center">
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.8rem;margin:1rem 0">
+        <button class="fab" aria-label="Simulate Sketch" onclick="simulateSketch()">🎨</button>
+        <button class="fab" aria-label="Simulate Canvas" onclick="simulateCanvas()">🗺️</button>
+        <button class="fab" aria-label="Simulate CDN" onclick="simulateCDN()">☁️</button>
+        <button class="fab" aria-label="Simulate Publish" onclick="simulatePublish()">🚀</button>
+        <button class="fab" aria-label="Simulate QA" onclick="simulateValidate()">✅</button>
+      </div>
+      <div class="directory" id="demoOutput" aria-live="polite"><em>Click any icon to simulate.</em></div>
+    </div>
+  </section>
+
+  <!-- FINAL CHECKLIST -->
+  <section class="section" id="checklist" aria-labelledby="chk-title">
+    <div class="section-header">
+      <h2 class="section-title" id="chk-title">Release Checklist</h2>
+      <p class="section-subtitle">One pass before you hit publish.</p>
+    </div>
+
+    <div class="checklist fade">
+      <div class="check">
+        <div class="box" onclick="toggleCheck(this)" role="checkbox" aria-checked="false" tabindex="0"></div>
+        <div><strong>Hub Canvas updated</strong><br /><span class="tech-term">overview.canvas & workflow.canvas</span></div>
+      </div>
+      <div class="check">
+        <div class="box" onclick="toggleCheck(this)" role="checkbox" aria-checked="false" tabindex="0"></div>
+        <div><strong>CDN links validated</strong><br />Incognito test; versioned filenames</div>
+      </div>
+      <div class="check">
+        <div class="box" onclick="toggleCheck(this)" role="checkbox" aria-checked="false" tabindex="0"></div>
+        <div><strong>Mobile UX & a11y</strong><br />Contrast, focus order, alt text</div>
+      </div>
+      <div class="check">
+        <div class="box" onclick="toggleCheck(this)" role="checkbox" aria-checked="false" tabindex="0"></div>
+        <div><strong>Version doc</strong><br />Update version + modified date</div>
+      </div>
+      <div class="check">
+        <div class="box" onclick="toggleCheck(this)" role="checkbox" aria-checked="false" tabindex="0"></div>
+        <div><strong>Peer review pinged</strong><br />Short DM sent with link</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLOATING TOOLBAR -->
+  <div class="toolbar" aria-label="Quick actions">
+    <button class="fab" title="Back to Top" onclick="scrollToTop()">↑</button>
+    <button class="fab" title="Share Guide" onclick="shareGuide()">📤</button>
+  </div>
+
+  <script>
+    // Navbar + progress
+    const navbar=document.getElementById('navbar');
+    const progressBar=document.getElementById('progressBar');
+    window.addEventListener('scroll',()=>{
+      navbar.classList.toggle('scrolled',window.pageYOffset>80);
+      const s=document.documentElement.scrollTop||document.body.scrollTop;
+      const h=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+      progressBar.style.width=((s/h)*100)+'%';
+    });
+
+    // Fade in on view
+    const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.1,rootMargin:'0px 0px -50px 0px'});
+    document.querySelectorAll('.fade').forEach(el=>io.observe(el));
+
+    // Smooth anchor nav
+    document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{
+      e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t){t.scrollIntoView({behavior:'smooth',block:'start'})}
+    }));
+
+    // Demo simulations
+    const out=()=>document.getElementById('demoOutput');
+    function simulateSketch(){
+      const el=out(); el.innerHTML =
+`✅ Vector sketch exported
+Engine: Excalidraw
+Output: intro_concept_v3.excalidraw
+Export: PNG (transparent, 2x)
+Layers: text separated from visuals`;
+    }
+    function simulateCanvas(){
+      const el=out(); el.innerHTML =
+`✅ Canvas map created
+Board: 00_overview.canvas
+Nodes: 15
+Zoom: 25% → 60% → 120%`;
+    }
+    function simulateCDN(){
+      const el=out(); el.innerHTML =
+`✅ CDN distribution complete
+URL: https://cdn.example.com/assets/img/intro_v3.png
+Status: public & cached`;
+    }
+    function simulatePublish(){
+      const el=out(); el.innerHTML =
+`✅ Site deployed
+Generator: Obsidian Publish
+URL: https://studio.example.com
+Mobile: validated`;
+    }
+    function simulateValidate(){
+      const el=out(); el.innerHTML =
+`✅ QA checks
+Links OK · Contrast OK · Alt text present · Load < 2.5s`;
+    }
+
+    // Checklist toggles (a11y)
+    function toggleCheck(node){
+      node.classList.toggle('checked');
+      node.setAttribute('aria-checked',node.classList.contains('checked')?'true':'false');
+      const boxes=[...document.querySelectorAll('.box')];
+      const done=boxes.filter(b=>b.classList.contains('checked')).length;
+      if(done===boxes.length) setTimeout(()=>alert('🎉 All checks complete. Ready to publish.'),200);
+    }
+
+    // Utilities
+    function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
+    function shareGuide(){
+      if(navigator.share){navigator.share({title:'Tablet-First Publishing Studio',text:'Visual publishing workflow',url:location.href})}
+      else{navigator.clipboard.writeText(location.href);alert('📋 URL copied')}
+    }
+
+    // Init logs
+    console.log('%c📱 Tablet-First Publishing Studio v1.2','color:#007AFF;font-weight:bold;font-size:16px');
+    console.log('Workflow: Sketch → Canvas → CDN → Publish');
+  </script>
+</body>
+</html>

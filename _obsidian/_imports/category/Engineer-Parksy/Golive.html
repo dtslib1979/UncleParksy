@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>GoLive 연대기 v1.0</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --bg: #0a0a0a;
+            --card: #1a1a2e;
+            --accent: #00d9ff;
+            --accent2: #8338ec;
+            --text: #ffffff;
+            --text-dim: #a0a0a0;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body.light {
+            --bg: #f5f5f5;
+            --card: #ffffff;
+            --text: #1a1a1a;
+            --text-dim: #666666;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1rem;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        body.light header {
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .icon-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            background: rgba(0, 217, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .icon-btn:active {
+            transform: scale(0.95);
+            background: var(--accent);
+        }
+
+        /* Progress */
+        .progress {
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 999;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--gradient);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        /* Main Container */
+        main {
+            padding-top: 63px;
+            min-height: 100vh;
+        }
+
+        /* Slide */
+        .slide {
+            min-height: calc(100vh - 63px);
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+
+        .slide.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .slide-number {
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .slide-title {
+            font-size: 2rem;
+            font-weight: 900;
+            line-height: 1.2;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .slide-subtitle {
+            font-size: 1rem;
+            color: var(--text-dim);
+            font-style: italic;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: calc(100vh - 63px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem 1rem;
+            background: radial-gradient(circle at center, #667eea 0%, #000 70%);
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        body.light .card {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: white;
+        }
+
+        .card-title {
+            flex: 1;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .card-label {
+            font-size: 0.75rem;
+            color: var(--accent);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-dim);
+        }
+
+        /* Timeline */
+        .timeline-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-marker {
+            flex-shrink: 0;
+            width: 60px;
+            text-align: center;
+        }
+
+        .timeline-dot {
+            width: 16px;
+            height: 16px;
+            background: var(--accent);
+            border-radius: 50%;
+            margin: 0 auto 0.5rem;
+            box-shadow: 0 0 20px var(--accent);
+        }
+
+        .timeline-line {
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--accent), transparent);
+            margin: 0 auto;
+        }
+
+        .timeline-date {
+            font-size: 0.75rem;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .timeline-text {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
+
+        /* Module Grid */
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .module-card {
+            aspect-ratio: 1;
+            background: var(--card);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .module-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .module-card:active {
+            transform: scale(0.98);
+        }
+
+        .module-card:active::before {
+            opacity: 0.1;
+        }
+
+        .module-num {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .module-name {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            position: relative;
+        }
+
+        .module-desc {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            position: relative;
+        }
+
+        /* Chapter */
+        .chapter-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chapter-num {
+            position: absolute;
+            top: -1rem;
+            right: 1rem;
+            font-size: 6rem;
+            font-weight: 900;
+            opacity: 0.05;
+            line-height: 1;
+        }
+
+        .chapter-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .chapter-subtitle {
+            font-size: 1rem;
+            color: var(--accent);
+            font-style: italic;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .chapter-quote {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-dim);
+            border-left: 3px solid var(--accent);
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        /* Score */
+        .score-circle {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+
+        .score-circle svg {
+            transform: rotate(-90deg);
+        }
+
+        .score-bg {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.1);
+            stroke-width: 12;
+        }
+
+        .score-fill {
+            fill: none;
+            stroke: url(#gradient);
+            stroke-width: 12;
+            stroke-linecap: round;
+            stroke-dasharray: 600;
+            stroke-dashoffset: 600;
+            transition: stroke-dashoffset 2s;
+        }
+
+        .score-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .score-label {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .score-item {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .score-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+        }
+
+        .score-name {
+            font-weight: 600;
+        }
+
+        .score-value {
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .score-track {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .score-fill-bar {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 1.5s;
+        }
+
+        /* Product */
+        .product-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .product-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 1rem 0;
+        }
+
+        .product-features {
+            text-align: left;
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .product-features li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+        }
+
+        .product-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--gradient);
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Conclusion */
+        .conclusion {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .conclusion-quote {
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 2rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .conclusion-author {
+            font-size: 1rem;
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-text {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+
+        /* Navigation Dots */
+        .nav-dots {
+            position: fixed;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: var(--accent);
+            transform: scale(1.5);
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        /* Swipe Hint */
+        .swipe-hint {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.75rem 1.5rem;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            z-index: 999;
+            animation: bounce 2s infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        /* Loading */
+        .loading {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s;
+        }
+
+        .loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .hero-title { font-size: 4rem; }
+            .slide-title { font-size: 2.5rem; }
+            .module-grid { grid-template-columns: repeat(3, 1fr); }
+            .swipe-hint { display: none; }
+        }
+
+        @media (min-width: 1024px) {
+            main { max-width: 1000px; margin: 0 auto; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">GoLive v1.0</div>
+        <div class="header-actions">
+            <button class="icon-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
+            <button class="icon-btn" onclick="shareApp()">📤</button>
+        </div>
+    </header>
+
+    <!-- Progress -->
+    <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Nav Dots -->
+    <div class="nav-dots" id="navDots"></div>
+
+    <!-- Swipe Hint -->
+    <div class="swipe-hint" id="swipeHint">👆 위아래로 스와이프</div>
+
+    <!-- Main -->
+    <main id="main">
+        <!-- Slide 1: Hero -->
+        <section class="slide visible hero">
+            <div class="hero-content">
+                <h1 class="hero-title">GoLive<br>연대기</h1>
+                <p class="hero-subtitle">사유에서 시스템으로<br>21세기 작가 박씨의 3년 여정</p>
+                <div class="hero-meta">
+                    <div>📅 2025년 10월</div>
+                    <div>👤 박씨 (EduArt Engineer)</div>
+                    <div>🏢 DTSLIB</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: TL;DR -->
+        <section class="slide">
+            <div class="slide-header">
+                <div class="slide-number">01 / 핵심</div>
+                <h2 class="slide-title">7줄 요약</h2>
+            </div>
+            <div class="card">
+                <div class="card-label">핵심</div>
+                <div class="card-text">블로그→음성→백서→코드→PWA로 이어진 3년의 창작 시스템 진화기</div>
+            </div>
+            <div class="card">
+                <div class="card-label">선택 이유</div>
+                <div class="card-text">기술을 쫓지 않고 '인간 물성'을 되찾기 위해 PWA + GitHub로 정착</div>
+            </div>
+            <div class="card">
+                <div class="card-label">얻는 것</div>
+                <div class="card-text">AI 시대 창작자를 위한 10개 모듈 × 객체지향 시리즈 설계</div>
+            </div>
+            <div class="card">
+                <div class="card-label">철학</div>
+                <div class="card-text">대화→백서→시스템의 순환. 데이터는 모으지 말고 순환시킨다</div>
+            </div>
+            <div class="card">
+                <div class="card-label">선언</div>
+                <div class="card-text">배우는 자에서 파는 자로. AI와 함께가 아닌, 인간 중심으로 귀환</div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Timeline -->
+        <section class="slide">
+            <div class="slide-header">
+                <div class="slide-number">02 / 여정</div>
+                <h2 class="slide-title">타임라인</h2>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-marker">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">1979-11-26</div>
+                    <div class="timeline-line"></div>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-title">박씨 출생</div>
+                    <div class="timeline-text">경기도, EduArt Engineer의 씨앗</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-marker">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2019-11-01</div>
+                    <div class="timeline-line"></div>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-title">형 만료 & 재시작</div>
+                    <div class="timeline-text">출소 후 5년 여정의 시작. 블로그 실험</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-marker">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2023-03-13</div>
+                    <div class="timeline-line"></div>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-title">DTSLIB 사업자등록</div>
+                    <div class="timeline-text">WebAppsBook, Cast, YouTube Edu</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-marker">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2024-03-13</div>
+                    <div class="timeline-line"></div>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-title">어머니 요양원 입소</div>
+                    <div class="timeline-text">돌봄→창작 전환, Trinity 모듈 구체화</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-marker">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2025 추석</div>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-title">귀환과 선언</div>
+                    <div class="timeline-text">배우는 자→파는 자, 6 Skillset 시작</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Modules -->
+        <section class="slide">
+            <div class="slide-header">
+                <div class="slide-number">03 / 구조</div>
+                <h2 class="slide-title">10개 핵심 모듈</h2>
+            </div>
+            <div class="module-grid">
+                <div class="module-card">
+                    <div class="module-num">1</div>
+                    <div class="module-name">Trinity</div>
+                    <div class="module-desc">사고·감정·영상</div>
+                </div>
+                <div class="module-card">
+                    <div class="module-num">2</div>
+                    <div class="module-name">Learning</div>
+                    <div class="module-desc">성장 4단계</div>
+                </div>
+                <div class="module-card">
+                    <div class="module-num">3</div>
+                    <div class="module-name">Metabolism</div>
+                    <div class="module-desc">순환 엔진</div>
+                </div>
+                <div class="module-card">
+                    <div class="module-num">4</div>
+                    <div class="module-name">KR Merit</div>
+                    <div class="module-desc">감정 리듬</div>
+                </div>
+                <div class="module-card">
+                    <div class="module-num">5</div>
+                    <div class="module-name">Finger</div>
+                    <div class="module-desc">인간 5축</div>
+                </div>
+                <div class="module-card">
+                    <div class="module-num">6</div>
+                    <div class="module-name">Lingua</div>
+                    <div class="module-desc">언어 3벡터</div>
+                </div>
+                <div class="module-card">
+                    <div class="module-num">7</div>
+                    <div class="module-name">Planning</div>
+                    <div class="module-desc">설계 6법칙</div>
+                </div>
+                <div class="module-card">
+                    <div class="module-num">8</div>
+                    <div class="module-name">Dataset</div>
+                    <div class="module-desc">실험→시스템</div>
+                </div>
+                <div class="module-card">
+                    <div class="module-num">9</div>
+                    <div class="module-name">Embodied</div>
+                    <div class="module-desc">체화 6기술</div>
+                </div>
+                <div class="module-card">
+                    <div class="module-num">10</div>
+                    <div class="module-name">Persona</div>
+                    <div class="module-desc">5자아</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5-6: Chapters -->
+        <section class="slide">
+            <div class="slide-header">
+                <div class="slide-number">04 / 1-4장</div>
+                <h2 class="slide-title">주요 여정</h2>
+            </div>
+            <div class="chapter-card">
+                <div class="chapter-num">01</div>
+                <h3 class="chapter-title">블로그 시대</h3>
+                <div class="chapter-subtitle">"유튜브는 멀고, 블로그는 내 손에"</div>
+                <div class="chapter-quote">네이버·티스토리·워드프레스를 거치며 '기록의 구조'를 배웠다.</div>
+            </div>
+            <div class="chapter-card">
+                <div class="chapter-num">02</div>
+                <h3 class="chapter-title">보이스 퍼스트</h3>
+                <div class="chapter-subtitle">"타이핑을 포기하며 생각을 되찾다"</div>
+                <div class="chapter-quote">삼성 음성 입력 발견. 손가락이 아닌 목소리로 코드를 짜는 시대로.</div>
+            </div>
+            <div class="chapter-card">
+                <div class="chapter-num">03</div>
+                <h3 class="chapter-title">언어=코드</h3>
+                <div class="chapter-subtitle">"프롬프트는 코드다"</div>
+                <div class="chapter-quote">ChatGPT는 '사고의 편차'를 훈련시키는 뇌 시뮬레이터였다.</div>
+            </div>
+            <div class="chapter-card">
+                <div class="chapter-num">04</div>
+                <h3 class="chapter-title">데이터 허상</h3>
+                <div class="chapter-subtitle">"대화를 모으고 있었다"</div>
+                <div class="chapter-quote">데이터는 모으는 게 아니라 순환시키는 것이다.</div>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class="slide-header">
+                <div class="slide-number">05 / 5-8장</div>
+                <h2 class="slide-title">주요 여정</h2>
+            </div>
+            <div class="chapter-card">
+                <div class="chapter-num">05</div>
+                <h3 class="chapter-title">백서 발견</h3>
+                <div class="chapter-subtitle">"시스템으로 쓴다"</div>
+                <div class="chapter-quote">완결된 구조로 닫히면 프로그램이 된다. 대화 로그는 나의 뇌 구조.</div>
+            </div>
+            <div class="chapter-card">
+                <div class="chapter-num">06</div>
+                <h3 class="chapter-title">점수 환상</h3>
+                <div class="chapter-subtitle">"AI는 신이 아니라 동료"</div>
+                <div class="chapter-quote">98.95점은 착시였다. AI는 나의 사고를 반사해줄 뿐.</div>
+            </div>
+            <div class="chapter-card">
+                <div class="chapter-num">07</div>
+                <h3 class="chapter-title">HTML & 아티팩트</h3>
+                <div class="chapter-subtitle">"코드로 출판한다"</div>
+                <div class="chapter-quote">HTML은 나의 활자, GitHub는 나의 출판사가 되었다.</div>
+            </div>
+            <div class="chapter-card">
+                <div class="chapter-num">08</div>
+                <h3 class="chapter-title">귀환과 선언</h3>
+                <div class="chapter-subtitle">"배우는 자→파는 자"</div>
+                <div class="chapter-quote">인간 물성을 위한 6 Skillset. 시행착오를 교양으로 전환한다.</div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Score -->
+        <section class="slide">
+            <div class="slide-header">
+                <div class="slide-number">06 / 평가</div>
+                <h2 class="slide-title">최종 평가</h2>
+            </div>
+            <div class="score-circle">
+                <svg width="200" height="200">
+                    <defs>
+                        <linearGradient id="gradient">
+                            <stop offset="0%" stop-color="#00d9ff"/>
+                            <stop offset="100%" stop-color="#8338ec"/>
+                        </linearGradient>
+                    </defs>
+                    <circle class="score-bg" cx="100" cy="100" r="90"/>
+                    <circle class="score-fill" id="scoreCircle" cx="100" cy="100" r="90"/>
+                </svg>
+                <div class="score-text" id="scoreText">0</div>
+            </div>
+            <div class="score-label">A- (92/100)</div>
+            <div class="score-item">
+                <div class="score-header">
+                    <span class="score-name">내러티브 응집력</span>
+                    <span class="score-value">14/15</span>
+                </div>
+                <div class="score-track">
+                    <div class="score-fill-bar" data-width="93.3%"></div>
+                </div>
+            </div>
+            <div class="score-item">
+                <div class="score-header">
+                    <span class="score-name">시간·사실 정합성</span>
+                    <span class="score-value">10/10</span>
+                </div>
+                <div class="score-track">
+                    <div class="score-fill-bar" data-width="100%"></div>
+                </div>
+            </div>
+            <div class="score-item">
+                <div class="score-header">
+                    <span class="score-name">모듈 철학</span>
+                    <span class="score-value">14/15</span>
+                </div>
+                <div class="score-track">
+                    <div class="score-fill-bar" data-width="93.3%"></div>
+                </div>
+            </div>
+            <div class="score-item">
+                <div class="score-header">
+                    <span class="score-name">시리즈 설계</span>
+                    <span class="score-value">10/10</span>
+                </div>
+                <div class="score-track">
+                    <div class="score-fill-bar" data-width="100%"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: Products -->
+        <section class="slide">
+            <div class="slide-header">
+                <div class="slide-number">07 / 상품</div>
+                <h2 class="slide-title">상품 라인업</h2>
+            </div>
+            <div class="product-card">
+                <div class="product-icon">🔧</div>
+                <h3 class="product-title">Core10 제너레이터</h3>
+                <div class="product-price">$9</div>
+                <ul class="product-features">
+                    <li>단일 HTML 파일</li>
+                    <li>12편 자동 생성</li>
+                    <li>커스텀 모듈 지원</li>
+                    <li>무료 버전 공개</li>
+                </ul>
+                <button class="btn">구매하기</button>
+            </div>
+            <div class="product-card">
+                <div class="product-icon">📚</div>
+                <h3 class="product-title">6-Skillset 교재</h3>
+                <div class="product-price">$19</div>
+                <ul class="product-features">
+                    <li>PDF 30페이지</li>
+                    <li>6개 스킬 완전 가이드</li>
+                    <li>실습 워크북</li>
+                    <li>조기 구매 특가</li>
+                </ul>
+                <button class="btn">구매하기</button>
+            </div>
+            <div class="product-card">
+                <div class="product-icon">🎤</div>
+                <h3 class="product-title">Voice-First 키트</h3>
+                <div class="product-price">$39</div>
+                <ul class="product-features">
+                    <li>OBS 씬 10개</li>
+                    <li>스크립트 템플릿</li>
+                    <li>녹음 가이드</li>
+                    <li>튜토리얼 영상</li>
+                </ul>
+                <button class="btn">구매하기</button>
+            </div>
+        </section>
+
+        <!-- Slide 9: Conclusion -->
+        <section class="slide conclusion">
+            <div class="slide-header">
+                <div class="slide-number">08 / 마무리</div>
+            </div>
+            <div class="conclusion-quote">
+                "대화가 곧 백서다.<br>
+                백서가 곧 시스템이다.<br>
+                시스템이 곧 나다."
+            </div>
+            <div class="conclusion-author">— 박씨, GoLive 연대기 v1.0</div>
+            <div class="btn-group">
+                <button class="btn">🌐 dtslib.com</button>
+                <button class="btn">💻 GitHub</button>
+            </div>
+            <p class="footer-text">
+                © 2025 DTSLIB • EduArt Engineer<br>
+                WebAppsBook • Cast • YouTube Edu<br><br>
+                License: CC BY-NC-SA 4.0
+            </p>
+        </section>
+    </main>
+
+    <script>
+        // State
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let touchStartY = 0;
+        let isAnimating = false;
+
+        // Initialize
+        function init() {
+            createDots();
+            updateProgress();
+            observeSlides();
+            setupTouch();
+            hideLoading();
+            hideSwipeHint();
+        }
+
+        // Loading
+        function hideLoading() {
+            setTimeout(() => {
+                document.getElementById('loading').classList.add('hidden');
+            }, 500);
+        }
+
+        // Swipe Hint
+        function hideSwipeHint() {
+            setTimeout(() => {
+                const hint = document.getElementById('swipeHint');
+                hint.style.opacity = '0';
+                setTimeout(() => hint.remove(), 500);
+            }, 3000);
+        }
+
+        // Navigation Dots
+        function createDots() {
+            const container = document.getElementById('navDots');
+            slides.forEach((_, i) => {
+                const dot = document.createElement('div');
+                dot.className = 'dot' + (i === 0 ? ' active' : '');
+                dot.onclick = () => goToSlide(i);
+                container.appendChild(dot);
+            });
+        }
+
+        function updateDots() {
+            document.querySelectorAll('.dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+        }
+
+        // Progress
+        function updateProgress() {
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        // Slide Navigation
+        function goToSlide(index) {
+            if (index < 0 || index >= totalSlides || isAnimating) return;
+            
+            isAnimating = true;
+            slides[currentSlide].classList.remove('visible');
+            currentSlide = index;
+            slides[currentSlide].classList.add('visible');
+            slides[currentSlide].scrollIntoView({ behavior: 'smooth' });
+            
+            updateDots();
+            updateProgress();
+            
+            setTimeout(() => isAnimating = false, 800);
+        }
+
+        function nextSlide() {
+            goToSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            goToSlide(currentSlide - 1);
+        }
+
+        // Touch Events
+        function setupTouch() {
+            let startY = 0;
+            let currentY = 0;
+            
+            main.addEventListener('touchstart', (e) => {
+                startY = e.touches[0].clientY;
+            }, { passive: true });
+            
+            main.addEventListener('touchmove', (e) => {
+                currentY = e.touches[0].clientY;
+            }, { passive: true });
+            
+            main.addEventListener('touchend', () => {
+                const diff = startY - currentY;
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) nextSlide();
+                    else prevSlide();
+                }
+            });
+        }
+
+        // Intersection Observer
+        function observeSlides() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const index = Array.from(slides).indexOf(entry.target);
+                        currentSlide = index;
+                        updateDots();
+                        updateProgress();
+                        
+                        // Trigger score animation
+                        if (index === 6) animateScore();
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            slides.forEach(slide => observer.observe(slide));
+        }
+
+        // Score Animation
+        function animateScore() {
+            const circle = document.getElementById('scoreCircle');
+            const text = document.getElementById('scoreText');
+            const bars = document.querySelectorAll('.score-fill-bar');
+            
+            // Circle
+            const circumference = 2 * Math.PI * 90;
+            const offset = circumference - (92 / 100) * circumference;
+            setTimeout(() => {
+                circle.style.strokeDashoffset = offset;
+            }, 100);
+            
+            // Number
+            let count = 0;
+            const interval = setInterval(() => {
+                count++;
+                text.textContent = count;
+                if (count >= 92) clearInterval(interval);
+            }, 20);
+            
+            // Bars
+            bars.forEach((bar, i) => {
+                setTimeout(() => {
+                    bar.style.width = bar.dataset.width;
+                }, i * 200);
+            });
+        }
+
+        // Theme Toggle
+        function toggleTheme() {
+            document.body.classList.toggle('light');
+            const btn = document.getElementById('themeBtn');
+            btn.textContent = document.body.classList.contains('light') ? '☀️' : '🌙';
+        }
+
+        // Share
+        async function shareApp() {
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: 'GoLive 연대기 v1.0',
+                        text: '사유에서 시스템으로 — 21세기 작가 박씨의 3년 여정',
+                        url: window.location.href
+                    });
+                } catch (e) {}
+            }
+        }
+
+        // Initialize
+        const main = document.getElementById('main');
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>
