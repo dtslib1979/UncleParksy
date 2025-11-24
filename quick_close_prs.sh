@@ -48,8 +48,7 @@ echo ""
 echo "🔄 PR 닫는 중..."
 echo ""
 
-# 원라이너로 한 번에 실행
-gh pr list --state open --json number --template '{{range .}}{{.number}}{{"\n"}}{{end}}' | \
+# Process substitution으로 subshell 문제 해결
 while read pr; do
     echo "⏳ PR #$pr 처리 중..."
     if gh pr close "$pr" --comment "🧹 일괄 정리: 모든 열린 PR 삭제 (Bulk cleanup)" 2>/dev/null; then
@@ -57,7 +56,7 @@ while read pr; do
     else
         echo "⚠️  PR #$pr 건너뜀 (이미 닫혔거나 오류)"
     fi
-done
+done < <(gh pr list --state open --json number --template '{{range .}}{{.number}}{{"\n"}}{{end}}')
 
 echo ""
 echo "✨ 작업 완료!"
