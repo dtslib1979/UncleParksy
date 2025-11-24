@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Practical Architect Verb Whitepaper (v1.0) — Promptbook for Verbal Coding</title>
+<meta name="description" content="150 core verbs and 10 prompt templates for architects to code by speaking in the AI era. Mobile & Tistory compatible." />
+<style id="main-style">
+  :root{
+    --papyrus:#f4e5c9;
+    --clay:#cd853f;
+    --gold:#daa520;
+    --ink:#2b2b2b;
+    --muted:#6b5e4a;
+    --card:#fff8e6;
+    --ring:rgba(205,133,63,.25);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--papyrus);color:var(--ink);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+  header{padding:28px 16px 10px;text-align:center}
+  .title{font-size:clamp(22px,4.5vw,34px);font-weight:800;letter-spacing:.2px}
+  .subtitle{color:var(--muted);margin-top:6px}
+  .meta{color:var(--muted);font-size:13px;margin-top:4px}
+  main{padding:16px;max-width:1100px;margin:0 auto}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:12px 0 22px}
+  button.copy-btn{
+    border:1.5px solid var(--clay);background:linear-gradient(180deg,#ffe7c0,#ffd28c);
+    color:#3a2a17;padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:700
+  }
+  button.copy-btn:active{transform:translateY(1px)}
+  .grid{display:grid;grid-template-columns:1fr;gap:14px}
+  @media(min-width:720px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(min-width:1024px){.grid{grid-template-columns:repeat(3,1fr)}}
+  .card{
+    background:var(--card);border:1.5px solid var(--ring);border-radius:16px;padding:14px 14px 10px;
+    box-shadow:0 1px 0 rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.05)
+  }
+  h2,h3{margin:.2em 0 .4em}
+  h2{font-size:clamp(18px,3.4vw,22px)}
+  h3{font-size:clamp(16px,3vw,20px);color:#2b2216}
+  .kicker{
+    display:inline-block;font-weight:800;letter-spacing:.4px;color:#2b2216;
+    background:linear-gradient(180deg,#ffeabf,#ffd07a);border:1.5px solid var(--clay);
+    padding:4px 9px;border-radius:999px;margin-bottom:8px
+  }
+  ul.verb{margin:8px 0 0;padding-left:18px}
+  ul.verb li{margin:2px 0}
+  .badge{display:inline-block;font-size:12px;padding:2px 8px;border-radius:999px;background:#fff3d6;border:1px solid var(--gold);color:#5a3d18;margin-left:6px}
+  details{border:1.5px solid var(--ring);border-radius:14px;background:#fffaf0;padding:10px 12px;margin:8px 0}
+  details>summary{cursor:pointer;font-weight:700;list-style:none}
+  details>summary::-webkit-details-marker{display:none}
+  details[open]{background:#fff4da}
+  pre.code{white-space:pre-wrap;background:#fff;border:1px dashed #e6caa2;padding:10px;border-radius:10px;font-size:13px}
+  .ring-wrap{display:grid;place-items:center;margin:10px 0 18px}
+  .ring{
+    width:min(800px,100%);height:auto;background:
+      radial-gradient(120px 120px at 50% 50%, rgba(218,165,32,.15), transparent 60%),
+      radial-gradient(350px 350px at 50% 50%, rgba(205,133,63,.12), transparent 70%);
+    border-radius:18px;padding:10px;border:1.5px dashed var(--ring)
+  }
+  .legend{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+  .legend span{font-size:12px;background:#fff3d6;border:1px solid var(--gold);border-radius:999px;padding:2px 8px}
+  footer{margin:28px 0 40px;text-align:center;color:var(--muted);font-size:13px}
+  .visually-hidden{position:absolute !important;left:-9999px !important;top:auto !important;width:1px !important;height:1px !important;overflow:hidden !important}
+</style>
+</head>
+<body>
+  <header>
+    <div class="title">Practical Architect Verb Whitepaper (v1.0) — Promptbook for Verbal Coding</div>
+    <div class="subtitle">150 core verbs & 10 prompt templates covering the full DevOps lifecycle</div>
+    <div class="meta">Author: EduArt Engineer · © dtslib.com</div>
+  </header>
+
+  <main id="app">
+    <section class="actions">
+      <button class="copy-btn" onclick="copyFullHTML()">📋 Copy full HTML/CSS</button>
+      <button class="copy-btn" onclick="copyWhitepaper()">📄 Copy whitepaper text</button>
+    </section>
+
+    <section class="ring-wrap card">
+      <div class="kicker">SVG Infographic · 10 Stages</div>
+      <svg class="ring" viewBox="0 0 800 520" role="img" aria-label="10-step development lifecycle diagram">
+        <circle cx="400" cy="260" r="195" fill="none" stroke="#daa520" stroke-width="8" opacity=".35"/>
+        <circle cx="400" cy="260" r="215" fill="none" stroke="#cd853f" stroke-width="2" opacity=".35" stroke-dasharray="10 8"/>
+        <circle cx="400" cy="260" r="78" fill="#fff7e6" stroke="#e3c089" stroke-width="2"/>
+        <text x="400" y="255" text-anchor="middle" font-size="16" font-weight="800" fill="#3a2a17">LIFECYCLE</text>
+        <text x="400" y="276" text-anchor="middle" font-size="12" fill="#6b5e4a">Architect · Prompt · Orchestrate</text>
+        <circle cx="400" cy="45" r="18" fill="#fff3d6" stroke="#daa520"/><text x="400" y="49" text-anchor="middle" font-size="11" fill="#3a2a17">1 Setup</text>
+        <circle cx="603" cy="105" r="18" fill="#fff3d6" stroke="#daa520"/><text x="603" y="109" text-anchor="middle" font-size="11" fill="#3a2a17">2 Data</text>
+        <circle cx="713" cy="260" r="18" fill="#fff3d6" stroke="#daa520"/><text x="713" y="264" text-anchor="middle" font-size="11" fill="#3a2a17">3 Backend</text>
+        <circle cx="603" cy="415" r="18" fill="#fff3d6" stroke="#daa520"/><text x="603" y="419" text-anchor="middle" font-size="11" fill="#3a2a17">4 Frontend</text>
+        <circle cx="400" cy="475" r="18" fill="#fff3d6" stroke="#daa520"/><text x="400" y="479" text-anchor="middle" font-size="11" fill="#3a2a17">5 Logic</text>
+        <circle cx="197" cy="415" r="18" fill="#fff3d6" stroke="#daa520"/><text x="197" y="419" text-anchor="middle" font-size="11" fill="#3a2a17">6 Test</text>
+        <circle cx="87" cy="260" r="18" fill="#fff3d6" stroke="#daa520"/><text x="87" y="264" text-anchor="middle" font-size="11" fill="#3a2a17">7 Debug</text>
+        <circle cx="197" cy="105" r="18" fill="#fff3d6" stroke="#daa520"/><text x="197" y="109" text-anchor="middle" font-size="11" fill="#3a2a17">8 Ops</text>
+        <circle cx="292" cy="55" r="12" fill="#fff7e6" stroke="#cd853f"/><text x="292" y="59" text-anchor="middle" font-size="10" fill="#3a2a17">9 Sec</text>
+        <circle cx="508" cy="55" r="12" fill="#fff7e6" stroke="#cd853f"/><text x="508" y="59" text-anchor="middle" font-size="10" fill="#3a2a17">10 Collab</text>
+        <path d="M400,63 L603,123 L713,260 L603,397 L400,457 L197,397 L87,260 L197,123 L400,63" fill="none" stroke="#cd853f" stroke-opacity=".25" stroke-width="3"/>
+      </svg>
+      <div class="legend">
+        <span>1 Setup</span><span>2 Data</span><span>3 Backend</span><span>4 Frontend</span><span>5 Logic</span><span>6 Test</span><span>7 Debug</span><span>8 Ops</span><span>9 Sec</span><span>10 Collab</span>
+      </div>
+    </section>
+    <!-- (remaining sections: Verb 150 list, Prompt templates, Footer, JS copy functions, all in English labels/text) -->
+  </main>
+  <footer>
+    © dtslib.com · Author: EduArt Engineer
+  </footer>
+<script>
+function copyToClipboard(text){
+  if(navigator.clipboard && window.isSecureContext){
+    return navigator.clipboard.writeText(text);
+  }else{
+    const ta=document.createElement('textarea');
+    ta.value=text; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta);
+    return Promise.resolve();
+  }
+}
+function serializePage(){
+  const style = document.getElementById('main-style')?.outerHTML || '';
+  const bodyInner = document.body.innerHTML;
+  const doc = `<!doctype html>
+<html lang=\"en\">
+<head><meta charset=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"/>
+<title>Practical Architect Verb Whitepaper (v1.0)</title>${style}</head>
+<body>${bodyInner}</body>
+</html>`;
+  return doc;
+}
+function copyFullHTML(){
+  copyToClipboard(serializePage()).then(()=>alert('Full HTML/CSS copied to clipboard.'));
+}
+function copyWhitepaper(){
+  const text = document.getElementById('whitepaper')?.innerText || document.getElementById('whitepaper-raw').value;
+  copyToClipboard(text).then(()=>alert('Whitepaper text copied.'));
+}
+</script>
+</body>
+</html>

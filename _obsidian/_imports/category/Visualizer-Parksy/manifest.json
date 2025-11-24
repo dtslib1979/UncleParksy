@@ -1,0 +1,36 @@
+{
+  "items": [
+    {
+      "title": "2025-08-29 테스트",
+      "path": "./2025-08-29 테스트.html",
+      "section": "Field Notes",
+      "type": "HTML",
+      "date": "2025-08-29",
+      "tags": ["korean","note"]
+    },
+    {
+      "title": "2025-08-30 Verbal coding …",
+      "path": "./2025-08-30 Verbal coding wordmaster.html",
+      "section": "Field Notes",
+      "type": "HTML",
+      "date": "2025-08-30",
+      "tags": ["verbal","coding"]
+    },
+    {
+      "title": "2025-09-02 VAMEW",
+      "path": "./2025-09-02 VAMEW.html",
+      "section": "Field Notes",
+      "type": "HTML",
+      "date": "2025-09-02",
+      "tags": ["vamew"]
+    },
+    {
+      "title": "2025년 8월 27일 기독교…",
+      "path": "./2025년 8월 27일 기독교모델.html",
+      "section": "Field Notes",
+      "type": "HTML",
+      "date": "2025-08-27",
+      "tags": ["korean"]
+    }
+  ]
+}

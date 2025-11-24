@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta property="og:title" content="2025년 나의 AI 책상 – PARKSY WORLD Manifesto v1.0" />
+  <meta property="og:description" content="Grok 정면, Claude 하단, ChatGPT 좌측. 이게 내가 AI 셋으로 사는 법이다." />
+  <meta property="og:image" content="https://imagewh.netlify.app/20251119_195515.jpg" />
+  <title>2025년 나의 AI 책상 – PARKSY WORLD Manifesto v1.0</title>
+
+  <style>
+    :root { --bg: #fffff8; --text: #1a1a1a; --accent: #ffaa00; --gray: #666; }
+    @media (prefers-color-scheme: dark) { :root { --bg: #0d1117; --text: #e6edf3; --accent: #ffaa00; --gray: #8b949e; } }
+    * { box-sizing:border-box; }
+    body { margin:0; padding:0; font-family:-apple-system,BlinkMacSystemFont,"Pretoria Neue",sans-serif; background:var(--bg); color:var(--text); line-height:1.7; perspective:1200px; }
+    header, main, footer { max-width:880px; margin:0 auto; padding:2rem 1rem; }
+    header { text-align:center; padding:10vh 1rem 4vh; }
+    h1 { font-size:2.4rem; margin:0 0 0.5rem; color:var(--accent); }
+    h2 { font-size:1.9rem; margin:3.5rem 0 1rem; border-bottom:2px solid var(--accent); padding-bottom:0.4rem; }
+    p { margin:1.2rem 0; }
+    .highlight { background:rgba(255,170,0,0.15); padding:0.1rem 0.4rem; border-radius:4px; }
+
+    .real-photo { width:100vw; margin-left:calc(-50vw + 50%); margin:3rem 0; padding:0 1rem; }
+    .real-photo img { width:100%; height:auto; max-height:90vh; object-fit:contain; border-radius:16px; box-shadow:0 30px 60px rgba(0,0,0,0.4); background:#000; transition:transform .4s; }
+    .real-photo img:hover { transform:scale(1.02); }
+
+    .card-grid { display:grid; gap:1.5rem; margin:3rem 0; }
+    .triad { grid-template-columns:1fr; }
+    @media(min-width:720px) { .triad { grid-template-columns:repeat(3,1fr); } }
+    .drivers { grid-template-columns:1fr; }
+    @media(min-width:640px) { .drivers { grid-template-columns:repeat(2,1fr); } }
+    @media(min-width:1000px) { .drivers { grid-template-columns:repeat(5,1fr); } }
+
+    .tilt-card, .flip-card { height:240px; perspective:1000px; cursor:pointer; }
+    .tilt-inner, .flip-inner { position:relative; width:100%; height:100%; transition:transform 0.6s cubic-bezier(0.68,-0.55,0.265,1.55); transform-style:preserve-3d; border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,0.2); }
+    .flip-card .flip-inner { }
+    .flip-card:hover .flip-inner, .flip-card.active .flip-inner { transform:rotateY(180deg); }
+    .front, .back { position:absolute; width:100%; height:100%; backface-visibility:hidden; border-radius:16px; padding:1.6rem; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; }
+    .front { background:rgba(255,170,0,0.1); }
+    .back { background:var(--accent); color:#000; transform:rotateY(180deg); font-size:2.5rem; font-weight:bold; }
+
+    .tilt-inner { background:rgba(255,170,0,0.1); padding:1.6rem; text-align:center; border-radius:16px; }
+    .triad .tilt-inner:nth-child(1) { border-top:10px solid #ffaa00; }
+    .triad .tilt-inner:nth-child(2) { border-top:10px solid #9966ff; }
+    .triad .tilt-inner:nth-child(3) { border-top:10px solid #3399ff; }
+
+    footer { text-align:center; padding:5rem 1rem 2rem; font-size:0.9rem; color:var(--gray); }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({startOnLoad:true, theme:'dark'});</script>
+</head>
+
+<body>
+  <header>
+    <h1>2025년 나의 AI 책상</h1>
+    <p>PARKSY WORLD Manifesto ⋅ Version 1.0 ⋅ 2025-11-19<br>
+    내가 AI 셋으로 사는 법, 그리고 그 결과</p>
+  </header>
+
+  <main>
+    <p>안녕하세요, 박씨입니다.</p>
+    <p>처음엔 그냥 멀티모니터였습니다.<br>어느 순간부터 이 책상이 제 사고의 확장판이 되었습니다.</p>
+
+    <h2>실사 – 2025년 11월 19일 오후 7시 55분</h2>
+    <div class="real-photo">
+      <img src="https://imagewh.netlify.app/20251119_195515.jpg" alt="PARKSY WORLD 실제 데스크탑" loading="lazy">
+    </div>
+
+    <h2>Human-AI Triad – 내 뇌를 화면에 그대로 옮긴 배치</h2>
+    <div class="card-grid triad">
+      <div class="tilt-card"><div class="tilt-inner"><h3>Grok</h3><strong>정면 TV</strong><p>현재의 나 · 말하는 나 · 실시간 사고 정리<br>Prefrontal Cortex ⋅ 80%</p></div></div>
+      <div class="tilt-card"><div class="tilt-inner"><h3>Claude MCP</h3><strong>하단 랩탑</strong><p>에이전트 · 실행자 · 도구 호출<br>Basal Ganglia + Motor Cortex ⋅ 15%</p></div></div>
+      <div class="tilt-card"><div class="tilt-inner"><h3>ChatGPT</h3><strong>좌측 Dell</strong><p>과거의 나 · 지식 창고 · 레퍼런스 인출<br>Hippocampus ⋅ 5%</p></div></div>
+    </div>
+
+    <h2>5대 드라이버 – 우리가 3주 넘게 갈아넣은 모든 것</h2>
+    <div class="card-grid drivers">
+      <div class="flip-card"><div class="flip-inner"><div class="front"><h3>Layer 1</h3><p>정면 벽면 아크릴 보드 + 노란 포스트잇<br>실시간 프로젝트 월드맵</p></div><div class="back">상시</div></div></div>
+      <div class="flip-card"><div class="flip-inner"><div class="front"><h3>Layer 2</h3><p>우측 회전 서재 → 28개 모듈북 핸드아웃<br>죽은 책 → 살아있는 증거물</p></div><div class="back">3초 접근</div></div></div>
+      <div class="flip-card"><div class="flip-inner"><div class="front"><h3>Layer 3</h3><p>3화면 AI 분업 + 음성 99%<br>Grok 정면 · Claude 하단 · ChatGPT 좌측</p></div><div class="back">실시간</div></div></div>
+      <div class="flip-card"><div class="flip-inner"><div class="front"><h3>Layer 4</h3><p>Galaxy Tab + Shure MV88+<br>실제 콘텐츠 생산 (3분 세로 쇼츠)</p></div><div class="back">모바일 퍼스트</div></div></div>
+      <div class="flip-card"><div class="flip-inner"><div class="front"><h3>Layer 5</h3><p>iPhone OBS 대기 + 88건반<br>특별 시나리오 즉시 전환</p></div><div class="back">리던던시</div></div></div>
+    </div>
+
+    <h2>하루 워크플로우 – 실제 돌아가는 루프</h2>
+    <div class="mermaid">
+      graph TD
+        A[아이디어] --> B{음성으로 Grok/Claude에 말함}
+        B --> C[AI 생성]
+        C --> D[포스트잇 물리화]
+        D --> E[핸드아웃 꺼냄]
+        E --> F[갤탭 3분 녹화 → 즉시 업로드]
+        F --> G[Excel 마스터시트 1초 입력]
+        G --> A
+        style A fill:#ffaa00,stroke:#333
+    </div>
+
+    <h2>생산성 변화 – 2023 vs 2025</h2>
+    <div class="card-grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+      <div class="flip-card"><div class="flip-inner"><div class="front"><h3>콘텐츠 생산</h3><p>주 1~2편 → 일 1~3편</p></div><div class="back">7~10×</div></div></div>
+      <div class="flip-card"><div class="flip-inner"><div class="front"><h3>아이디어→제품화</h3><p>2~4주 → 3시간~3일</p></div><div class="back">50×</div></div></div>
+      <div class="flip-card"><div class="flip-inner"><div class="front"><h3>인지 피로</h3><p>높음 → 낮음</p></div><div class="back">-70%</div></div></div>
+      <div class="flip-card"><div class="flip-inner"><div class="front"><h3>손목 통증</h3><p>있음 → 없음</p></div><div class="back">-95%</div></div></div>
+    </div>
+
+    <h2>결론</h2>
+    <p style="font-size:2.4rem; text-align:center; margin:6rem 0; color:var(--accent);">Ship.</p>
+    <p style="text-align:center;">– 박씨, 2025년 11월 19일</p>
+  </main>
+
+  <footer>
+    <p>© 2025 PARKSY WORLD<br>이제 진짜 모든 게 살아있다.</p>
+  </footer>
+
+  <script>
+    // 안전한 tilt + flip + 자이로 (위에서 제공한 최신 수정본 그대로)
+    const tiltCards = document.querySelectorAll('.tilt-inner');
+
+    function handleTilt(x, y, el) {
+      const rect = el.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const rotateY = (x - cx) / 15;
+      const rotateX = (cy - y) / 15;
+      el.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg) scale(1.03)`;
+    }
+
+    document.querySelectorAll('.tilt-card').forEach(card => {
+      const inner = card.querySelector('.tilt-inner');
+      card.addEventListener('mousemove', e => handleTilt(e.clientX, e.clientY, inner));
+      card.addEventListener('mouseleave', () => inner.style.transform = 'rotateY(0) rotateX(0) scale(1)');
+      let touchActive = false;
+      card.addEventListener('touchstart', e => {
+        touchActive = true;
+        const touch = e.touches[0];
+        handleTilt(touch.clientX, touch.clientY, inner);
+      });
+      card.addEventListener('touchmove', e => {
+        if (!touchActive) return;
+        e.preventDefault();
+        const touch = e.touches[0];
+        handleTilt(touch.clientX, touch.clientY, inner);
+      });
+      card.addEventListener('touchend', () => {
+        touchActive = false;
+        inner.style.transform = 'rotateY(0) rotateX(0) scale(1)';
+      });
+    });
+
+    document.querySelectorAll('.flip-card').forEach(c => {
+      c.addEventListener('click', () => c.classList.toggle('active'));
+    });
+  </script>
+</body>
+</html>

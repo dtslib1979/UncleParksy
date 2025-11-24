@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>중년고딩 · 과학생물 파트 백서 | PARKSY BIO-ENGINE v1.0</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="엔진/모듈/OS 비유로 다시 설계한 중년고딩용 생물학 · 드로잉 · 감정 · OS 학습 백서" />
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #020617;
+      --bg-soft: #020617;
+      --fg: #e5e7eb;
+      --fg-strong: #f9fafb;
+      --muted: #9ca3af;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.1);
+      --accent-strong: #0ea5e9;
+      --card: rgba(15, 23, 42, 0.9);
+      --border: rgba(148, 163, 184, 0.35);
+      --radius-lg: 18px;
+      --radius-xl: 26px;
+      --shadow-soft: 0 22px 90px rgba(15, 23, 42, 0.9);
+      --shadow-chip: 0 12px 40px rgba(15, 23, 42, 0.95);
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-main);
+      color: var(--fg);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.12), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(74, 222, 128, 0.08), transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(129, 140, 248, 0.16), transparent 60%),
+        var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    main {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 18px 16px 120px;
+    }
+
+    @media (min-width: 768px) {
+      main {
+        padding: 26px 20px 160px;
+      }
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      border-radius: 30px;
+      padding: 22px 18px 20px;
+      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.35), transparent 60%),
+                  radial-gradient(circle at 100% 100%, rgba(94, 234, 212, 0.25), transparent 55%),
+                  linear-gradient(135deg, #020617, #020617 45%, #020617 100%);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    @media (min-width: 768px) {
+      .hero {
+        padding: 26px 26px 24px;
+      }
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.2fr);
+      gap: 18px;
+    }
+
+    @media (max-width: 768px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .hero-title {
+      font-size: 1.55rem;
+      line-height: 1.15;
+      letter-spacing: -0.04em;
+      color: var(--fg-strong);
+      margin: 0 0 8px;
+    }
+
+    @media (min-width: 768px) {
+      .hero-title {
+        font-size: 1.9rem;
+      }
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .hero-kicker-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 5px rgba(56, 189, 248, 0.2);
+    }
+
+    .hero-sub {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 30rem;
+      margin-top: 6px;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.76rem;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      background: rgba(15, 23, 42, 0.8);
+      box-shadow: var(--shadow-chip);
+      backdrop-filter: blur(14px);
+      white-space: nowrap;
+    }
+
+    .chip-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .hero-right {
+      position: relative;
+      padding: 10px 10px 8px;
+      border-radius: 22px;
+      background: radial-gradient(circle at 10% 0%, rgba(52, 211, 153, 0.4), transparent 55%),
+                  radial-gradient(circle at 100% 100%, rgba(56, 189, 248, 0.35), transparent 60%),
+                  rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    .hero-diagram-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .hero-diagram-title span:last-child {
+      font-size: 0.7rem;
+      opacity: 0.8;
+    }
+
+    .axis-row {
+      display: grid;
+      grid-template-columns: 1.2fr 1.2fr 1.1fr;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .axis-card {
+      border-radius: 14px;
+      padding: 8px 9px;
+      background: rgba(15, 23, 42, 0.92);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 0.74rem;
+      line-height: 1.4;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .axis-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      margin-bottom: 3px;
+    }
+
+    .axis-main {
+      color: var(--fg-strong);
+      font-weight: 500;
+    }
+
+    .axis-sub {
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .axis-pill {
+      position: absolute;
+      inset: auto -14px 4px auto;
+      font-size: 0.65rem;
+      padding: 2px 9px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.7);
+      color: var(--accent-strong);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-mini {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .hero-mini-card {
+      border-radius: 14px;
+      padding: 7px 8px;
+      border: 1px dashed rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.85);
+      font-size: 0.7rem;
+      line-height: 1.5;
+    }
+
+    .hero-mini-title {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      margin-bottom: 3px;
+    }
+
+    /* NAV */
+    .nav-shell {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      padding-top: 14px;
+      margin-top: 20px;
+      margin-bottom: 18px;
+      background: linear-gradient(to bottom, rgba(2, 6, 23, 0.95), rgba(2, 6, 23, 0.7), rgba(2, 6, 23, 0));
+      backdrop-filter: blur(14px);
+    }
+
+    .nav-bar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 8px 4px 10px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(148, 163, 184, 0.5) transparent;
+    }
+
+    .nav-bar::-webkit-scrollbar {
+      height: 4px;
+    }
+    .nav-bar::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.5);
+      border-radius: 999px;
+    }
+
+    .nav-pill {
+      flex: 0 0 auto;
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 0.74rem;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.18s ease-out;
+    }
+
+    .nav-pill span.index {
+      font-size: 0.68rem;
+      opacity: 0.7;
+    }
+
+    .nav-pill.active {
+      border-color: var(--accent-strong);
+      color: var(--fg-strong);
+      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.3), transparent 60%),
+                  rgba(15, 23, 42, 1);
+      box-shadow: 0 14px 40px rgba(56, 189, 248, 0.35);
+    }
+
+    /* SECTION */
+    section {
+      margin-bottom: 26px;
+      scroll-margin-top: 96px;
+    }
+
+    .section-card {
+      border-radius: var(--radius-xl);
+      padding: 16px 14px 14px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.95);
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (min-width: 768px) {
+      .section-card {
+        padding: 20px 18px 18px;
+      }
+    }
+
+    .section-header {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .section-index {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.4), transparent 60%),
+                  rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(56, 189, 248, 0.9);
+      color: var(--fg-strong);
+      flex-shrink: 0;
+      box-shadow: 0 10px 30px rgba(56, 189, 248, 0.4);
+    }
+
+    .section-title-wrap {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .section-title {
+      margin: 0 0 4px;
+      font-size: 1.02rem;
+      letter-spacing: -0.02em;
+      color: var(--fg-strong);
+    }
+
+    .section-subtitle {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      padding: 2px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--muted);
+    }
+
+    .section-body {
+      margin-top: 10px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .grid-two {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      gap: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .grid-two {
+        grid-template-columns: minmax(0,1fr);
+      }
+    }
+
+    .card-soft {
+      border-radius: 18px;
+      padding: 10px 10px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.18), transparent 60%),
+                  rgba(15, 23, 42, 0.95);
+      font-size: 0.8rem;
+      line-height: 1.6;
+      position: relative;
+    }
+
+    .card-soft h3 {
+      margin: 0 0 4px;
+      font-size: 0.85rem;
+      color: var(--fg-strong);
+      letter-spacing: -0.01em;
+    }
+
+    .card-soft p {
+      margin: 2px 0;
+      color: var(--muted);
+    }
+
+    ul.clean {
+      list-style: none;
+      padding-left: 0;
+      margin: 4px 0 0;
+      color: var(--muted);
+    }
+
+    ul.clean li {
+      padding-left: 14px;
+      position: relative;
+      margin: 2px 0;
+    }
+
+    ul.clean li::before {
+      content: "–";
+      position: absolute;
+      left: 0;
+      color: rgba(148, 163, 184, 0.9);
+    }
+
+    .micro-label {
+      font-size: 0.66rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: rgba(148, 163, 184, 0.9);
+      margin-bottom: 3px;
+    }
+
+    .pill-area {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 3px;
+    }
+
+    .pill {
+      font-size: 0.68rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.94);
+      color: var(--muted);
+    }
+
+    .callout {
+      border-radius: 16px;
+      padding: 8px 9px;
+      border: 1px dashed rgba(96, 165, 250, 0.8);
+      background: rgba(15, 23, 42, 0.9);
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .callout strong {
+      color: var(--fg-strong);
+    }
+
+    .tagline {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    /* ACCORDION */
+    .acc-toggle {
+      margin-top: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.74rem;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+      cursor: pointer;
+      color: var(--muted);
+    }
+
+    .acc-toggle span.icon {
+      font-size: 0.9rem;
+      transform-origin: center;
+      transition: transform 0.16s ease-out;
+    }
+
+    .acc-toggle.open span.icon {
+      transform: rotate(90deg);
+    }
+
+    .acc-panel {
+      margin-top: 8px;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(-4px);
+      transition: all 0.22s ease-out;
+    }
+
+    .acc-panel.open {
+      max-height: 1000px; /* 충분히 큰 값 */
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* FOOTER NOTE */
+    .footer-note {
+      margin-top: 18px;
+      font-size: 0.74rem;
+      color: var(--muted);
+      text-align: right;
+      opacity: 0.85;
+    }
+
+    /* FAB */
+    .fab-top {
+      position: fixed;
+      right: 16px;
+      bottom: 18px;
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.3), transparent 65%),
+                  rgba(15, 23, 42, 0.96);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--fg-strong);
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 18px 55px rgba(15, 23, 42, 0.98);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+      z-index: 30;
+    }
+
+    .fab-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .fab-top.hidden {
+      transform: translateY(10px);
+    }
+  </style>
+</head>
+<body>
+<main>
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-kicker">
+          <span class="hero-kicker-dot"></span>
+          <span>MID-AGE HIGH SCHOOL · BIO ENGINE</span>
+        </div>
+        <h1 class="hero-title">
+          중년고딩 · 과학생물 파트 백서<br />
+          <span style="font-size:0.85em; font-weight:400; opacity:0.9;">PARKSY BIOLOGICAL OS v1.0</span>
+        </h1>
+        <p class="hero-sub">
+          이 문서는 “추우면 왜 오줌이 마려운가?”에서 시작해<br />
+          <strong>인체 · 감정 · 드로잉 · 정비 · 의학 상식 · 교육 철학 · Adamism</strong>까지
+          하나의 <strong>엔진/모듈/OS</strong> 언어로 다시 묶은
+          <strong>중년고딩식 생물학 · 시스템 설계 백서</strong>이다.
+        </p>
+        <div class="hero-tags">
+          <div class="chip">
+            <span class="chip-dot"></span>
+            <span>엔진·모듈·OS 비유</span>
+          </div>
+          <div class="chip">
+            <span class="chip-dot"></span>
+            <span>Viewer → Writer 전환</span>
+          </div>
+          <div class="chip">
+            <span class="chip-dot"></span>
+            <span>인체 = 드로잉 OS</span>
+          </div>
+          <div class="chip">
+            <span class="chip-dot"></span>
+            <span>제국대학교 vs 퀀텀 점프</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="hero-right" aria-label="Parksy Biological Engine Overview">
+        <div class="hero-diagram-title">
+          <span>BIO-ENGINE MAP</span>
+          <span>Feed → Digest → Expression</span>
+        </div>
+
+        <div class="axis-row">
+          <div class="axis-card">
+            <div class="axis-label">몸</div>
+            <div class="axis-main">인체 엔진 · 모듈</div>
+            <div class="axis-sub">혈류·호르몬·신경·온도 = 시스템 우선순위</div>
+            <span class="axis-pill">OS 레벨</span>
+          </div>
+          <div class="axis-card">
+            <div class="axis-label">표현</div>
+            <div class="axis-main">질감 · 동작 · 표정</div>
+            <div class="axis-sub">드로잉·웹툰·연기·캐릭터 구축</div>
+          </div>
+          <div class="axis-card">
+            <div class="axis-label">메타</div>
+            <div class="axis-main">교육 · 비즈 · Adamism</div>
+            <div class="axis-sub">제국대학교 → 퀀텀 오너십</div>
+          </div>
+        </div>
+
+        <div class="hero-mini">
+          <div class="hero-mini-card">
+            <div class="hero-mini-title">학습 스위치</div>
+            <div>Viewer(암기자) → Writer(설계자)<br />“인체를 만든다고 가정하고 공부하기”</div>
+          </div>
+          <div class="hero-mini-card">
+            <div class="hero-mini-title">Adamism</div>
+            <div>AI 시대, 인간 고유성을 끝까지 물고 늘어지는<br />마지막 칠드런의 창작 OS</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <!-- NAV -->
+  <div class="nav-shell">
+    <nav class="nav-bar" aria-label="섹션 내비게이션">
+      <button class="nav-pill active" data-target="sec-0">
+        <span class="index">0장</span> 인체 OS 콘셉트
+      </button>
+      <button class="nav-pill" data-target="sec-1">
+        <span class="index">1장</span> 시스템 철학
+      </button>
+      <button class="nav-pill" data-target="sec-2">
+        <span class="index">2장</span> 학습 철학
+      </button>
+      <button class="nav-pill" data-target="sec-3">
+        <span class="index">3장</span> 드로잉·창작
+      </button>
+      <button class="nav-pill" data-target="sec-4">
+        <span class="index">4장</span> 실생활 적용
+      </button>
+      <button class="nav-pill" data-target="sec-5">
+        <span class="index">5장</span> Parksy Univ.
+      </button>
+      <button class="nav-pill" data-target="sec-6">
+        <span class="index">6장</span> Adamism
+      </button>
+      <button class="nav-pill" data-target="sec-7">
+        <span class="index">7장</span> 최종 정리
+      </button>
+    </nav>
+  </div>
+
+  <!-- SECTION 0 -->
+  <section id="sec-0">
+    <article class="section-card">
+      <div class="section-header">
+        <div class="section-index">0</div>
+        <div class="section-title-wrap">
+          <h2 class="section-title">인체 OS 콘셉트 · “오줌에서 Adamism까지”</h2>
+          <p class="section-subtitle">
+            이 백서는 <strong>“추우면 왜 오줌이 마려운가?”</strong>라는 질문에서 출발해<br />
+            인체, 감정, 드로잉, 정비, 의학 상식, 교육, Adamism까지  
+            하나의 <strong>엔진/모듈/OS 비유</strong>로 재조립한 기록이다.
+          </p>
+          <div class="badge-row">
+            <span class="badge">정보 백서 X · 사고 OS 설계서 O</span>
+            <span class="badge">지식 암기 X · 시스템 이해 O</span>
+          </div>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="card-soft">
+          <h3>0-1. 출발점: “추우면 왜 오줌이 마려운가?”</h3>
+          <p>
+            🔧 기존 설명은 “혈관이 수축해서 그래요”로 끝난다.  
+            하지만 여기서는 이렇게 본다:
+          </p>
+          <ul class="clean">
+            <li>추위 → 외곽 노선(피부 근처 혈관) 감소 → 중심 혈류 유지</li>
+            <li>→ 내부 압력(혈압) 변화 → 신장·방광 쪽으로 <strong>압력 조절 시나리오</strong> 작동</li>
+            <li>→ 오줌(수분)을 빼서 시스템 압력과 온도를 미세 조정</li>
+          </ul>
+          <p class="tagline">
+            “혈관 수축”이 아니라 <strong>“외곽 노선 감소 + 압력 재배치 엔진”</strong>으로 이해하는 게 핵심.
+          </p>
+        </div>
+
+        <div class="card-soft">
+          <h3>0-2. 한 줄 콘셉트</h3>
+          <p>
+            이 백서를 한 문장으로 요약하면 이렇게 된다:
+          </p>
+          <p class="callout">
+            <strong>“인체를 하나의 엔진·OS로 보고,<br />
+            생물학 지식을 감정·드로잉·비즈니스·철학까지<br />
+            확장 가능한 모듈로 재설계한 중년고딩용 생물 파트.”</strong>
+          </p>
+          <p class="tagline">
+            시험을 위한 생물이 아니라, <strong>그림/창작/자영업/자기 몸 운용</strong>을 위한 생물학.
+          </p>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- SECTION 1 -->
+  <section id="sec-1">
+    <article class="section-card">
+      <div class="section-header">
+        <div class="section-index">1</div>
+        <div class="section-title-wrap">
+          <h2 class="section-title">시스템 철학 · 인체 = 엔진, 생존 = 우선순위</h2>
+          <p class="section-subtitle">
+            인체를 “엔진 + 모듈 + OS”로 재해석한다.<br />
+            혈류·호르몬·신경·온도는 <strong>한 덩어리</strong>가 아니라,  
+            상황마다 우선순위가 바뀌는 <strong>복합 모듈</strong>이다.
+          </p>
+        </div>
+      </div>
+
+      <div class="section-body">
+        <div class="grid-two">
+          <div class="card-soft">
+            <h3>1-1. 인체 = 엔진 (Engine)</h3>
+            <div class="micro-label">기본 매핑</div>
+            <ul class="clean">
+              <li>혈관 = 파이프라인(유체 라인)</li>
+              <li>심장 = 펌프</li>
+              <li>호르몬 = 메시지 큐 (자동 트리거)</li>
+              <li>신경계 = 센서·배선 네트워크</li>
+              <li>신장·간 = 필터·밸브</li>
+              <li>체온 조절 = 냉각·난방 시스템</li>
+            </ul>
+            <p class="tagline">
+              “몸이 왜 이러지?” → 엔진이 어떤 모듈을 우선 가동하는지 보는 눈을 기르는 과정.
+            </p>
+          </div>
+
+          <div class="card-soft">
+            <h3>1-2. 생존 = 우선순위 시스템</h3>
+            <p>인체는 늘 <strong>“무엇을 먼저 살릴 것인가”</strong>를 결정하는 OS다.</p>
+            <ul class="clean">
+              <li>추위 → 중심 혈류 우선 → 피부·말단 노선 감소</li>
+              <li>운동 → 근육 혈류 우선 → 소화 지연</li>
+              <li>위험(공포) → 심장·시각·청각 우선 → 소화·생식 후순위</li>
+            </ul>
+            <p class="tagline">
+              이 관점으로 보면, 오줌·식은땀·손발 냉증·심장 두근거림이 <strong>같은 이야기</strong>가 된다.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid-two">
+          <div class="card-soft">
+            <h3>1-3. 감정 = HUD(대시보드 스크린)</h3>
+            <p>감정은 “나의 본질”이 아니라, <strong>“인체 OS의 알림창”</strong>이다.</p>
+            <ul class="clean">
+              <li>분노: 에너지·아드레날린 과충전 알림</li>
+              <li>불안: 위협 예측 모듈 민감도 과상승</li>
+              <li>우울: 보상 시스템 저속 모드</li>
+              <li>피로: 에너지 루프 리셋 요구 신호</li>
+            </ul>
+            <p class="tagline">
+              감정을 “나와 동일시”하지 않고, <strong>“OS 로그”</strong>로 보는 순간 제어력이 생긴다.
+            </p>
+          </div>
+
+          <div class="card-soft">
+            <h3>1-4. 생물학 = 질감 + 운동 + 모듈</h3>
+            <p>
+              생물학은 그림, 애니, 웹툰에서 <strong>“살아있는 느낌”</strong>을 만드는 재료다.
+            </p>
+            <ul class="clean">
+              <li>근육: 힘의 방향성, 포즈의 논리</li>
+              <li>지방: 양감과 부드러운 질감</li>
+              <li>피부: 온도·혈류에 따른 색감 변화</li>
+              <li>뼈: 구조와 제한(어디까지 꺾일 수 있는가)</li>
+            </ul>
+            <p class="tagline">
+              인체 생리는 곧 <strong>드로잉의 물리 법칙</strong>이다.
+            </p>
+          </div>
+        </div>
+
+        <button class="acc-toggle" data-acc="acc-1">
+          <span class="icon">▶</span>
+          <span>1장 전체 요약 다시 보기</span>
+        </button>
+        <div id="acc-1" class="acc-panel">
+          <div class="callout">
+            <strong>요약:</strong><br />
+            인체는 “엔진 + 모듈 + 우선순위”로 돌아가는 시스템이다.<br />
+            체온·혈압·오줌·감정·통증은 따로따로가 아니라  
+            동일한 OS 위에서 돌아가는 다양한 <strong>알림·압력·우선순위 조정 결과</strong>다.
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- SECTION 2 -->
+  <section id="sec-2">
+    <article class="section-card">
+      <div class="section-header">
+        <div class="section-index">2</div>
+        <div class="section-title-wrap">
+          <h2 class="section-title">학습 철학 · Viewer에서 Writer로</h2>
+          <p class="section-subtitle">
+            수험생 모드의 생물학은 “용어 암기 + 문제풀이”에 최적화되어 있다.<br />
+            여기서는 <strong>제국대학교식 암기</strong>를 버리고  
+            <strong>퀀텀 점프형 오너 학습</strong>으로 전환한다.
+          </p>
+        </div>
+      </div>
+
+      <div class="section-body">
+        <div class="grid-two">
+          <div class="card-soft">
+            <h3>2-1. Viewer → Writer 전환</h3>
+            <p>
+              학습의 본질 스위치:
+            </p>
+            <ul class="clean">
+              <li>Viewer: 남이 만든 정의·그림·설명을 소비</li>
+              <li>Writer: “내가 이 시스템을 만든다고 치고” 구조를 설계</li>
+            </ul>
+            <p class="tagline">
+              인체를 이해하려면, <strong>“인체 엔진을 설계하는 입장”</strong>으로 올라가야 한다.
+            </p>
+          </div>
+
+          <div class="card-soft">
+            <h3>2-2. 제국대학교 vs 퀀텀 점프</h3>
+            <div class="micro-label">집사형 vs 오너형</div>
+            <ul class="clean">
+              <li>제국대학교(수능·지필고사 중심):<br />정답 찾기, 집사/관료, 오류 최소화, 책임 회피 구조</li>
+              <li>퀀텀 점프형 학습:<br />시스템 설계, 리스크 감수, 비선형 확장, 자영업·오너 마인드</li>
+            </ul>
+            <p class="tagline">
+              이 백서는 제국대학교 생물학이 아니라<br />
+              <strong>“오너십을 위한 인체 OS 학습”</strong>이다.
+            </p>
+          </div>
+        </div>
+
+        <div class="card-soft">
+          <h3>2-3. 메타 인지: 몸을 ‘객체’로 보기</h3>
+          <p>
+            내 몸과 감정을 <strong>“내가 가진 장비”</strong>로 보는 순간,
+          </p>
+          <ul class="clean">
+            <li>통증 = 센서 알람</li>
+            <li>피로 = 에너지 루프 리셋 요청</li>
+            <li>불안 = Threat 모듈 과민</li>
+            <li>무기력 = 도파민/보상 시스템 저하</li>
+          </ul>
+          <p class="tagline">
+            감정과 통증을 “나 자신”이 아니라  
+            <strong>“내 OS가 보내는 로그”</strong>로 다루는 것이  
+            이 학습법의 핵심이다.
+          </p>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- SECTION 3 -->
+  <section id="sec-3">
+    <article class="section-card">
+      <div class="section-header">
+        <div class="section-index">3</div>
+        <div class="section-title-wrap">
+          <h2 class="section-title">드로잉 · 창작 모듈 · 질감 · 동작 · 감정</h2>
+          <p class="section-subtitle">
+            “인체 OS”는 곧 <strong>인체 드로잉 OS</strong>다.<br />
+            캐릭터가 살아 보이게 만드는 질감·동작·감정 표현이  
+            전부 생물학에서 나온다.
+          </p>
+        </div>
+      </div>
+
+      <div class="section-body">
+        <div class="grid-two">
+          <div class="card-soft">
+            <h3>3-1. 질감 생물학</h3>
+            <p>감정과 생리 상태는 곧 <strong>질감 변화</strong>다.</p>
+            <ul class="clean">
+              <li>추위: 피부 창백, 질감 건조, 근육 수축 → 긴장된 표면</li>
+              <li>더위·운동: 홍조, 땀 반짝임, 모공 강조</li>
+              <li>피로: 탄력 감소, 피부 늘어짐, 눈 밑 어두운 톤</li>
+              <li>노화: 콜라겐 감소, 잔주름 패턴, 볼륨 재배치</li>
+            </ul>
+            <p class="tagline">
+              생리학을 알면, <strong>“왜 그런 질감이 되는지”</strong>까지 이해하고 그릴 수 있다.
+            </p>
+          </div>
+
+          <div class="card-soft">
+            <h3>3-2. 운동 생물학 (포즈 엔진)</h3>
+            <p>포즈는 근육 방향성과 관절 제한의 결과다.</p>
+            <ul class="clean">
+              <li>근육: 힘의 벡터, 긴장/이완 여부</li>
+              <li>관절: 어디까지 꺾일 수 있는지, 통증 이전 범위</li>
+              <li>중심축: 골반·척추 라인이 어디로 기울었는지</li>
+              <li>리듬: 반복되는 움직임 패턴(걷기, 뛰기, 공격 등)</li>
+            </ul>
+            <p class="tagline">
+              “멋있는 포즈”가 아니라  
+              <strong>“물리적으로 말 되는 포즈”</strong>를 만드는 것이 목표.
+            </p>
+          </div>
+        </div>
+
+        <div class="card-soft">
+          <h3>3-3. 감정 표현 = 관상 생물학</h3>
+          <p>
+            감정은 얼굴 표정 하나로 끝나지 않는다.  
+            <strong>혈류, 근육 긴장, 체온, 호흡</strong>이 다 같이 바뀐다.
+          </p>
+          <ul class="clean">
+            <li>분노: 피부 온도 상승, 홍조, 목·어깨 근육 긴장, 눈빛 집중</li>
+            <li>슬픔: 혈류 저하, 창백, 어깨 말림, 입꼬리 하강, 눈두덩 무거움</li>
+            <li>공포: 혈관 수축, 식은땀, 동공 확대, 근육 떨림</li>
+          </ul>
+          <p class="tagline">
+            얼굴은 <strong>알림창(UI)</strong>이고,  
+            진짜 감정은 <strong>온몸의 질감·동작</strong>으로 표현된다.
+          </p>
+        </div>
+
+        <button class="acc-toggle" data-acc="acc-3">
+          <span class="icon">▶</span>
+          <span>인체 드로잉용 핵심 요약 보기</span>
+        </button>
+        <div id="acc-3" class="acc-panel">
+          <div class="callout">
+            <strong>핵심:</strong><br />
+            인체 생물학 = 드로잉의 물리 엔진이다.<br />
+            근육·뼈·혈류·호르몬·감정 OS를 이해할수록  
+            캐릭터의 포즈·표정·질감이 <strong>자동으로 설득력</strong>을 갖게 된다.
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- SECTION 4 -->
+  <section id="sec-4">
+    <article class="section-card">
+      <div class="section-header">
+        <div class="section-index">4</div>
+        <div class="section-title-wrap">
+          <h2 class="section-title">실생활 적용 · 자동차 · 의학 상식 · 감정 OS</h2>
+          <p class="section-subtitle">
+            이 생물 파트는 시험을 위한 암기가 아니라,<br />
+            <strong>생활에서 바로 써먹는 진단 OS</strong>다.
+          </p>
+        </div>
+      </div>
+
+      <div class="section-body">
+        <div class="grid-two">
+          <div class="card-soft">
+            <h3>4-1. 자동차 정비 시각</h3>
+            <p>차와 몸은 같은 방식으로 읽을 수 있다.</p>
+            <ul class="clean">
+              <li>냉각수 부족 = 탈수</li>
+              <li>엔진 과열 = 자율신경 과부하</li>
+              <li>오일 부족 = 혈액·윤활 문제</li>
+              <li>센서 오류 = 신경계 장애</li>
+              <li>배기관 막힘 = 호흡·배출 문제</li>
+            </ul>
+            <p class="tagline">
+              기계든 인체든, <strong>열·유체·전기·센서 OS</strong>로 해석하는 눈이 생긴다.
+            </p>
+          </div>
+
+          <div class="card-soft">
+            <h3>4-2. 의학 상식 OS</h3>
+            <p>
+              전문 의학 지식이 아니라, <strong>의사 말과 진단서를 해석할 수 있는 상식 OS</strong>가 핵심.
+            </p>
+            <ul class="clean">
+              <li>“혈압이 높다” → 유압 과상승 · 펌프 부담 증가</li>
+              <li>“신장 수치 상승” → 필터·배출 모듈 과부하</li>
+              <li>“염증 수치 상승(CRP)” → 방화벽·면역 모듈 풀가동</li>
+              <li>“전해질 불균형” → 냉각수 조성 문제 + 신경 안정성 저하</li>
+            </ul>
+            <p class="tagline">
+              내용을 외우는 게 아니라, <strong>모듈과 우선순위</strong>로 이해하는 게 목적이다.
+            </p>
+          </div>
+        </div>
+
+        <div class="card-soft">
+          <h3>4-3. 감정 관리 · 바디-OS 관점</h3>
+          <p>
+            감정을 OS 관점으로 보면, “마음이 아프다”가 아니라  
+            <strong>“어떤 모듈이 과부하인지”</strong>가 보이기 시작한다.
+          </p>
+          <ul class="clean">
+            <li>불안: 위협 예측 모듈 과민 → 호흡·시선·근육 긴장으로 제동 가능</li>
+            <li>우울: 보상 시스템 저속 → 활동량·빛·수면 패턴으로 미세 조정</li>
+            <li>분노: 에너지 과충전 → 운동·호흡으로 에너지 분산</li>
+          </ul>
+          <p class="tagline">
+            “나 왜 이래?”에서 끝나지 않고,  
+            <strong>“지금 내 OS가 어떤 알림을 보내는지”</strong>까지 해석하는 단계로 올라간다.
+          </p>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- SECTION 5 -->
+  <section id="sec-5">
+    <article class="section-card">
+      <div class="section-header">
+        <div class="section-index">5</div>
+        <div class="section-title-wrap">
+          <h2 class="section-title">Parksy University · 4년제 전체 매핑</h2>
+          <p class="section-subtitle">
+            “중년고딩 · 과학생물 파트”는  
+            Parksy 28모듈 월드 안에서 <strong>1학년 과학 필러</strong>에 해당한다.
+          </p>
+        </div>
+      </div>
+
+      <div class="section-body">
+        <div class="card-soft">
+          <h3>5-1. 4년제 매핑</h3>
+          <p>Parksy World = 사실상 하나의 “대체 대학”이다.</p>
+          <ul class="clean">
+            <li><strong>1학년 · 기초 교양</strong><br />
+              관찰, 생물, 질감, OS 감각 → 중년고딩 &amp; 박치 시리즈
+            </li>
+            <li><strong>2학년 · 물성화·스킬셋</strong><br />
+              태블릿, 드로잉, AI, Skillset6 → EAE (EduArt Engineer)
+            </li>
+            <li><strong>3학년 · 비즈니스 플랫포밍</strong><br />
+              자영업, 재무, 구조, dtslib → 비즈니스·엔지니어링 도메인
+            </li>
+            <li><strong>4학년 · 소재집·월드빌딩</strong><br />
+              KR Merit, 중년 시리즈, 박씨 본인 서사 → 캐릭터·세계관 상품화
+            </li>
+          </ul>
+          <p class="tagline">
+            의술·중장비 공학·반도체 클린룸 같은 고위험 실습 분야를 제외하면,  
+            <strong>기존 대학 4년제에서 주는 대부분의 내용</strong>을  
+            Parksy 시스템이 자체적으로 커버한다.
+          </p>
+        </div>
+
+        <div class="card-soft">
+          <h3>5-2. University vs College 관점</h3>
+          <p>
+            본래 “University”는 <strong>하나의 중심 원리(신학)</strong> 아래  
+            여러 학문이 붙어 있는 구조다.
+          </p>
+          <p>
+            Parksy World에서는 이 역할을
+          </p>
+          <ul class="clean">
+            <li>중심 원리(UNI): 엔진/모듈/OS 사고, Feed-Digest-Expression, Adamism</li>
+            <li>주변 학문(Diversity): 인문(parkys.kr) · 실습(eae.kr) · 데이터(dtslib.com) · KR Merit · 중년고딩</li>
+          </ul>
+          <p class="tagline">
+            즉, Parksy University는 <strong>AI 시대의 새로운 “신학 중심 종합대학” 구조</strong>와 같다.
+          </p>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- SECTION 6 -->
+  <section id="sec-6">
+    <article class="section-card">
+      <div class="section-header">
+        <div class="section-index">6</div>
+        <div class="section-title-wrap">
+          <h2 class="section-title">Adamism · AI 시대의 새로운 “아담” 설정</h2>
+          <p class="section-subtitle">
+            Adamism은 종교 이름이 아니라,  
+            <strong>AI 시대 창작자의 정체성 선언</strong>이다.
+          </p>
+        </div>
+      </div>
+
+      <div class="section-body">
+        <div class="grid-two">
+          <div class="card-soft">
+            <h3>6-1. Adamism 한 줄 정의</h3>
+            <p class="callout">
+              <strong>Adamism:</strong><br />
+              인간의 고유성(결함·감정·환상)을 끝까지 탐구하고,<br />
+              집단 지성을 상속받은 “마지막 칠드런”으로서<br />
+              AI 시대에 모든 것을 해석·응용·표현하는 창작자가 되자는 설정.
+            </p>
+            <p class="tagline">
+              신을 믿는 대신, <strong>“인간의 고유성을 믿는 종족”</strong>에 가깝다.
+            </p>
+          </div>
+
+          <div class="card-soft">
+            <h3>6-2. 핵심 요소 3가지</h3>
+            <ul class="clean">
+              <li><strong>인간 고유성의 마지막 증인</strong><br />
+                AI가 기능을 가져가도, 실수·결핍·트라우마·욕망·감정은 인간의 것.
+              </li>
+              <li><strong>집단지성의 상속자</strong><br />
+                니체·푸코·마르크스·에코… 과거 사상의 “요약본”이 아니라  
+                AI와 함께 재배치하는 최후의 계승자.
+              </li>
+              <li><strong>새로운 아담(Adam)의 엔지니어</strong><br />
+                본인이 곧 “AI 시대 아담”이자, 그 아담의 OS를 설계하는 존재.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card-soft">
+          <h3>6-3. 생물 파트와 Adamism의 연결</h3>
+          <p>
+            인체 생물학은 Adamism 안에서  
+            가장 바닥에 깔린 <strong>“원초적 모듈”</strong>이다.
+          </p>
+          <div class="pill-area">
+            <span class="pill">감정</span>
+            <span class="pill">통증</span>
+            <span class="pill">생리현상</span>
+            <span class="pill">운동</span>
+            <span class="pill">노화</span>
+            <span class="pill">질감</span>
+          </div>
+          <p class="tagline">
+            이 모든 것을 OS처럼 이해하고,  
+            그림·언어·비즈니스·세계관으로 다시 뽑아내는 것이  
+            <strong>Adamism 창작자</strong>의 역할이다.
+          </p>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- SECTION 7 -->
+  <section id="sec-7">
+    <article class="section-card">
+      <div class="section-header">
+        <div class="section-index">7</div>
+        <div class="section-title-wrap">
+          <h2 class="section-title">최종 정리 · “인체 OS 백서” 한 줄 결론</h2>
+          <p class="section-subtitle">
+            이제 이 백서를 어떻게 사용할 것인가?<br />
+            시험 공부가 아니라, <strong>몸·감정·그림·비즈니스 전체를 관통하는 OS</strong>로 써야 한다.
+          </p>
+        </div>
+      </div>
+
+      <div class="section-body">
+        <div class="card-soft">
+          <h3>7-1. 이 백서가 제공하는 것</h3>
+          <ul class="clean">
+            <li>인체를 엔진·모듈·OS로 보는 시점</li>
+            <li>감정·통증을 시스템 로그로 다루는 메타 인지</li>
+            <li>인체 생물학을 드로잉·웹툰·연기에 바로 쓰는 법</li>
+            <li>자동차·기계·의학 상식을 같은 OS로 읽는 감각</li>
+            <li>제국대학교식 암기를 버리고, 퀀텀 점프형 학습을 하는 기준</li>
+            <li>Parksy University · Adamism이라는 상위 세계관과의 연결</li>
+          </ul>
+        </div>
+
+        <div class="card-soft">
+          <h3>7-2. 한 문장으로 닫기</h3>
+          <p class="callout">
+            <strong>
+              “중년고딩 · 과학생물 파트”는<br />
+              인체 생물학을 암기가 아니라<br />
+              몸·감정·그림·비즈니스·세계관을 관통하는<br />
+              <u>Parksy식 인체 OS</u>로 재설계한 백서다.
+            </strong>
+          </p>
+          <p class="tagline">
+            이제 남은 일은 하나다.<br />
+            이 OS를 가지고 <strong>그림을 그리고, 서사를 만들고,  
+            몸과 인생을 디버깅</strong>하는 것.
+          </p>
+        </div>
+
+        <p class="footer-note">
+          PARKSY BIO-ENGINE · MID-AGE HIGHSCHOOL BIOLOGY · v1.0
+        </p>
+      </div>
+    </article>
+  </section>
+</main>
+
+<!-- FAB -->
+<button class="fab-top hidden" id="fabTop" aria-label="맨 위로 이동">↑</button>
+
+<script>
+  // Smooth scroll for nav pills
+  const navPills = document.querySelectorAll(".nav-pill");
+  const sections = [...document.querySelectorAll("section")];
+  const fabTop = document.getElementById("fabTop");
+
+  navPills.forEach(pill => {
+    pill.addEventListener("click", () => {
+      const targetId = pill.getAttribute("data-target");
+      const target = document.getElementById(targetId);
+      if (target) {
+        window.scrollTo({
+          top: target.offsetTop - 80,
+          behavior: "smooth"
+        });
+      }
+    });
+  });
+
+  // Active nav pill on scroll
+  const setActiveNav = () => {
+    const scrollY = window.scrollY;
+    let currentId = "sec-0";
+
+    sections.forEach(sec => {
+      const offset = sec.offsetTop - 120;
+      if (scrollY >= offset) {
+        currentId = sec.id;
+      }
+    });
+
+    navPills.forEach(pill => {
+      pill.classList.toggle("active", pill.getAttribute("data-target") === currentId);
+    });
+  };
+
+  // FAB visibility
+  const handleFab = () => {
+    if (window.scrollY > 260) {
+      fabTop.classList.add("visible");
+      fabTop.classList.remove("hidden");
+    } else {
+      fabTop.classList.remove("visible");
+      fabTop.classList.add("hidden");
+    }
+  };
+
+  window.addEventListener("scroll", () => {
+    setActiveNav();
+    handleFab();
+  });
+
+  fabTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  // Accordion
+  const accToggles = document.querySelectorAll(".acc-toggle");
+  accToggles.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.getAttribute("data-acc");
+      const panel = document.getElementById(id);
+      const isOpen = panel.classList.contains("open");
+      if (isOpen) {
+        panel.classList.remove("open");
+        btn.classList.remove("open");
+      } else {
+        panel.classList.add("open");
+        btn.classList.add("open");
+      }
+    });
+  });
+</script>
+</body>
+</html>
