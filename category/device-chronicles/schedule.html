@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>PARKSY ORBIT SYSTEM · MASTER SCHEDULING WHITEPAPER</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #020617;
+      --bg-soft: #020617;
+      --fg: #f9fafb;
+      --accent: #5cf0c0;
+      --accent-soft: rgba(92, 240, 192, 0.18);
+      --muted: #9ca3af;
+      --card: #020617;
+      --border: #1f2937;
+      --shadow: 0 24px 60px rgba(0,0,0,.85);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 16px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 0% 0%, #111827 0, var(--bg) 55%),
+        radial-gradient(circle at 100% 100%, #020617 0, #000 50%);
+      color: var(--fg);
+    }
+    h1,h2,h3 {
+      margin: 0 0 12px;
+      font-weight: 700;
+      letter-spacing: .04em;
+    }
+    h1 { font-size: 1.4rem; }
+    h2 { font-size: 1.05rem; margin-top: 20px; }
+    p {
+      margin: 4px 0 10px;
+      color: var(--muted);
+      font-size: .85rem;
+      line-height: 1.4;
+    }
+    .wrap {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(15,23,42,.9);
+      color: var(--accent);
+      font-size: .7rem;
+      margin-bottom: 10px;
+    }
+    .badge span.dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent);
+    }
+    .card {
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: linear-gradient(145deg, rgba(15,23,42,.98), rgba(3,7,18,.98));
+      padding: 16px 16px 12px;
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+    }
+    .subtitle {
+      font-size: .75rem;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    pre.mermaid {
+      background: radial-gradient(circle at top, rgba(15,23,42,.9), rgba(3,7,18,1));
+      border-radius: 12px;
+      padding: 8px;
+      overflow-x: auto;
+      font-size: .72rem;
+      margin-bottom: 4px;
+    }
+    footer {
+      margin-top: 12px;
+      padding-bottom: 10px;
+      text-align: right;
+      font-size: .7rem;
+      color: var(--muted);
+    }
+    .priority-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 6px 0 8px;
+      font-size: .75rem;
+      color: var(--muted);
+    }
+    .priority-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(15,23,42,.9);
+    }
+    .priority-pill span.mark {
+      font-size: .8rem;
+    }
+
+    /* 섹션 토글 버튼 영역 */
+    .section-toggle {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      margin: 8px 0 14px;
+      padding: 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: radial-gradient(circle at 0 0, rgba(15,23,42,.95), rgba(3,7,18,.98));
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: space-between;
+    }
+    .toggle-btn {
+      flex: 1 1 calc(33.3% - 6px);
+      min-width: 80px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(15,23,42,.9);
+      color: var(--muted);
+      font-size: .75rem;
+      padding: 6px 8px;
+      text-align: center;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .toggle-btn.small {
+      flex: 1 1 calc(25% - 6px);
+      font-size: .7rem;
+    }
+    .toggle-btn.active {
+      color: var(--fg);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(92,240,192,.25);
+      background: radial-gradient(circle at 50% 0, rgba(92,240,192,.12), rgba(3,7,18,1));
+    }
+
+    .section-card {
+      display: none;
+    }
+    .section-card.active {
+      display: block;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 10px;
+      }
+      h1 { font-size: 1.2rem; }
+      h2 { font-size: 1rem; }
+      .card {
+        padding: 14px 12px 10px;
+      }
+      .section-toggle {
+        border-radius: 12px;
+      }
+      .toggle-btn {
+        flex: 1 1 calc(50% - 6px);
+        padding: 5px 6px;
+        font-size: .72rem;
+      }
+      .toggle-btn.small {
+        flex: 1 1 calc(33.3% - 6px);
+      }
+      pre.mermaid {
+        font-size: .68rem;
+      }
+    }
+  </style>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: "dark",
+      themeVariables: {
+        primaryColor: "#020617",
+        primaryBorderColor: "#5cf0c0",
+        primaryTextColor: "#e5e7eb",
+        lineColor: "#6b7280",
+        secondaryColor: "#020617",
+        tertiaryColor: "#020617",
+        noteBkgColor: "#111827",
+        noteTextColor: "#e5e7eb"
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const buttons = document.querySelectorAll(".toggle-btn");
+      const sections = document.querySelectorAll(".section-card");
+
+      function showSection(target) {
+        sections.forEach(sec => {
+          if (target === "all") {
+            sec.classList.add("active");
+          } else {
+            sec.classList.toggle(
+              "active",
+              sec.dataset.section === target
+            );
+          }
+        });
+
+        buttons.forEach(btn => {
+          btn.classList.toggle("active", btn.dataset.targetSection === target);
+        });
+      }
+
+      buttons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const target = btn.dataset.targetSection;
+          showSection(target);
+        });
+      });
+
+      // 기본: 섹션1(도메인맵)만 표시
+      showSection("s1");
+    });
+  </script>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER (항상 보이는 영역) -->
+  <div class="card">
+    <div class="badge">
+      <span class="dot"></span>
+      <span>PARKSY ORBIT SYSTEM · 5 ORBITS · 25 MODULEBOOKS</span>
+    </div>
+    <div class="subtitle">master scheduling whitepaper · v1.2 (priority mapping)</div>
+    <h1>PARKSY MASTER SCHEDULING WHITEPAPER</h1>
+    <p>
+      8주 공전(Orbit) × 5회독 구조로<br/>
+      <b>5개 도메인(parkys.kr · eae.kr · dtslib.com · dtslib1k · dtslib2k) / 25개 모듈북</b>을
+      반복 회전시키는 EduArt Engineer 생산·학습 파이프라인의 최종 설계안.
+    </p>
+    <p>
+      <b>1~2 Orbit</b>은 설계/정제(비공개), <b>3 Orbit</b>부터 PWA·Tistory 프로덕션,
+      <b>4 Orbit</b>은 한국어 판서 인간판, <b>5 Orbit</b>은 AI 성우·자동편집이 포함된 글로벌 Export Edition이다.
+      각 모듈북은 <b>G/S/B 우선순위</b>에 따라 Orbit별 투입 강도가 달라진다.
+    </p>
+  </div>
+
+  <!-- 섹션 토글 버튼 -->
+  <div class="section-toggle">
+    <button class="toggle-btn small" data-target-section="s1">섹션 1 · 도메인맵</button>
+    <button class="toggle-btn small" data-target-section="s2">섹션 2 · 오빗 스케줄</button>
+    <button class="toggle-btn small" data-target-section="s3">섹션 3 · 파이프라인</button>
+    <button class="toggle-btn small" data-target-section="s4">섹션 4 · 사이언스</button>
+    <button class="toggle-btn small" data-target-section="all">ALL · 전체 보기</button>
+  </div>
+
+  <!-- 1. DOMAIN × MODULEBOOK MAP -->
+  <div class="card section-card" data-section="s1">
+    <div class="subtitle">section 1</div>
+    <h2>Domain × Modulebook Map (5 Domains × 25 Modulebooks · Priority Tier)</h2>
+    <p>
+      엑셀 로드맵(<i>Roadmap – 저장됨</i>)에 있는 실제 항목을 5개 도메인·25개 모듈북으로 구조화한 맵.
+      Naver Magazine 3개 트랙은 제외하고, 장기적으로 유지될 핵심 25개만 공전 루프에 태운다.
+    </p>
+
+    <div class="priority-legend">
+      <div class="priority-pill">
+        <span class="mark">⭐ G</span><span>Gold · 5 Orbit 풀코스 (핵심 간판 모듈)</span>
+      </div>
+      <div class="priority-pill">
+        <span class="mark">◎ S</span><span>Silver · 3 Orbit 풀 + 4·5 Orbit 라이트</span>
+      </div>
+      <div class="priority-pill">
+        <span class="mark">○ B</span><span>Bronze · 뼈대/요약 중심 · 다음 Orbit에 승격 후보</span>
+      </div>
+    </div>
+
+    <pre class="mermaid">
+flowchart LR
+  %% DOMAINS: 5 × 5 MODULEBOOKS WITH PRIORITY (G/S/B)
+
+  subgraph D1["PARKSY SERIES · parksy.kr · Galaxy S25 Ultra"]
+    P1["⭐ G · P1. GitHub Base Course<br/>(2Github page · basic course)"]
+    P2["◎ S · P2. Phone Base Production<br/>(Instagram / Naver Phone 기반)"]
+    P3["◎ S · P3. Persona Pack · Parksy<br/>(Technician·Blogger·Philosopher·Visualizer·Musician)"]
+    P4["◎ S · P4. WEBTOON BASE<br/>(웹툰/애니 · KR 79's Middle-aged 세계관)"]
+    P5["○ B · P5. KR-Core Essay<br/>(korean-parksy · 감성/에세이 베이스)"]
+  end
+
+  subgraph D2["EAE SERIES · eae.kr · Galaxy Tab S9"]
+    E1["⭐ G · E1. Skillset6 Base<br/>(에듀아트 엔지니어 기본 코스)"]
+    E2["◎ S · E2. Tablet Base Production<br/>(Galaxy Tab · 노트/드로잉 실습)"]
+    E3["◎ S · E3. PatchTech & MinMix Lab<br/>(PatchTech + MinMix 실험실)"]
+    E4["○ B · E4. MAL Webappbook Cast<br/>(웹앱북 PWA 시리즈 캐스트)"]
+    E5["○ B · E5. PenOn & QSketch / EML<br/>(손그림·EML 감정 컴포지션)"]
+  end
+
+  subgraph D3["DTSLIB SERIES · dtslib.com · Dell XPS i7"]
+    T1["⭐ G · T1. Biz MRT Base<br/>(Making $ from Digital Asset)"]
+    T2["◎ S · T2. PC Base Production<br/>(엑셀·Python 기반 자동화)"]
+    T3["○ B · T3. Sam Finance & Legal<br/>(재무/법무 구조 설계)"]
+    T4["◎ S · T4. Digital Asset Selling<br/>(데이터·콘텐츠 세일즈 시스템)"]
+    T5["○ B · T5. MRT = GenUnderstanding<br/>(구조 분석 · 이해 모듈)"]
+  end
+
+  subgraph D4["DTSLIB 1K · 중년고딩 시리즈"]
+    K1["○ B · K1. 중년고딩 과학"]
+    K2["⭐ G · K2. 중년고딩 철학"]
+    K3["◎ S · K3. 중년고딩 사회"]
+    K4["○ B · K4. 중년고딩 언어"]
+    K5["○ B · K5. 중년고딩 예술/수학<br/>(선택형 심화 모듈)"]
+  end
+
+  subgraph D5["DTSLIB 2K · KR-Merit World"]
+    M1["◎ S · M1. kr-merit-bluff"]
+    M2["◎ S · M2. kr-merit-halfblood"]
+    M3["○ B · M3. kr-merit-aggro"]
+    M4["○ B · M4. kr-merit-shaman"]
+    M5["⭐ G · M5. KR-Merit Meta Mix<br/>(korean-parksy × KR-Merit 통합)"]
+  end
+
+  %% HIGH-LEVEL RELATION LOOP
+  D1 --> D2
+  D2 --> D3
+  D3 --> D4
+  D4 --> D5
+  D5 --> D1
+    </pre>
+    <p style="font-size:.72rem; color:var(--muted); margin-top:4px;">
+      ※ G/S/B 표시는 1차 제안안이며, 실제 운용 시 박씨의 주관적 자신감·성과를 기준으로 Orbit마다 재조정 가능.
+    </p>
+  </div>
+
+  <!-- 2. ORBIT SCHEDULING -->
+  <div class="card section-card" data-section="s2">
+    <div class="subtitle">section 2</div>
+    <h2>Orbit Scheduling · 5 Iterations (2024–2025)</h2>
+    <p>
+      한 Orbit는 8주. 수요일·목요일에 집중 30h (총 60h/주)로 25개 모듈북을 동일 프레임으로 순환한다.
+      1·2 Orbit은 비공개 설계/정제, 3 Orbit에서 프로덕션 시작, 4 Orbit에서 한국어 판서,
+      5 Orbit에서 글로벌 Export Edition을 완성한다.
+    </p>
+    <p style="font-size:.8rem; color:var(--muted);">
+      <b>최소 성공 조건(minimum success rule)</b><br/>
+      · Orbit 1: 25개 중 ≥ 18개 프레임만 잡혀도 성공<br/>
+      · Orbit 2: 그중 ≥ 15개 네이밍/구조 정제되면 성공<br/>
+      · Orbit 3: G/S 모듈 중심으로 ≥ 10개 PWA+Tistory 세트 완성 시 성공<br/>
+      · Orbit 4: Gold 5개 풀 판서 완료 시 성공 (Silver/Bronze는 요약판)<br/>
+      · Orbit 5: Gold 5개 다국어/AI 성우판 나오면 성공 (나머지는 KR/요약판)
+    </p>
+
+    <pre class="mermaid">
+gantt
+  dateFormat  YYYY-MM-DD
+  axisFormat  %Y-%m-%d
+  title PARKSY 8-Week Orbit Timeline (5 Iterations)
+
+  section Orbit_1_Design
+  "1회독: 설계 · 전체 쓰레드→엑셀 · 25 모듈북 프레임 확정 (≥18개 완성 시 성공)" :o1, 2024-11-26, 2025-01-20
+
+  section Orbit_2_Refine
+  "2회독: 구조 정제 · 네이밍 룰 · Master Table v2 (≥15개 정제 시 성공)" :o2, 2025-01-21, 2025-03-15
+
+  section Orbit_3_Production
+  "3회독: PWA/Tistory Engine v2 · G/S 기준 ≥10개 모듈 프로덕션" :o3, 2025-03-16, 2025-05-10
+
+  section Orbit_4_KR_Handwriting
+  "4회독: Galaxy 판서 · Gold 5개 풀 강의 + Silver/Bronze 요약판" :o4, 2025-05-11, 2025-07-05
+
+  section Orbit_5_Global_AI
+  "5회독: Gold 5개 AI 성우 · 자동편집 · 다국어 Export Edition (ENG/JP/ES)" :o5, 2025-07-06, 2025-08-15
+    </pre>
+  </div>
+
+  <!-- 3. PIPELINE -->
+  <div class="card section-card" data-section="s3">
+    <div class="subtitle">section 3</div>
+    <h2>Pipeline · Feed → Digest → Expression (LLM + Excel + PWA + YouTube)</h2>
+    <p>
+      한 모듈북 단위 작업의 실제 흐름. Galaxy STT로 말을 던지고, LLM 정리/엑셀 구조화 후,
+      PWA·Tistory·YouTube·GitHub Pages로 순차 출력한다. 이 파이프라인이 25개 모듈북에 공통 적용된다.
+      우선순위(G/S/B)에 따라 각 단계에서 투입 강도와 검수 레벨이 달라진다.
+    </p>
+
+    <pre class="mermaid">
+flowchart LR
+  subgraph FEED["FEED · 입력/수집"]
+    STT["Galaxy STT<br/>(음성→텍스트)"]
+    CHAT["ChatGPT / Claude<br/>(즉흥 대화 로그)"]
+  end
+
+  subgraph DIGEST["DIGEST · 구조화/정제"]
+    XL["Excel Master Table<br/>(25 Modulebooks × Part × Chapter<br/>+ G/S/B Priority Flag)"]
+    PROMPT["Prompt Engine Generator<br/>(Tistory/PWA 프롬프트 세트)"]
+    NOTE["Tablet Notes / 드로잉<br/>(PenOn · QSketch)"]
+  end
+
+  subgraph EXPRESS["EXPRESSION · 출력/배포"]
+    PWA["PWA Modulebook Page<br/>(GitHub Pages · dtslib/parkys/eae)"]
+    TST["Tistory Engine Page<br/>(프롬프트형 매거진)"]
+    YT_KR["YouTube KR 3min & 판서<br/>(3rd·4th Orbit)"]
+    YT_GL["YouTube Global Auto-Edit<br/>(5th Orbit · AI 성우)"]
+  end
+
+  FEED --> DIGEST
+  DIGEST --> EXPRESS
+
+  STT --> CHAT
+  CHAT --> XL
+  XL --> PROMPT
+  XL --> NOTE
+  PROMPT --> PWA
+  PROMPT --> TST
+  NOTE --> PWA
+  PWA --> YT_KR
+  YT_KR --> YT_GL
+    </pre>
+  </div>
+
+  <!-- 4. SCIENTIFIC APPENDIX -->
+  <div class="card section-card" data-section="s4">
+    <div class="subtitle">section 4</div>
+    <h2>Scientific Appendix · Orbit ↔ Brain / Learning / Productivity</h2>
+    <p>
+      8주 공전과 5회독 구조가 뇌과학·학습과학·인지부하이론·생산성 공학과 어떻게 연결되는지
+      한 번에 보여주는 개념도. G/S/B 우선순위는 인지 부하를 60% 근처로 유지하면서
+      핵심 모듈에 더 많은 반복 노출을 주기 위한 장치다.
+    </p>
+
+    <pre class="mermaid">
+flowchart TD
+  subgraph NEURO["Neuroscience · 신경가소성"]
+    N1["12~16주 = 새로운 패턴 체화<br/>(Neuro Acquisition)"]
+    N2["반복 회독으로 회로 강화<br/>(Neuro Consolidation)"]
+  end
+
+  subgraph LEARN["Learning Science · Spaced Repetition"]
+    L1["간격 반복(Spaced Repetition)<br/>1·2·3·4·5회독 커브"]
+    L2["동일 모듈(25 Modulebooks)을<br/>간격 두고 재노출<br/>(Gold에 더 많은 노출)"]
+  end
+
+  subgraph COG["Cognitive Load Theory"]
+    C1["작업 부하 최적점 ≈ 60%"]
+    C2["수·목 30h 집중 + 나머지 요일 Digest<br/>→ 과부하 방지<br/>(Silver/Bronze는 라이트 모드 운용)"]
+  end
+
+  subgraph PROD["Productivity Engineering"]
+    P1["Exploration vs Exploitation<br/>2-Phase 모델"]
+    P2["Exploration: 설계/탐색 (Orbit 1~2)<br/>(G/S/B 초안 태깅)"]
+    P3["Exploitation: 실행/수확 (Orbit 3~5)<br/>(Gold 풀코스 · Silver 하이브리드 · Bronze 카탈로그)"]
+  end
+
+  subgraph ORBITS["Orbit Role Mapping"]
+    O1["Orbit 1 · 설계<br/>쓰레드→엑셀 · 25 모듈북 프레임<br/>+ 1차 G/S/B 배정"]
+    O2["Orbit 2 · 정제<br/>네이밍·Master Table v2<br/>+ 우선순위 조정"]
+    O3["Orbit 3 · 프로덕션<br/>PWA·Tistory·YouTube 3분 영상<br/>(Gold/Silver 우선 프로덕션)"]
+    O4["Orbit 4 · 한국어 인간판<br/>Galaxy 판서 시리즈<br/>(Gold 풀판서 · Silver 요약판)"]
+    O5["Orbit 5 · 글로벌 AI판<br/>AI 성우·자동편집 Export Edition<br/>(Gold 다국어 우선)"]
+  end
+
+  N1 --> O1
+  N1 --> O2
+  N2 --> O3
+  N2 --> O4
+  N2 --> O5
+
+  L1 --> O1
+  L1 --> O2
+  L1 --> O3
+  L1 --> O4
+  L1 --> O5
+  L2 --> ORBITS
+
+  C1 --> C2
+  C2 --> O3
+  C2 --> O4
+  C2 --> O5
+
+  P1 --> P2
+  P1 --> P3
+  P2 --> O1
+  P2 --> O2
+  P3 --> O3
+  P3 --> O4
+  P3 --> O5
+    </pre>
+  </div>
+
+  <footer>
+    PARKSY ORBIT SYSTEM · v1.2 · Single-file HTML diagram for roadmap, scheduling, priority mapping, pipeline and scientific appendix.
+  </footer>
+
+</div>
+</body>
+</html>

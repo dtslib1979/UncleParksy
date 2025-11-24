@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>PARKSY PERSONAL OS v6.0 · PC 포맷 백서</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Mermaid for 다이어그램 -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #020617;
+      --bg-soft: #020617;
+      --fg: #e5e7eb;
+      --fg-soft: #9ca3af;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.14);
+      --border: #1f2937;
+      --card: #020617;
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.7);
+      --radius-lg: 18px;
+      --radius-full: 999px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #0b1120 0, #020617 55%);
+      color: var(--fg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 16px 14px 32px;
+    }
+
+    @media (min-width: 768px) {
+      .wrap {
+        padding: 24px 0 40px;
+      }
+    }
+
+    /* 상단 헤더 / 네비게이션 */
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      padding: 10px 0 8px;
+      margin: 0 -14px 12px;
+      background: linear-gradient(
+        to bottom,
+        rgba(2, 6, 23, 0.9),
+        rgba(2, 6, 23, 0.88),
+        transparent
+      );
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.8);
+    }
+
+    @media (min-width: 768px) {
+      .header {
+        margin: 0 0 16px;
+        padding-top: 12px;
+      }
+    }
+
+    .header-inner {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 0 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    @media (min-width: 640px) {
+      .header-inner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .title-main {
+      font-size: 18px;
+      font-weight: 650;
+      letter-spacing: 0.03em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .title-pill {
+      font-size: 11px;
+      padding: 3px 9px 4px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(56, 189, 248, 0.5);
+      background: radial-gradient(circle at top left, #0f172a 0, #020617 55%);
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    .title-sub {
+      font-size: 11px;
+      color: var(--fg-soft);
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .nav-btn {
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--fg-soft);
+      font-size: 11px;
+      padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .nav-btn span.dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.9);
+    }
+
+    .nav-btn.nav-primary {
+      border-color: rgba(56, 189, 248, 0.7);
+      color: var(--accent);
+      background: radial-gradient(
+        circle at top left,
+        rgba(56, 189, 248, 0.15),
+        rgba(15, 23, 42, 0.9)
+      );
+    }
+
+    .nav-btn.nav-primary span.dot {
+      background: var(--accent);
+    }
+
+    /* 카드 / 섹션 기본 */
+
+    .section {
+      margin-bottom: 16px;
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, #020617 0, #020617 45%);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 16px 14px 14px;
+    }
+
+    @media (min-width: 640px) {
+      .card {
+        padding: 18px 18px 16px;
+      }
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--fg-soft);
+      margin-bottom: 4px;
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 650;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .section-title span.badge {
+      font-size: 10px;
+      padding: 2px 7px 3px;
+      border-radius: 999px;
+      border: 1px solid rgba(51, 65, 85, 0.9);
+      color: var(--fg-soft);
+    }
+
+    .section-body {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--fg-soft);
+    }
+
+    .section-body p {
+      margin: 4px 0 6px;
+    }
+
+    .section-body strong {
+      color: var(--fg);
+      font-weight: 600;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin: 6px 0 2px;
+    }
+
+    .pill {
+      font-size: 10px;
+      padding: 3px 7px 3px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(51, 65, 85, 0.9);
+      color: var(--fg-soft);
+    }
+
+    /* 오픈 이슈 리스트 */
+
+    .issue-list {
+      margin: 6px 0;
+      padding-left: 0;
+      list-style: none;
+      font-size: 12px;
+    }
+
+    .issue-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      padding: 4px 0;
+      border-bottom: 1px dashed rgba(30, 64, 175, 0.35);
+    }
+
+    .issue-item:last-child {
+      border-bottom: none;
+    }
+
+    .issue-checkbox {
+      margin-top: 2px;
+    }
+
+    .issue-text {
+      flex: 1;
+    }
+
+    .issue-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      color: #93c5fd;
+      background: rgba(30, 64, 175, 0.3);
+      border-radius: 999px;
+      padding: 2px 6px 3px;
+      margin-left: 4px;
+    }
+
+    /* 토글 버튼 / 숨김 영역 */
+
+    .toggle-btn {
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--fg-soft);
+      font-size: 11px;
+      padding: 4px 9px 5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      margin: 6px 0 4px;
+    }
+
+    .toggle-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.9);
+    }
+
+    .toggle-btn.active {
+      border-color: rgba(56, 189, 248, 0.8);
+      color: var(--accent);
+      background: radial-gradient(
+        circle at top left,
+        rgba(56, 189, 248, 0.16),
+        rgba(15, 23, 42, 0.95)
+      );
+    }
+
+    .toggle-btn.active .toggle-dot {
+      background: var(--accent);
+    }
+
+    .toggle-target {
+      margin-top: 4px;
+      display: none;
+    }
+
+    .toggle-target.visible {
+      display: block;
+    }
+
+    /* 코드/프리 포맷 */
+
+    pre {
+      margin: 8px 0;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: #020617;
+      border: 1px solid rgba(30, 64, 175, 0.7);
+      font-size: 11px;
+      overflow-x: auto;
+      line-height: 1.5;
+      color: #e5e7eb;
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+    }
+
+    .note {
+      font-size: 11px;
+      color: var(--fg-soft);
+      margin-top: 4px;
+    }
+
+    .note strong {
+      color: var(--accent);
+    }
+
+    /* Mermaid 카드 조정 */
+
+    .diagram-card pre.mermaid {
+      background: #020617;
+      border-color: rgba(56, 189, 248, 0.6);
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+
+    /* 푸터 */
+
+    .footer {
+      margin-top: 18px;
+      font-size: 11px;
+      color: var(--fg-soft);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <div class="title-block">
+        <div class="title-main">
+          <span>🟦 PARKSY PERSONAL OS v6.0</span>
+          <span class="title-pill">PC 포맷 백서</span>
+        </div>
+        <div class="title-sub">
+          PC = 복습 · GitHub = 실습 · 클라우드 = 예습 · 에이전트 = 손발
+        </div>
+      </div>
+      <nav class="nav">
+        <button class="nav-btn nav-primary" data-scroll="#section-essay">
+          <span class="dot"></span>에세이
+        </button>
+        <button class="nav-btn" data-scroll="#section-issues">
+          <span class="dot"></span>오픈 이슈
+        </button>
+        <button class="nav-btn" data-scroll="#section-kernel">
+          <span class="dot"></span>에이전트 커널
+        </button>
+        <button class="nav-btn" data-scroll="#section-proof">
+          <span class="dot"></span>증빙 로그
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- 0. 에세이 -->
+    <section id="section-essay" class="section">
+      <article class="card">
+        <div class="section-label">0. ESSAY</div>
+        <div class="section-title">
+          <span>왜 나는 이 문서를 만드는가</span>
+          <span class="badge">for future 박씨</span>
+        </div>
+        <div class="section-body">
+          <p>
+            나는 기능을 사랑하진 않는다. 대신 <strong>“움직이는 구조”</strong>를
+            좋아한다. 그리고 이 구조를 앞으로도 계속 쓸 거다. 그러니까 미리
+            적어두는 게 맞다.
+          </p>
+          <p>
+            이 문서는 남에게 보여주려고 쓰는 게 아니다. 미래의 내가 다시
+            읽었을 때:
+          </p>
+          <ul style="margin: 4px 0 6px 18px; padding-left: 0;">
+            <li>“아, 그때 이렇게 생각했네.”</li>
+            <li>“그래, 이렇게 명령어 던지면 돌아갔지.”</li>
+            <li>“이 부분은 다음 버전에서 고치자.”</li>
+          </ul>
+          <p>
+            이 정도만 떠오르면 목적 달성이다. 에이전트가 바뀌어도 상관 없다.
+            <strong>내 리듬, 내 포맷, 내 방식</strong>만 살아 있으면 된다.
+          </p>
+
+          <div class="pill-row" style="margin-top: 8px;">
+            <span class="pill">PC = 복습 (과거 타임캡슐)</span>
+            <span class="pill">GitHub = 실습 (현재 스케치북)</span>
+            <span class="pill">클라우드 = 예습 (미래 환경)</span>
+            <span class="pill">에이전트 = 손발</span>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- 1. 시간 구조 (복습/실습/예습 + 다이어그램) -->
+    <section class="section">
+      <article class="card diagram-card">
+        <div class="section-label">1. TIME MODEL</div>
+        <div class="section-title">
+          <span>복습 · 실습 · 예습 — 나의 시간 구조</span>
+          <span class="badge">시각화</span>
+        </div>
+        <div class="section-body">
+          <p>
+            시간 기준으로 내 작업을 나누면 이렇게 된다. 이 구조 자체가
+            <strong>PC 포맷 OS의 뼈대</strong>다.
+          </p>
+          <ul style="margin: 4px 0 6px 18px; padding-left: 0;">
+            <li><strong>복습</strong> — 로컬 PC: 과거를 되짚는 타임캡슐</li>
+            <li><strong>실습</strong> — GitHub: 지금 돌리는 공책</li>
+            <li><strong>예습</strong> — 클라우드: 나중에 돈 쓸 환경을 미리 구상</li>
+          </ul>
+
+          <pre class="mermaid">
+flowchart LR
+    A[복습 · Local PC<br/>과거 타임캡슐] --> B[실습 · GitHub<br/>현재 스케치북]
+    B --> C[예습 · Cloud<br/>미래 환경]
+    style A fill:#0f172a,stroke:#38bdf8,stroke-width:1.5px,color:#e5e7eb
+    style B fill:#020617,stroke:#38bdf8,stroke-width:1.5px,color:#e5e7eb
+    style C fill:#0f172a,stroke:#38bdf8,stroke-width:1.5px,color:#e5e7eb
+          </pre>
+        </div>
+      </article>
+    </section>
+
+    <!-- 2. 오픈 이슈 -->
+    <section id="section-issues" class="section">
+      <article class="card">
+        <div class="section-label">2. OPEN ISSUES</div>
+        <div class="section-title">
+          <span>미래의 박씨에게 던지는 메모</span>
+          <span class="badge">해야 할 수도 / 안 해도 됨</span>
+        </div>
+        <div class="section-body">
+          <p style="margin-bottom: 6px;">
+            이 영역은 <strong>순수하게 나를 위한 할 일 메모</strong>다. 전부
+            안 해도 된다. 한두 개만 해결해도 OS 버전은 올라간다.
+          </p>
+
+          <ul class="issue-list">
+            <li class="issue-item">
+              <input class="issue-checkbox" type="checkbox" disabled />
+              <div class="issue-text">
+                L0 클라우드 비교표 최신화<br />
+                <span class="note">
+                  AWS Graviton / GCP Tau / Runpod 5090 GPU 감각 기준만 적어두기
+                </span>
+                <span class="issue-tag">L0 · 예습</span>
+              </div>
+            </li>
+            <li class="issue-item">
+              <input class="issue-checkbox" type="checkbox" disabled />
+              <div class="issue-text">
+                GitHub Scaffold 자동 생성 스크립트 정리<br />
+                <span class="note">
+                  PC 포맷 시, 새 레포 구조를 한 번에 뽑는 PowerShell or Node 스크립트
+                </span>
+                <span class="issue-tag">L1 · FORMAT</span>
+              </div>
+            </li>
+            <li class="issue-item">
+              <input class="issue-checkbox" type="checkbox" disabled />
+              <div class="issue-text">
+                MCP Instruction Pack 현실 테스트<br />
+                <span class="note">
+                  Claude MCP Desktop 기준, 이 페이지의 커널 블록 그대로 먹여서
+                  포맷 후 재현되는지 확인
+                </span>
+                <span class="issue-tag">L2 · AUTOMATION</span>
+              </div>
+            </li>
+            <li class="issue-item">
+              <input class="issue-checkbox" type="checkbox" disabled />
+              <div class="issue-text">
+                28개 모듈북 레포 자동 Push 루틴 만들기<br />
+                <span class="note">
+                  로컬 캐시 → GitHub SSOT 동기화를 “리추얼”이 아니라 “버튼 1번”
+                </span>
+                <span class="issue-tag">L3 · SYNC</span>
+              </div>
+            </li>
+            <li class="issue-item">
+              <input class="issue-checkbox" type="checkbox" disabled />
+              <div class="issue-text">
+                v7.0에서 실제 포맷 후 스냅샷 추가<br />
+                <span class="note">
+                  새 PC에서 이 OS로 부팅한 화면/폴더/터미널 스샷 2~3장만 남기기
+                </span>
+                <span class="issue-tag">L4 · UPDATE</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
+    <!-- 3. 에이전트 커널 (토글) -->
+    <section id="section-kernel" class="section">
+      <article class="card">
+        <div class="section-label">3. AGENT KERNEL</div>
+        <div class="section-title">
+          <span>AI 에이전트 복붙용 커널</span>
+          <span class="badge">FOR AGENT · 기술 블록</span>
+        </div>
+        <div class="section-body">
+          <p>
+            이 아래부터는 <strong>에이전트에게 복사·붙여넣기</strong> 할
+            영역이다. 사람은 안 봐도 된다. 용어는 정확히, 구조는 단순하게.
+          </p>
+          <button class="toggle-btn" data-toggle="#kernel-block">
+            <span class="toggle-dot"></span>
+            에이전트 커널 열기 / 닫기
+          </button>
+
+          <div id="kernel-block" class="toggle-target">
+            <p class="note">
+              아래 전체 블록을 Claude MCP Desktop, Cursor, 기타 LLM 에이전트에게
+              그대로 전달할 수 있다.
+            </p>
+
+            <pre><code># PARKSY PERSONAL OS v6.0 · Agent Kernel
+
+## L0 · Cloud Pre-Study Layer (spec only)
+
+- Goal:
+  - Define how to compare: AWS / GCP / Azure / Oracle / RunPod / Render
+  - Reduce cognitive load when real budget appears
+- Compare:
+  - CPU/GPU type
+  - Hourly/Monthly cost
+  - Free tier / credits
+  - Storage API
+  - Region / latency
+  - VSCode Remote / SSH 가능 여부
+  - GitHub Actions와 연동 가능 여부
+- Checklist:
+  - [ ] Static hosting (Pages/S3/Cloudflare 등)
+  - [ ] CDN / Asset routing
+  - [ ] Container runtime (Docker/Cloud Run 등)
+  - [ ] DB endpoint (Supabase 등)
+  - [ ] Backup schedule
+  - [ ] Logs & Monitoring
+  - [ ] Rollback scenario
+
+## L1 · FORMAT Layer
+
+### Local PC FORMAT
+- After clean Windows install:
+  - Install drivers
+  - Install `winget` or `scoop`
+  - Install core tools:
+    - Visual Studio Code
+    - Git
+    - Node.js LTS
+    - Python 3.x
+    - Chrome or Edge
+  - Create base folders:
+    - `C:\_work\`
+    - `C:\_temp\`
+    - `C:\_asset\`
+  - Setup PowerShell profile:
+    - aliases for `ls`, `cd`, `git status`, `code .`
+    - default path = `C:\_work\`
+
+### GitHub FORMAT
+- Repo naming: `{domain}-{project}`
+- Default structure:
+  - `/src`
+  - `/public`
+  - `/docs`
+  - `/logs`
+  - `/.github/workflows/deploy.yml`
+- README sections:
+  - Overview
+  - Usage
+  - Local Dev
+  - Deploy
+  - Notes
+
+### Work FORM
+- Excel:
+  - `input` → `clean` → `pivot` → `chart` → `export`
+- Python:
+  - `python -m venv .venv`
+  - install dependencies
+  - `python main.py`
+  - log to `/logs/`
+- PWA/Static:
+  - `npm install`
+  - `npm run build`
+  - deploy via GitHub Pages Action
+
+## L2 · AUTOMATION Layer
+
+### MCP Instruction Pack
+- Agent should be able to:
+  - Initialize new repo based on FORMAT
+  - Scaffold folders and README
+  - Generate minimal deploy workflow
+  - Run build commands
+  - Commit & push back to GitHub
+
+### CLI Fallback
+- When no agent/token available:
+  - Use simple scripts:
+    - Windows:
+      - `winget install Git.Git`
+      - `winget install Microsoft.VisualStudioCode`
+    - Git:
+      - `git add .`
+      - `git commit -m "update"`
+      - `git push origin main`
+
+## L3 · SYNC Layer (SSOT)
+
+- Principle:
+  - Local PC = cache
+  - GitHub = Single Source of Truth (SSOT)
+  - Cloud = execution environment
+- Flow:
+  - Local → GitHub Repo → Actions Build → Static Hosting → Browser
+
+## L4 · UPDATE Layer (Overwrite Policy)
+
+- Keep only current best version of this spec
+- No manual changelog inside the document
+- Past versions can be recovered via Git history if needed
+- This file is always treated as "latest truth"</code></pre>
+
+            <p class="note">
+              ☝️ 위 블록은 “사람이 읽는 설명”이 아니라, “에이전트가 해석할
+              스펙”이다. 수정 시 과감히 덮어쓰기(Overwrite) 할 것.
+            </p>
+
+            <pre class="mermaid">
+flowchart TD
+    L0[Cloud Pre-Study<br/>(예습)] --> L1[FORMAT<br/>(Local/GitHub/Work)]
+    L1 --> L2[AUTOMATION<br/>(MCP + CLI)]
+    L2 --> L3[SYNC<br/>(GitHub SSOT)]
+    L3 --> L4[UPDATE<br/>(Overwrite)]
+
+    style L0 fill:#020617,stroke:#38bdf8,stroke-width:1.2px,color:#e5e7eb
+    style L1 fill:#0f172a,stroke:#38bdf8,stroke-width:1.2px,color:#e5e7eb
+    style L2 fill:#020617,stroke:#38bdf8,stroke-width:1.2px,color:#e5e7eb
+    style L3 fill:#0f172a,stroke:#38bdf8,stroke-width:1.2px,color:#e5e7eb
+    style L4 fill:#020617,stroke:#38bdf8,stroke-width:1.2px,color:#e5e7eb
+            </pre>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- 4. SYNC 다이어그램 (실행 흐름) -->
+    <section class="section">
+      <article class="card diagram-card">
+        <div class="section-label">4. SYNC FLOW</div>
+        <div class="section-title">
+          <span>Local → GitHub → Pages → Browser</span>
+          <span class="badge">실행 경로</span>
+        </div>
+        <div class="section-body">
+          <p>
+            이 다이어그램은 “PC를 포맷해도 괜찮은 이유”를 시각적으로 보여준다.
+            <strong>원본은 GitHub</strong>이고, Local은 언제나 캐시다.
+          </p>
+
+          <pre class="mermaid">
+flowchart LR
+    A[Local PC<br/>휘발성 캐시] --> B[GitHub Repo<br/>SSOT]
+    B --> C[GitHub Actions<br/>빌드]
+    C --> D[GitHub Pages<br/>Static Hosting]
+    D --> E[브라우저에서 확인]
+
+    style A fill:#020617,stroke:#38bdf8,stroke-width:1.3px,color:#e5e7eb
+    style B fill:#0f172a,stroke:#38bdf8,stroke-width:1.3px,color:#e5e7eb
+    style C fill:#020617,stroke:#38bdf8,stroke-width:1.3px,color:#e5e7eb
+    style D fill:#0f172a,stroke:#38bdf8,stroke-width:1.3px,color:#e5e7eb
+    style E fill:#020617,stroke:#38bdf8,stroke-width:1.3px,color:#e5e7eb
+          </pre>
+        </div>
+      </article>
+    </section>
+
+    <!-- 5. 증빙 로그 -->
+    <section id="section-proof" class="section">
+      <article class="card">
+        <div class="section-label">5. PROOF LOG</div>
+        <div class="section-title">
+          <span>나를 위한 증빙 — 재실행 기준점</span>
+          <span class="badge">로그 / 스냅샷</span>
+        </div>
+        <div class="section-body">
+          <p>
+            증빙은 남들에게 보여주기용이 아니라
+            <strong>“미래의 내가 다시 실행할 수 있는 기준점”</strong>이다.
+            과장된 인증샷이 아니라, 최소 로그만 있으면 된다.
+          </p>
+
+          <button class="toggle-btn" data-toggle="#proof-block">
+            <span class="toggle-dot"></span>
+            증빙 로그 열기 / 닫기
+          </button>
+
+          <div id="proof-block" class="toggle-target">
+            <pre><code>[OK LOG – 2025-11-18 · v6.0]
+
+- GitHub Pages용 단일 HTML 파일 생성 완료
+- Mermaid 다이어그램 3개 정상 렌더링 확인
+- 모바일(휴대폰 세로 모드)에서 가독성 테스트 OK
+- "에이전트 커널" 토글 열림/닫힘 동작 확인
+- Local = 캐시 / GitHub = SSOT 철학 페이지에 반영 완료</code></pre>
+
+            <pre><code>[NEXT PROOF TODO]
+
+- v7.0에서 실제 PC 포맷 후:
+  - C:\_work\ 초기 구조 스크린샷 1장
+  - GitHub Pages 첫 배포 화면 캡처 1장
+  - `git log` 상 첫 커밋 메시지 기록 1줄</code></pre>
+
+            <pre><code>[VERSION]
+
+- Document: PARKSY PERSONAL OS v6.0 (Overwrite Edition)
+- Date: 2025-11-18
+- Mode: Private OS · GitHub Pages 1장 구조</code></pre>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <footer class="footer">
+      PARKSY PERSONAL OS v6.0 · PC 포맷 백서 — Overwrite 모드 유지
+    </footer>
+  </main>
+
+  <script>
+    // Mermaid 초기화
+    if (window.mermaid) {
+      mermaid.initialize({
+        startOnLoad: true,
+        theme: "dark",
+      });
+    }
+
+    // 네비게이션 스크롤
+    document.querySelectorAll("[data-scroll]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const target = document.querySelector(btn.dataset.scroll);
+        if (!target) return;
+        const rect = target.getBoundingClientRect();
+        const offset = rect.top + window.scrollY - 82; // 헤더 높이 보정
+        window.scrollTo({ top: offset, behavior: "smooth" });
+
+        // nav active 비주얼
+        document
+          .querySelectorAll(".nav-btn")
+          .forEach((b) => b.classList.remove("nav-primary"));
+        btn.classList.add("nav-primary");
+      });
+    });
+
+    // 토글 버튼
+    document.querySelectorAll("[data-toggle]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const target = document.querySelector(btn.dataset.toggle);
+        if (!target) return;
+        const visible = target.classList.toggle("visible");
+        btn.classList.toggle("active", visible);
+      });
+    });
+  </script>
+</body>
+</html>
+```0

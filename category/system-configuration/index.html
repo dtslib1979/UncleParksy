@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>System Configuration — UncleParksy Archive</title>
+<meta name="description" content="Essential setup spells for any digital craftsman. System Lab index with auto-updating table view." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Philosopher:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --primary-gold:#d4af37; --dark-gold:#b8860b; --light-gold:#f4e4aa;
+  --parchment:#f7f3e8; --dark-parchment:#e8dcc0;
+  --ink:#1a0f0a; --ink-2:#2d1b12; --ink-3:#4a2c1a;
+  --purple:#6a4c93; --blue:#4a90e2; --red:#c44536;
+  --shadow-d:rgba(26,15,10,.4); --shadow-m:rgba(26,15,10,.2); --shadow-l:rgba(26,15,10,.1);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Philosopher', system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 15% 25%, rgba(212,175,55,.05) 0%, transparent 40%),
+    radial-gradient(circle at 85% 75%, rgba(106,76,147,.04) 0%, transparent 40%),
+    linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+  min-height:100vh; overflow-x:hidden; position:relative;
+}
+body::before{
+  content:""; position:fixed; inset:0; z-index:1; pointer-events:none;
+  background:
+    repeating-linear-gradient(45deg, transparent,transparent 1px, rgba(212,175,55,.015) 1px, rgba(212,175,55,.015) 2px),
+    repeating-linear-gradient(-45deg, transparent,transparent 1px, rgba(74,44,26,.015) 1px, rgba(74,44,26,.015) 2px);
+}
+
+/* Header */
+.header{position:relative;z-index:10;padding:clamp(1rem,4vw,2rem);text-align:center;margin-bottom:clamp(1rem,3vw,2rem)}
+.title{
+  font-family:'Pirata One',cursive;
+  font-size:clamp(2.2rem,6vw,3.8rem);
+  background:linear-gradient(135deg,var(--primary-gold) 0%,var(--light-gold) 25%,var(--dark-gold) 50%,var(--purple) 75%,var(--primary-gold) 100%);
+  background-size:200% 200%;
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+  text-shadow:2px 2px 4px var(--shadow-m),0 0 20px rgba(212,175,55,.3);
+  margin:0 0 .5rem; line-height:1.1; text-transform:uppercase;
+  animation:titleShine 8s ease-in-out infinite;
+}
+@keyframes titleShine{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.subtitle{font-size:clamp(.9rem,2.2vw,1.1rem);color:var(--ink-2);opacity:.85;margin:0 0 1.5rem}
+
+/* Counter */
+.counter{
+  position:relative;z-index:10;text-align:center;margin:1rem auto;padding:1rem;border-radius:20px;
+  background:linear-gradient(135deg, rgba(212,175,55,.15), rgba(106,76,147,.1));
+  border:2px solid rgba(212,175,55,.3); box-shadow:0 4px 16px var(--shadow-l);
+  max-width:900px;
+}
+.counter b{font-family:'Pirata One',cursive;font-size:clamp(1.5rem,4vw,2rem);background:linear-gradient(135deg,var(--primary-gold),var(--purple));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin:0 .35rem}
+.counter small{opacity:.75}
+
+/* Controls */
+.controls{
+  position:relative;z-index:10;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem;
+  padding:0 clamp(1rem,4vw,2rem); margin:0 auto 1rem; max-width:1200px;
+}
+.link{
+  font-weight:700;text-decoration:none;color:var(--ink);padding:.6rem 1.2rem;border-radius:20px;
+  background:linear-gradient(135deg, rgba(212,175,55,.1), rgba(212,175,55,.2));
+  border:2px solid rgba(212,175,55,.3);transition:.25s;
+}
+.link:hover{transform:translateY(-2px);border-color:var(--primary-gold)}
+.btn-row{display:flex;gap:.5rem;flex-wrap:wrap}
+.btn{
+  padding:.5rem 1rem;border:none;border-radius:15px;cursor:pointer;font-weight:700;font-size:.85rem;
+  background:linear-gradient(135deg, rgba(247,243,232,.8), rgba(232,220,192,.9));
+  color:var(--ink-2); border:2px solid rgba(212,175,55,.2); transition:.25s; text-transform:uppercase; letter-spacing:.5px;
+}
+.btn.active{
+  background:linear-gradient(135deg, var(--primary-gold), var(--dark-gold));
+  color:var(--ink); border-color:var(--dark-gold); box-shadow:0 4px 12px rgba(212,175,55,.35);
+}
+
+/* Shell */
+.wrap{position:relative;z-index:10;max-width:1200px;margin:0 auto;padding:0 clamp(1rem,4vw,2rem)}
+.panel{
+  position:relative;overflow:hidden;background:linear-gradient(135deg, rgba(247,243,232,.95) 0%, rgba(232,220,192,.92) 50%, rgba(228,216,188,.9) 100%);
+  backdrop-filter:blur(18px);border-radius:26px;border:3px solid rgba(212,175,55,.4);
+  box-shadow:0 34px 110px var(--shadow-m), inset 0 2px 6px rgba(255,255,255,.5), inset 0 -2px 6px rgba(212,175,55,.15);
+  padding:clamp(1.25rem,4.5vw,2rem);
+}
+
+/* Table view */
+.table-wrap{width:100%;overflow:auto;border-radius:14px;border:2px solid rgba(212,175,55,.25);background:rgba(255,255,255,.6)}
+.table{width:100%;border-collapse:separate;border-spacing:0}
+.table thead th{
+  position:sticky;top:0;background:linear-gradient(180deg, rgba(247,243,232,.95), rgba(232,220,192,.9));
+  font-size:.9rem;text-align:left;padding:.8rem;border-bottom:2px solid rgba(212,175,55,.35);z-index:1
+}
+.table tbody td{
+  padding:.75rem;border-bottom:1px dashed rgba(212,175,55,.25);vertical-align:top;font-size:.95rem
+}
+.badge{display:inline-block;padding:.2rem .5rem;border-radius:.6rem;font-size:.75rem;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--purple),#8a2be2)}
+.tag{display:inline-block;margin:.1rem .25rem 0 0;padding:.18rem .55rem;border-radius:.7rem;font-size:.72rem;background:rgba(212,175,55,.25);border:1px solid rgba(212,175,55,.35)}
+.open{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .7rem;border-radius:.6rem;border:2px solid rgba(212,175,55,.35);background:rgba(255,255,255,.6);font-weight:700;text-decoration:none;color:var(--ink-2)}
+.open:hover{transform:translateY(-1px);border-color:var(--primary-gold)}
+.small{opacity:.8;font-size:.85rem}
+
+/* Card view */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem}
+.card{
+  border:2px solid rgba(212,175,55,.25);border-radius:16px;background:linear-gradient(135deg, rgba(255,255,255,.2) 0%, rgba(247,243,232,.95) 30%, rgba(232,220,192,.9) 100%);
+  padding:1rem;box-shadow:0 8px 24px var(--shadow-l)
+}
+.card h3{margin:.35rem 0 .25rem}
+.card .meta{font-size:.85rem;color:var(--ink-3);opacity:.85}
+.card .foot{display:flex;justify-content:space-between;align-items:center;gap:.5rem;margin-top:.6rem}
+
+/* Pagination */
+.pagination{display:flex;justify-content:center;align-items:center;gap:1rem;margin-top:1.25rem;flex-wrap:wrap}
+.page-btn{padding:.7rem 1.2rem;border:none;border-radius:20px;cursor:pointer;font-weight:700;background:linear-gradient(135deg, rgba(247,243,232,.8), rgba(232,220,192,.9));color:var(--ink-2);border:2px solid rgba(212,175,55,.2);transition:.25s;min-width:48px}
+.page-btn:hover:not(:disabled){background:linear-gradient(135deg,var(--primary-gold),var(--dark-gold));color:var(--ink);transform:translateY(-2px)}
+.page-btn:disabled{opacity:.4;cursor:not-allowed}
+.page-info{font-size:.9rem;color:var(--ink-3);padding:.5rem 1rem;opacity:.8}
+
+/* View toggle defaults */
+#table-view{display:block}
+#card-view{display:none}
+@media (max-width: 640px){
+  #table-view{display:none !important}
+  #card-view{display:block !important}
+}
+
+/* Reduced motion / print */
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;animation-iteration-count:1 !important}}
+@media print{.controls,.pagination{display:none}body{background:#fff;color:#000}.panel{box-shadow:none}}
+</style>
+</head>
+
+<body>
+  <header class="header">
+    <h1 class="title">⚙️ System Configuration</h1>
+    <p class="subtitle">Essential setup spells for any digital craftsman.</p>
+  </header>
+
+  <div class="counter">
+    <p><b id="file-count">0</b> items are ready on the platter <small id="source-note"></small></p>
+  </div>
+
+  <nav class="controls">
+    <!-- ✅ root로 고정: 폴더 깊이에 상관없이 404 방지 -->
+    <a href="/" class="link">← Back to Grimoire</a>
+    <div class="btn-row">
+      <button class="btn active" data-sort="section">🗂️ Section</button>
+      <button class="btn" data-sort="newest">📅 Newest</button>
+      <button class="btn" data-sort="oldest">📜 Oldest</button>
+      <button class="btn" data-sort="title">🔤 Title</button>
+    </div>
+    <div class="btn-row" aria-label="view">
+      <button class="btn active" id="btn-table">📋 Table</button>
+      <button class="btn" id="btn-cards">🧩 Cards</button>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <div class="panel">
+      <div id="loading" class="small" style="padding:1rem 0">🍽️ Preparing the platter…</div>
+      <div id="error" class="small" style="display:none;color:#c44536;background:rgba(196,69,54,.1);padding:1rem;border-radius:12px"></div>
+
+      <section id="content" style="display:none">
+        <!-- TABLE VIEW -->
+        <div id="table-view">
+          <div class="table-wrap">
+            <table class="table" aria-describedby="file-count">
+              <thead>
+                <tr>
+                  <th style="width:16ch;">Section</th>
+                  <th>Title</th>
+                  <th style="width:12ch;">Type</th>
+                  <th style="width:16ch;">Date</th>
+                  <th style="width:22ch;">Tags</th>
+                  <th style="width:10ch;">Open</th>
+                </tr>
+              </thead>
+              <tbody id="tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- CARD VIEW -->
+        <div id="card-view">
+          <div class="cards" id="cards"></div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+          <button class="page-btn" id="prev-btn">Prev</button>
+          <div class="page-info" id="page-info"></div>
+          <button class="page-btn" id="next-btn">Next</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+<script>
+/* ========= Repo info for fallback (GitHub Contents API) ========= */
+const GH_OWNER  = 'dtslib1979';
+const GH_REPO   = 'UncleParksy';
+const GH_BRANCH = 'main';
+/* =============================================================== */
+
+/* ===== Manifest candidates (first successful path wins) ===== */
+const MANIFEST_CANDIDATES = [
+  './assets/system-config.manifest.json',
+  './assets/manifest-system.json',
+  './assets/system/manifest.json',
+  './assets/manifest.json',
+  '../assets/system-config.manifest.json',
+  '../assets/manifest-system.json',
+  '../assets/system/manifest.json',
+  '../assets/manifest.json',
+  '../../assets/system-config.manifest.json',
+  '../../assets/manifest-system.json',
+  '../../assets/system/manifest.json',
+  '../../assets/manifest.json',
+  '/assets/system-config.manifest.json',
+  '/assets/manifest-system.json',
+  '/assets/system/manifest.json',
+  '/assets/manifest.json',
+  // same-dir fallbacks
+  './system-config.manifest.json',
+  './manifest-system.json',
+  './manifest.json'
+];
+
+const itemsPerPage = 15;
+let allItems = [];
+let filtered = [];
+let currentPage = 0;
+let currentSort = 'section';
+
+// current category directory (e.g. "/category/system-configuration/")
+const CURRENT_DIR = location.pathname.replace(/[^\/]*$/, '');
+
+document.addEventListener('DOMContentLoaded', async () => {
+  const ok = await loadFromManifest();
+  if (!ok) await loadFromGitHub();   // 👈 if manifest doesn't include this folder, list .html files directly
+  initSorting();
+  initViewToggle();
+  renderAll();
+});
+
+/* ---------- 1) Try manifest ---------- */
+async function loadFromManifest(){
+  for (const path of MANIFEST_CANDIDATES){
+    try{
+      const res = await fetch(path, {cache:'no-cache'});
+      if(!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data  = await res.json();
+      const items = Array.isArray(data.items) ? data.items : (Array.isArray(data) ? data : []);
+      const cleaned = normalizeItems(items).filter(inThisCategory);
+      if (cleaned.length === 0) continue;
+
+      allItems = cleaned;
+      document.getElementById('file-count').textContent = allItems.length;
+      document.getElementById('source-note').textContent = `• manifest: ${path}`;
+      document.getElementById('loading').style.display='none';
+      document.getElementById('content').style.display='block';
+      applySort(currentSort);
+      return true;
+    }catch{}
+  }
+  return false;
+}
+
+/* ---------- 2) Fallback: list files in this folder via GitHub API ---------- */
+async function loadFromGitHub(){
+  const loading = document.getElementById('loading');
+  const note = document.getElementById('source-note');
+  const err = document.getElementById('error');
+  try{
+    const repoDir = CURRENT_DIR.replace(/^\/+|\/+$/g,''); // trim leading/trailing slashes
+    const api = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${repoDir}?ref=${encodeURIComponent(GH_BRANCH)}`;
+    const res = await fetch(api, {headers:{'Accept':'application/vnd.github+json'}});
+    if(!res.ok) throw new Error(`GitHub API ${res.status}`);
+    const list = await res.json();
+
+    const htmlFiles = list.filter(e => e.type === 'file' && /\.html?$/i.test(e.name) && e.name.toLowerCase() !== 'index.html');
+    if (htmlFiles.length === 0) throw new Error('No HTML files found in this folder.');
+
+    allItems = htmlFiles.map((f)=>({
+      title: decodeURIComponent(f.name.replace(/\.html?$/i,'')),
+      path: `./${encodeURIComponent(f.name)}`,
+      section: 'General',
+      type: 'HTML',
+      date: guessDateFromName(f.name),
+      tags: []
+    }));
+
+    document.getElementById('file-count').textContent = allItems.length;
+    note.textContent = '• source: GitHub Contents API';
+    loading.style.display='none'; document.getElementById('content').style.display='block';
+    applySort(currentSort);
+  }catch(e){
+    loading.style.display='none';
+    err.style.display='block';
+    err.innerHTML = `❌ Could not load data.<br><small>${e.message}</small>`;
+  }
+}
+
+/* ---------- helpers ---------- */
+function normalizeItems(items){
+  return items.map((it, i) => {
+    const x = {...it};
+    x.title   = (it.title ?? it.name ?? `Untitled #${i+1}`).toString();
+    x.path    = (it.path ?? it.url ?? '').toString().trim();
+    x.section = (it.section ?? it.category ?? 'General').toString();
+    x.type    = (it.type ?? it.kind ?? '').toString();
+    x.tags    = Array.isArray(it.tags) ? it.tags : (typeof it.tags === 'string' ? it.tags.split(',').map(s=>s.trim()).filter(Boolean) : []);
+    x.date    = it.date ? new Date(it.date) : null;
+    return x;
+  });
+}
+function inThisCategory(item){
+  if (!item.path) return false;
+  const abs = new URL(item.path, location.href).pathname;
+  return abs.startsWith(CURRENT_DIR);
+}
+function guessDateFromName(name){
+  const m = name.match(/(20\d{2})[-_\.](\d{2})[-_\.](\d{2})/);
+  if(!m) return null;
+  const [_,y,mo,d] = m;
+  try{ return new Date(`${y}-${mo}-${d}T00:00:00Z`); }catch{ return null; }
+}
+
+/* sorting + view */
+function initSorting(){
+  document.querySelectorAll('.btn[data-sort]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.btn[data-sort]').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      currentSort = btn.dataset.sort;
+      applySort(currentSort);
+      currentPage = 0;
+      renderAll();
+    });
+  });
+}
+function applySort(type){
+  filtered = [...allItems];
+  switch(type){
+    case 'newest': filtered.sort((a,b)=>(b.date?.getTime()||0)-(a.date?.getTime()||0)); break;
+    case 'oldest': filtered.sort((a,b)=>(a.date?.getTime()||0)-(b.date?.getTime()||0)); break;
+    case 'title':  filtered.sort((a,b)=>a.title.localeCompare(b.title,'en')); break;
+    case 'section':
+    default:       filtered.sort((a,b)=>a.section.localeCompare(b.section,'en') || a.title.localeCompare(b.title,'en'));
+  }
+}
+function initViewToggle(){
+  const t = document.getElementById('btn-table');
+  const c = document.getElementById('btn-cards');
+  t.addEventListener('click', ()=>{ t.classList.add('active'); c.classList.remove('active'); showView('table'); });
+  c.addEventListener('click', ()=>{ c.classList.add('active'); t.classList.remove('active'); showView('cards'); });
+}
+function showView(which){
+  document.getElementById('table-view').style.display = (which==='table') ? 'block' : 'none';
+  document.getElementById('card-view').style.display  = (which==='cards') ? 'block' : 'none';
+}
+
+/* renderers */
+function renderAll(){ renderTable(); renderCards(); renderPagination(); }
+function pageSlice(){ const start = currentPage * itemsPerPage; return filtered.slice(start, start + itemsPerPage); }
+
+function renderTable(){
+  const tbody = document.getElementById('tbody');
+  tbody.innerHTML = '';
+  for (const item of pageSlice()){
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><span class="badge">${esc(item.section)}</span></td>
+      <td><strong>${esc(item.title)}</strong></td>
+      <td>${esc(item.type || '-')}</td>
+      <td>${item.date ? item.date.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}) : 'No date'}</td>
+      <td>${(item.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</td>
+      <td>${item.path ? `<a class="open" href="${item.path}">Open</a>` : '<span class="small">-</span>'}</td>`;
+    tbody.appendChild(tr);
+  }
+}
+
+function renderCards(){
+  const wrap = document.getElementById('cards');
+  wrap.innerHTML = '';
+  for (const item of pageSlice()){
+    const d = document.createElement('div'); d.className='card';
+    const dateStr = item.date ? item.date.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}) : 'No date';
+    d.innerHTML = `
+      <span class="badge">${esc(item.section)}</span>
+      <h3>${esc(item.title)}</h3>
+      <div class="meta">${esc(item.type || '-')} · ${dateStr}</div>
+      <div class="foot">
+        <div>${(item.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
+        ${item.path ? `<a class="open" href="${item.path}">Open</a>` : ''}
+      </div>`;
+    wrap.appendChild(d);
+  }
+}
+
+function renderPagination(){
+  const totalPages = Math.max(1, Math.ceil(filtered.length / itemsPerPage));
+  const prev = document.getElementById('prev-btn');
+  const next = document.getElementById('next-btn');
+  const info = document.getElementById('page-info');
+
+  prev.disabled = currentPage <= 0;
+  next.disabled = currentPage >= totalPages - 1;
+  prev.onclick = ()=>{ if(currentPage>0){ currentPage--; renderAll(); } };
+  next.onclick = ()=>{ if(currentPage<totalPages-1){ currentPage++; renderAll(); } };
+
+  const startItem = filtered.length ? (currentPage*itemsPerPage + 1) : 0;
+  const endItem = Math.min((currentPage+1)*itemsPerPage, filtered.length);
+  info.textContent = `${startItem}-${endItem} / ${filtered.length}`;
+}
+
+/* utils */
+function esc(s){ return (s??'').toString().replace(/[&<>"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m])) }
+</script>
+</body>
+</html>

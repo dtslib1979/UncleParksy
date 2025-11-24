@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Device Chronicles — UncleParksy Archive</title>
+<meta name="description" content="Circuit–blueprint themed index that auto-lists HTML notes in this folder. Uses local manifest if present, otherwise falls back to the GitHub Contents API." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Philosopher:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg1:#0e1320; --bg2:#0a0f1a; --panel:#0f1728; --panel-hi:#141e33;
+  --ink:#e6f0ff; --ink-2:#bcd0ff; --ink-3:#8fa7d9;
+  --cyan:#38e8ff; --teal:#22d3ee; --violet:#7c6fd6; --lime:#a3ffb0;
+  --grid:rgba(88,127,255,.12);
+  --line:rgba(120,180,255,.25); --line-2:rgba(120,180,255,.5);
+  --shadow:0 24px 70px rgba(0,0,0,.45);
+}
+*{box-sizing:border-box} html,body{margin:0;padding:0} html{scroll-behavior:smooth}
+body{
+  font-family:'Philosopher',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(60vw 60vh at 20% 20%, #14203a 0%, transparent 60%),
+    radial-gradient(60vw 60vh at 80% 80%, #171f33 0%, transparent 60%),
+    linear-gradient(180deg,var(--bg1),var(--bg2));
+  min-height:100vh; overflow-x:hidden; position:relative;
+}
+/* blueprint grid + traces */
+body::before{
+  content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    linear-gradient(transparent 23px, var(--grid) 24px),
+    linear-gradient(90deg, transparent 23px, var(--grid) 24px);
+  background-size:24px 24px,24px 24px;
+}
+body::after{
+  content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(800px 800px at 70% 20%, rgba(56,232,255,.06), transparent 60%),
+    radial-gradient(700px 700px at 20% 80%, rgba(124,111,214,.06), transparent 60%);
+}
+
+/* Header */
+.header{position:relative;z-index:5;text-align:center;padding:clamp(1rem,4vw,2rem) 1rem .75rem}
+.title{
+  font-family:'Pirata One',serif; letter-spacing:2px;
+  font-size:clamp(2.2rem,6vw,3.8rem);
+  background:linear-gradient(90deg,var(--teal),var(--cyan),var(--violet));
+  background-size:200% 100%;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  text-shadow:0 6px 24px rgba(56,232,255,.25);
+  margin:.2rem 0 .4rem; text-transform:uppercase; animation:shine 10s linear infinite;
+}
+@keyframes shine{0%{background-position:0% 50%}100%{background-position:100% 50%}}
+.subtitle{color:var(--ink-2);opacity:.95;font-size:clamp(.95rem,2.2vw,1.15rem);margin:0 0 1.25rem}
+
+/* Counter */
+.counter{
+  position:relative; z-index:5; max-width:1100px; margin:0 auto 1rem;
+  padding:1rem 1.25rem; border-radius:16px;
+  background:linear-gradient(180deg, rgba(20,30,51,.85), rgba(14,23,40,.85));
+  border:1px solid var(--line); box-shadow:var(--shadow);
+}
+.counter::before{
+  content:""; position:absolute; inset:-1px; border-radius:16px;
+  background:conic-gradient(from 0deg, transparent 0 75%, rgba(56,232,255,.25) 75% 100%);
+  filter:blur(12px); opacity:.25; z-index:-1;
+}
+.counter b{
+  font-family:'Pirata One',serif; font-size:clamp(1.6rem,4vw,2.1rem);
+  background:linear-gradient(90deg,var(--teal),var(--cyan)); -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  margin:0 .35rem;
+}
+.counter small{opacity:.8;color:var(--ink-3)}
+
+/* Controls */
+.controls{
+  position:relative;z-index:5;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem;
+  max-width:1100px; margin:0 auto 1rem; padding:0 1rem;
+}
+.link{
+  font-weight:700;text-decoration:none;color:var(--ink);
+  padding:.6rem 1.2rem;border-radius:14px;
+  background:linear-gradient(180deg, rgba(20,30,51,.9), rgba(18,27,45,.9));
+  border:1px solid var(--line); transition:.25s;
+}
+.link:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.35)}
+.btn-row{display:flex;gap:.5rem;flex-wrap:wrap}
+.btn{
+  padding:.5rem 1rem;border:none;border-radius:12px;cursor:pointer;font-weight:800;font-size:.85rem;
+  background:linear-gradient(180deg, rgba(22,34,59,.9), rgba(19,29,48,.95));
+  color:var(--ink-2); border:1px solid var(--line); transition:.2s; letter-spacing:.4px;
+}
+.btn.active{
+  background:linear-gradient(180deg,#1c2b4b,#22335a);
+  color:#eaffff; border-color:var(--line-2); box-shadow:0 0 0 1px rgba(56,232,255,.35), 0 6px 18px rgba(0,0,0,.35);
+}
+
+/* Panel */
+.wrap{position:relative;z-index:4;max-width:1100px;margin:0 auto;padding:0 1rem 2rem}
+.panel{
+  position:relative;overflow:hidden;border-radius:18px;
+  background:linear-gradient(180deg, rgba(17,25,43,.92), rgba(16,24,41,.92));
+  border:1px solid var(--line); box-shadow:var(--shadow); padding:clamp(1rem,4vw,2rem);
+}
+
+/* Cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.1rem}
+.device-card{
+  position:relative; padding:1.1rem; color:var(--ink);
+  background:linear-gradient(180deg, rgba(25,38,66,.9), rgba(21,32,56,.9));
+  border:1px solid var(--line); border-radius:14px; box-shadow:0 10px 28px rgba(0,0,0,.25)
+}
+.device-card h3{margin:.2rem 0 .3rem; font-weight:900}
+.device-meta{font-size:.86rem;color:var(--ink-3)}
+.device-foot{display:flex;justify-content:space-between;align-items:center;gap:.5rem;margin-top:.65rem}
+.badge{
+  display:inline-flex; align-items:center; gap:.35rem; padding:.25rem .6rem; font-size:.75rem; font-weight:800;
+  border-radius:1rem; color:#021018; background:linear-gradient(90deg,var(--teal),var(--cyan)); box-shadow:inset 0 1px 0 rgba(255,255,255,.15)
+}
+.badge::before{content:"📱"}
+.tag{display:inline-block;margin:.1rem .25rem 0 0;padding:.18rem .55rem;border-radius:.7rem;font-size:.72rem;background:rgba(56,232,255,.08);border:1px solid var(--line)}
+.open{
+  display:inline-flex;align-items:center;gap:.4rem;padding:.38rem .75rem;border-radius:.6rem;
+  border:1px solid var(--line); background:rgba(255,255,255,.04); font-weight:800; text-decoration:none; color:var(--ink-2)
+}
+.open:hover{transform:translateY(-1px);border-color:var(--line-2)}
+
+/* Table */
+.table-wrap{width:100%;overflow:auto;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.02);margin-bottom:1rem}
+.table{width:100%;border-collapse:separate;border-spacing:0}
+.table thead th{
+  position:sticky;top:0;background:linear-gradient(180deg, rgba(22,34,59,.95), rgba(19,29,48,.95));
+  font-size:.9rem;text-align:left;padding:.75rem;border-bottom:1px solid var(--line);z-index:1;color:var(--ink-2)
+}
+.table tbody td{padding:.7rem;border-bottom:1px dashed var(--line);vertical-align:top;font-size:.95rem;color:var(--ink)}
+
+/* Pagination */
+.pagination{display:flex;justify-content:center;align-items:center;gap:1rem;margin-top:.6rem;flex-wrap:wrap}
+.page-btn{padding:.7rem 1.2rem;border:none;border-radius:12px;cursor:pointer;font-weight:800;background:linear-gradient(180deg, #172746, #1b2b4e);color:var(--ink-2);border:1px solid var(--line);transition:.2s;min-width:48px}
+.page-btn:hover:not(:disabled){box-shadow:0 0 0 1px rgba(56,232,255,.35)}
+.page-btn:disabled{opacity:.45;cursor:not-allowed}
+.page-info{font-size:.9rem;color:var(--ink-3);padding:.4rem 1rem}
+
+/* View toggles */
+#table-view{display:block} #card-view{display:none}
+@media (max-width: 720px){ #table-view{display:none !important} #card-view{display:block !important} }
+
+/* Utility */
+.small{opacity:.8;font-size:.88rem}
+.loading{padding:1rem 0;color:var(--ink-2)}
+.error{display:none;color:#ffd6d6;background:rgba(255,90,90,.08);padding:1rem;border-radius:12px;border:1px solid rgba(255,120,120,.25)}
+</style>
+</head>
+
+<body>
+  <header class="header">
+    <h1 class="title">Device Chronicles</h1>
+    <p class="subtitle">Tales and secrets of our mystical digital devices.</p>
+  </header>
+
+  <div class="counter">
+    <p><b id="file-count">0</b> device logs online <span class="small" id="source-note"></span></p>
+  </div>
+
+  <nav class="controls">
+    <!-- Safe root link to avoid 404s regardless of nesting -->
+    <a href="/" class="link">← Back to Grimoire</a>
+    <div class="btn-row">
+      <button class="btn active" data-sort="section">📚 Section</button>
+      <button class="btn" data-sort="newest">🗓️ Newest</button>
+      <button class="btn" data-sort="oldest">📜 Oldest</button>
+      <button class="btn" data-sort="title">🔤 Title</button>
+    </div>
+    <div class="btn-row" aria-label="view">
+      <button class="btn active" id="btn-table">📒 Ledger</button>
+      <button class="btn" id="btn-cards">📱 Cards</button>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <div class="panel">
+      <div id="loading" class="loading small">⚡ Linking traces…</div>
+      <div id="error" class="error"></div>
+
+      <section id="content" style="display:none">
+        <!-- Ledger -->
+        <div id="table-view">
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th style="width:16ch;">Section</th>
+                  <th>Title</th>
+                  <th style="width:12ch;">Type</th>
+                  <th style="width:18ch;">Date</th>
+                  <th style="width:22ch;">Tags</th>
+                  <th style="width:10ch;">Open</th>
+                </tr>
+              </thead>
+              <tbody id="tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Cards -->
+        <div id="card-view"><div class="cards" id="cards"></div></div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+          <button class="page-btn" id="prev-btn">Prev</button>
+          <div class="page-info" id="page-info"></div>
+          <button class="page-btn" id="next-btn">Next</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+<script>
+/* ================= Configuration =================
+   Fallback: GitHub Contents API when no manifest lists this folder. */
+const GH_OWNER  = 'dtslib1979';
+const GH_REPO   = 'UncleParksy';
+const GH_BRANCH = 'main';
+/* ================================================= */
+
+const MANIFEST_CANDIDATES = [
+  './device-chronicles.manifest.json',
+  './manifest-device.json',
+  './manifest.json',
+  '../assets/device-chronicles.manifest.json',
+  '../assets/manifest-device.json',
+  '../assets/manifest.json',
+  '../../assets/manifest.json',
+  '/assets/manifest.json'
+];
+
+const itemsPerPage = 15;
+let allItems = [];
+let filtered = [];
+let currentPage = 0;
+let currentSort = 'section';
+const CURRENT_DIR = location.pathname.replace(/[^\/]*$/, ''); // e.g. /category/device-chronicles/
+
+document.addEventListener('DOMContentLoaded', async () => {
+  const ok = await loadFromManifest();
+  if (!ok) await loadFromGitHub();      // fallback: list *.html in this folder
+  initSorting();
+  initViewToggle();
+  renderAll();
+});
+
+async function loadFromManifest(){
+  const loading = document.getElementById('loading');
+  const note = document.getElementById('source-note');
+  for (const path of MANIFEST_CANDIDATES){
+    try{
+      const res = await fetch(path, {cache:'no-cache'});
+      if(!res.ok) throw new Error();
+      const data  = await res.json();
+      const items = Array.isArray(data.items) ? data.items : (Array.isArray(data) ? data : []);
+      const cleaned = normalizeItems(items).filter(inThisCategory);
+      if (cleaned.length === 0) continue;
+      allItems = cleaned;
+      document.getElementById('file-count').textContent = allItems.length;
+      note.textContent = `• manifest: ${path}`;
+      loading.style.display='none'; document.getElementById('content').style.display='block';
+      applySort(currentSort);
+      return true;
+    }catch{ /* try next */ }
+  }
+  return false;
+}
+
+async function loadFromGitHub(){
+  const loading = document.getElementById('loading');
+  const note = document.getElementById('source-note');
+  const err = document.getElementById('error');
+
+  try{
+    const repoDir = CURRENT_DIR.replace(/^\/+|\/+$/g,''); // trim slashes
+    const api = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${repoDir}?ref=${encodeURIComponent(GH_BRANCH)}`;
+    const res = await fetch(api, {headers:{'Accept':'application/vnd.github+json'}});
+    if(!res.ok) throw new Error(`GitHub API ${res.status}`);
+    const list = await res.json();
+
+    const htmlFiles = list.filter(e => e.type === 'file' && /\.html?$/i.test(e.name) && e.name.toLowerCase() !== 'index.html');
+    if (htmlFiles.length === 0) throw new Error('No HTML files found in this folder.');
+
+    allItems = htmlFiles.map((f)=>({
+      title: decodeURIComponent(f.name.replace(/\.html?$/i,'')),
+      path: `./${encodeURIComponent(f.name)}`,
+      section: 'Devices',
+      type: 'HTML',
+      date: guessDateFromName(f.name),
+      tags: []
+    }));
+
+    document.getElementById('file-count').textContent = allItems.length;
+    note.textContent = '• source: GitHub Contents API';
+    loading.style.display='none'; document.getElementById('content').style.display='block';
+    applySort(currentSort);
+  }catch(e){
+    loading.style.display='none';
+    err.style.display='block';
+    err.innerHTML = `❌ Could not load list.<br><small>${e.message}</small>`;
+  }
+}
+
+function normalizeItems(items){
+  return items.map((it, i) => {
+    const x = {...it};
+    x.title   = (it.title ?? it.name ?? `Untitled #${i+1}`).toString();
+    x.path    = (it.path ?? it.url ?? '').toString().trim();
+    x.section = (it.section ?? it.category ?? 'Devices').toString();
+    x.type    = (it.type ?? it.kind ?? '').toString();
+    x.tags    = Array.isArray(it.tags) ? it.tags : (typeof it.tags === 'string' ? it.tags.split(',').map(s=>s.trim()).filter(Boolean) : []);
+    x.date    = it.date ? new Date(it.date) : null;
+    return x;
+  });
+}
+function inThisCategory(item){
+  if (!item.path) return false;
+  const abs = new URL(item.path, location.href).pathname;
+  return abs.startsWith(CURRENT_DIR);
+}
+function guessDateFromName(name){
+  const m = name.match(/(20\d{2})[-_\.](\d{2})[-_\.](\d{2})/);
+  if(!m) return null;
+  const [_,y,mo,d] = m;
+  try{ return new Date(`${y}-${mo}-${d}T00:00:00Z`); }catch{ return null; }
+}
+
+/* sorting + view */
+function initSorting(){
+  document.querySelectorAll('.btn[data-sort]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.btn[data-sort]').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      currentSort = btn.dataset.sort;
+      applySort(currentSort);
+      currentPage = 0;
+      renderAll();
+    });
+  });
+}
+function applySort(type){
+  filtered = [...allItems];
+  switch(type){
+    case 'newest': filtered.sort((a,b)=>(b.date?.getTime()||0)-(a.date?.getTime()||0)); break;
+    case 'oldest': filtered.sort((a,b)=>(a.date?.getTime()||0)-(b.date?.getTime()||0)); break;
+    case 'title':  filtered.sort((a,b)=>a.title.localeCompare(b.title,'en')); break;
+    case 'section':
+    default:       filtered.sort((a,b)=>a.section.localeCompare(b.section,'en') || a.title.localeCompare(b.title,'en'));
+  }
+}
+function initViewToggle(){
+  const t = document.getElementById('btn-table');
+  const c = document.getElementById('btn-cards');
+  t.addEventListener('click', ()=>{ t.classList.add('active'); c.classList.remove('active'); showView('table'); });
+  c.addEventListener('click', ()=>{ c.classList.add('active'); t.classList.remove('active'); showView('cards'); });
+}
+function showView(which){
+  document.getElementById('table-view').style.display = (which==='table') ? 'block' : 'none';
+  document.getElementById('card-view').style.display  = (which==='cards') ? 'block' : 'none';
+}
+
+/* renderers */
+function renderAll(){ renderTable(); renderCards(); renderPagination(); }
+function pageSlice(){ const start = currentPage * itemsPerPage; return filtered.slice(start, start + itemsPerPage); }
+
+function renderTable(){
+  const tbody = document.getElementById('tbody');
+  tbody.innerHTML = '';
+  for (const item of pageSlice()){
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><span class="badge">Device</span></td>
+      <td><strong>${esc(item.title)}</strong></td>
+      <td>${esc(item.type || '-')}</td>
+      <td>${item.date ? item.date.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}) : 'No date'}</td>
+      <td>${(item.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</td>
+      <td>${item.path ? `<a class="open" href="${item.path}">Open</a>` : '<span class="small">-</span>'}</td>`;
+    tbody.appendChild(tr);
+  }
+}
+
+function renderCards(){
+  const wrap = document.getElementById('cards');
+  wrap.innerHTML = '';
+  for (const item of pageSlice()){
+    const d = document.createElement('div'); d.className='device-card';
+    const dateStr = item.date ? item.date.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}) : 'No date';
+    d.innerHTML = `
+      <span class="badge">Device</span>
+      <h3>${esc(item.title)}</h3>
+      <div class="device-meta">${esc(item.type || '-')} · ${dateStr}</div>
+      <div class="device-foot">
+        <div>${(item.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
+        ${item.path ? `<a class="open" href="${item.path}">Open</a>` : ''}
+      </div>`;
+    wrap.appendChild(d);
+  }
+}
+
+function renderPagination(){
+  const totalPages = Math.max(1, Math.ceil(filtered.length / itemsPerPage));
+  const prev = document.getElementById('prev-btn');
+  const next = document.getElementById('next-btn');
+  const info = document.getElementById('page-info');
+
+  prev.disabled = currentPage <= 0;
+  next.disabled = currentPage >= totalPages - 1;
+  prev.onclick = ()=>{ if(currentPage>0){ currentPage--; renderAll(); } };
+  next.onclick = ()=>{ if(currentPage<totalPages-1){ currentPage++; renderAll(); } };
+
+  const startItem = filtered.length ? (currentPage*itemsPerPage + 1) : 0;
+  const endItem = Math.min((currentPage+1)*itemsPerPage, filtered.length);
+  info.textContent = `${startItem}-${endItem} / ${filtered.length}`;
+}
+
+/* utils */
+function esc(s){ return (s??'').toString().replace(/[&<>"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m])) }
+</script>
+</body>
+</html> 
