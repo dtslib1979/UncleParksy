@@ -89,4 +89,633 @@
       background:
         radial-gradient(ellipse 90% 60% at top, rgba(212,175,55,.08) 0%, transparent 70%),
         linear-gradient(135deg, rgba(247,243,232,.96) 0%, rgba(232,220,192,.93) 100%);
-      box-shadow:0 28
+      box-shadow:0 28px 80px var(--shadow-m), inset 0 2px 4px rgba(255,255,255,.4);
+      margin-bottom:clamp(1.6rem,4vw,2.4rem);
+      text-align:center;
+      overflow:hidden;
+    }
+    .hero::before{
+      /* 찢어진 파피루스 상단 가장자리 */
+      content:"";
+      position:absolute; left:-8%; right:-8%; top:-10px; height:22px;
+      background:
+        radial-gradient(circle at 10% 120%, transparent 50%, rgba(0,0,0,.16) 52%, transparent 54%),
+        radial-gradient(circle at 40% 120%, transparent 50%, rgba(0,0,0,.16) 52%, transparent 54%),
+        radial-gradient(circle at 70% 120%, transparent 50%, rgba(0,0,0,.16) 52%, transparent 54%),
+        radial-gradient(circle at 100% 120%, transparent 50%, rgba(0,0,0,.16) 52%, transparent 54%);
+      opacity:.3;
+      pointer-events:none;
+    }
+    .hero-pill{
+      position:absolute;
+      top:14px; right:18px;
+      padding:4px 10px;
+      border-radius:999px;
+      background:linear-gradient(135deg,var(--primary-gold),var(--dark-gold));
+      color:#000; font-size:.75rem; font-weight:700;
+      box-shadow:0 6px 18px rgba(212,175,55,.5);
+    }
+    .hero-title{
+      font-family:'Pirata One',cursive;
+      font-size:clamp(2.1rem,6vw,2.9rem);
+      margin:0 0 .6rem;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      background:linear-gradient(135deg,var(--primary-gold),var(--light-gold),var(--dark-gold));
+      -webkit-background-clip:text;
+      background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+    .hero-sub{
+      margin:0;
+      font-size:clamp(1rem,2.4vw,1.16rem);
+      color:var(--ink-2);
+    }
+    .hero-note{
+      margin-top:.7rem;
+      font-size:.9rem;
+      color:var(--ink-3);
+      opacity:.9;
+    }
+
+    /* line diagram wrapper */
+    .lines-wrapper{
+      margin-top:1.8rem;
+      display:flex;
+      flex-direction:column;
+      gap:1.4rem;
+    }
+
+    .line-card{
+      position:relative;
+      padding:1.1rem 1.2rem 1.3rem;
+      border-radius:18px;
+      border:2px dashed rgba(26,15,10,.32);
+      background:linear-gradient(135deg, rgba(255,255,255,.9), rgba(248,239,214,.96));
+      box-shadow:0 18px 40px var(--shadow-l);
+      transform:rotate(-.4deg);
+    }
+    .line-card:nth-child(2){transform:rotate(.3deg);}
+    .line-card:nth-child(3){transform:rotate(-.2deg);}
+
+    .line-header{
+      display:flex;
+      align-items:center;
+      gap:.6rem;
+      margin-bottom:.6rem;
+    }
+    .line-badge{
+      padding:.14rem .55rem;
+      border-radius:999px;
+      font-size:.72rem;
+      font-weight:700;
+      background:#000;
+      color:#f9f9f9;
+      text-transform:uppercase;
+      letter-spacing:.6px;
+    }
+    .line-title{
+      font-weight:700;
+      font-size:1rem;
+    }
+    .line-sub{
+      margin:.15rem 0 0;
+      font-size:.86rem;
+      color:var(--ink-2);
+    }
+
+    /* rail / stations */
+    .rail{
+      position:relative;
+      margin-top:.8rem;
+      padding-top:.4rem;
+    }
+    .rail::before{
+      content:"";
+      position:absolute;
+      left:6%; right:6%;
+      top:20px;
+      height:4px;
+      border-radius:999px;
+      background:repeating-linear-gradient(90deg,
+        rgba(0,0,0,.16) 0, rgba(0,0,0,.16) 14px,
+        rgba(0,0,0,.02) 14px, rgba(0,0,0,.02) 22px
+      );
+      opacity:.8;
+    }
+    .stations{
+      position:relative;
+      display:flex;
+      justify-content:space-between;
+      gap:.6rem;
+      padding:0 .3rem;
+      flex-wrap:wrap;
+    }
+
+    .station{
+      position:relative;
+      z-index:1;
+      flex:1 1 120px;
+      display:flex;
+      justify-content:center;
+      margin-top:.4rem;
+    }
+    .station-btn{
+      position:relative;
+      min-width:120px;
+      max-width:170px;
+      padding:.45rem .6rem .5rem;
+      border-radius:999px;
+      border:1px solid rgba(0,0,0,.35);
+      background:#fffdf7;
+      font-size:.8rem;
+      font-weight:700;
+      text-align:center;
+      cursor:pointer;
+      box-shadow:0 4px 10px rgba(0,0,0,.18);
+      transform:translateY(0);
+      transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
+    .station-btn span.small{
+      font-size:.68rem;
+      font-weight:500;
+      opacity:.8;
+    }
+    .station-btn::before{
+      /* 작은 엑스칼리 느낌 */
+      content:"";
+      position:absolute;
+      inset:2px;
+      border-radius:999px;
+      border:1px dashed rgba(0,0,0,.18);
+      pointer-events:none;
+    }
+    .station-btn[data-active="true"]{
+      background:linear-gradient(135deg,#fff7e4,#ffe9b8);
+      box-shadow:0 5px 14px rgba(212,175,55,.6);
+      transform:translateY(-3px);
+    }
+    .station-btn:hover{
+      transform:translateY(-2px);
+      box-shadow:0 5px 14px rgba(0,0,0,.25);
+    }
+
+    /* responsive rail stack */
+    @media(max-width:880px){
+      .rail::before{display:none;}
+      .stations{flex-direction:column; align-items:stretch;}
+      .station{justify-content:flex-start;}
+      .station-btn{max-width:none; width:100%; text-align:left;}
+    }
+
+    /* detail board (torn note) */
+    .detail-board{
+      margin-top:1.6rem;
+      position:relative;
+    }
+    .detail-card{
+      display:none;
+      position:relative;
+      margin:0 auto;
+      max-width:720px;
+      padding:1rem 1.2rem 1.1rem;
+      background:linear-gradient(135deg,#fffdf4,#f1e3c7);
+      border-radius:18px;
+      box-shadow:0 18px 40px var(--shadow-m);
+      color:var(--ink-2);
+      font-size:.9rem;
+      line-height:1.6;
+      transform:rotate(.5deg);
+    }
+    .detail-card::before,
+    .detail-card::after{
+      /* 양쪽 찢어진 종이 테이프 느낌 */
+      content:"";
+      position:absolute;
+      width:68px; height:20px;
+      background:rgba(250,250,250,.9);
+      box-shadow:0 4px 8px rgba(0,0,0,.18);
+      opacity:.7;
+    }
+    .detail-card::before{
+      top:-10px; left:8%;
+      transform:rotate(-6deg);
+    }
+    .detail-card::after{
+      top:-10px; right:10%;
+      transform:rotate(4deg);
+    }
+    .detail-card h3{
+      margin:.1rem 0 .3rem;
+      font-size:1rem;
+      color:var(--ink);
+    }
+    .detail-meta{
+      font-size:.78rem;
+      text-transform:uppercase;
+      letter-spacing:.5px;
+      color:var(--ink-3);
+      opacity:.85;
+      margin-bottom:.4rem;
+    }
+    .detail-body{margin:0;}
+    .detail-link{
+      display:inline-flex;
+      align-items:center;
+      gap:.3rem;
+      margin-top:.55rem;
+      font-size:.84rem;
+      font-weight:700;
+      text-decoration:none;
+      color:var(--blue);
+    }
+    .detail-link span.icon{
+      font-size:.9rem;
+    }
+    .detail-note{
+      margin-top:.4rem;
+      font-size:.78rem;
+      color:var(--ink-3);
+      opacity:.9;
+    }
+
+    .detail-card[data-active="true"]{display:block;}
+
+    .detail-placeholder{
+      margin-top:.3rem;
+      font-size:.8rem;
+      color:#777;
+    }
+
+    .foot-note{
+      margin-top:1.2rem;
+      text-align:center;
+      font-size:.82rem;
+      color:#6b6b6b;
+    }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/" aria-label="UncleParksy home">
+    <img src="/assets/img/logo.png" alt="UncleParksy logo">
+    <span class="brand-title">UncleParksy</span>
+  </a>
+  <nav class="nav" aria-label="Primary">
+    <a href="/">Home</a>
+    <a href="/archive/index.html">Archive</a>
+    <a href="/about.html" aria-current="page">About</a>
+    <a href="/contact.html">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-pill">PARKSY LINES MAP</div>
+    <h1 class="hero-title">EduArt Traffic Diagram</h1>
+    <p class="hero-sub">
+      From Tistory prompt engines → 5 Parksy personas → YouTube lanes → Naver hub → company domain.
+      One subway-style map for the whole EduArt system.
+    </p>
+    <p class="hero-note">
+      Tap or click any stop in the diagram below.  
+      Short explanation pops up on a torn-papyrus note, with a URL slot ready for your real modules.
+    </p>
+  </section>
+
+  <!-- LINES -->
+  <section class="lines-wrapper" aria-label="Parksy lane diagram">
+    <!-- LINE A: TISTORY PROMPT ENGINES -->
+    <article class="line-card">
+      <div class="line-header">
+        <span class="line-badge" style="background:linear-gradient(135deg,#4a90e2,#00bcd4);">LINE A</span>
+        <div>
+          <div class="line-title">Tistory · Prompt Engine Lane</div>
+          <p class="line-sub">Where raw talk becomes reusable prompts and HTML templates.</p>
+        </div>
+      </div>
+      <div class="rail">
+        <div class="stations">
+          <div class="station">
+            <button class="station-btn" data-detail="detail-l1">
+              L1 Prompt Engine
+              <span class="small">Single-page prompt builder</span>
+            </button>
+          </div>
+          <div class="station">
+            <button class="station-btn" data-detail="detail-l2">
+              L2 Project Instruction
+              <span class="small">Multi-LLM project spec engine</span>
+            </button>
+          </div>
+          <div class="station">
+            <button class="station-btn" data-detail="detail-meta">
+              Meta-Loop Tools
+              <span class="small">Future: review & season tools</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- LINE B: PARKSY PERSONAS -->
+    <article class="line-card">
+      <div class="line-header">
+        <span class="line-badge" style="background:linear-gradient(135deg,#d4af37,#b8860b);">LINE B</span>
+        <div>
+          <div class="line-title">Parksy Personas Lane (5 roles)</div>
+          <p class="line-sub">Five faces of one creator: tool, text, thought, diagram, and sound.</p>
+        </div>
+      </div>
+      <div class="rail">
+        <div class="stations">
+          <div class="station">
+            <button class="station-btn" data-detail="detail-tech">
+              Technician-Parksy
+              <span class="small">Devices & workflow</span>
+            </button>
+          </div>
+          <div class="station">
+            <button class="station-btn" data-detail="detail-blog">
+              Blogger-Parksy
+              <span class="small">KR text archive</span>
+            </button>
+          </div>
+          <div class="station">
+            <button class="station-btn" data-detail="detail-philo">
+              Philosopher-Parksy
+              <span class="small">Essays & concepts</span>
+            </button>
+          </div>
+          <div class="station">
+            <button class="station-btn" data-detail="detail-vis">
+              Visualizer-Parksy
+              <span class="small">Diagrams & screens</span>
+            </button>
+          </div>
+          <div class="station">
+            <button class="station-btn" data-detail="detail-music">
+              Musician-Parksy
+              <span class="small">WebAppsBook Cast</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- LINE C: MEDIA & DOMAINS -->
+    <article class="line-card">
+      <div class="line-header">
+        <span class="line-badge" style="background:linear-gradient(135deg,#c44536,#ff6b6b);">LINE C</span>
+        <div>
+          <div class="line-title">Media & Domain Lane</div>
+          <p class="line-sub">All lanes converge into Naver meta-blog and the company domain.</p>
+        </div>
+      </div>
+      <div class="rail">
+        <div class="stations">
+          <div class="station">
+            <button class="station-btn" data-detail="detail-yt-main">
+              YouTube · Parksy World
+              <span class="small">Main EduArt channel</span>
+            </button>
+          </div>
+          <div class="station">
+            <button class="station-btn" data-detail="detail-yt-cast">
+              YouTube · WebAppsBook Cast
+              <span class="small">Music & live sessions</span>
+            </button>
+          </div>
+          <div class="station">
+            <button class="station-btn" data-detail="detail-naver">
+              Naver Blog · Meta Hub
+              <span class="small">All lanes summarized</span>
+            </button>
+          </div>
+          <div class="station">
+            <button class="station-btn" data-detail="detail-dtslib">
+              dtslib.com · Company
+              <span class="small">WordPress / business base</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- DETAIL BOARD (클릭 설명 + URL 슬롯) -->
+  <section class="detail-board" aria-live="polite">
+    <!-- default -->
+    <article class="detail-card" id="detail-default" data-active="true">
+      <div class="detail-meta">HOW TO USE · TAP A STOP</div>
+      <h3>Choose any stop on the map.</h3>
+      <p class="detail-body">
+        This board shows a short English explanation for each lane stop.
+        Under <b>“URL slot”</b> you can later plug in the real address of the module:
+        Tistory page, YouTube channel, Naver blog, or WordPress route.
+      </p>
+      <p class="detail-placeholder">
+        Tip: search for <code>href="#"</code> in this file and replace it with your real URLs
+        when each module goes live.
+      </p>
+    </article>
+
+    <!-- LINE A details -->
+    <article class="detail-card" id="detail-l1">
+      <div class="detail-meta">LINE A · TISTORY PROMPT ENGINES</div>
+      <h3>L1 Prompt Engine (Tistory HTML)</h3>
+      <p class="detail-body">
+        Single-page prompt builder for one-shot tasks.  
+        You talk once, the engine generates a clean prompt template you can reuse
+        for ChatGPT / Claude / Grok. Perfect for “daily workhorse” patterns.
+      </p>
+      <a class="detail-link" href="#" target="_blank" rel="noopener">
+        <span class="icon">🔗</span>Open L1 Prompt Engine (URL slot)
+      </a>
+      <p class="detail-note">Replace <code>#</code> with the real Tistory URL when ready.</p>
+    </article>
+
+    <article class="detail-card" id="detail-l2">
+      <div class="detail-meta">LINE A · TISTORY PROMPT ENGINES</div>
+      <h3>L2 Project Instruction Engine</h3>
+      <p class="detail-body">
+        Multi-LLM project spec generator.  
+        One form → three instruction sets (GPT Brain / Claude CTO / Grok Media).  
+        Used for bigger seasons, not just small tasks.
+      </p>
+      <a class="detail-link" href="#" target="_blank" rel="noopener">
+        <span class="icon">🔗</span>Open L2 Project Engine (URL slot)
+      </a>
+      <p class="detail-note">Later: connect to the PWA version of your L2 engine.</p>
+    </article>
+
+    <article class="detail-card" id="detail-meta">
+      <div class="detail-meta">LINE A · TISTORY PROMPT ENGINES</div>
+      <h3>Meta-Loop & Season Tools (Future)</h3>
+      <p class="detail-body">
+        Planned tools for reviewing whole seasons:  
+        log digests, highlight extractors, and version timelines.
+        All of them will still live on the same Tistory / PWA base.
+      </p>
+      <a class="detail-link" href="#" target="_blank" rel="noopener">
+        <span class="icon">🔗</span>Meta-Loop tools (future URL slot)
+      </a>
+      <p class="detail-note">Keep this as a parking slot for your next generation tools.</p>
+    </article>
+
+    <!-- LINE B details -->
+    <article class="detail-card" id="detail-tech">
+      <div class="detail-meta">LINE B · PARKSY PERSONAS</div>
+      <h3>Technician-Parksy · Devices & Tool Hacks</h3>
+      <p class="detail-body">
+        Hardware & workflow lane: Galaxy S25 / Tab / Dell XPS tuning, keyboard layouts,
+        recording presets, file-sync habits.  
+        If a future student copies only this lane, they still get a serious productivity boost.
+      </p>
+      <a class="detail-link" href="#" target="_blank" rel="noopener">
+        <span class="icon">🔗</span>Technician-Parksy hub (URL slot)
+      </a>
+    </article>
+
+    <article class="detail-card" id="detail-blog">
+      <div class="detail-meta">LINE B · PARKSY PERSONAS</div>
+      <h3>Blogger-Parksy · KR TextStory</h3>
+      <p class="detail-body">
+        All Korean text stories and logs.  
+        Raw episodes, season notes, “middle-aged high-schooler” essays,
+        and long-form reflections that later feed other lanes.
+      </p>
+      <a class="detail-link" href="#" target="_blank" rel="noopener">
+        <span class="icon">🔗</span>Blogger-Parksy hub (URL slot)
+      </a>
+    </article>
+
+    <article class="detail-card" id="detail-philo">
+      <div class="detail-meta">LINE B · PARKSY PERSONAS</div>
+      <h3>Philosopher-Parksy · Essays & Theory</h3>
+      <p class="detail-body">
+        Where structures are named: KR Merit drivers, EduArt formulas,
+        motivation models, and all the “why” behind every experiment.
+      </p>
+      <a class="detail-link" href="#" target="_blank" rel="noopener">
+        <span class="icon">🔗</span>Philosopher-Parksy hub (URL slot)
+      </a>
+    </article>
+
+    <article class="detail-card" id="detail-vis">
+      <div class="detail-meta">LINE B · PARKSY PERSONAS</div>
+      <h3>Visualizer-Parksy · Diagrams & Screens</h3>
+      <p class="detail-body">
+        Excalidraw-style diagrams, SVG roadmaps, screen mockups, and webtoon layouts.  
+        This About page map conceptually belongs to this lane.
+      </p>
+      <a class="detail-link" href="#" target="_blank" rel="noopener">
+        <span class="icon">🔗</span>Visualizer-Parksy hub (URL slot)
+      </a>
+    </article>
+
+    <article class="detail-card" id="detail-music">
+      <div class="detail-meta">LINE B · PARKSY PERSONAS</div>
+      <h3>Musician-Parksy · WebAppsBook Cast</h3>
+      <p class="detail-body">
+        Voice, music, and emotional direction: AI-assisted tracks, classical
+        curation models, and WebAppsBookCast episodes.
+      </p>
+      <a class="detail-link" href="#" target="_blank" rel="noopener">
+        <span class="icon">🔗</span>Musician-Parksy hub (URL slot)
+      </a>
+    </article>
+
+    <!-- LINE C details -->
+    <article class="detail-card" id="detail-yt-main">
+      <div class="detail-meta">LINE C · MEDIA & DOMAINS</div>
+      <h3>YouTube · Parksy World</h3>
+      <p class="detail-body">
+        Main EduArt channel. Short lessons, live drawing, prompt walkthroughs,
+        and “how a middle-aged high-schooler survives with AI” episodes.
+      </p>
+      <a class="detail-link" href="#" target="_blank" rel="noopener">
+        <span class="icon">🔗</span>Parksy World channel (URL slot)
+      </a>
+    </article>
+
+    <article class="detail-card" id="detail-yt-cast">
+      <div class="detail-meta">LINE C · MEDIA & DOMAINS</div>
+      <h3>YouTube · WebAppsBook Cast</h3>
+      <p class="detail-body">
+        Audio-first lane: music-driven storytelling, radio-style sessions,
+        and soundtrack experiments for each season of the EduArt engine.
+      </p>
+      <a class="detail-link" href="#" target="_blank" rel="noopener">
+        <span class="icon">🔗</span>WebAppsBook Cast channel (URL slot)
+      </a>
+    </article>
+
+    <article class="detail-card" id="detail-naver">
+      <div class="detail-meta">LINE C · MEDIA & DOMAINS</div>
+      <h3>Naver Blog · Meta Magazine</h3>
+      <p class="detail-body">
+        Central hub that collects everything:  
+        Tistory prompts, Parksy personas, YouTube episodes, and KR Merit side stories.  
+        Think of it as the public “patch notes” and showcase for the whole system.
+      </p>
+      <a class="detail-link" href="#" target="_blank" rel="noopener">
+        <span class="icon">🔗</span>Naver meta-blog (URL slot)
+      </a>
+    </article>
+
+    <article class="detail-card" id="detail-dtslib">
+      <div class="detail-meta">LINE C · MEDIA & DOMAINS</div>
+      <h3>dtslib.com · Company / WordPress</h3>
+      <p class="detail-body">
+        Final business layer.  
+        When lanes prove stable, they become products, services, or whitepapers here:
+        WordPress pages, documentation, and client-facing offers.
+      </p>
+      <a class="detail-link" href="#" target="_blank" rel="noopener">
+        <span class="icon">🔗</span>dtslib.com main site (URL slot)
+      </a>
+    </article>
+  </section>
+
+  <p class="foot-note">
+    This About page is intentionally light on text.  
+    The real story lives in each lane — once URLs are ready, this becomes your clickable treasure map.
+  </p>
+</main>
+
+<script>
+  // station 클릭 시 detail-card 교체
+  (function(){
+    const buttons = document.querySelectorAll('.station-btn');
+    const detailCards = document.querySelectorAll('.detail-card');
+
+    function showDetail(id){
+      detailCards.forEach(card=>{
+        card.dataset.active = (card.id === id) ? "true" : "false";
+      });
+    }
+    function activateButton(btn){
+      buttons.forEach(b=>b.dataset.active = "false");
+      if(btn) btn.dataset.active = "true";
+    }
+
+    buttons.forEach(btn=>{
+      btn.dataset.active = "false";
+      btn.addEventListener('click', ()=>{
+        const id = btn.getAttribute('data-detail') || 'detail-default';
+        activateButton(btn);
+        showDetail(id);
+      });
+    });
+
+    // 초기 상태
+    showDetail('detail-default');
+  })();
+</script>
+</body>
+</html>
