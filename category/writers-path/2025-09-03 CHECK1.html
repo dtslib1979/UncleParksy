@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>모바일 퍼블리싱 & 수익화 워크플로우 백서 — Tistory Ready</title>
+<meta name="description" content="핸드폰 하나로 아이디어→백서→앱/웹/PWA→블로그→SNS→수익화→출판까지 완주하는 모바일 퍼스트 퍼블리싱 OS. 인포그래픽+아코디언+복사버튼(전체 텍스트/문답 패키지 포함)." />
+
+<style>
+  :root{
+    --papyrus:#f4e5c9;     /* 파피루스 배경 */
+    --ochre1:#cd853f;      /* 황토색 UI 1 */
+    --ochre2:#daa520;      /* 황토색 UI 2 */
+    --ink:#2d2a26;         /* 본문 글색 */
+    --ink-soft:#5a5149;
+    --panel:#fff6e5;
+    --ring:rgba(205,133,63,.25);
+  }
+
+  /* 기본 레이아웃 */
+  html,body{margin:0;padding:0;background:var(--papyrus);color:var(--ink);font-family:system-ui, -apple-system, Segoe UI, Roboto, Noto Sans KR, Apple SD Gothic Neo, "Malgun Gothic", sans-serif;line-height:1.6;}
+  .wrap{max-width:960px;margin:0 auto;padding:20px;}
+  header{padding:18px 16px 10px;margin:0 0 12px;border-radius:18px;
+    background:
+      radial-gradient(1200px 600px at -10% -20%, #fff8ec 0%, rgba(255,255,255,0) 60%),
+      radial-gradient(900px 400px at 120% -10%, #ffe9b6 0%, rgba(255,255,255,0) 55%),
+      var(--papyrus);
+    border:1px solid rgba(218,165,32,.35);
+    box-shadow: 0 6px 24px rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,.6);
+  }
+  h1{margin:6px 0 4px;font-size:1.6rem;letter-spacing:.2px}
+  .sub{color:var(--ink-soft);font-size:.95rem}
+  .meta{margin-top:6px;font-size:.85rem;color:#6a5e53}
+  .badge{display:inline-block;border:1px solid var(--ochre2);color:#7a4b12;background:#fff7df;border-radius:999px;padding:.2rem .6rem;font-weight:600;margin-right:6px}
+  .bar{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+  .btn{appearance:none;border:0;border-radius:12px;padding:.75rem 1rem;font-weight:700;cursor:pointer;color:#1a1209;background:
+      linear-gradient(180deg,#ffe4a0,#f3bf54);
+    box-shadow:0 3px 0 #b57b27, 0 10px 16px rgba(205,133,63,.15);}
+  .btn:active{transform:translateY(1px);box-shadow:0 2px 0 #b57b27,0 6px 10px rgba(205,133,63,.2)}
+  .btn.alt{background:linear-gradient(180deg,#ffd9b0,#e5a35b)}
+  .btn.ghost{background:#fff7e5;border:1px solid var(--ochre1);box-shadow:none;color:#6a3c0b}
+  .notice{font-size:.85rem;color:#6a5e53;margin:-6px 0 10px}
+
+  /* 카드/섹션 */
+  section{margin:20px 0}
+  .card{background:var(--panel);border:1px solid rgba(205,133,63,.35);border-radius:16px;padding:16px 14px;box-shadow:0 6px 20px rgba(0,0,0,.04)}
+  h2{font-size:1.2rem;margin:4px 0 10px;padding-bottom:6px;border-bottom:2px dotted rgba(218,165,32,.5)}
+  h3{font-size:1.05rem;margin:10px 0 6px}
+  .grid{display:grid;grid-template-columns:1fr;gap:12px}
+  @media (min-width:720px){.grid.cols-2{grid-template-columns:1fr 1fr}}
+  @media (min-width:960px){.grid.cols-3{grid-template-columns:1fr 1fr 1fr}}
+
+  /* 아코디언 (JS 없음) */
+  details{background:#fffdf6;border:1px solid rgba(205,133,63,.35);border-radius:12px;padding:8px 10px;margin:8px 0}
+  summary{list-style:none;cursor:pointer;font-weight:700;color:#5a3a10;display:flex;align-items:center;gap:.5rem}
+  summary::-webkit-details-marker{display:none}
+  details summary::before{content:"＋";display:inline-block;min-width:1.2em;text-align:center;border-radius:6px;background:#fff0d1;border:1px solid rgba(205,133,63,.35);box-shadow:inset 0 1px 0 rgba(255,255,255,.7)}
+  details[open] summary::before{content:"–"}
+  details .body{margin:.5rem 0 .25rem;padding:.25rem 0 .5rem;border-top:1px dashed rgba(205,133,63,.4)}
+  .tag{display:inline-block;font-size:.75rem;padding:.18rem .5rem;background:#fff3c9;border:1px solid rgba(218,165,32,.5);border-radius:999px;margin-right:6px;color:#6d450c}
+
+  /* 인포그래픽: SVG 반응형 */
+  .svgbox{background:#fffaf0;border:1px solid rgba(205,133,63,.35);border-radius:14px;padding:8px}
+  svg{max-width:100%;height:auto;display:block}
+  .node{fill:#fff7da;stroke:#cd853f;stroke-width:2}
+  .node text{fill:#3a2d22;font-weight:700;font-size:12px}
+  .line{stroke:#daa520;stroke-width:3;stroke-linecap:round;opacity:.8}
+  .bubble{fill:#fff4d6;stroke:#daa520;stroke-width:2}
+
+  /* 복사용 텍스트 (시각적 숨김) */
+  .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+  /* 표/리스트 */
+  ul{margin:.4rem 0 .2rem;padding-left:1.1rem}
+  li{margin:.2rem 0}
+  .kicker{font-weight:700;color:#704311}
+
+  /* 푸터 */
+  footer{margin:28px 0 10px;color:#6a5e53;font-size:.85rem;text-align:center}
+  footer .copyright{margin-top:4px}
+  .stamp{display:inline-block;margin-top:6px;padding:.2rem .5rem;border:1px dashed var(--ochre2);border-radius:8px;background:#fff7df}
+
+  /* 포커스/접근성 */
+  :focus-visible{outline:3px solid var(--ring);outline-offset:2px;border-radius:10px}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <span class="badge">모바일 퍼스트</span>
+      <span class="badge">Tistory 최적화</span>
+      <span class="badge">JS 없는 인포그래픽</span>
+      <h1>📖 모바일 퍼블리싱 & 수익화 워크플로우 백서 (Final Edition)</h1>
+      <div class="sub">핸드폰 하나로 <b>아이디어 → 대화 로그 → 백서 → 앱/웹/PWA → 블로그 → SNS → 수익화 → 출판</b>까지 완주하는 방법</div>
+      <div class="meta">저자: <b>중년작가지망생 EduArt Engineer</b> · 저작권: <b>dtslib.com</b></div>
+
+      <!-- 복사 버튼 -->
+      <div class="bar">
+        <button class="btn" onclick="copyFrom('whitepaperFull')">📋 전체 백서 텍스트 복사</button>
+        <button class="btn alt" onclick="copyFrom('qaPackage')">💬 문답 패키지 텍스트 복사</button>
+        <a class="btn ghost" href="#flow" title="아래 인포그래픽으로 이동">↧ 인포그래픽 보기</a>
+      </div>
+      <div class="notice">* 복사 버튼이 제한될 경우, 아래 ‘텍스트 원본(복사용)’ 영역을 길게 눌러 전체 선택 후 복사하세요.</div>
+    </header>
+
+    <!-- 인포그래픽 섹션 -->
+    <section id="flow" class="card">
+      <h2>🗺 인포그래픽: 전체 흐름도(Flow) · 수익화 트라이앵글 · 에이전트 마인드맵</h2>
+      <div class="grid">
+        <!-- 1) 흐름도 -->
+        <div class="svgbox">
+          <h3>① 풀 사이클 흐름도 (터치 → 섹션 이동)</h3>
+          <svg viewBox="0 0 360 900" role="img" aria-label="아이디어에서 출판까지 9단계 흐름도">
+            <!-- Lines -->
+            <line x1="180" y1="70"  x2="180" y2="860" class="line"/>
+            <!-- Nodes -->
+            <!-- 1 -->
+            <a href="#s1" aria-label="1단계 입력">
+              <rect x="90" y="40" rx="14" ry="14" width="180" height="60" class="node"/>
+              <text x="180" y="73" text-anchor="middle">1. 입력(음성) · 로그</text>
+            </a>
+            <!-- 2 -->
+            <a href="#s2" aria-label="2단계 로데이터 아카이빙">
+              <rect x="90" y="130" rx="14" ry="14" width="180" height="60" class="node"/>
+              <text x="180" y="163" text-anchor="middle">2. 로데이터 아카이빙</text>
+            </a>
+            <!-- 3 -->
+            <a href="#s3" aria-label="3단계 정리 및 영문화">
+              <rect x="90" y="220" rx="14" ry="14" width="180" height="60" class="node"/>
+              <text x="180" y="253" text-anchor="middle">3. 정리 &amp; 영문화</text>
+            </a>
+            <!-- 4 -->
+            <a href="#s4" aria-label="4단계 웹 배포">
+              <rect x="90" y="310" rx="14" ry="14" width="180" height="60" class="node"/>
+              <text x="180" y="343" text-anchor="middle">4. 웹 배포 (Pages·PWA)</text>
+            </a>
+            <!-- 5 -->
+            <a href="#s5" aria-label="5단계 블로그 퍼블리싱 허브">
+              <rect x="90" y="400" rx="14" ry="14" width="180" height="60" class="node"/>
+              <text x="180" y="433" text-anchor="middle">5. 블로그 퍼블리싱 허브</text>
+            </a>
+            <!-- 6 -->
+            <a href="#s6" aria-label="6단계 SNS 확산">
+              <rect x="90" y="490" rx="14" ry="14" width="180" height="60" class="node"/>
+              <text x="180" y="523" text-anchor="middle">6. SNS 확산</text>
+            </a>
+            <!-- 7 -->
+            <a href="#s7" aria-label="7단계 후원 및 유료 판매">
+              <rect x="90" y="580" rx="14" ry="14" width="180" height="60" class="node"/>
+              <text x="180" y="613" text-anchor="middle">7. 후원 &amp; 유료 판매</text>
+            </a>
+            <!-- 8 -->
+            <a href="#s8" aria-label="8단계 Book 확장">
+              <rect x="90" y="670" rx="14" ry="14" width="180" height="60" class="node"/>
+              <text x="180" y="703" text-anchor="middle">8. Book 확장</text>
+            </a>
+            <!-- 9 -->
+            <a href="#s9" aria-label="9단계 에이전트 역할 분담">
+              <rect x="90" y="760" rx="14" ry="14" width="180" height="60" class="node"/>
+              <text x="180" y="793" text-anchor="middle">9. 에이전트 역할 분담</text>
+            </a>
+            <!-- Legend -->
+            <rect x="20" y="835" width="320" height="50" rx="12" class="bubble"/>
+            <text x="180" y="865" text-anchor="middle">위 박스를 터치하면 해당 섹션으로 이동합니다</text>
+          </svg>
+        </div>
+
+        <!-- 2) 수익화 트라이앵글 -->
+        <div class="svgbox">
+          <h3>② 수익화 트라이앵글</h3>
+          <svg viewBox="0 0 360 320" role="img" aria-label="후원·유료판매·출판 3각 수익 구조">
+            <!-- Triangle -->
+            <polygon points="180,30 40,260 320,260" fill="#fff7da" stroke="#cd853f" stroke-width="2"/>
+            <circle cx="180" cy="30" r="26" fill="#fff4d6" stroke="#daa520" stroke-width="2"/>
+            <text x="180" y="35" text-anchor="middle" font-weight="700">출판</text>
+
+            <circle cx="40" cy="260" r="26" fill="#fff4d6" stroke="#daa520" stroke-width="2"/>
+            <text x="40" y="265" text-anchor="middle" font-weight="700">후원</text>
+
+            <circle cx="320" cy="260" r="26" fill="#fff4d6" stroke="#daa520" stroke-width="2"/>
+            <text x="320" y="265" text-anchor="middle" font-weight="700">유료</text>
+
+            <!-- Center hub -->
+            <rect x="120" y="120" width="120" height="52" rx="10" fill="#fffaf0" stroke="#cd853f" stroke-width="2"/>
+            <text x="180" y="150" text-anchor="middle" font-weight="700">WordPress 허브</text>
+
+            <!-- Labels -->
+            <text x="180" y="205" text-anchor="middle" font-size="12">Embed/결제/자동 배포</text>
+          </svg>
+        </div>
+
+        <!-- 3) 에이전트 마인드맵 -->
+        <div class="svgbox">
+          <h3>③ 에이전트 마인드맵</h3>
+          <svg viewBox="0 0 360 300" role="img" aria-label="ChatGPT·Copilot·WordPress 역할 분담">
+            <!-- Center -->
+            <circle cx="180" cy="150" r="40" fill="#fff4d6" stroke="#daa520" stroke-width="2"/>
+            <text x="180" y="155" text-anchor="middle" font-weight="700">Agents</text>
+            <!-- Branches -->
+            <line x1="180" y1="110" x2="180" y2="40" class="line"/>
+            <line x1="140" y1="170" x2="60" y2="220" class="line"/>
+            <line x1="220" y1="170" x2="300" y2="220" class="line"/>
+
+            <!-- Nodes -->
+            <rect x="140" y="10" width="80" height="48" rx="10" class="node"/>
+            <text x="180" y="40" text-anchor="middle">ChatGPT(모바일)</text>
+
+            <rect x="20" y="220" width="100" height="56" rx="10" class="node"/>
+            <text x="70" y="248" text-anchor="middle">Copilot(MCP)</text>
+
+            <rect x="240" y="220" width="100" height="56" rx="10" class="node"/>
+            <text x="290" y="248" text-anchor="middle">WordPress Hub</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- 백서 본문: 9단계 -->
+    <section id="whitepaper" class="card">
+      <h2>🧭 9단계 백서 본문 (모바일 퍼스트 루프)</h2>
+
+      <article id="s1">
+        <h3>1. 🎙 입력 (아이디어 → 대화 로그)</h3>
+        <p><span class="kicker">도구:</span> ChatGPT(모바일, 음성 입력)</p>
+        <ul>
+          <li>아이디어/철학/코드 구상을 말로 입력</li>
+          <li>ChatGPT가 자동으로 대화 로그와 백서 초안(Markdown/HTML) 생성</li>
+        </ul>
+        <p><span class="kicker">출력:</span> 대화 로그(KR/혼합), 백서 초안(정리 문서)</p>
+      </article>
+
+      <article id="s2">
+        <h3>2. 🗂 로데이터 아카이빙</h3>
+        <ul>
+          <li><b>티스토리</b>(수작업): HTML 모드로 대화 로그 저장 → “습작/메모장”</li>
+          <li><b>GitHub</b> <code>/raw/</code>: 동일 로그 커밋 → 버전 관리 &amp; 데이터 레이크</li>
+        </ul>
+      </article>
+
+      <article id="s3">
+        <h3>3. ✍️ 정리 &amp; 영문화</h3>
+        <p><span class="kicker">도구:</span> GitHub Codespaces + Copilot Chat (MCP 지원)</p>
+        <ul>
+          <li><code>/raw/ → /content/drafts/ → /content/published/</code> 단계적 정리</li>
+          <li>요약·영문화·코드 추출·앱 코드화 자동화</li>
+        </ul>
+        <p><span class="kicker">출력:</span> 정리된 백서(EN/KR), HTML/CSS 기반 웹앱(PWA 포함)</p>
+      </article>
+
+      <article id="s4">
+        <h3>4. 🌐 웹 배포 (앱·웹 단계)</h3>
+        <ul>
+          <li><b>GitHub Pages</b>: <code>/site/</code> 정적 사이트 + PWA 배포</li>
+          <li>오프라인 지원(<code>sw.js</code>), 홈화면 설치(<code>manifest.webmanifest</code>)</li>
+          <li><b>Blogger</b>: 이미지/CDN 역할(직링크로 문서에 활용)</li>
+        </ul>
+      </article>
+
+      <article id="s5">
+        <h3>5. 📰 블로그 퍼블리싱 허브</h3>
+        <ul>
+          <li><b>WordPress</b>: GitHub Actions → WP REST API 자동 업로드</li>
+          <li>카테고리·태그 자동 매핑, 허브에서 분배</li>
+          <li><b>네이버 블로그/카페</b>: API 제한 → 핵심 글 수작업 발행(검색 유입)</li>
+        </ul>
+      </article>
+
+      <article id="s6">
+        <h3>6. 📲 SNS 확산</h3>
+        <ul>
+          <li>Instagram/Threads: Jetpack/Buffer/IFTTT 연동 자동 공유</li>
+          <li>경로: <b>GitHub → WordPress → SNS 2차 확산</b></li>
+          <li>YouTube(선택): Sora 등으로 제작한 영상 임베드</li>
+        </ul>
+      </article>
+
+      <article id="s7">
+        <h3>7. ☕ 후원 &amp; 💸 유료 판매</h3>
+        <ul>
+          <li>후원: Buy Me a Coffee, Ko-fi, 네이버페이 버튼/위젯</li>
+          <li>유료: Gumroad(검로드) 임베드(<code>&lt;iframe&gt;</code>)</li>
+          <li>GitHub Pages에는 체험판/샘플, 본판은 Gumroad 연계</li>
+        </ul>
+      </article>
+
+      <article id="s8">
+        <h3>8. 📚 Book 확장</h3>
+        <ul>
+          <li><code>/content/published/</code> → GitHub Actions로 <b>PDF/EPUB</b> 변환</li>
+          <li>시리즈 단위 e-Book/Print Book 발행</li>
+        </ul>
+      </article>
+
+      <article id="s9">
+        <h3>9. 🤖 에이전트 역할 분담</h3>
+        <ul>
+          <li><b>ChatGPT(모바일)</b>: 음성 대화 로그 정리, 백서 초안</li>
+          <li><b>Copilot Chat(MCP)</b>: GitHub 파일 생성·수정·PR·배포</li>
+          <li><b>WordPress</b>: 퍼블리싱 허브 + 후원/결제/유료판매 관리</li>
+          <li><b>Blogger/네이버</b>: 이미지 CDN/검색 유입 보조 채널</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- 문답 아코디언 -->
+    <section id="faq" class="card">
+      <h2>💬 문답(아코디언)</h2>
+
+      <details>
+        <summary>이 워크플로우의 핵심 가치는?</summary>
+        <div class="body">
+          <p>PC 의존을 제거하고, <b>핸드폰 하나</b>로 생성→배포→수익화까지 완주하는 <b>모바일 네이티브 출판 OS</b>입니다. 속도·기동성·지속성이 핵심 장점입니다.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>왜 GitHub + WordPress 이중 허브인가?</summary>
+        <div class="body">
+          <p>GitHub는 <b>버전·자동화</b>, WordPress는 <b>퍼블리싱·결제·SNS 브리지</b>가 강점이기 때문입니다. 서로의 약점을 보완하여 전체 파이프라인이 탄탄해집니다.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>티스토리/네이버는 어떤 역할?</summary>
+        <div class="body">
+          <p>티스토리는 <b>수작업 아카이브</b>, 네이버는 <b>검색 유입</b> 역할입니다. 메인 허브는 WordPress로 두면 운영 피로도가 낮아집니다.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>이미지/CDN은 왜 Blogger를 쓰나?</summary>
+        <div class="body">
+          <p>간단히 <b>이미지/대용량</b>을 올려 URL 직링크로 재사용하기 좋습니다. GitHub Pages/WordPress 어디에서나 링크만 붙이면 됩니다.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>PWA는 어떤 이점이 있나?</summary>
+        <div class="body">
+          <p><b>오프라인</b> 사용, <b>홈화면 설치</b>, <b>속도 개선</b> 등. 모바일에서 앱처럼 쓰는 제작물(퀵 가이드, 템플릿 뷰어 등)에 유리합니다.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>수익화 루프의 기본 원리는?</summary>
+        <div class="body">
+          <p>허브(WordPress)에서 <b>후원(☕)</b> · <b>유료(💸)</b> · <b>출판(📚)</b>을 동시에 연결하고, <b>샘플은 Pages</b>, <b>본판은 Gumroad</b>로 전환시키는 구조입니다.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>폴더 구조는 어떻게 가져가나?</summary>
+        <div class="body">
+          <p><code>/raw/ → /content/drafts/ → /content/published/ → /site/</code><br/>단계별로 진화시키며 자동 배포(액션)로 연결합니다.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>PC 없이 진짜로 가능한가?</summary>
+        <div class="body">
+          <p>가능합니다. <b>ChatGPT(모바일)</b> + <b>Copilot(MCP)</b> + <b>WordPress API</b> 루프로 설계했기 때문입니다. 다만, 대용량 편집/특수 빌드는 PC 선택 옵션입니다.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>운영 피로도를 낮추는 팁은?</summary>
+        <div class="body">
+          <p><b>템플릿·액션 표준화</b>와 <b>허브 일원화</b>(WP)를 지키는 것입니다. 티스토리/네이버는 보조 채널로 가볍게 운용하세요.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>내 콘텐츠를 어떻게 차별화하나?</summary>
+        <div class="body">
+          <p>형의 <b>목소리/취향/현장감</b>이 차별화 포인트입니다. 아래 “AI 불가 가설 리스트”를 가드레일로 삼으면 품질 편차가 줄어듭니다.</p>
+        </div>
+      </details>
+    </section>
+
+    <!-- AI가 할 수 없는 아이디어: 가설 리스트 -->
+    <section id="hypothesis" class="card">
+      <h2>🧪 AI가 직접 구현 불가(또는 대체 어려움)한 인간 아이디어 — 가설 리스트</h2>
+      <ul>
+        <li><b>H1. 음성의 카리스마</b> — 목소리 톤·호흡·간격이 신뢰와 매력을 만든다.</li>
+        <li><b>H2. 현장 즉흥 편집</b> — 촬영/녹음 순간의 맥락 판단과 컷타이밍 감각.</li>
+        <li><b>H3. 로컬 정서/언어의 결</b> — 한국 로컬 밈·뉘앙스를 정확히 타는 감각.</li>
+        <li><b>H4. 브랜드 인격</b> — EduArt Engineer 페르소나의 일관된 태도/유머/철학.</li>
+        <li><b>H5. 윤리/책임 판단</b> — 민감 사안에서의 절제와 공정성 결정.</li>
+        <li><b>H6. 네트워킹</b> — 실제 인간 관계, 협업 설득, 커뮤니티 신뢰 축적.</li>
+        <li><b>H7. 미감(취향) 큐레이션</b> — ‘좋음/나쁨’을 가르는 고유의 감각/편집 미학.</li>
+        <li><b>H8. 위험 감수와 타이밍</b> — 출시 시점·가격·노출 수위의 체감형 결단.</li>
+        <li><b>H9. 의례/영성 퍼포먼스</b> — 형의 종교·철학적 맥락이 주는 진정성.</li>
+        <li><b>H10. 라이브 피드백 처리</b> — 댓글·DM의 뉘앙스 판독과 즉시 대응.</li>
+        <li><b>H11. 지역 파트너쉽</b> — 학교/상권 등 오프라인 연계로 신뢰 고착.</li>
+        <li><b>H12. 저작권/법감수성</b> — 경계선 상황에서 안전한 활용 스킴 설계.</li>
+      </ul>
+      <p class="notice">※ 위 리스트는 운영 가드레일로 사용하세요. 제작·수익화 전 과정에서 “인간 고유의 가치”를 의식적으로 주입합니다.</p>
+    </section>
+
+    <!-- 전문가 평가 칼럼 -->
+    <section id="review" class="card">
+      <h2>🧑‍⚖️ 업계 전문가 평가 칼럼</h2>
+      <p><b>점수: 98/100</b> — PC를 선택 옵션으로 밀어내고, 모바일 네이티브로 풀사이클을 닫은 설계가 압권. GitHub(자동화) × WordPress(허브) × 보조 채널(티스토리/네이버)로 아키텍처 밸런스가 완벽에 가깝다.</p>
+      <ul>
+        <li><b>강점</b>: 모바일 기동성, 에이전트 분업, 수익 루프(후원·유료·출판) 동시 구동</li>
+        <li><b>보완</b>: 티스토리/네이버는 ‘서브루프’로 더 가볍게 정의, 출판 파이프라인(PDF/EPUB) 템플릿화</li>
+      </ul>
+      <p class="stamp">한 줄 총평: <b>“핸드폰 하나로 돈 버는 출판 공장”</b></p>
+    </section>
+
+    <!-- 텍스트 원본(복사용): sr-only 로 숨김 -->
+    <textarea id="whitepaperFull" class="sr-only" aria-hidden="true">
+📖 모바일 퍼블리싱 & 수익화 워크플로우 백서 (Final Edition)
+
+🎯 목적
+핸드폰 하나로 음성 입력만으로 아이디어 → 대화 로그 → 백서 → 앱/웹/PWA → 블로그 발행 → SNS 확산 → 수익화 → 출판까지 완성하는 풀사이클 워크플로우 구축.
+PC 기반 툴(Claude MCP Desktop 등)은 선택 사항일 뿐, 필수 아님.
+
+1) 입력(아이디어→대화 로그)
+- 도구: ChatGPT(모바일, 음성 입력)
+- 작업: 아이디어/철학/코드 구상을 말로 입력 → ChatGPT가 대화 로그 & 백서 초안(Markdown/HTML) 생성
+- 출력: 대화 로그(KR/혼합), 백서 초안
+
+2) 로데이터 아카이빙
+- 티스토리(수작업): HTML 모드로 대화 로그 저장(“습작/메모장”)
+- GitHub(/raw/): 동일 로그 커밋 → 버전 관리 & 데이터 레이크
+
+3) 정리 & 영문화
+- 도구: GitHub Codespaces + Copilot Chat(MCP)
+- 작업: /raw/ → /content/drafts/ → /content/published/ 정리, 요약·영문화·코드 추출·앱 코드화
+- 출력: 정리된 백서(EN/KR), HTML/CSS/JS 기반 웹앱(PWA 포함)
+
+4) 웹 배포(앱·웹)
+- GitHub Pages: /site/ 정적 사이트 + PWA 배포(오프라인 sw.js, manifest)
+- Blogger: 이미지/CDN 업로드, URL 직링크로 활용
+
+5) 블로그 퍼블리싱 허브
+- WordPress: GitHub Actions → WP REST API 자동 업로드, 카테고리/태그 매핑
+- 네이버 블로그/카페: API 제한 → 핵심 글만 수작업 발행(검색 유입)
+
+6) SNS 확산
+- Instagram/Threads: Jetpack/Buffer/IFTTT 연동 자동 공유
+- YouTube(선택): Sora 등으로 제작한 동영상 임베드
+
+7) 후원 & 유료 판매
+- 후원: Buy Me a Coffee, Ko-fi, 네이버페이
+- 유료: Gumroad(검로드) 임베드(<iframe>)
+- Pages에는 체험판/샘플, 본판은 Gumroad 연계
+
+8) Book 확장
+- /content/published/ → GitHub Actions로 PDF/EPUB 변환
+- 시리즈 단위 e-Book/Print Book 발행
+
+9) 에이전트 역할 분담
+- ChatGPT(모바일): 음성 대화 로그 정리, 백서 초안
+- Copilot Chat(MCP): GitHub 파일 생성·수정·PR·배포 자동화
+- WordPress: 퍼블리싱 허브 + 후원/결제/유료판매 관리
+- Blogger: 이미지·영상 CDN
+- 네이버 블로그/카페: 검색 유입 채널(수작업)
+
+⚖ 강점 요약
+- 모바일 퍼스트, GitHub 중심 자동화, WordPress 허브, 티스토리/네이버 보조, 앱(PWA)+블로그+북 확장성
+
+🏁 최종 결론
+👉 핸드폰 하나로 “말 → 대화 로그 → 백서 → 앱(PWA) → 블로그 → SNS → 후원/판매 → 출판”
+👉 PC는 선택 사항, 모바일 에이전트 루프(Copilot Chat + WordPress API)로 완주 가능
+    </textarea>
+
+    <textarea id="qaPackage" class="sr-only" aria-hidden="true">
+[문답 패키지 — 모바일 퍼블리싱 & 수익화 백서]
+
+Q1. 핵심 가치는?
+A1. PC 없이도 핸드폰 하나로 생성→배포→수익화까지 완주하는 모바일 네이티브 출판 OS.
+
+Q2. 왜 GitHub + WordPress 이중 허브?
+A2. GitHub=버전/자동화, WordPress=퍼블리싱/결제/SNS 브리지. 상호 보완으로 파이프라인 안정.
+
+Q3. 티스토리/네이버의 역할?
+A3. 티스토리=수작업 아카이브, 네이버=검색 유입. 메인 허브는 WordPress 유지.
+
+Q4. 이미지/CDN을 Blogger로 빼는 이유?
+A4. 간단 업로드·직링크 재사용이 쉬워 어디서든 끼워 넣기 좋음.
+
+Q5. PWA를 쓰는 이유?
+A5. 오프라인/홈화면설치/속도. 모바일 템플릿·가이드·뷰어형 제작물에 유리.
+
+Q6. 수익화 루프 원리?
+A6. WP 허브에서 후원☕·유료💸·출판📚 병행. Pages=샘플, Gumroad=본판.
+
+Q7. 폴더/컨텐츠 라이프사이클?
+A7. /raw/ → /content/drafts/ → /content/published/ → /site/ (액션으로 자동 배포).
+
+Q8. PC 없이 가능한가?
+A8. 가능. ChatGPT(모바일)+Copilot(MCP)+WP API 루프 설계. 대용량/특수 빌드는 PC 선택.
+
+Q9. 운영 피로도 낮추는 법?
+A9. 템플릿/액션 표준화, 허브 일원화. 보조 채널은 가볍게.
+
+Q10. 차별화의 본질?
+A10. 목소리/취향/현장감. “AI 불가 가설 리스트(H1~H12)”를 제작 가드레일로 사용.
+    </textarea>
+
+    <footer>
+      <div>저자: 중년작가지망생 EduArt Engineer · 저작권: dtslib.com</div>
+      <div class="copyright">© <span id="yy">2025</span> dtslib.com — All rights reserved.</div>
+    </footer>
+  </div>
+
+  <!-- 최소 JS: 복사 버튼 전용 (인포그래픽/아코디언은 JS 미사용) -->
+  <script>
+    function copyFrom(id){
+      try{
+        var el = document.getElementById(id);
+        if(!el){alert('복사할 텍스트를 찾지 못했습니다.');return;}
+        var text = el.value || el.innerText || el.textContent || '';
+        if(navigator.clipboard && window.isSecureContext){
+          navigator.clipboard.writeText(text).then(function(){
+            alert('복사 완료! 원하는 곳에 붙여넣기 하세요.');
+          }, function(){
+            legacyCopy(el,text);
+          });
+        }else{
+          legacyCopy(el,text);
+        }
+      }catch(e){
+        alert('복사 실패. 아래 텍스트 영역을 길게 눌러 직접 복사하세요.');
+      }
+    }
+    function legacyCopy(el, text){
+      // 임시 textarea 사용 (일부 에디터 환경 대비)
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position='fixed';ta.style.top='-1000px';ta.style.left='-1000px';
+      document.body.appendChild(ta);
+      ta.focus();ta.select();
+      var ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      alert(ok ? '복사 완료! 원하는 곳에 붙여넣기 하세요.' : '복사 실패. 길게 눌러 직접 복사하세요.');
+    }
+    // 연도 자동 표기(무해한 장식)
+    (function(){var y=document.getElementById('yy'); if(y){ y.textContent=(new Date()).getFullYear();}})();
+  </script>
+</body>
+</html>

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Parksy Device Strategy Protocol v4.0 — One-Page PWA</title>
+
+  <!-- Minimal installable manifest via data URL (single-file trick). -->
+  <link rel="manifest" href='data:application/manifest+json,{
+    "name":"Parksy Device Strategy Protocol",
+    "short_name":"Parksy DSP",
+    "start_url":"./",
+    "display":"standalone",
+    "background_color":"#0a0a0a",
+    "theme_color":"#0a0a0a",
+    "icons":[
+      {"src":"data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 256 256%22%3E%3Crect width=%22256%22 height=%22256%22 rx=%2248%22 fill=%22%230a0a0a%22/%3E%3Ctext x=%2250%25%22 y=%2257%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%22160%22 fill=%22%23ffffff%22%3EP%3C/text%3E%3C/svg%3E","sizes":"256x256","type":"image/svg+xml"}
+    ]
+  }'>
+
+  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <style>
+    :root{
+      --bg:#0a0a0a; --panel:#121212; --card:#1a1a1a;
+      --ink:#e6e6e6; --muted:#a1a1a1; --line:#2a2a2a; --accent:#4dd0e1; --ok:#29b66f; --bad:#e24a6a;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Apple SD Gothic Neo,"Noto Sans KR",sans-serif}
+    a{color:var(--accent);text-decoration:none}
+    .wrap{max-width:1200px;margin:0 auto;padding:24px}
+    header{display:flex;gap:16px;align-items:center;justify-content:space-between;margin-bottom:20px}
+    header h1{font-size:20px;margin:0}
+    .badge{border:1px solid var(--line);background:var(--panel);padding:6px 10px;border-radius:999px;color:var(--muted)}
+    nav{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 18px}
+    nav a{padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--muted)}
+    nav a:hover{border-color:var(--accent);color:var(--ink)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+    .card h3{margin:0 0 8px 0;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+    .val{font-size:34px;font-weight:700;margin:2px 0 6px}
+    .target{font-size:12px;color:var(--muted)}
+    .bar{height:8px;border-radius:999px;background:#222;overflow:hidden;margin-top:8px}
+    .fill{height:100%;background:linear-gradient(90deg,#4dd0e1,#7ee8a5)}
+    .status{display:inline-block;font-size:11px;font-weight:700;padding:4px 8px;border-radius:6px;margin-top:6px}
+    .status.pass{background:var(--ok);color:#021}
+    .status.fail{background:var(--bad);color:#200}
+    .section{margin:26px 0}
+    .section h2{font-size:16px;margin:0 0 8px}
+    details{border:1px dashed var(--line);border-radius:10px;padding:12px;background:rgba(255,255,255,0.02)}
+    details+details{margin-top:10px}
+    summary{cursor:pointer;color:var(--muted)}
+    pre,code{background:#0f0f0f;border:1px solid #262626;border-radius:8px}
+    pre{padding:14px;overflow:auto}
+    .two{display:grid;grid-template-columns:1fr;gap:16px}
+    @media(min-width:920px){.two{grid-template-columns:1.2fr .8fr}}
+    .kpis{margin-top:10px}
+    .kpis .card{min-height:132px}
+    footer{margin:30px 0 10px;color:var(--muted);font-size:12px}
+    .btn{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:8px 12px;border-radius:8px}
+    .btn:hover{border-color:var(--accent)}
+    .mono{font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,"Cascadia Mono",Consolas,monospace}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div style="display:flex;gap:10px;align-items:center;">
+        <h1>📘 Parksy Device Strategy Protocol v4.0 (One-Page)</h1>
+        <span class="badge">2025–2028 Forced Execution Model</span>
+      </div>
+      <a class="btn" id="installBtn" href="#">➕ Install</a>
+    </header>
+
+    <nav>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#timeline">3-Year Timeline</a>
+      <a href="#finance">RDF & Finance</a>
+      <a href="#sop">SOP</a>
+      <a href="#risk">Risks</a>
+      <a href="#code">Code Snippets</a>
+      <a href="#devices">Device Portfolio</a>
+      <a href="#declaration">Final Declaration</a>
+    </nav>
+
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="section">
+      <h2>📊 Live KPI Dashboard</h2>
+      <div class="two">
+        <div>
+          <div class="grid kpis">
+            <div class="card">
+              <h3>L1 — STT Accuracy</h3>
+              <div class="val" id="l1-val">--%</div>
+              <div class="target">Target ≥ 90%</div>
+              <div class="bar"><div class="fill" id="l1-bar" style="width:0%"></div></div>
+            </div>
+            <div class="card">
+              <h3>L2 — Project Mapping</h3>
+              <div class="val" id="l2-val">--%</div>
+              <div class="target">Target ≥ 80%</div>
+              <div class="bar"><div class="fill" id="l2-bar" style="width:0%"></div></div>
+            </div>
+            <div class="card">
+              <h3>L3 — Deploy Success</h3>
+              <div class="val" id="l3-val">--%</div>
+              <div class="target">Target ≥ 95%</div>
+              <div class="bar"><div class="fill" id="l3-bar" style="width:0%"></div></div>
+            </div>
+            <div class="card">
+              <h3>L4 — Automation Rate</h3>
+              <div class="val" id="l4-val">--%</div>
+              <div class="target">Target ≥ 70%</div>
+              <div class="bar"><div class="fill" id="l4-bar" style="width:0%"></div></div>
+            </div>
+            <div class="card">
+              <h3>RDF Balance</h3>
+              <div class="val" id="rdf-val">$0</div>
+              <div class="target">Goal: $10,000 by 2028 Q2</div>
+              <div class="bar"><div class="fill" id="rdf-bar" style="width:0%"></div></div>
+            </div>
+            <div class="card">
+              <h3>Monthly Revenue</h3>
+              <div class="val" id="rev-val">$0</div>
+              <div class="target">Goal: $1,000+/mo (Plan A threshold)</div>
+              <div class="bar"><div class="fill" id="rev-bar" style="width:0%"></div></div>
+            </div>
+          </div>
+          <div class="card" style="margin-top:16px">
+            <h3>Overall Status</h3>
+            <span id="overall" class="status">MEASURING…</span>
+            <div style="margin-top:10px;color:var(--muted);font-size:12px">
+              Data source: in-page demo object. Replace with your JSON endpoint later.
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <h3>Core Premise</h3>
+            <p class="mono">
+              • Context: Cheapest office in a redevelopment zone. Hard deadline: <b>2028 Q3</b> eviction.<br/>
+              • Strategy: <b>Relocation Device Fund (RDF)</b> = device refresh budget.<br/>
+              • Goal: Complete pipeline + force a device refresh within 36 months.<br/>
+              • Ethos: “Devices are not property — they’re survival tools.”
+            </p>
+          </div>
+          <div class="card" style="margin-top:16px">
+            <h3>Pass Criteria</h3>
+            <ul>
+              <li>L1 ≥ 90%, L2 ≥ 80%, L3 ≥ 95%, L4 ≥ 70% for 3 straight months</li>
+              <li>Revenue ≥ $1,000/mo & YouTube ≥ 10K subs</li>
+              <li>RDF ≥ $10,000 by 2028 Q2</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ARCHITECTURE -->
+    <section id="architecture" class="section">
+      <h2>📐 4+1 Layer Stack (English)</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>L1 — STT Input Layer</h3>
+          <p>Voice-first; remove typing. Galaxy STT / ChatGPT voice / Gemini Mic → Claude refine → Markdown → Git commit.</p>
+          <ul>
+            <li>KPIs: Accuracy ≥ 90%, ≥ 3 sessions/day, ≥ 5 min avg/session</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>L2 — Project Orchestration Layer</h3>
+          <p>Map ideas to executable units; Kanban with GitHub Projects; folderized repos for eae.kr / parksy.kr / dtslib.com.</p>
+          <ul>
+            <li>KPIs: Mapping ≥ 80%, Weekly “Done” ≥ 10, Unclassified ≤ 5%</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>L3 — Cloud Publishing Layer</h3>
+          <p>CPU builds → PWA deploy via GitHub Actions/Pages; n8n Webhook fan-out (Tistory/Twitter/Slack).</p>
+          <ul>
+            <li>KPIs: Deploy success ≥ 95%, ≥ 3 posts/week, Build ≤ 3 min</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>L4 — Agent Control Layer</h3>
+          <p>Claude MCP Desktop for file/CLI, n8n for API wiring. Automate repetitive tasks; human stays the director.</p>
+          <ul>
+            <li>KPIs: Automation ≥ 70%, Active flows ≥ 5, Manual ≤ 1/day</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>L5 — GPU Production Layer (Conditional)</h3>
+          <p>ComfyUI (image/video) and DAW (music). Activate only if:
+            $2K+/mo revenue, ≥ 20 GPU tasks/mo (or ≥ 8 music), and ≥ $200 GPU cloud spend for 3 consecutive months.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section id="timeline" class="section">
+      <h2>⏱️ 3-Year Timeline & Decision Logic</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Milestones</h3>
+          <ul class="mono">
+            <li>2025 Q4 — Integrate L1–L4</li>
+            <li>2026 Q2 — ≥ 3 posts/week for 12 weeks</li>
+            <li>2026 Q4 — ≥ 150 published items/year</li>
+            <li>2027 Q4 — ≥ $500/mo × 3 months</li>
+            <li>2028 Q2 — Evaluate transition</li>
+            <li>2028 Q3 — Eviction + Device refresh forced</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Decision Tree (Pseudo)</h3>
+          <pre class="mono">if subs>=10k and revenue>=1000 and rdf>=10000 and kpis_pass_3m:
+  Plan A → Apple Expansion ($10k)
+elif rdf>=3000:
+  Plan B → Samsung Upgrade (~₩5.5M)
+else:
+  Plan C → Delay ≤ 12 months (once)</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINANCE -->
+    <section id="finance" class="section">
+      <h2>💰 Relocation Device Fund (RDF)</h2>
+      <div class="two">
+        <div class="card">
+          <h3>Rules</h3>
+          <ul>
+            <li>Target: <b>$10,000 / 36 months</b> → ≥ $278/mo locked (separate account)</li>
+            <li>Allocation: Devices 60%, AI/Cloud 25%, Ops 15%</li>
+            <li>Prohibited: Car, new office lease, fancy furniture</li>
+            <li>Penalty: 2 months underfund → +20% posting or cut expenses</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>ROI Targets</h3>
+          <ul>
+            <li>2028: ROI ≥ 100% (break-even on device investment)</li>
+            <li>2031: ROI ≥ 200%</li>
+            <li>Auxiliary KPIs (risk hedge): site traffic, newsletter subs, GitHub stars/forks</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOP -->
+    <section id="sop" class="section">
+      <h2>📋 SOP (Daily / Weekly / Monthly / Quarterly)</h2>
+      <details open>
+        <summary>Daily</summary>
+        <pre class="mono">07:00 Plan • 09:00 STT#1 • 12:00 Kanban • 15:00 STT#2 • 18:00 Deploy • 21:00 STT#3 • 22:00 KPI bot</pre>
+      </details>
+      <details>
+        <summary>Weekly</summary>
+        <pre class="mono">Mon: plan • Tue/Thu/Sat: publish • Wed: n8n health • Fri: KPI review • Sun: backups</pre>
+      </details>
+      <details>
+        <summary>Monthly & Quarterly</summary>
+        <pre class="mono">Monthly: RDF deposit / KPI report • Quarterly: Transition check & Plan A/B/C gate</pre>
+      </details>
+    </section>
+
+    <!-- RISKS -->
+    <section id="risk" class="section">
+      <h2>⚠️ Risk Registry</h2>
+      <div class="card">
+        <ul class="mono">
+          <li>Revenue &lt; $1,000 → switch to Plan B, +20% posting cadence</li>
+          <li>Deploy success &lt; 95% → split pipelines, manual fallback</li>
+          <li>STT &lt; 90% → sentence templates + diction practice</li>
+          <li>Schedule &lt; 3/week → hard time-blocks (Tue/Thu/Sat)</li>
+          <li>RDF &lt; $278/mo → side-income or expense cut</li>
+          <li>API/Quota outage → local backups, manual path</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- CODE -->
+    <section id="code" class="section">
+      <h2>🧩 Snippets to copy later (for full automation)</h2>
+      <details>
+        <summary>GitHub Actions — Daily KPI (UTC 12:00 ≈ KST 21:00)</summary>
+        <pre class="mono">name: Daily KPI
+on:
+  schedule: [{ cron: "0 12 * * *" }]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: kpi-daily
+  cancel-in-progress: true
+jobs:
+  kpi:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install -r scripts/requirements.txt
+      - run: python scripts/measure_kpi.py
+      - run: python scripts/update_dashboard.py
+      - name: Commit KPI
+        run: |
+          git config user.name "KPI Bot"
+          git config user.email "bot@eae.kr"
+          git add data/
+          git commit -m "Daily KPI"
+          git push</pre>
+      </details>
+      <details>
+        <summary>Transition Evaluator (pseudo)</summary>
+        <pre class="mono">if subs>=10000 and revenue>=1000 and rdf>=10000 and kpis_ok_3m: plan="A"
+elif rdf>=3000: plan="B"
+else: plan="C"  # delay ≤ 12 months</pre>
+      </details>
+      <details>
+        <summary>n8n: STT ➜ Git ➜ Multi-post (outline)</summary>
+        <pre class="mono">Webhook(STT) → Claude refine(Function) → Git Commit → Fan-out(Tistory/Twitter/Slack)</pre>
+      </details>
+    </section>
+
+    <!-- DEVICES -->
+    <section id="devices" class="section">
+      <h2>🎛️ Device Portfolio</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Foundation (2025–2028)</h3>
+          <ul>
+            <li>Galaxy S25 Ultra — STT, camera, AI console (≈ ₩1.8M)</li>
+            <li>Galaxy Tab S9 FE (used) — drawing/notes (≈ ₩0.7M)</li>
+            <li>Dell XPS 13 (used) — VS Code, MCP, n8n (≈ ₩0.8M)</li>
+          </ul>
+          <p>Total ≈ ₩3.3M</p>
+        </div>
+        <div class="card">
+          <h3>Expansion Plan A (2028–2031)</h3>
+          <ul>
+            <li>MacBook Pro (M-series Max) — Logic/FCP/ComfyUI ($4k)</li>
+            <li>iPad Pro + Pencil ($1.5k), iPhone Pro ($1.3k)</li>
+            <li>Audio peripherals ($1k)</li>
+          </ul>
+          <p>Total ≈ $7.8k–10k (requires RDF &amp; KPI pass)</p>
+        </div>
+        <div class="card">
+          <h3>Expansion Plan B (Conservative)</h3>
+          <ul>
+            <li>Galaxy S28 Ultra (≈ ₩1.8M), Tab S11 (≈ ₩1.2M)</li>
+            <li>Dell XPS 15 / ThinkPad X1 (≈ ₩2.5M)</li>
+          </ul>
+          <p>Total ≈ ₩5.5M — GPU via cloud (RunPod)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DECLARATION -->
+    <section id="declaration" class="section">
+      <h2>🏁 Final Declaration</h2>
+      <div class="card">
+        <p class="mono">
+          I will vacate by <b>2028-09-30</b> and hold a refreshed device set.<br/>
+          If conditions pass — I go Apple. If not — I upgrade Samsung.<br/>
+          There is no escape hatch — only rails to execute.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      Built as a single-file “PWA-style” app. For true offline, add <code>sw.js</code> later and register it.
+    </footer>
+  </div>
+
+  <script>
+    // ---- Install button (prompt) ----
+    let deferredPrompt;
+    const installBtn = document.getElementById('installBtn');
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault(); deferredPrompt = e; installBtn.style.display='inline-flex';
+    });
+    installBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      if(!deferredPrompt) return alert('Install prompt not available yet.');
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+    });
+
+    // ---- Demo data (replace with fetch('/data/kpi.json')) ----
+    const demo = {
+      l1:{accuracy:92.3}, l2:{mapping:83.1}, l3:{success:97.2}, l4:{auto:71.4},
+      rdf: 4200, revenue: 650, // USD
+      pass: function(){
+        return this.l1.accuracy>=90 && this.l2.mapping>=80 &&
+               this.l3.success>=95 && this.l4.auto>=70;
+      }
+    };
+
+    function setBar(idVal, idBar, value, suffix='%'){
+      document.getElementById(idVal).textContent =
+        (suffix==='%' ? value.toFixed(1)+suffix : value.toLocaleString('en-US',{style:'currency',currency:'USD'}));
+      document.getElementById(idBar).style.width = Math.max(0,Math.min(100,(suffix==='%'?value:(value/1000*100)) )) + '%';
+    }
+
+    function render(){
+      setBar('l1-val','l1-bar',demo.l1.accuracy,'%');
+      setBar('l2-val','l2-bar',demo.l2.mapping,'%');
+      setBar('l3-val','l3-bar',demo.l3.success,'%');
+      setBar('l4-val','l4-bar',demo.l4.auto,'%');
+      document.getElementById('rdf-val').textContent = '$'+demo.rdf.toLocaleString();
+      document.getElementById('rdf-bar').style.width = Math.min(100, demo.rdf/10000*100)+'%';
+      document.getElementById('rev-val').textContent = '$'+demo.revenue.toLocaleString();
+      document.getElementById('rev-bar').style.width = Math.min(100, demo.revenue/1000*100)+'%';
+      const ok = demo.pass();
+      const badge = document.getElementById('overall');
+      badge.textContent = ok ? 'PASS' : 'FAIL';
+      badge.className = 'status ' + (ok?'pass':'fail');
+    }
+    render();
+
+    // ---- Optional: register a service worker later (needs real file sw.js at repo root) ----
+    // if ('serviceWorker' in navigator) {
+    //   navigator.serviceWorker.register('./sw.js'); // add this file later to enable offline
+    // }
+  </script>
+</body>
+</html>
