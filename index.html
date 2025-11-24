@@ -1,717 +1,725 @@
-<!doctype html>  
-<html lang="en">  
-<head>  
-<meta charset="utf-8" />  
-<meta name="viewport" content="width=device-width,initial-scale=1" />  
-<title>UncleParksy — EduArt Engineer's Grimoire</title>  
-  
-<!-- SEO / Sharing -->  
-<meta name="description" content="EduArt Engineer's Grimoire — Ancient Digital Codex of Knowledge & Creation. Projects, archives, and modular thinking for WebAppsBook." />  
-<link rel="canonical" href="https://dtslib1979.github.io/">  
-<meta name="robots" content="index,follow">  
-  
-<!-- Open Graph -->  
-<meta property="og:type" content="website">  
-<meta property="og:title" content="UncleParksy — EduArt Engineer's Grimoire">  
-<meta property="og:description" content="Ancient Digital Codex of Knowledge & Creation">  
-<meta property="og:url" content="https://dtslib1979.github.io/">  
-<meta property="og:image" content="https://dtslib1979.github.io/assets/og/cover.png">  
-  
-<!-- Twitter -->  
-<meta name="twitter:card" content="summary_large_image">  
-<meta name="twitter:title" content="UncleParksy — EduArt Engineer's Grimoire">  
-<meta name="twitter:description" content="Ancient Digital Codex of Knowledge & Creation">  
-<meta name="twitter:image" content="https://dtslib1979.github.io/assets/og/cover.png">  
-  
-<!-- PWA / Icons -->  
-<link rel="icon" href="/assets/icons/favicon.ico">  
-<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">  
-<link rel="manifest" href="/manifest.webmanifest">  
-<meta name="theme-color" content="#f7f3e8">  
-  
-<!-- Feeds / Sitemap -->  
-<link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml">  
-<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">  
-  
-<!-- Fonts (Slim) -->  
-<link rel="preconnect" href="https://fonts.googleapis.com">  
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  
-<link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Philosopher:wght@400;700&display=swap" rel="stylesheet">  
-  
-<style>  
-:root{  
-  --primary-gold:#d4af37; --dark-gold:#b8860b; --light-gold:#f4e4aa;  
-  --parchment:#f7f3e8; --dark-parchment:#e8dcc0;  
-  --ink:#1a0f0a; --ink-2:#2d1b12; --ink-3:#4a2c1a;  
-  --purple:#6a4c93; --blue:#4a90e2; --red:#c44536;  
-  --shadow-d:rgba(26,15,10,.4); --shadow-m:rgba(26,15,10,.2); --shadow-l:rgba(26,15,10,.1);  
-  --ring:rgba(0,0,0,.08);  
-}  
-*{box-sizing:border-box}html,body{margin:0;padding:0}  
-html{scroll-behavior:smooth}  
-body{  
-  font-family: 'Philosopher', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;  
-  color:var(--ink);  
-  background:  
-    radial-gradient(circle at 15% 25%, rgba(212,175,55,.05) 0%, transparent 40%),  
-    radial-gradient(circle at 85% 75%, rgba(106,76,147,.04) 0%, transparent 40%),  
-    linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);  
-  min-height:100vh; overflow-x:hidden; position:relative;  
-}  
-/* parchment grain */  
-body::before{  
-  content:""; position:fixed; inset:0; z-index:1; pointer-events:none;  
-  background:  
-    repeating-linear-gradient(45deg, transparent,transparent 1px, rgba(212,175,55,.015) 1px, rgba(212,175,55,.015) 2px),  
-    repeating-linear-gradient(-45deg, transparent,transparent 1px, rgba(74,44,26,.015) 1px, rgba(74,44,26,.015) 2px);  
-}  
-  
-/* custom cursor (desktop only) */  
-.cursor{position:fixed; width:16px; height:16px; background:var(--primary-gold); border-radius:50%;  
-  mix-blend-mode:difference; transform:translate(-50%,-50%); pointer-events:none; z-index:9999; transition:all .15s ease}  
-.cursor.hover{width:28px;height:28px;background:var(--purple); box-shadow:0 0 18px rgba(106,76,147,.55)}  
-@media (max-width:768px){ .cursor{display:none} body{cursor:auto}}  
-  
-/* three canvas bg (desktop only) */  
-#three-container{position:fixed; inset:0; z-index:2; opacity:.6; pointer-events:none}  
-#three-canvas{width:100%; height:100%; display:block}  
-  
-/* subtle magic circle */  
-.magic-circle{  
-  position:fixed; top:50%; left:50%;  
-  width:min(80vw,600px); height:min(80vw,600px); border-radius:50%;  
-  transform:translate(-50%,-50%);  
-  background: conic-gradient(from 0deg, transparent 0deg, rgba(212,175,55,.05) 30deg, transparent 60deg, rgba(106,76,147,.05) 90deg, transparent 120deg, rgba(196,69,54,.05) 150deg, transparent 180deg, rgba(74,144,226,.05) 210deg, transparent 240deg, rgba(212,175,55,.05) 270deg, transparent 300deg, rgba(106,76,147,.05) 330deg, transparent 360deg);  
-  animation:spin 120s linear infinite; z-index:3;  
-}  
-@keyframes spin{from{transform:translate(-50%,-50%) rotate(0)} to{transform:translate(-50%,-50%) rotate(360deg)}}  
-  
-/* rising particles */  
-.particle{position:fixed; width:2px; height:2px; border-radius:50%; pointer-events:none; z-index:4; opacity:0;  
-  animation:rise 12s linear infinite}  
-@keyframes rise{  
-  0%{opacity:0; transform:translateY(calc(100vh + 20px)) scale(.5)}  
-  5%{opacity:.8} 95%{opacity:.3}  
-  100%{opacity:0; transform:translateY(-20px) scale(1.2)}  
-}  
-  
-/* layout */  
-.container{position:relative; z-index:10; max-width:1200px; margin:0 auto; padding:clamp(1rem,4vw,3rem); min-height:100vh; display:flex; flex-direction:column; justify-content:center}  
-  
-/* hero book cover */  
-.book-cover{  
-  position:relative; text-align:center; margin-bottom:clamp(2rem,8vw,5rem);  
-  padding:clamp(1.8rem,6vw,3.2rem);  
-  background:  
-    radial-gradient(ellipse 80% 60% at center, rgba(212,175,55,.08) 0%, transparent 70%),  
-    linear-gradient(135deg, rgba(247,243,232,.96) 0%, rgba(232,220,192,.92) 50%, rgba(228,216,188,.9) 100%);  
-  border-radius:22px;  
-  border:3px solid;  
-  border-image:linear-gradient(45deg, var(--primary-gold) 0%, var(--dark-gold) 25%, var(--purple) 50%, var(--dark-gold) 75%, var(--primary-gold) 100%) 1;  
-  box-shadow:0 30px 80px var(--shadow-m), inset 0 2px 4px rgba(255,255,255,.4), inset 0 -2px 4px rgba(0,0,0,.2), 0 0 40px rgba(212,175,55,.15);  
-  backdrop-filter: blur(12px); animation:breath 6s ease-in-out infinite alternate;  
-}  
-@keyframes breath{0%{box-shadow:0 30px 80px var(--shadow-m), 0 0 40px rgba(212,175,55,.15)} 100%{box-shadow:0 35px 100px var(--shadow-d), 0 0 60px rgba(212,175,55,.25)}}  
-  
-.grimoire-title{  
-  font-family:'Pirata One', cursive; font-size:clamp(2.4rem,7vw,4.2rem);  
-  background:linear-gradient(135deg, var(--primary-gold) 0%, var(--light-gold) 25%, var(--dark-gold) 50%, var(--purple) 75%, var(--primary-gold) 100%);  
-  background-size:200% 200%; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;  
-  text-shadow:2px 2px 4px var(--shadow-m), 0 0 20px rgba(212,175,55,.3);  
-  letter-spacing:clamp(2px,.5vw,4px); margin:0 0 1rem; line-height:1.1; text-transform:uppercase; animation:shine 8s ease-in-out infinite;  
-}  
-@keyframes shine{0%,100%{background-position:0% 50%} 50%{background-position:100% 50%}}  
-  
-.grimoire-subtitle{  
-  font-size:clamp(1rem,2.8vw,1.3rem); color:var(--ink-2); opacity:.9; margin:0 auto 1rem; max-width:780px  
-}  
-  
-.ancient-seal{  
-  position:absolute; top:clamp(-12px,-2vw,-20px); right:clamp(-12px,-2vw,-20px);  
-  width:clamp(44px,8vw,76px); height:clamp(44px,8vw,76px); border-radius:50%;  
-  background: radial-gradient(circle at 30% 30%, var(--light-gold) 0%, var(--primary-gold) 45%, var(--dark-gold) 100%);  
-  display:flex; align-items:center; justify-content:center; border:2px solid var(--dark-gold);  
-  box-shadow:0 0 28px rgba(212,175,55,.55), inset 0 2px 4px rgba(255,255,255,.35), inset 0 -2px 4px rgba(0,0,0,.2);  
-  color:var(--ink); font-weight:700; text-shadow:1px 1px 2px var(--shadow-m);  
-}  
-  
-/* === BGM 버튼 전용 안전 패치 === */  
-#bgm-btn{ cursor:pointer; overflow:hidden; border:none; background:transparent; }  
-#bgm-btn img{ position:absolute; inset:0; margin:auto; width:70%; height:70%; object-fit:contain; display:block; pointer-events:none; }  
-  
-/* index section */  
-.chapter-index{  
-  background:linear-gradient(135deg, rgba(247,243,232,.97) 0%, rgba(232,220,192,.94) 50%, rgba(228,216,188,.92) 100%);  
-  backdrop-filter: blur(18px); border-radius:26px; padding:clamp(1.6rem,5vw,3rem);  
-  border:3px solid rgba(212,175,55,.4); box-shadow:0 34px 110px var(--shadow-m), inset 0 2px 6px rgba(255,255,255,.5), inset 0 -2px 6px rgba(212,175,55,.15)  
-}  
-.index-header{text-align:center; margin-bottom:clamp(1.4rem,6vw,3rem)}  
-.index-title{  
-  font-family:'Pirata One',cursive; font-size:clamp(2rem,6vw,3.2rem); color:var(--ink); letter-spacing:2px; text-transform:uppercase;  
-  text-shadow:2px 2px 4px var(--shadow-m), 0 0 15px rgba(212,175,55,.2); margin:0 0 1rem; position:relative  
-}  
-.index-title::after{  
-  content:""; position:absolute; left:50%; transform:translateX(-50%); bottom:-12px;  
-  width:clamp(90px,22vw,220px); height:3px; border-radius:2px;  
-  background:linear-gradient(to right, transparent, var(--primary-gold) 20%, var(--dark-gold) 50%, var(--primary-gold) 80%, transparent);  
-  animation:underline 3s ease-in-out infinite alternate  
-}  
-@keyframes underline{0%{opacity:.6; box-shadow:0 0 5px rgba(212,175,55,.3)} 100%{opacity:1; box-shadow:0 0 15px rgba(212,175,55,.6)}}  
-  
-/* grid & cards */  
-.chapters-grid{display:grid; gap:clamp(1rem,3.5vw,2.2rem); grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr)); margin-top:1.4rem}  
-.chapter-card{  
-  position:relative; min-height:260px; display:flex; flex-direction:column; justify-content:space-between;  
-  background:linear-gradient(135deg, rgba(255,255,255,.15) 0%, rgba(247,243,232,.92) 30%, rgba(232,220,192,.88) 100%);  
-  border-radius:20px; padding:clamp(1.2rem,4vw,2rem); border:2px solid rgba(212,175,55,.3);  
-  overflow:hidden; cursor:pointer; transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease  
-}  
-.chapter-card::before{content:""; position:absolute; inset:0; left:-100%;  
-  background:linear-gradient(90deg, transparent, rgba(212,175,55,.15), transparent); transition:left .55s ease; z-index:1}  
-.chapter-card::after{  
-  content:""; position:absolute; inset:0; border-radius:20px; padding:2px;  
-  background:linear-gradient(135deg, rgba(212,175,55,.45), rgba(106,76,147,.25), rgba(212,175,55,.45));  
-  mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);  
-  -webkit-mask-composite:xor; mask-composite:exclude; opacity:0; transition:opacity .35s ease  
-}  
-.chapter-card:hover{transform:translateY(-6px); border-color:var(--primary-gold); box-shadow:0 22px 58px var(--shadow-d), 0 0 36px rgba(212,175,55,.38)}  
-.chapter-card:hover::before{left:100%} .chapter-card:hover::after{opacity:1}  
-  
-.chapter-content{position:relative; z-index:2; height:100%; display:flex; flex-direction:column; justify-content:space-between}  
-.chapter-icon{font-size:clamp(2.2rem,5.5vw,3.6rem); margin-bottom:1rem; display:block; filter:drop-shadow(0 4px 12px rgba(212,175,55,.4))}  
-.chapter-title{font-weight:700; font-size:clamp(1.2rem,3vw,1.6rem); color:var(--ink); margin:0 0 .6rem}  
-.chapter-description{font-size:clamp(.96rem,2.4vw,1.08rem); color:var(--ink-2); opacity:.92; line-height:1.6; margin:0 0 1.2rem; flex-grow:1}  
-  
-.chapter-meta{display:flex; justify-content:space-between; align-items:center; gap:.8rem; flex-wrap:wrap}  
-.chapter-count{background:linear-gradient(135deg,var(--primary-gold),var(--dark-gold)); color:#000; padding:.5rem 1rem; border-radius:20px; font-weight:700; font-size:.95rem; box-shadow:0 6px 18px rgba(212,175,55,.45)}  
-.chapter-count.loading{animation:pulse 1.5s ease-in-out infinite}  
-@keyframes pulse{0%,100%{opacity:.7} 50%{opacity:1}}  
-  
-.badge{font-size:.85rem; padding:.35rem .7rem; border-radius:14px; font-weight:700; text-transform:uppercase; letter-spacing:.5px}  
-.badge.rare{background:linear-gradient(135deg, var(--purple), #8a2be2); color:#fff}  
-.badge.epic{background:linear-gradient(135deg, var(--primary-gold), #ffd700); color:#000}  
-.badge.legendary{background:linear-gradient(135deg, var(--red), #ff6b6b); color:#fff}  
-.badge.common{background:linear-gradient(135deg, #666, #999); color:#fff}  
-.badge.prophecy{background:linear-gradient(135deg, var(--blue), #00bcd4); color:#fff}  
-  
-/* header bar */  
-.site-header{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 16px}  
-.brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:inherit}  
-.brand img{height:40px; width:auto; display:block}  
-.brand-title{font-family:'Pirata One',cursive; font-size:1.4rem; letter-spacing:1px}  
-.nav a{margin-left:12px; font-weight:700; text-decoration:none; color:inherit}  
-.nav a:hover{text-decoration:underline}  
-  
-/* footer */  
-.footer{padding:20px 16px; text-align:center; color:#6b6b6b; font-size:.92rem; line-height:1.7}  
-.footer .links{margin-bottom:10px}  
-.footer .biz{margin-top:10px; font-size:.85rem; color:#555}  
-.footer .biz b{color:#333}  
-.footer .legal{margin-top:8px; font-size:.8rem; color:#666}  
-.footer a{color:inherit}  
-  
-/* helpers & accessibility */  
-.fade-in{opacity:0; transform:translateY(36px); animation:in .7s ease forwards}  
-.fade-in:nth-child(1){animation-delay:.08s}.fade-in:nth-child(2){animation-delay:.16s}.fade-in:nth-child(3){animation-delay:.24s}.fade-in:nth-child(4){animation-delay:.32s}  
-@keyframes in{to{opacity:1; transform:none}}  
-  
-.skip-link{position:absolute;left:-9999px;top:auto}  
-.skip-link:focus{left:16px;top:16px;background:#fff;padding:8px 12px;border-radius:8px;z-index:99999}  
-.chapter-card:focus-visible{outline:3px solid var(--primary-gold); outline-offset:3px}  
-  
-/* ===== Tablet Tweaks ===== */  
-@media (pointer: coarse) and (min-width:768px) and (max-width:1200px){  
-  .container{padding:24px}  
-  .brand img{height:44px}  
-  .brand-title{font-size:1.25rem}  
-  .chapters-grid{grid-template-columns:1fr 1fr; gap:18px}  
-  .chapter-card{min-height:240px; padding:18px}  
-  .chapter-card:hover{transform:none}  
-  .chapter-icon{margin-bottom:.6rem}  
-  .chapter-title{font-size:1.25rem}  
-  .chapter-description{font-size:1.02rem}  
-  .chapter-meta{gap:.6rem}  
-  .chapter-count, .badge{padding:.5rem .9rem; font-size:.9rem}  
-  .magic-circle{opacity:.7; animation-duration:180s}  
-}  
-  
-/* touch targets */  
-@media (pointer: coarse){  
-  .nav a{padding:8px 10px; display:inline-block}  
-  .brand{padding:6px}  
-}  
-  
-/* reduced motion */  
-@media (prefers-reduced-motion:reduce){  
-  *{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important}  
-}  
-  
-/* print */  
-@media print{  
-  .magic-circle,.particle,#three-container,.cursor,.loading-overlay{display:none}  
-  body{background:#fff; color:#000}  
-}  
-  
-/* ===================== */  
-/* 📱 Mobile search/nav polish (phones only) — overrides inline styles */  
-/* ===================== */  
-@media (max-width:480px){  
-  .site-header{  
-    flex-wrap:wrap; align-items:flex-start;  
-    padding-left:max(16px, env(safe-area-inset-left));  
-    padding-right:max(16px, env(safe-area-inset-right));  
-  }  
-  .nav{display:flex; align-items:center; gap:14px; flex-wrap:wrap; width:100%;}  
-  .nav a{margin-left:0; flex:0 0 auto;}  
-  .nav form[role="search"]{  
-    order:99; width:100%;  
-    margin-left:0 !important;  
-    display:block !important;  
-  }  
-  .nav form[role="search"] input{  
-    display:block;  
-    width:calc(100% - 32px);  
-    margin:8px 16px 0;  
-    padding:12px 14px;  
-    box-sizing:border-box;  
-    border:1px solid rgba(0,0,0,.25);  
-    border-radius:999px;  
-    background:#fff;  
-    box-shadow:0 2px 10px rgba(0,0,0,.06);  
-    font-size:16px; line-height:1.2;  
-  }  
-  .nav form[role="search"] input:focus{  
-    outline:none; border-color:#caa24b;  
-    box-shadow:0 3px 14px rgba(202,162,75,.25);  
-  }  
-  .nav form[role="search"] input::placeholder{color:#666; opacity:.85;}  
-}  
-</style>  
-</head>  
-<body>  
-  
-<a class="skip-link" href="#main">Skip to content</a>  
-  
-<!-- 페이지 BGM (자동재생 안 됨, 버튼으로 재생) -->  
-<audio id="bgm" preload="auto" loop>  
-  <source src="/assets/audio/home.mp3" type="audio/mpeg">  
-</audio>  
-  
-<!-- Top bar -->  
-<header class="site-header" role="banner">  
-  <a class="brand" href="/" aria-label="UncleParksy home">  
-    <img src="/assets/img/logo.png" alt="UncleParksy logo" />  
-    <span class="brand-title">UncleParksy</span>  
-  </a>  
-  <nav class="nav" aria-label="Primary">  
-    <a href="/">Home</a>  
-    <a href="/archive/index.html">Archive</a>  
-    <a href="/about.html">About</a>  
-    <a href="/contact.html">Contact</a>  
-    <form action="/search/" role="search" aria-label="Site search" style="display:inline-block;margin-left:8px">  
-      <input name="q" placeholder="Search…" aria-label="Search this site">  
-    </form>  
-  </nav>  
-</header>  
-  
-<!-- Loading overlay -->  
-<div class="loading-overlay" id="loadingOverlay" style="position:fixed;inset:0;background:linear-gradient(135deg,#1a0f0a,#2d1b12);z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .6s ease; color:var(--primary-gold); font-family:'Pirata One',cursive;">  
-  <div style="font-size:clamp(1.6rem,5vw,3rem); margin-bottom:1.4rem; text-shadow:0 0 18px rgba(212,175,55,.5)">Summoning Ancient Knowledge…</div>  
-  <div style="width:min(90vw,420px); height:6px; background:rgba(212,175,55,.25); border-radius:3px; overflow:hidden; box-shadow:inset 0 2px 4px rgba(0,0,0,.35)">  
-    <div style="height:100%; width:100%; transform:translateX(-100%); background:linear-gradient(90deg,var(--primary-gold),var(--light-gold),var(--purple),var(--primary-gold)); background-size:200% 100%; animation:lb 2.4s ease-in-out forwards, sh 1s linear infinite; border-radius:3px"></div>  
-  </div>  
-</div>  
-<style>@keyframes lb{to{transform:translateX(0)}}@keyframes sh{0%{background-position:-200% 0}100%{background-position:200% 0}}</style>  
-  
-<!-- Cursor -->  
-<div class="cursor" id="cursor" aria-hidden="true"></div>  
-  
-<!-- Page turn effect -->  
-<div id="pageTurn" style="position:fixed;inset:0;background:linear-gradient(135deg,var(--parchment),var(--dark-parchment));z-index:9999;transform:perspective(1000px) rotateY(-90deg);transform-origin:left center;transition:transform .8s ease,opacity .8s ease;opacity:0;pointer-events:none"></div>  
-  
-<!-- Three.js BG -->  
-<div id="three-container" aria-hidden="true"><canvas id="three-canvas"></canvas></div>  
-  
-<!-- Magic circle + particles -->  
-<div class="magic-circle" aria-hidden="true"></div>  
-<div id="particles" aria-hidden="true"></div>  
-  
-<!-- Main content -->  
-<main id="main" class="container" role="main">  
-  <header class="book-cover fade-in">  
-    <!-- ⚡ 인장 → 음원 버튼으로 교체 -->  
-    <button id="bgm-btn" class="ancient-seal" aria-pressed="false" title="Play background music">  
-      <img src="/assets/icons/bgm-coin.png" alt="Play background music">  
-    </button>  
-  
-    <h1 class="grimoire-title">EduArt Engineer's Grimoire</h1>  
-    <p class="grimoire-subtitle">Ancient Digital Codex of Knowledge & Creation</p>  
-  </header>  
-  
-  <section class="chapter-index fade-in" aria-labelledby="chapters-title">  
-    <div class="index-header">  
-      <h2 class="index-title" id="chapters-title">📜 Chapters of Wisdom</h2>  
-      <p style="font-size:clamp(1rem,2.4vw,1.15rem); color:var(--ink-2); opacity:.85">Choose your path through the realms of knowledge…</p>  
-    </div>  
-  
-    <div class="chapters-grid">  
-      <!-- 1 -->  
-      <div class="chapter-card" tabindex="0" role="button" aria-label="Open Complete Archive" onclick="openChapter('all')" onkeypress="handleKeyPress(event,'all')">  
-        <div class="chapter-content">  
-          <div>  
-            <span class="chapter-icon" aria-hidden="true">📚</span>  
-            <h3 class="chapter-title">KR TextStory</h3>  
-            <p class="chapter-description">All tomes and scrolls preserved in these Korean pages.</p>  
-          </div>  
-          <div class="chapter-meta">  
-            <span class="chapter-count loading" data-path="archive" aria-live="polite">…</span>  
-            <span class="badge legendary">Legendary</span>  
-          </div>  
-        </div>  
-      </div>  
-  
-      <!-- 2 -->  
-      <div class="chapter-card" tabindex="0" role="button" aria-label="Open System Configuration" onclick="openChapter('settings')" onkeypress="handleKeyPress(event,'settings')">  
-        <div class="chapter-content">  
-          <div>  
-            <span class="chapter-icon" aria-hidden="true">⚙️</span>  
-            <h3 class="chapter-title">System Configuration</h3>  
-            <p class="chapter-description">Essential setup spells for any digital craftsman.</p>  
-          </div>  
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>UncleParksy — EduArt Engineer's Grimoire</title>
+
+<!-- SEO / Sharing -->
+<meta name="description" content="EduArt Engineer's Grimoire — Ancient Digital Codex of Knowledge & Creation. Projects, archives, and modular thinking for WebAppsBook." />
+<link rel="canonical" href="https://dtslib1979.github.io/">
+<meta name="robots" content="index,follow">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="UncleParksy — EduArt Engineer's Grimoire">
+<meta property="og:description" content="Ancient Digital Codex of Knowledge & Creation">
+<meta property="og:url" content="https://dtslib1979.github.io/">
+<meta property="og:image" content="https://dtslib1979.github.io/assets/og/cover.png">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="UncleParksy — EduArt Engineer's Grimoire">
+<meta name="twitter:description" content="Ancient Digital Codex of Knowledge & Creation">
+<meta name="twitter:image" content="https://dtslib1979.github.io/assets/og/cover.png">
+
+<!-- PWA / Icons -->
+<link rel="icon" href="/assets/icons/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#f7f3e8">
+
+<!-- Feeds / Sitemap -->
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml">
+<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+
+<!-- Fonts (Slim) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Philosopher:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --primary-gold:#d4af37; --dark-gold:#b8860b; --light-gold:#f4e4aa;
+  --parchment:#f7f3e8; --dark-parchment:#e8dcc0;
+  --ink:#1a0f0a; --ink-2:#2d1b12; --ink-3:#4a2c1a;
+  --purple:#6a4c93; --blue:#4a90e2; --red:#c44536;
+  --shadow-d:rgba(26,15,10,.4); --shadow-m:rgba(26,15,10,.2); --shadow-l:rgba(26,15,10,.1);
+  --ring:rgba(0,0,0,.08);
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family: 'Philosopher', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 15% 25%, rgba(212,175,55,.05) 0%, transparent 40%),
+    radial-gradient(circle at 85% 75%, rgba(106,76,147,.04) 0%, transparent 40%),
+    linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+  min-height:100vh; overflow-x:hidden; position:relative;
+}
+/* parchment grain */
+body::before{
+  content:""; position:fixed; inset:0; z-index:1; pointer-events:none;
+  background:
+    repeating-linear-gradient(45deg, transparent,transparent 1px, rgba(212,175,55,.015) 1px, rgba(212,175,55,.015) 2px),
+    repeating-linear-gradient(-45deg, transparent,transparent 1px, rgba(74,44,26,.015) 1px, rgba(74,44,26,.015) 2px);
+}
+
+/* custom cursor (desktop only) */
+.cursor{position:fixed; width:16px; height:16px; background:var(--primary-gold); border-radius:50%;
+  mix-blend-mode:difference; transform:translate(-50%,-50%); pointer-events:none; z-index:9999; transition:all .15s ease}
+.cursor.hover{width:28px;height:28px;background:var(--purple); box-shadow:0 0 18px rgba(106,76,147,.55)}
+@media (max-width:768px){ .cursor{display:none} body{cursor:auto}}
+
+/* three canvas bg (desktop only) */
+#three-container{position:fixed; inset:0; z-index:2; opacity:.6; pointer-events:none}
+#three-canvas{width:100%; height:100%; display:block}
+
+/* subtle magic circle */
+.magic-circle{
+  position:fixed; top:50%; left:50%;
+  width:min(80vw,600px); height:min(80vw,600px); border-radius:50%;
+  transform:translate(-50%,-50%);
+  background: conic-gradient(from 0deg, transparent 0deg, rgba(212,175,55,.05) 30deg, transparent 60deg, rgba(106,76,147,.05) 90deg, transparent 120deg, rgba(196,69,54,.05) 150deg, transparent 180deg, rgba(74,144,226,.05) 210deg, transparent 240deg, rgba(212,175,55,.05) 270deg, transparent 300deg, rgba(106,76,147,.05) 330deg, transparent 360deg);
+  animation:spin 120s linear infinite; z-index:3;
+}
+@keyframes spin{from{transform:translate(-50%,-50%) rotate(0)} to{transform:translate(-50%,-50%) rotate(360deg)}}
+
+/* rising particles */
+.particle{position:fixed; width:2px; height:2px; border-radius:50%; pointer-events:none; z-index:4; opacity:0;
+  animation:rise 12s linear infinite}
+@keyframes rise{
+  0%{opacity:0; transform:translateY(calc(100vh + 20px)) scale(.5)}
+  5%{opacity:.8} 95%{opacity:.3}
+  100%{opacity:0; transform:translateY(-20px) scale(1.2)}
+}
+
+/* layout */
+.container{position:relative; z-index:10; max-width:1200px; margin:0 auto; padding:clamp(1rem,4vw,3rem); min-height:100vh; display:flex; flex-direction:column; justify-content:center}
+
+/* hero book cover */
+.book-cover{
+  position:relative; text-align:center; margin-bottom:clamp(2rem,8vw,5rem);
+  padding:clamp(1.8rem,6vw,3.2rem);
+  background:
+    radial-gradient(ellipse 80% 60% at center, rgba(212,175,55,.08) 0%, transparent 70%),
+    linear-gradient(135deg, rgba(247,243,232,.96) 0%, rgba(232,220,192,.92) 50%, rgba(228,216,188,.9) 100%);
+  border-radius:22px;
+  border:3px solid;
+  border-image:linear-gradient(45deg, var(--primary-gold) 0%, var(--dark-gold) 25%, var(--purple) 50%, var(--dark-gold) 75%, var(--primary-gold) 100%) 1;
+  box-shadow:0 30px 80px var(--shadow-m), inset 0 2px 4px rgba(255,255,255,.4), inset 0 -2px 4px rgba(0,0,0,.2), 0 0 40px rgba(212,175,55,.15);
+  backdrop-filter: blur(12px); animation:breath 6s ease-in-out infinite alternate;
+}
+@keyframes breath{0%{box-shadow:0 30px 80px var(--shadow-m), 0 0 40px rgba(212,175,55,.15)} 100%{box-shadow:0 35px 100px var(--shadow-d), 0 0 60px rgba(212,175,55,.25)}}
+
+.grimoire-title{
+  font-family:'Pirata One', cursive; font-size:clamp(2.4rem,7vw,4.2rem);
+  background:linear-gradient(135deg, var(--primary-gold) 0%, var(--light-gold) 25%, var(--dark-gold) 50%, var(--purple) 75%, var(--primary-gold) 100%);
+  background-size:200% 200%; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+  text-shadow:2px 2px 4px var(--shadow-m), 0 0 20px rgba(212,175,55,.3);
+  letter-spacing:clamp(2px,.5vw,4px); margin:0 0 1rem; line-height:1.1; text-transform:uppercase; animation:shine 8s ease-in-out infinite;
+}
+@keyframes shine{0%,100%{background-position:0% 50%} 50%{background-position:100% 50%}}
+
+.grimoire-subtitle{
+  font-size:clamp(1rem,2.8vw,1.3rem); color:var(--ink-2); opacity:.9; margin:0 auto 1rem; max-width:780px
+}
+
+.ancient-seal{
+  position:absolute; top:clamp(-12px,-2vw,-20px); right:clamp(-12px,-2vw,-20px);
+  width:clamp(44px,8vw,76px); height:clamp(44px,8vw,76px); border-radius:50%;
+  background: radial-gradient(circle at 30% 30%, var(--light-gold) 0%, var(--primary-gold) 45%, var(--dark-gold) 100%);
+  display:flex; align-items:center; justify-content:center; border:2px solid var(--dark-gold);
+  box-shadow:0 0 28px rgba(212,175,55,.55), inset 0 2px 4px rgba(255,255,255,.35), inset 0 -2px 4px rgba(0,0,0,.2);
+  color:var(--ink); font-weight:700; text-shadow:1px 1px 2px var(--shadow-m);
+}
+
+/* === BGM 버튼 전용 안전 패치 === */
+#bgm-btn{ cursor:pointer; overflow:hidden; border:none; background:transparent; }
+#bgm-btn img{ position:absolute; inset:0; margin:auto; width:70%; height:70%; object-fit:contain; display:block; pointer-events:none; }
+
+/* index section */
+.chapter-index{
+  background:linear-gradient(135deg, rgba(247,243,232,.97) 0%, rgba(232,220,192,.94) 50%, rgba(228,216,188,.92) 100%);
+  backdrop-filter: blur(18px); border-radius:26px; padding:clamp(1.6rem,5vw,3rem);
+  border:3px solid rgba(212,175,55,.4); box-shadow:0 34px 110px var(--shadow-m), inset 0 2px 6px rgba(255,255,255,.5), inset 0 -2px 6px rgba(212,175,55,.15)
+}
+.index-header{text-align:center; margin-bottom:clamp(1.4rem,6vw,3rem)}
+.index-title{
+  font-family:'Pirata One',cursive; font-size:clamp(2rem,6vw,3.2rem); color:var(--ink); letter-spacing:2px; text-transform:uppercase;
+  text-shadow:2px 2px 4px var(--shadow-m), 0 0 15px rgba(212,175,55,.2); margin:0 0 1rem; position:relative
+}
+.index-title::after{
+  content:""; position:absolute; left:50%; transform:translateX(-50%); bottom:-12px;
+  width:clamp(90px,22vw,220px); height:3px; border-radius:2px;
+  background:linear-gradient(to right, transparent, var(--primary-gold) 20%, var(--dark-gold) 50%, var(--primary-gold) 80%, transparent);
+  animation:underline 3s ease-in-out infinite alternate
+}
+@keyframes underline{0%{opacity:.6; box-shadow:0 0 5px rgba(212,175,55,.3)} 100%{opacity:1; box-shadow:0 0 15px rgba(212,175,55,.6)}}
+
+/* grid & cards */
+.chapters-grid{display:grid; gap:clamp(1rem,3.5vw,2.2rem); grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr)); margin-top:1.4rem}
+.chapter-card{
+  position:relative; min-height:260px; display:flex; flex-direction:column; justify-content:space-between;
+  background:linear-gradient(135deg, rgba(255,255,255,.15) 0%, rgba(247,243,232,.92) 30%, rgba(232,220,192,.88) 100%);
+  border-radius:20px; padding:clamp(1.2rem,4vw,2rem); border:2px solid rgba(212,175,55,.3);
+  overflow:hidden; cursor:pointer; transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease
+}
+.chapter-card::before{content:""; position:absolute; inset:0; left:-100%;
+  background:linear-gradient(90deg, transparent, rgba(212,175,55,.15), transparent); transition:left .55s ease; z-index:1}
+.chapter-card::after{
+  content:""; position:absolute; inset:0; border-radius:20px; padding:2px;
+  background:linear-gradient(135deg, rgba(212,175,55,.45), rgba(106,76,147,.25), rgba(212,175,55,.45));
+  mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude; opacity:0; transition:opacity .35s ease
+}
+.chapter-card:hover{transform:translateY(-6px); border-color:var(--primary-gold); box-shadow:0 22px 58px var(--shadow-d), 0 0 36px rgba(212,175,55,.38)}
+.chapter-card:hover::before{left:100%} .chapter-card:hover::after{opacity:1}
+
+.chapter-content{position:relative; z-index:2; height:100%; display:flex; flex-direction:column; justify-content:space-between}
+.chapter-icon{font-size:clamp(2.2rem,5.5vw,3.6rem); margin-bottom:1rem; display:block; filter:drop-shadow(0 4px 12px rgba(212,175,55,.4))}
+.chapter-title{font-weight:700; font-size:clamp(1.2rem,3vw,1.6rem); color:var(--ink); margin:0 0 .6rem}
+.chapter-description{font-size:clamp(.96rem,2.4vw,1.08rem); color:var(--ink-2); opacity:.92; line-height:1.6; margin:0 0 1.2rem; flex-grow:1}
+
+.chapter-meta{display:flex; justify-content:space-between; align-items:center; gap:.8rem; flex-wrap:wrap}
+.chapter-count{background:linear-gradient(135deg,var(--primary-gold),var(--dark-gold)); color:#000; padding:.5rem 1rem; border-radius:20px; font-weight:700; font-size:.95rem; box-shadow:0 6px 18px rgba(212,175,55,.45)}
+.chapter-count.loading{animation:pulse 1.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.7} 50%{opacity:1}}
+
+.badge{font-size:.85rem; padding:.35rem .7rem; border-radius:14px; font-weight:700; text-transform:uppercase; letter-spacing:.5px}
+.badge.rare{background:linear-gradient(135deg, var(--purple), #8a2be2); color:#fff}
+.badge.epic{background:linear-gradient(135deg, var(--primary-gold), #ffd700); color:#000}
+.badge.legendary{background:linear-gradient(135deg, var(--red), #ff6b6b); color:#fff}
+.badge.common{background:linear-gradient(135deg, #666, #999); color:#fff}
+.badge.prophecy{background:linear-gradient(135deg, var(--blue), #00bcd4); color:#fff}
+
+/* header bar */
+.site-header{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 16px}
+.brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:inherit}
+.brand img{height:40px; width:auto; display:block}
+.brand-title{font-family:'Pirata One',cursive; font-size:1.4rem; letter-spacing:1px}
+.nav a{margin-left:12px; font-weight:700; text-decoration:none; color:inherit}
+.nav a:hover{text-decoration:underline}
+
+/* footer */
+.footer{padding:20px 16px; text-align:center; color:#6b6b6b; font-size:.92rem; line-height:1.7}
+.footer .links{margin-bottom:10px}
+.footer .biz{margin-top:10px; font-size:.85rem; color:#555}
+.footer .biz b{color:#333}
+.footer .legal{margin-top:8px; font-size:.8rem; color:#666}
+.footer a{color:inherit}
+
+/* helpers & accessibility */
+.fade-in{opacity:0; transform:translateY(36px); animation:in .7s ease forwards}
+.fade-in:nth-child(1){animation-delay:.08s}.fade-in:nth-child(2){animation-delay:.16s}.fade-in:nth-child(3){animation-delay:.24s}.fade-in:nth-child(4){animation-delay:.32s}
+@keyframes in{to{opacity:1; transform:none}}
+
+.skip-link{position:absolute;left:-9999px;top:auto}
+.skip-link:focus{left:16px;top:16px;background:#fff;padding:8px 12px;border-radius:8px;z-index:99999}
+.chapter-card:focus-visible{outline:3px solid var(--primary-gold); outline-offset:3px}
+
+/* ===== Tablet Tweaks ===== */
+@media (pointer: coarse) and (min-width:768px) and (max-width:1200px){
+  .container{padding:24px}
+  .brand img{height:44px}
+  .brand-title{font-size:1.25rem}
+  .chapters-grid{grid-template-columns:1fr 1fr; gap:18px}
+  .chapter-card{min-height:240px; padding:18px}
+  .chapter-card:hover{transform:none}
+  .chapter-icon{margin-bottom:.6rem}
+  .chapter-title{font-size:1.25rem}
+  .chapter-description{font-size:1.02rem}
+  .chapter-meta{gap:.6rem}
+  .chapter-count, .badge{padding:.5rem .9rem; font-size:.9rem}
+  .magic-circle{opacity:.7; animation-duration:180s}
+}
+
+/* touch targets */
+@media (pointer: coarse){
+  .nav a{padding:8px 10px; display:inline-block}
+  .brand{padding:6px}
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important}
+}
+
+/* print */
+@media print{
+  .magic-circle,.particle,#three-container,.cursor,.loading-overlay{display:none}
+  body{background:#fff; color:#000}
+}
+
+/* ===================== */
+/* 📱 Mobile search/nav polish (phones only) — overrides inline styles */
+/* ===================== */
+@media (max-width:480px){
+  .site-header{
+    flex-wrap:wrap; align-items:flex-start;
+    padding-left:max(16px, env(safe-area-inset-left));
+    padding-right:max(16px, env(safe-area-inset-right));
+  }
+  .nav{display:flex; align-items:center; gap:14px; flex-wrap:wrap; width:100%;}
+  .nav a{margin-left:0; flex:0 0 auto;}
+  .nav form[role="search"]{
+    order:99; width:100%;
+    margin-left:0 !important;
+    display:block !important;
+  }
+  .nav form[role="search"] input{
+    display:block;
+    width:calc(100% - 32px);
+    margin:8px 16px 0;
+    padding:12px 14px;
+    box-sizing:border-box;
+    border:1px solid rgba(0,0,0,.25);
+    border-radius:999px;
+    background:#fff;
+    box-shadow:0 2px 10px rgba(0,0,0,.06);
+    font-size:16px; line-height:1.2;
+  }
+  .nav form[role="search"] input:focus{
+    outline:none; border-color:#caa24b;
+    box-shadow:0 3px 14px rgba(202,162,75,.25);
+  }
+  .nav form[role="search"] input::placeholder{color:#666; opacity:.85;}
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- 페이지 BGM (자동재생 안 됨, 버튼으로 재생) -->
+<audio id="bgm" preload="auto" loop>
+  <source src="/assets/audio/home.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Top bar -->
+<header class="site-header" role="banner">
+  <a class="brand" href="/" aria-label="UncleParksy home">
+    <img src="/assets/img/logo.png" alt="UncleParksy logo" />
+    <span class="brand-title">UncleParksy</span>
+  </a>
+  <nav class="nav" aria-label="Primary">
+    <a href="/">Home</a>
+    <a href="/archive/index.html">Archive</a>
+    <a href="/about.html">About</a>
+    <a href="/contact.html">Contact</a>
+    <form action="/search/" role="search" aria-label="Site search" style="display:inline-block;margin-left:8px">
+      <input name="q" placeholder="Search…" aria-label="Search this site">
+    </form>
+  </nav>
+</header>
+
+<!-- Loading overlay -->
+<div class="loading-overlay" id="loadingOverlay" style="position:fixed;inset:0;background:linear-gradient(135deg,#1a0f0a,#2d1b12);z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .6s ease; color:var(--primary-gold); font-family:'Pirata One',cursive;">
+  <div style="font-size:clamp(1.6rem,5vw,3rem); margin-bottom:1.4rem; text-shadow:0 0 18px rgba(212,175,55,.5)">Summoning Ancient Knowledge…</div>
+  <div style="width:min(90vw,420px); height:6px; background:rgba(212,175,55,.25); border-radius:3px; overflow:hidden; box-shadow:inset 0 2px 4px rgba(0,0,0,.35)">
+    <div style="height:100%; width:100%; transform:translateX(-100%); background:linear-gradient(90deg,var(--primary-gold),var(--light-gold),var(--purple),var(--primary-gold)); background-size:200% 100%; animation:lb 2.4s ease-in-out forwards, sh 1s linear infinite; border-radius:3px"></div>
+  </div>
+</div>
+<style>@keyframes lb{to{transform:translateX(0)}}@keyframes sh{0%{background-position:-200% 0}100%{background-position:200% 0}}</style>
+
+<!-- Cursor -->
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+
+<!-- Page turn effect -->
+<div id="pageTurn" style="position:fixed;inset:0;background:linear-gradient(135deg,var(--parchment),var(--dark-parchment));z-index:9999;transform:perspective(1000px) rotateY(-90deg);transform-origin:left center;transition:transform .8s ease,opacity .8s ease;opacity:0;pointer-events:none"></div>
+
+<!-- Three.js BG -->
+<div id="three-container" aria-hidden="true"><canvas id="three-canvas"></canvas></div>
+
+<!-- Magic circle + particles -->
+<div class="magic-circle" aria-hidden="true"></div>
+<div id="particles" aria-hidden="true"></div>
+
+<!-- Main content -->
+<main id="main" class="container" role="main">
+  <header class="book-cover fade-in">
+    <!-- ⚡ 인장 → 음원 버튼으로 교체 -->
+    <button id="bgm-btn" class="ancient-seal" aria-pressed="false" title="Play background music">
+      <img src="/assets/icons/bgm-coin.png" alt="Play background music">
+    </button>
+    <h1 class="grimoire-title">EduArt Engineer's Grimoire</h1>
+    <p class="grimoire-subtitle">Ancient Digital Codex of Knowledge & Creation</p>
+  </header>
+
+  <section class="chapter-index fade-in" aria-labelledby="chapters-title">
+    <div class="index-header">
+      <h2 class="index-title" id="chapters-title">📜 Chapters of Wisdom</h2>
+      <p style="font-size:clamp(1rem,2.4vw,1.15rem); color:var(--ink-2); opacity:.85">Choose your path through the realms of knowledge…</p>
+    </div>
+
+    <!-- 2025-11-24: Updated landing chapter titles/descriptions to Parksy category taxonomy -->
+    <div class="chapters-grid">
+
+      <!-- 1: All Archives -->
+      <div class="chapter-card" tabindex="0" role="button" aria-label="Open All Archives" onclick="openChapter('all')" onkeypress="handleKeyPress(event,'all')">
+        <div class="chapter-content">
+          <div>
+            <span class="chapter-icon" aria-hidden="true">📚</span>
+            <h3 class="chapter-title">All Archives · KR TextStory</h3>
+            <p class="chapter-description">Browse every Parksy category in one place — full log of stories, notes, and experiments.</p>
+          </div>
+          <div class="chapter-meta">
+            <span class="chapter-count loading" data-path="archive" aria-live="polite">…</span>
+            <span class="badge legendary">Legendary</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2: Orbit-Log -->
+      <div class="chapter-card" tabindex="0" role="button" aria-label="Open Orbit-Log" onclick="openChapter('settings')" onkeypress="handleKeyPress(event,'settings')">
+        <div class="chapter-content">
+          <div>
+            <span class="chapter-icon" aria-hidden="true">⚙️</span>
+            <h3 class="chapter-title">Orbit-Log · Life &amp; Season Logs</h3>
+            <p class="chapter-description">Daily and seasonal orbit logs — raw life notes, meta reflections, and production timelines.</p>
+          </div>
           <div class="chapter-meta">
             <span class="chapter-count loading" data-path="category/Orbit-Log" data-cat="Orbit-Log" aria-live="polite">…</span>
             <span class="badge common">Common</span>
           </div>
-        </div>  
-      </div>  
-  
-      <!-- 3 -->  
-      <div class="chapter-card" tabindex="0" role="button" aria-label="Open Writer's Path" onclick="openChapter('roadmap')" onkeypress="handleKeyPress(event,'roadmap')">  
-        <div class="chapter-content">  
-          <div>  
-            <span class="chapter-icon" aria-hidden="true">🗺️</span>  
-            <h3 class="chapter-title">Writer's Path</h3>  
-            <p class="chapter-description">A sacred roadmap from novice to master storyteller.</p>  
-          </div>  
+        </div>
+      </div>
+
+      <!-- 3: Protocol-Parksy -->
+      <div class="chapter-card" tabindex="0" role="button" aria-label="Open Protocol-Parksy" onclick="openChapter('roadmap')" onkeypress="handleKeyPress(event,'roadmap')">
+        <div class="chapter-content">
+          <div>
+            <span class="chapter-icon" aria-hidden="true">🗺️</span>
+            <h3 class="chapter-title">Protocol-Parksy · System &amp; Writing Protocols</h3>
+            <p class="chapter-description">Operating manuals for EduArt Engine — writing flows, LLM instructions, and production protocols.</p>
+          </div>
           <div class="chapter-meta">
             <span class="chapter-count loading" data-path="category/Protocol-Parksy" data-cat="Protocol-Parksy" aria-live="polite">…</span>
             <span class="badge rare">Rare</span>
           </div>
-        </div>  
-      </div>  
-  
-      <!-- 4 -->  
-      <div class="chapter-card" tabindex="0" role="button" aria-label="Open Blog Transformation" onclick="openChapter('tistory')" onkeypress="handleKeyPress(event,'tistory')">  
-        <div class="chapter-content">  
-          <div>  
-            <span class="chapter-icon" aria-hidden="true">🎨</span>  
-            <h3 class="chapter-title">Blog Transformation</h3>  
-            <p class="chapter-description">Metamorphosis arts for captivating digital experiences.</p>  
-          </div>  
+        </div>
+      </div>
+
+      <!-- 4: Philosopher-Parksy -->
+      <div class="chapter-card" tabindex="0" role="button" aria-label="Open Philosopher-Parksy" onclick="openChapter('tistory')" onkeypress="handleKeyPress(event,'tistory')">
+        <div class="chapter-content">
+          <div>
+            <span class="chapter-icon" aria-hidden="true">🎨</span>
+            <h3 class="chapter-title">Philosopher-Parksy · Essays &amp; Thought Experiments</h3>
+            <p class="chapter-description">Philosophical notes, world-building theories, and counterpoint thinking behind every project.</p>
+          </div>
           <div class="chapter-meta">
             <span class="chapter-count loading" data-path="category/Philosopher-Parksy" data-cat="Philosopher-Parksy" aria-live="polite">…</span>
             <span class="badge epic">Epic</span>
           </div>
-        </div>  
-      </div>  
-  
-      <!-- 5 -->  
-      <div class="chapter-card" tabindex="0" role="button" aria-label="Open Device Chronicles" onclick="openChapter('devices')" onkeypress="handleKeyPress(event,'devices')">  
-        <div class="chapter-content">  
-          <div>  
-            <span class="chapter-icon" aria-hidden="true">📱</span>  
-            <h3 class="chapter-title">Device Chronicles</h3>  
-            <p class="chapter-description">Tales and secrets of our mystical digital devices.</p>  
-          </div>  
+        </div>
+      </div>
+
+      <!-- 5: Technician-Parksy -->
+      <div class="chapter-card" tabindex="0" role="button" aria-label="Open Technician-Parksy" onclick="openChapter('devices')" onkeypress="handleKeyPress(event,'devices')">
+        <div class="chapter-content">
+          <div>
+            <span class="chapter-icon" aria-hidden="true">📱</span>
+            <h3 class="chapter-title">Technician-Parksy · Devices &amp; Tool Hacks</h3>
+            <p class="chapter-description">Samsung keyboard tricks, tablet workflows, and practical device setups for daily production.</p>
+          </div>
           <div class="chapter-meta">
             <span class="chapter-count loading" data-path="category/Technician-Parksy" data-cat="Technician-Parksy" aria-live="polite">…</span>
             <span class="badge common">Common</span>
           </div>
-        </div>  
-      </div>  
-  
-      <!-- 6 -->  
-      <div class="chapter-card" tabindex="0" role="button" aria-label="Open WebAppsBook Codex" onclick="openChapter('webappsbook')" onkeypress="handleKeyPress(event,'webappsbook')">  
-        <div class="chapter-content">  
-          <div>  
-            <span class="chapter-icon" aria-hidden="true">💻</span>  
-            <h3 class="chapter-title">WebAppsBook Codex</h3>  
-            <p class="chapter-description">Powerful digital creation spells & forbidden lore.</p>  
-          </div>  
+        </div>
+      </div>
+
+      <!-- 6: Engineer-Parksy -->
+      <div class="chapter-card" tabindex="0" role="button" aria-label="Open Engineer-Parksy" onclick="openChapter('webappsbook')" onkeypress="handleKeyPress(event,'webappsbook')">
+        <div class="chapter-content">
+          <div>
+            <span class="chapter-icon" aria-hidden="true">💻</span>
+            <h3 class="chapter-title">Engineer-Parksy · WebAppsBook &amp; PWA Lab</h3>
+            <p class="chapter-description">HTML/PWA experiments, prompt engines, and GitHub-powered WebAppsBook blueprints.</p>
+          </div>
           <div class="chapter-meta">
             <span class="chapter-count loading" data-path="category/Engineer-Parksy" data-cat="Engineer-Parksy" aria-live="polite">…</span>
             <span class="badge legendary">Legendary</span>
           </div>
-        </div>  
-      </div>  
-  
-      <!-- 7 -->  
-      <div class="chapter-card" tabindex="0" role="button" aria-label="Open WebAppsBookCast" onclick="openChapter('cast')" onkeypress="handleKeyPress(event,'cast')">  
-        <div class="chapter-content">  
-          <div>  
-            <span class="chapter-icon" aria-hidden="true">🎬</span>  
-            <h3 class="chapter-title">WebAppsBookCast</h3>  
-            <p class="chapter-description">Prophecies & knowledge yet to manifest in the digital realm.</p>  
-          </div>  
+        </div>
+      </div>
+
+      <!-- 7: Musician-Parksy -->
+      <div class="chapter-card" tabindex="0" role="button" aria-label="Open Musician-Parksy" onclick="openChapter('cast')" onkeypress="handleKeyPress(event,'cast')">
+        <div class="chapter-content">
+          <div>
+            <span class="chapter-icon" aria-hidden="true">🎬</span>
+            <h3 class="chapter-title">Musician-Parksy · WebAppsBook Cast</h3>
+            <p class="chapter-description">Music notes, casting plans, and audio scripts for WebAppsBookCast and live sessions.</p>
+          </div>
           <div class="chapter-meta">
             <span class="chapter-count loading" data-path="category/Musician-Parksy" data-cat="Musician-Parksy" aria-live="polite">…</span>
             <span class="badge prophecy">Prophecy</span>
           </div>
-        </div>  
-      </div>  
-  
-      <!-- 8 -->  
-      <div class="chapter-card" tabindex="0" role="button" aria-label="Open Thought Archaeology" onclick="openChapter('thoughts')" onkeypress="handleKeyPress(event,'thoughts')">  
-        <div class="chapter-content">  
-          <div>  
-            <span class="chapter-icon" aria-hidden="true">💭</span>  
-            <h3 class="chapter-title">Thought Archaeology</h3>  
-            <p class="chapter-description">Excavating ideas into organized wisdom and structured knowledge.</p>  
-          </div>  
+        </div>
+      </div>
+
+      <!-- 8: Visualizer-Parksy -->
+      <div class="chapter-card" tabindex="0" role="button" aria-label="Open Visualizer-Parksy" onclick="openChapter('thoughts')" onkeypress="handleKeyPress(event,'thoughts')">
+        <div class="chapter-content">
+          <div>
+            <span class="chapter-icon" aria-hidden="true">💭</span>
+            <h3 class="chapter-title">Visualizer-Parksy · Diagrams &amp; Screens</h3>
+            <p class="chapter-description">Diagrams, drawing experiments, and visual models for EduArt thinking.</p>
+          </div>
           <div class="chapter-meta">
             <span class="chapter-count loading" data-path="category/Visualizer-Parksy" data-cat="Visualizer-Parksy" aria-live="polite">…</span>
             <span class="badge rare">Rare</span>
           </div>
-        </div>  
-      </div>  
-    </div>  
-  </section>  
-</main>  
-  
-<footer class="footer" role="contentinfo">  
-  <div class="links">  
-    © dtslib.com • UncleParksy • <a href="/archive/index.html">Site Archive</a> •  
-    <a href="/privacy.html">Privacy</a> • <a href="/terms.html">Terms</a> •  
-    <a href="mailto:dimas@dtslib.com">contact</a>  
-  </div>  
-  
-  <div class="biz" aria-label="Business information">  
-    <div><b>Company Name:</b> dtslib</div>  
-    <div><b>Business Reg. No.:</b> 475-01-03493</div>  
-    <div><b>Publisher Declaration No.:</b> 2024-000013</div>  
-    <div><b>Address:</b> 305, 16, Waryong-ro, Manan-gu, Anyang-si, Gyeonggi-do, Republic of Korea</div>  
-    <div><b>E-mail:</b> <a href="mailto:dimas@dtslib.com">dimas@dtslib.com</a></div>  
-  </div>  
-  
-  <div class="legal">  
-    This site may use cookies for basic analytics. © dtslib. All rights reserved.  
-  </div>  
-</footer>  
-  
-<!-- libs (desktop bg only) -->  
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/128/three.min.js"></script>  
-<script>  
-let scene, camera, renderer, magicObjects=[];  
-let mouseX=0, mouseY=0;  
-const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;  
-const isTablet = window.matchMedia('(pointer: coarse) and (min-width: 768px) and (max-width: 1200px)').matches;  
-  
-/* ===== BFCache safety: reset when returning to MAIN ===== */  
-function resetMain(){  
-  const overlay = document.getElementById('loadingOverlay');  
-  if (overlay) { overlay.style.opacity='0'; overlay.style.pointerEvents='none'; overlay.remove?.(); }  
-  
-  const pageTurn = document.getElementById('pageTurn');  
-  if (pageTurn){  
-    pageTurn.style.opacity='0';  
-    pageTurn.style.transform='perspective(1000px) rotateY(-90deg)';  
-    pageTurn.style.pointerEvents='none';  
-  }  
-  
-  document.body.classList.remove('lock');  
-  
-  try{  
-    if (typeof particleTimer!=='undefined' && particleTimer){ clearInterval(particleTimer); particleTimer=null; }  
-    if(!reduced){ initParticles(isTablet ? { interval:1200, max:8 } : { interval:800, max:15 }); }  
-  }catch(_){}  
-  
-  try{  
-    if (renderer){  
-      const gl = renderer.getContext();  
-      if (gl && gl.isContextLost && gl.isContextLost()){  
-        scene = camera = renderer = null;  
-        magicObjects = [];  
-        initThree();  
-      }  
-    }  
-  }catch(_){}  
-}  
-  
-/* init */  
-document.addEventListener('DOMContentLoaded', () => {  
-  initLoading();  
-  initAccessibility();  
-  loadHomeJsonCounts().finally(loadChapterCounts);  
-  
-  if(!reduced){  
-    if (!isTablet) initCursor();  
-    if (!isTablet && window.innerWidth>1024){ initThree(); }  
-    initParticles(isTablet ? { interval: 1200, max: 8 } : { interval: 800, max: 15 });  
-    initScrollFX();  
-  }  
-});  
-  
-window.addEventListener('pageshow', (e) => {  
-  if (e.persisted) resetMain();  
-});  
-  
-/* home.json counts */  
-async function loadHomeJsonCounts(){  
-  try{  
-    const r = await fetch('/assets/home.json', { cache: 'no-store' });  
-    if(!r.ok) return;  
-    const data = await r.json();  
-    document.querySelectorAll('.chapter-count[data-cat]').forEach(el=>{  
-      const key = el.getAttribute('data-cat');  
-      if(key in data){  
-        el.textContent = data[key];  
-        el.classList.remove('loading');  
-      }  
-    });  
-  }catch(e){}  
-}  
-  
-/* GitHub API fallback counts */  
-async function loadChapterCounts() {  
-  const countElements = document.querySelectorAll('.chapter-count[data-path]');  
-  for (const element of countElements) {  
-    if (!element.classList.contains('loading')) continue;  
-    const path = element.dataset.path;  
-    try {  
-      const response = await fetch(`https://api.github.com/repos/dtslib1979/UncleParksy/contents/${path}`);  
-      if (response.ok) {  
-        const files = await response.json();  
-        const htmlFiles = files.filter(file => file.type === 'file' && file.name.endsWith('.html') && file.name !== 'index.html');  
-        const count = htmlFiles.length;  
-        element.textContent = count;  
-        element.classList.remove('loading');  
-        if (count > 0) {  
-          element.style.transform = 'scale(1.1)';  
-          setTimeout(() => element.style.transform = 'scale(1)', 200);  
-        }  
-      } else {  
-        element.textContent = '0';  
-        element.classList.remove('loading');  
-      }  
-    } catch (error) {  
-      element.textContent = '0';  
-      element.classList.remove('loading');  
-      element.title = 'Count unavailable (rate limit or network)';  
-    }  
-    await new Promise(resolve => setTimeout(resolve, 120));  
-  }  
-}  
-  
-/* loading */  
-function initLoading(){  
-  const overlay = document.getElementById('loadingOverlay');  
-  (document.fonts ? document.fonts.ready : Promise.resolve()).then(()=>{  
-    setTimeout(()=>{ overlay.style.opacity='0'; overlay.style.pointerEvents='none'; }, 1200);  
-    setTimeout(()=>{ overlay.remove?.(); }, 2200);  
-  });  
-}  
-  
-/* cursor */  
-function initCursor(){  
-  if (window.innerWidth<=768) return;  
-  const cursor = document.getElementById('cursor');  
-  const track = (e)=>{ cursor.style.left=e.clientX+'px'; cursor.style.top=e.clientY+'px';  
-    mouseX=(e.clientX/window.innerWidth)*2-1; mouseY=-(e.clientY/window.innerHeight)*2+1; };  
-  document.addEventListener('mousemove', track, {passive:true});  
-  document.querySelectorAll('.chapter-card,[role="button"]').forEach(el=>{  
-    el.addEventListener('mouseenter', ()=>cursor.classList.add('hover'), {passive:true});  
-    el.addEventListener('mouseleave', ()=>cursor.classList.remove('hover'), {passive:true});  
-  });  
-}  
-  
-/* three.js */  
-function initThree(){  
-  const canvas=document.getElementById('three-canvas');  
-  
-  if (renderer && renderer.dispose){ try{ renderer.dispose(); }catch(_){} }  
-  
-  scene=new THREE.Scene();  
-  camera=new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, .1, 100);  
-  renderer=new THREE.WebGLRenderer({canvas, alpha:true, antialias:false, powerPreference:'low-power'});  
-  renderer.setSize(window.innerWidth, window.innerHeight);  
-  renderer.setClearColor(0x000000,0);  
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));  
-  
-  const gl = renderer.getContext();  
-  canvas.addEventListener('webglcontextlost', (ev)=>{ ev.preventDefault(); }, false);  
-  canvas.addEventListener('webglcontextrestored', ()=>{ magicObjects=[]; initThree(); }, false);  
-  
-  const geos=[new THREE.OctahedronGeometry(.3), new THREE.TetrahedronGeometry(.4)];  
-  magicObjects=[];  
-  for(let i=0;i<8;i++){  
-    const mat=new THREE.MeshBasicMaterial({color:new THREE.Color().setHSL(.15+i*.02,.7,.6), transparent:true, opacity:.4, wireframe:i%2===0});  
-    const mesh=new THREE.Mesh(geos[i%2], mat);  
-    mesh.position.set((Math.random()-.5)*15, (Math.random()-.5)*15, (Math.random()-.5)*15);  
-    mesh.userData={rot:{x:(Math.random()-.5)*.01, y:(Math.random()-.5)*.01, z:(Math.random()-.5)*.01}, off:Math.random()*Math.PI*2};  
-    scene.add(mesh); magicObjects.push(mesh);  
-  }  
-  camera.position.z=8; animate3D();  
-  
-  window.addEventListener('resize', ()=>{  
-    if(!renderer) return;  
-    camera.aspect=window.innerWidth/window.innerHeight; camera.updateProjectionMatrix();  
-    renderer.setSize(window.innerWidth, window.innerHeight);  
-  }, {passive:true});  
-}  
-  
-function animate3D(){  
-  if(!renderer) return; requestAnimationFrame(animate3D);  
-  const tx=mouseX*1.5, ty=-mouseY*1.5;  
-  camera.position.x += (tx - camera.position.x)*.03;  
-  camera.position.y += (ty - camera.position.y)*.03;  
-  camera.lookAt(scene.position);  
-  const t=Date.now()*.001;  
-  magicObjects.forEach(o=>{o.rotation.x+=o.userData.rot.x; o.rotation.y+=o.userData.rot.y; o.rotation.z+=o.userData.rot.z; o.position.y+=Math.sin(t+o.userData.off)*.005;});  
-  renderer.render(scene,camera);  
-}  
-  
-/* particles */  
-let particleTimer=null;  
-function initParticles(opts={interval:800, max:15}){  
-  const host=document.getElementById('particles');  
-  const max=opts.max; let count=0;  
-  const colors=['#d4af37','#6a4c93','#4a90e2','#c44536'];  
-  
-  function createOne(){  
-    if(count>=max) return;  
-    const p=document.createElement('div'); p.className='particle';  
-    p.style.left=Math.random()*100+'vw';  
-    p.style.background=colors[(Math.random()*colors.length)|0];  
-    p.style.animationDelay=(Math.random()*12)+'s';  
-    host.appendChild(p); count++;  
-    setTimeout(()=>{ p.remove(); count--; }, 12000);  
-  }  
-  
-  const start=()=>{ if(!particleTimer) particleTimer=setInterval(()=>{ if(!document.hidden) createOne(); }, opts.interval); };  
-  const stop =()=>{ if(particleTimer){ clearInterval(particleTimer); particleTimer=null; } };  
-  start();  
-  document.addEventListener('visibilitychange', ()=>{ document.hidden?stop():start(); });  
-}  
-  
-/* scroll fx */  
-function initScrollFX(){  
-  const circle=document.querySelector('.magic-circle');  
-  let ticking=false;  
-  const upd=()=>{ const y=window.pageYOffset||0; circle.style.transform=`translate(-50%,-50%) rotate(${y*.05}deg)`; ticking=false; };  
-  window.addEventListener('scroll', ()=>{ if(!ticking){ requestAnimationFrame(upd); ticking=true; } }, {passive:true});  
-}  
-  
-/* a11y */  
-function initAccessibility(){  
-  window.handleKeyPress=(e,chap)=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openChapter(chap); } };  
-}  
-  
-/* chapter routing */  
-function openChapter(key){  
-  const pageTurn=document.getElementById('pageTurn');  
-  pageTurn.style.opacity='1'; pageTurn.style.transform='perspective(1000px) rotateY(0deg)';  
-  if(navigator.vibrate) navigator.vibrate([60,30,60]);  
-  
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="footer" role="contentinfo">
+  <div class="links">
+    © dtslib.com • UncleParksy • <a href="/archive/index.html">Site Archive</a> •
+    <a href="/privacy.html">Privacy</a> • <a href="/terms.html">Terms</a> •
+    <a href="mailto:dimas@dtslib.com">contact</a>
+  </div>
+
+  <div class="biz" aria-label="Business information">
+    <div><b>Company Name:</b> dtslib</div>
+    <div><b>Business Reg. No.:</b> 475-01-03493</div>
+    <div><b>Publisher Declaration No.:</b> 2024-000013</div>
+    <div><b>Address:</b> 305, 16, Waryong-ro, Manan-gu, Anyang-si, Gyeonggi-do, Republic of Korea</div>
+    <div><b>E-mail:</b> <a href="mailto:dimas@dtslib.com">dimas@dtslib.com</a></div>
+  </div>
+
+  <div class="legal">
+    This site may use cookies for basic analytics. © dtslib. All rights reserved.
+  </div>
+</footer>
+
+<!-- libs (desktop bg only) -->
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/128/three.min.js"></script>
+<script>
+let scene, camera, renderer, magicObjects=[];
+let mouseX=0, mouseY=0;
+const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isTablet = window.matchMedia('(pointer: coarse) and (min-width: 768px) and (max-width: 1200px)').matches;
+
+/* ===== BFCache safety: reset when returning to MAIN ===== */
+function resetMain(){
+  const overlay = document.getElementById('loadingOverlay');
+  if (overlay) { overlay.style.opacity='0'; overlay.style.pointerEvents='none'; overlay.remove?.(); }
+
+  const pageTurn = document.getElementById('pageTurn');
+  if (pageTurn){
+    pageTurn.style.opacity='0';
+    pageTurn.style.transform='perspective(1000px) rotateY(-90deg)';
+    pageTurn.style.pointerEvents='none';
+  }
+
+  document.body.classList.remove('lock');
+
+  try{
+    if (typeof particleTimer!=='undefined' && particleTimer){ clearInterval(particleTimer); particleTimer=null; }
+    if(!reduced){ initParticles(isTablet ? { interval:1200, max:8 } : { interval:800, max:15 }); }
+  }catch(_){}
+
+  try{
+    if (renderer){
+      const gl = renderer.getContext();
+      if (gl && gl.isContextLost && gl.isContextLost()){
+        scene = camera = renderer = null;
+        magicObjects = [];
+        initThree();
+      }
+    }
+  }catch(_){}
+}
+
+/* init */
+document.addEventListener('DOMContentLoaded', () => {
+  initLoading();
+  initAccessibility();
+  loadHomeJsonCounts().finally(loadChapterCounts);
+
+  if(!reduced){
+    if (!isTablet) initCursor();
+    if (!isTablet && window.innerWidth>1024){ initThree(); }
+    initParticles(isTablet ? { interval: 1200, max: 8 } : { interval: 800, max: 15 });
+    initScrollFX();
+  }
+});
+
+window.addEventListener('pageshow', (e) => {
+  if (e.persisted) resetMain();
+});
+
+/* home.json counts */
+async function loadHomeJsonCounts(){
+  try{
+    const r = await fetch('/assets/home.json', { cache: 'no-store' });
+    if(!r.ok) return;
+    const data = await r.json();
+    document.querySelectorAll('.chapter-count[data-cat]').forEach(el=>{
+      const key = el.getAttribute('data-cat');
+      if(key in data){
+        el.textContent = data[key];
+        el.classList.remove('loading');
+      }
+    });
+  }catch(e){}
+}
+
+/* GitHub API fallback counts */
+async function loadChapterCounts() {
+  const countElements = document.querySelectorAll('.chapter-count[data-path]');
+  for (const element of countElements) {
+    if (!element.classList.contains('loading')) continue;
+    const path = element.dataset.path;
+    try {
+      const response = await fetch(`https://api.github.com/repos/dtslib1979/UncleParksy/contents/${path}`);
+      if (response.ok) {
+        const files = await response.json();
+        const htmlFiles = files.filter(file => file.type === 'file' && file.name.endsWith('.html') && file.name !== 'index.html');
+        const count = htmlFiles.length;
+        element.textContent = count;
+        element.classList.remove('loading');
+        if (count > 0) {
+          element.style.transform = 'scale(1.1)';
+          setTimeout(() => element.style.transform = 'scale(1)', 200);
+        }
+      } else {
+        element.textContent = '0';
+        element.classList.remove('loading');
+      }
+    } catch (error) {
+      element.textContent = '0';
+      element.classList.remove('loading');
+      element.title = 'Count unavailable (rate limit or network)';
+    }
+    await new Promise(resolve => setTimeout(resolve, 120));
+  }
+}
+
+/* loading */
+function initLoading(){
+  const overlay = document.getElementById('loadingOverlay');
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(()=>{
+    setTimeout(()=>{ overlay.style.opacity='0'; overlay.style.pointerEvents='none'; }, 1200);
+    setTimeout(()=>{ overlay.remove?.(); }, 2200);
+  });
+}
+
+/* cursor */
+function initCursor(){
+  if (window.innerWidth<=768) return;
+  const cursor = document.getElementById('cursor');
+  const track = (e)=>{
+    cursor.style.left=e.clientX+'px'; cursor.style.top=e.clientY+'px';
+    mouseX=(e.clientX/window.innerWidth)*2-1; mouseY=-(e.clientY/window.innerHeight)*2+1;
+  };
+  document.addEventListener('mousemove', track, {passive:true});
+  document.querySelectorAll('.chapter-card,[role="button"]').forEach(el=>{
+    el.addEventListener('mouseenter', ()=>cursor.classList.add('hover'), {passive:true});
+    el.addEventListener('mouseleave', ()=>cursor.classList.remove('hover'), {passive:true});
+  });
+}
+
+/* three.js */
+function initThree(){
+  const canvas=document.getElementById('three-canvas');
+
+  if (renderer && renderer.dispose){ try{ renderer.dispose(); }catch(_){} }
+
+  scene=new THREE.Scene();
+  camera=new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, .1, 100);
+  renderer=new THREE.WebGLRenderer({canvas, alpha:true, antialias:false, powerPreference:'low-power'});
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setClearColor(0x000000,0);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+
+  const gl = renderer.getContext();
+  canvas.addEventListener('webglcontextlost', (ev)=>{ ev.preventDefault(); }, false);
+  canvas.addEventListener('webglcontextrestored', ()=>{ magicObjects=[]; initThree(); }, false);
+
+  const geos=[new THREE.OctahedronGeometry(.3), new THREE.TetrahedronGeometry(.4)];
+  magicObjects=[];
+  for(let i=0;i<8;i++){
+    const mat=new THREE.MeshBasicMaterial({color:new THREE.Color().setHSL(.15+i*.02,.7,.6), transparent:true, opacity:.4, wireframe:i%2===0});
+    const mesh=new THREE.Mesh(geos[i%2], mat);
+    mesh.position.set((Math.random()-.5)*15, (Math.random()-.5)*15, (Math.random()-.5)*15);
+    mesh.userData={rot:{x:(Math.random()-.5)*.01, y:(Math.random()-.5)*.01, z:(Math.random()-.5)*.01}, off:Math.random()*Math.PI*2};
+    scene.add(mesh); magicObjects.push(mesh);
+  }
+  camera.position.z=8; animate3D();
+
+  window.addEventListener('resize', ()=>{
+    if(!renderer) return;
+    camera.aspect=window.innerWidth/window.innerHeight; camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  }, {passive:true});
+}
+
+function animate3D(){
+  if(!renderer) return; requestAnimationFrame(animate3D);
+  const tx=mouseX*1.5, ty=-mouseY*1.5;
+  camera.position.x += (tx - camera.position.x)*.03;
+  camera.position.y += (ty - camera.position.y)*.03;
+  camera.lookAt(scene.position);
+  const t=Date.now()*.001;
+  magicObjects.forEach(o=>{
+    o.rotation.x+=o.userData.rot.x;
+    o.rotation.y+=o.userData.rot.y;
+    o.rotation.z+=o.userData.rot.z;
+    o.position.y+=Math.sin(t+o.userData.off)*.005;
+  });
+  renderer.render(scene,camera);
+}
+
+/* particles */
+let particleTimer=null;
+function initParticles(opts={interval:800, max:15}){
+  const host=document.getElementById('particles');
+  const max=opts.max; let count=0;
+  const colors=['#d4af37','#6a4c93','#4a90e2','#c44536'];
+
+  function createOne(){
+    if(count>=max) return;
+    const p=document.createElement('div'); p.className='particle';
+    p.style.left=Math.random()*100+'vw';
+    p.style.background=colors[(Math.random()*colors.length)|0];
+    p.style.animationDelay=(Math.random()*12)+'s';
+    host.appendChild(p); count++;
+    setTimeout(()=>{ p.remove(); count--; }, 12000);
+  }
+
+  const start=()=>{ if(!particleTimer) particleTimer=setInterval(()=>{ if(!document.hidden) createOne(); }, opts.interval); };
+  const stop =()=>{ if(particleTimer){ clearInterval(particleTimer); particleTimer=null; } };
+  start();
+  document.addEventListener('visibilitychange', ()=>{ document.hidden?stop():start(); });
+}
+
+/* scroll fx */
+function initScrollFX(){
+  const circle=document.querySelector('.magic-circle');
+  let ticking=false;
+  const upd=()=>{ const y=window.pageYOffset||0; circle.style.transform=`translate(-50%,-50%) rotate(${y*.05}deg)`; ticking=false; };
+  window.addEventListener('scroll', ()=>{ if(!ticking){ requestAnimationFrame(upd); ticking=true; } }, {passive:true});
+}
+
+/* a11y */
+function initAccessibility(){
+  window.handleKeyPress=(e,chap)=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openChapter(chap); } };
+}
+
+/* chapter routing */
+function openChapter(key){
+  const pageTurn=document.getElementById('pageTurn');
+  pageTurn.style.opacity='1'; pageTurn.style.transform='perspective(1000px) rotateY(0deg)';
+  if(navigator.vibrate) navigator.vibrate([60,30,60]);
+
   const routes = {
     all: '/archive/index.html',
     settings: '/category/Orbit-Log/index.html',
@@ -722,48 +730,48 @@ function openChapter(key){
     cast: '/category/Musician-Parksy/index.html',
     thoughts: '/category/Visualizer-Parksy/index.html'
   };
-  
-  setTimeout(()=>{  
-    const url=routes[key] || `/chapter/${key}/index.html`;  
-    location.href=url;  
-  }, 700);  
-}  
-  
-/* optional desktop notification helper */  
-function maybeNotify(msg){  
-  if('Notification' in window && Notification.permission==='granted'){  
-    new Notification('EduArt Engineer', {body:msg, icon:'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>'});  
-  }  
-}  
-  
-/* === BGM 토글 스크립트 === */  
-(function(){  
-  const btn = document.getElementById('bgm-btn');  
-  if(!btn) return;  
-  const audioEl = document.getElementById('bgm');  
-  if(!audioEl) return;  
-  
-  btn.addEventListener('click', ()=>{  
-    if(audioEl.paused){  
-      audioEl.muted=false;  
-      audioEl.play().catch(()=>{});  
-      btn.setAttribute('aria-pressed','true');  
-    }else{  
-      audioEl.pause();  
-      btn.setAttribute('aria-pressed','false');  
-    }  
-  });  
-  
-  document.addEventListener('visibilitychange', ()=>{  
-    if(document.hidden && !audioEl.paused) audioEl.pause();  
-  });  
-})();  
-</script>  
-  
-<!-- noscript fallback -->  
-<noscript>  
-  <style>.magic-circle,#three-container,.cursor,.loading-overlay{display:none}</style>  
-  <div style="padding:1rem;text-align:center">JavaScript is disabled; background effects are off. Content is available.</div>  
-</noscript>  
-</body>  
+
+  setTimeout(()=>{
+    const url=routes[key] || `/chapter/${key}/index.html`;
+    location.href=url;
+  }, 700);
+}
+
+/* optional desktop notification helper */
+function maybeNotify(msg){
+  if('Notification' in window && Notification.permission==='granted'){
+    new Notification('EduArt Engineer', {body:msg, icon:'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>'});
+  }
+}
+
+/* === BGM 토글 스크립트 === */
+(function(){
+  const btn = document.getElementById('bgm-btn');
+  if(!btn) return;
+  const audioEl = document.getElementById('bgm');
+  if(!audioEl) return;
+
+  btn.addEventListener('click', ()=>{
+    if(audioEl.paused){
+      audioEl.muted=false;
+      audioEl.play().catch(()=>{});
+      btn.setAttribute('aria-pressed','true');
+    }else{
+      audioEl.pause();
+      btn.setAttribute('aria-pressed','false');
+    }
+  });
+
+  document.addEventListener('visibilitychange', ()=>{
+    if(document.hidden && !audioEl.paused) audioEl.pause();
+  });
+})();
+</script>
+
+<!-- noscript fallback -->
+<noscript>
+  <style>.magic-circle,#three-container,.cursor,.loading-overlay{display:none}</style>
+  <div style="padding:1rem;text-align:center">JavaScript is disabled; background effects are off. Content is available.</div>
+</noscript>
+</body>
 </html>
