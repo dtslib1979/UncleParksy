@@ -1,24 +1,23 @@
 <!doctype html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>About · Parksy Series & KR Merit World</title>
+  <title>About · Parksy Lines Map</title>
 
-  <!-- 기본 메타 -->
-  <meta name="description" content="박씨 시리즈 기초 교양 지도와 KR Merit 외전 세계관. EduArt Engineer의 베이스 커리큘럼 맵.">
+  <meta name="description" content="Parksy Lines Map — lanes from Tistory prompt engines to Parksy personas, YouTube channels, Naver hub, and company domain.">
   <link rel="canonical" href="https://dtslib1979.github.io/about.html">
   <meta name="robots" content="index,follow">
 
-  <!-- OG / Twitter 대충만 맞춰둠 -->
+  <!-- OG / Twitter (간단 버전) -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="About · Parksy Series & KR Merit World">
-  <meta property="og:description" content="박씨 시리즈 기초 교양 지도와 KR Merit 외전 세계관.">
+  <meta property="og:title" content="About · Parksy Lines Map">
+  <meta property="og:description" content="EduArt Engineer Parksy's lane diagram: prompts → personas → media → domain.">
   <meta property="og:url" content="https://dtslib1979.github.io/about.html">
   <meta property="og:image" content="https://dtslib1979.github.io/assets/og/cover.png">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- 파피루스 테마용 폰트 (index와 동일 계열) -->
+  <!-- Fonts / Theme -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Philosopher:wght@400;700&display=swap" rel="stylesheet">
@@ -50,7 +49,7 @@
         repeating-linear-gradient(-45deg, transparent,transparent 1px, rgba(74,44,26,.015) 1px, rgba(74,44,26,.015) 2px);
     }
 
-    /* 상단 헤더 (index의 라이트 버전) */
+    /* header (index와 톤 맞춤) */
     .site-header{
       display:flex; align-items:center; justify-content:space-between;
       padding:12px 18px;
@@ -60,393 +59,34 @@
     .brand-title{font-family:'Pirata One',cursive;font-size:1.4rem;letter-spacing:1px}
     .nav a{
       margin-left:12px; font-weight:700; text-decoration:none; color:inherit;
-      padding:4px 6px; border-radius:999px; font-size:.92rem;
+      padding:4px 8px; border-radius:999px; font-size:.9rem;
     }
     .nav a:hover{background:rgba(0,0,0,.06);}
-
-    @media(max-width:600px){
+    .nav a[aria-current="page"]{
+      background:linear-gradient(135deg,var(--primary-gold),var(--dark-gold));
+      color:#000;
+      box-shadow:0 4px 10px rgba(212,175,55,.45);
+    }
+    @media(max-width:640px){
       .site-header{flex-wrap:wrap; gap:8px;}
       .nav{width:100%; display:flex; flex-wrap:wrap; gap:8px;}
       .nav a{margin-left:0;}
     }
 
-    /* 메인 레이아웃 */
     main{
       max-width:1100px;
       margin:0 auto;
-      padding:clamp(1.2rem,5vw,2.6rem);
+      padding:clamp(1.2rem,5vw,2.4rem);
     }
 
-    .hero-card{
-      background:
-        radial-gradient(ellipse 90% 60% at top, rgba(212,175,55,.08) 0%, transparent 70%),
-        linear-gradient(135deg, rgba(247,243,232,.96) 0%, rgba(232,220,192,.93) 100%);
+    /* hero parchment */
+    .hero{
+      position:relative;
+      padding:clamp(1.6rem,4vw,2.2rem);
       border-radius:22px;
       border:3px solid;
       border-image:linear-gradient(45deg,var(--primary-gold),var(--dark-gold),var(--purple),var(--primary-gold)) 1;
-      padding:clamp(1.6rem,4vw,2.4rem);
-      box-shadow:0 28px 80px var(--shadow-m), inset 0 2px 4px rgba(255,255,255,.4);
-      text-align:center;
-      margin-bottom:clamp(1.6rem,4vw,2.4rem);
-      position:relative;
-      overflow:hidden;
-    }
-    .hero-pill{
-      position:absolute;
-      top:14px; right:18px;
-      padding:4px 10px;
-      border-radius:999px;
-      background:linear-gradient(135deg,var(--primary-gold),var(--dark-gold));
-      color:#000; font-size:.75rem; font-weight:700;
-      box-shadow:0 6px 18px rgba(212,175,55,.5);
-    }
-    .hero-title{
-      font-family:'Pirata One',cursive;
-      font-size:clamp(2.1rem,6vw,2.9rem);
-      margin:0 0 .6rem;
-      letter-spacing:2px;
-      text-transform:uppercase;
-      background:linear-gradient(135deg,var(--primary-gold),var(--light-gold),var(--dark-gold));
-      -webkit-background-clip:text;
-      background-clip:text;
-      -webkit-text-fill-color:transparent;
-    }
-    .hero-sub{
-      margin:0;
-      font-size:clamp(1rem,2.5vw,1.15rem);
-      color:var(--ink-2);
-    }
-    .hero-note{
-      margin-top:.9rem;
-      font-size:.9rem;
-      color:var(--ink-3);
-      opacity:.85;
-    }
-
-    /* 두 개 섹션 레이아웃 */
-    .sections{
-      display:grid;
-      grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);
-      gap:clamp(1.4rem,3vw,2rem);
-      margin-bottom:2rem;
-    }
-    @media(max-width:900px){
-      .sections{grid-template-columns:1fr;}
-    }
-
-    .panel{
-      background:rgba(247,243,232,.96);
-      border-radius:20px;
-      border:2px solid rgba(212,175,55,.35);
-      box-shadow:0 18px 40px var(--shadow-l);
-      padding:clamp(1.2rem,3vw,1.7rem);
-    }
-    .panel-title{
-      font-family:'Pirata One',cursive;
-      font-size:1.4rem;
-      margin:0 0 .3rem;
-      letter-spacing:1px;
-    }
-    .panel-sub{
-      margin:0 0 1rem;
-      font-size:.95rem;
-      color:var(--ink-2);
-    }
-
-    .pill-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:.5rem;
-      margin-bottom:1rem;
-    }
-    .pill{
-      padding:.25rem .7rem;
-      border-radius:999px;
-      font-size:.8rem;
-      font-weight:700;
-      border:1px solid rgba(0,0,0,.1);
-      background:rgba(255,255,255,.7);
-    }
-
-    /* 카드 공통 */
-    .card-list{
-      display:flex;
-      flex-direction:column;
-      gap:.7rem;
-    }
-    .card{
-      border-radius:16px;
-      border:1px solid rgba(212,175,55,.3);
-      padding:.75rem .9rem;
-      background:linear-gradient(135deg,rgba(255,255,255,.88),rgba(248,241,222,.98));
-      box-shadow:0 8px 18px var(--shadow-l);
-    }
-    .card-header{
-      display:flex;align-items:center;gap:.55rem;margin-bottom:.2rem;
-    }
-    .card-emoji{font-size:1.3rem;}
-    .card-title{
-      font-weight:700;
-      font-size:.98rem;
-    }
-    .card-tag{
-      margin-left:auto;
-      font-size:.7rem;
-      padding:.1rem .5rem;
-      border-radius:999px;
-      background:rgba(0,0,0,.08);
-      text-transform:uppercase;
-      letter-spacing:.5px;
-    }
-    .card-desc{
-      margin:0;
-      font-size:.88rem;
-      color:var(--ink-2);
-    }
-    .card-link-slot{
-      margin-top:.28rem;
-      font-size:.78rem;
-      color:var(--ink-3);
-      opacity:.9;
-    }
-    .slot-label{font-weight:700;}
-    .slot-placeholder{
-      font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,"Liberation Mono","Courier New",monospace;
-      background:rgba(0,0,0,.04);
-      padding:.05rem .3rem;
-      border-radius:4px;
-    }
-
-    /* 하단 노트 */
-    .foot-note{
-      text-align:center;
-      font-size:.85rem;
-      color:#6b6b6b;
-      margin-top:1rem;
-    }
-  </style>
-</head>
-<body>
-  <header class="site-header">
-    <a class="brand" href="/" aria-label="UncleParksy home">
-      <img src="/assets/img/logo.png" alt="UncleParksy logo">
-      <span class="brand-title">UncleParksy</span>
-    </a>
-    <nav class="nav" aria-label="Primary">
-      <a href="/">Home</a>
-      <a href="/archive/index.html">Archive</a>
-      <a href="/about.html" aria-current="page">About</a>
-      <a href="/contact.html">Contact</a>
-    </nav>
-  </header>
-
-  <main>
-    <!-- 상단 요약 -->
-    <section class="hero-card">
-      <div class="hero-pill">CORE CURRICULUM · 기초 교양</div>
-      <h1 class="hero-title">Parksy Series & KR Merit World</h1>
-      <p class="hero-sub">
-        박씨 시리즈의 기초 교양 지도와 KR Merit 외전 세계관.<br>
-        글 · 그림 · 방송 · 앱을 한 축으로 엮는 EduArt Engineer의 베이스 맵.
-      </p>
-      <p class="hero-note">
-        아래의 카드들은 아직 “URL 미지정” 상태입니다. 각 카드의 <b>URL 슬롯</b>에
-        나중에 실제 링크를 채워 넣으면서 세계관을 확장하면 됩니다.
-      </p>
-    </section>
-
-    <!-- 본문 두 칼럼 -->
-    <section class="sections" aria-label="Parksy core & KR Merit side stories">
-      <!-- 왼쪽: 박씨 시리즈 기초 교양 -->
-      <article class="panel" aria-labelledby="parksy-core-title">
-        <h2 id="parksy-core-title" class="panel-title">PARKSY SERIES · 기초 교양 5트랙</h2>
-        <p class="panel-sub">
-          한 사람의 중년 EduArt Engineer가 맡을 수 있는 5개의 역할.
-          글쓰기 · 기획 · 시각화 · 장비 · 음악까지, “중년고딩 교양과정”의 기본 축입니다.
-        </p>
-
-        <div class="pill-row" aria-label="기초 교양 성격 태그">
-          <span class="pill">기초 교양</span>
-          <span class="pill">실전 기반</span>
-          <span class="pill">1인 제작자 커리큘럼</span>
-        </div>
-
-        <div class="card-list">
-          <!-- Technician -->
-          <div class="card">
-            <div class="card-header">
-              <span class="card-emoji" aria-hidden="true">🛠️</span>
-              <div class="card-title">Technician-Parksy · Devices & Tool Hacks</div>
-              <span class="card-tag">TOOLS</span>
-            </div>
-            <p class="card-desc">
-              Galaxy · Tab · PC 세팅, 키보드 커스텀, 녹화/편집 등 “손과 기계”를 맞추는 파트.
-              다른 모든 트랙의 작업 환경을 설계합니다.
-            </p>
-            <div class="card-link-slot">
-              <span class="slot-label">URL:</span>
-              <span class="slot-placeholder" data-slot="technician-parksy-url">/* 나중에 링크 입력 */</span>
-            </div>
-          </div>
-
-          <!-- Blogger -->
-          <div class="card">
-            <div class="card-header">
-              <span class="card-emoji" aria-hidden="true">📓</span>
-              <div class="card-title">Blogger-Parksy · KR TextStory & Archive</div>
-              <span class="card-tag">TEXT</span>
-            </div>
-            <p class="card-desc">
-              한국어 텍스트 스토리, 에세이, 일지를 쌓는 창고.
-              시즌 로그와 아카이브가 모두 여기에서 시작됩니다.
-            </p>
-            <div class="card-link-slot">
-              <span class="slot-label">URL:</span>
-              <span class="slot-placeholder" data-slot="blogger-parksy-url">/* 나중에 링크 입력 */</span>
-            </div>
-          </div>
-
-          <!-- Philosopher -->
-          <div class="card">
-            <div class="card-header">
-              <span class="card-emoji" aria-hidden="true">🧠</span>
-              <div class="card-title">Philosopher-Parksy · Essays & Thought Experiments</div>
-              <span class="card-tag">LOGIC</span>
-            </div>
-            <p class="card-desc">
-              니체 · 푸코 · 레비스트로스 등에서 가져온 사고 프레임을
-              박씨 언어로 재해석하는 공간. 모든 프로젝트의 “이유”가 적립됩니다.
-            </p>
-            <div class="card-link-slot">
-              <span class="slot-label">URL:</span>
-              <span class="slot-placeholder" data-slot="philosopher-parksy-url">/* 나중에 링크 입력 */</span>
-            </div>
-          </div>
-
-          <!-- Visualizer -->
-          <div class="card">
-            <div class="card-header">
-              <span class="card-emoji" aria-hidden="true">🗺️</span>
-              <div class="card-title">Visualizer-Parksy · Diagrams & Screens</div>
-              <span class="card-tag">VISUAL</span>
-            </div>
-            <p class="card-desc">
-              Excalidraw, SVG, Webtoon 컷 등 “머릿속 지도를 눈으로 보이게” 만드는 파트.
-              About 페이지의 이 지도도 여기의 산출물입니다.
-            </p>
-            <div class="card-link-slot">
-              <span class="slot-label">URL:</span>
-              <span class="slot-placeholder" data-slot="visualizer-parksy-url">/* 나중에 링크 입력 */</span>
-            </div>
-          </div>
-
-          <!-- Musician -->
-          <div class="card">
-            <div class="card-header">
-              <span class="card-emoji" aria-hidden="true">🎧</span>
-              <div class="card-title">Musician-Parksy · WebAppsBook Cast & Music</div>
-              <span class="card-tag">SOUND</span>
-            </div>
-            <p class="card-desc">
-              WebAppsBookCast, 성가·클래식·브릿팝까지 이어지는 음악 기반 스토리텔링.
-              쇼츠, 라디오, 라이브 감정선 설계의 핵심 축입니다.
-            </p>
-            <div class="card-link-slot">
-              <span class="slot-label">URL:</span>
-              <span class="slot-placeholder" data-slot="musician-parksy-url">/* 나중에 링크 입력 */</span>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- 오른쪽: KR Merit 외전 -->
-      <article class="panel" aria-labelledby="krmerit-title">
-        <h2 id="krmerit-title" class="panel-title">KR Merit WORLD · 외전 & 확장</h2>
-        <p class="panel-sub">
-          기초 교양 위에서 파생되는 “중년고딩” 세계관.
-          성격 드라이버와 과목 외전들이 곱해지면서 장편 프로젝트와 웹툰으로 뻗어나갑니다.
-        </p>
-
-        <div class="pill-row">
-          <span class="pill">BLUFF</span>
-          <span class="pill">HALFBLOOD</span>
-          <span class="pill">AGGRO</span>
-          <span class="pill">SHAMAN</span>
-          <span class="pill">KOREAN</span>
-        </div>
-
-        <div class="card-list">
-          <div class="card">
-            <div class="card-header">
-              <span class="card-emoji" aria-hidden="true">🔭</span>
-              <div class="card-title">dtslib1k · 중년고딩 과학 / 구조 해석</div>
-              <span class="card-tag">외전</span>
-            </div>
-            <p class="card-desc">
-              자본 구조, 시스템, 피지컬 운용을 과학 과목처럼 풀어내는 라인.
-              KR Merit 세계관의 “물리 법칙”을 정의합니다.
-            </p>
-            <div class="card-link-slot">
-              <span class="slot-label">URL:</span>
-              <span class="slot-placeholder" data-slot="dtslib1k-url">/* 나중에 링크 입력 */</span>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header">
-              <span class="card-emoji" aria-hidden="true">🏛️</span>
-              <div class="card-title">dtslib2k · 중년고딩 사회 / 철학 / 언어</div>
-              <span class="card-tag">외전</span>
-            </div>
-            <p class="card-desc">
-              계급, 역할, 직업을 중년고딩 교과목으로 재배치하는 사회·철학·언어 외전.
-              Bluff/Halfblood/Aggro/Shaman 성향을 서사로 굳힙니다.
-            </p>
-            <div class="card-link-slot">
-              <span class="slot-label">URL:</span>
-              <span class="slot-placeholder" data-slot="dtslib2k-url">/* 나중에 링크 입력 */</span>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header">
-              <span class="card-emoji" aria-hidden="true">📚</span>
-              <div class="card-title">KR-Merit Stories · Bluff / Halfblood / Aggro / Shaman</div>
-              <span class="card-tag">캐릭터</span>
-            </div>
-            <p class="card-desc">
-              4분면 성향을 가진 인물들이 등장하는 단편·중편 시리즈.
-              각 캐릭터가 박씨 시리즈의 교양과목을 어떻게 소비하는지가 핵심 플롯입니다.
-            </p>
-            <div class="card-link-slot">
-              <span class="slot-label">URL:</span>
-              <span class="slot-placeholder" data-slot="krmerit-stories-url">/* 나중에 링크 입력 */</span>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header">
-              <span class="card-emoji" aria-hidden="true">🖼️</span>
-              <div class="card-title">Webtoon Base · 중년고딩 Webtoon Universe</div>
-              <span class="card-tag">WEBTOON</span>
-            </div>
-            <p class="card-desc">
-              박씨 시리즈 + KR Merit 설정을 실제 컷과 말풍선으로 구현하는 베이스.
-              “한 씬 한 개념어” 원칙으로 교양과 세계관을 동시에 학습합니다.
-            </p>
-            <div class="card-link-slot">
-              <span class="slot-label">URL:</span>
-              <span class="slot-placeholder" data-slot="webtoon-base-url">/* 나중에 링크 입력 */</span>
-            </div>
-          </div>
-        </div>
-      </article>
-    </section>
-
-    <p class="foot-note">
-      URL 슬롯을 하나씩 채워 넣으면서, 박씨 월드의 노선도가 점점 “실제 역”으로 활성화됩니다.<br>
-      이 페이지 자체가 앞으로 업데이트 로그의 기준점(기초 교양 지도)입니다.
-    </p>
-  </main>
-</body>
-</html>
+      background:
+        radial-gradient(ellipse 90% 60% at top, rgba(212,175,55,.08) 0%, transparent 70%),
+        linear-gradient(135deg, rgba(247,243,232,.96) 0%, rgba(232,220,192,.93) 100%);
+      box-shadow:0 28
