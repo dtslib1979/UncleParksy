@@ -3,19 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>About · Parksy Lines Map</title>
+  <title>About · Parksy Lines Sketch Map</title>
 
-  <meta name="description" content="Parksy Lines Map — lanes from Tistory prompt engines to Parksy personas, YouTube channels, Naver hub, and company domain.">
-  <link rel="canonical" href="https://dtslib1979.github.io/about.html">
+  <meta name="description" content="Hand-drawn style map of Parksy lanes: prompts, personas, media, and domains.">
   <meta name="robots" content="index,follow">
-
-  <!-- OG / Twitter -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="About · Parksy Lines Map">
-  <meta property="og:description" content="EduArt Engineer Parksy's lane diagram: prompts → personas → media → domain.">
-  <meta property="og:url" content="https://dtslib1979.github.io/about.html">
-  <meta property="og:image" content="https://dtslib1979.github.io/assets/og/cover.png">
-  <meta name="twitter:card" content="summary_large_image">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,11 +15,11 @@
 
   <style>
     :root{
-      --primary-gold:#d4af37; --dark-gold:#b8860b; --light-gold:#f4e4aa;
+      --primary-gold:#d4af37; --dark-gold:#b8860b; --light-gold:#f8e9b5;
       --parchment:#f7f3e8; --dark-parchment:#e8dcc0;
       --ink:#1a0f0a; --ink-2:#2d1b12; --ink-3:#4a2c1a;
-      --purple:#6a4c93; --blue:#4a90e2; --red:#c44536;
-      --shadow-d:rgba(26,15,10,.4); --shadow-m:rgba(26,15,10,.2); --shadow-l:rgba(26,15,10,.1);
+      --blue:#3b82f6; --red:#ef4444; --purple:#6d28d9; --teal:#14b8a6;
+      --shadow-m:rgba(26,15,10,.25); --shadow-l:rgba(26,15,10,.12);
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0}
@@ -38,15 +29,17 @@
       color:var(--ink);
       background:
         radial-gradient(circle at 15% 25%, rgba(212,175,55,.05) 0%, transparent 40%),
-        radial-gradient(circle at 85% 75%, rgba(106,76,147,.04) 0%, transparent 40%),
+        radial-gradient(circle at 85% 75%, rgba(109,40,217,.04) 0%, transparent 40%),
         linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
       min-height:100vh;
     }
     body::before{
-      content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+      content:""; position:fixed; inset:0; pointer-events:none; z-index:-1;
       background:
-        repeating-linear-gradient(45deg, transparent,transparent 1px, rgba(212,175,55,.015) 1px, rgba(212,175,55,.015) 2px),
-        repeating-linear-gradient(-45deg, transparent,transparent 1px, rgba(74,44,26,.015) 1px, rgba(74,44,26,.015) 2px);
+        repeating-linear-gradient(45deg, transparent,transparent 2px, rgba(0,0,0,.02) 2px, rgba(0,0,0,.02) 3px),
+        repeating-linear-gradient(-45deg, transparent,transparent 2px, rgba(0,0,0,.02) 2px, rgba(0,0,0,.02) 3px);
+      mix-blend-mode:multiply;
+      opacity:.55;
     }
 
     /* header (index와 톤 맞춤) */
@@ -59,7 +52,7 @@
     .brand-title{font-family:'Pirata One',cursive;font-size:1.4rem;letter-spacing:1px}
     .nav a{
       margin-left:12px; font-weight:700; text-decoration:none; color:inherit;
-      padding:4px 8px; border-radius:999px; font-size:.9rem;
+      padding:4px 10px; border-radius:999px; font-size:.9rem;
     }
     .nav a:hover{background:rgba(0,0,0,.06);}
     .nav a[aria-current="page"]{
@@ -87,7 +80,7 @@
       border:3px solid;
       border-image:linear-gradient(45deg,var(--primary-gold),var(--dark-gold),var(--purple),var(--primary-gold)) 1;
       background:
-        radial-gradient(ellipse 90% 60% at top, rgba(212,175,55,.08) 0%, transparent 70%),
+        radial-gradient(ellipse 90% 60% at top, rgba(212,175,55,.12) 0%, transparent 70%),
         linear-gradient(135deg, rgba(247,243,232,.96) 0%, rgba(232,220,192,.93) 100%);
       box-shadow:0 28px 80px var(--shadow-m), inset 0 2px 4px rgba(255,255,255,.4);
       margin-bottom:clamp(1.6rem,4vw,2.4rem);
@@ -137,12 +130,12 @@
       opacity:.9;
     }
 
-    /* diagram shell */
+    /* diagram wrapper */
     .diagram-shell{
       margin-top:1.8rem;
       border-radius:22px;
-      padding:1rem;
-      background:linear-gradient(135deg, rgba(255,255,255,.92), rgba(248,239,214,.96));
+      padding:1.2rem 1rem;
+      background:linear-gradient(135deg, rgba(255,255,255,.97), rgba(248,239,214,.97));
       box-shadow:0 18px 40px var(--shadow-l);
       border:2px solid rgba(0,0,0,.18);
     }
@@ -152,94 +145,91 @@
     }
     .diagram-shell p{
       margin:0 0 .8rem;
-      font-size:.88rem;
+      font-size:.86rem;
       color:var(--ink-2);
     }
     .diagram-wrap{
       width:100%;
-      max-height:600px;
+      overflow:hidden;
     }
-    .diagram-svg{
+    svg.diagram-svg{
       width:100%;
       height:auto;
       display:block;
     }
 
-    /* detail board (torn note) */
-    .detail-board{
-      margin-top:1.6rem;
-      position:relative;
+    /* excalidraw 느낌 */
+    .sketch-border{
+      stroke:#111827;
+      stroke-width:2.4;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+      fill:none;
+      stroke-dasharray:7 4 2 5;
     }
-    .detail-card{
-      display:none;
-      position:relative;
-      margin:0 auto;
-      max-width:720px;
-      padding:1rem 1.2rem 1.1rem;
-      background:linear-gradient(135deg,#fffdf4,#f1e3c7);
-      border-radius:18px;
-      box-shadow:0 18px 40px var(--shadow-m);
-      color:var(--ink-2);
-      font-size:.9rem;
-      line-height:1.6;
-      transform:rotate(.5deg);
-    }
-    .detail-card::before,
-    .detail-card::after{
-      content:"";
-      position:absolute;
-      width:68px; height:20px;
-      background:rgba(250,250,250,.9);
-      box-shadow:0 4px 8px rgba(0,0,0,.18);
-      opacity:.7;
-    }
-    .detail-card::before{
-      top:-10px; left:8%;
-      transform:rotate(-6deg);
-    }
-    .detail-card::after{
-      top:-10px; right:10%;
-      transform:rotate(4deg);
-    }
-    .detail-card h3{
-      margin:.1rem 0 .3rem;
-      font-size:1rem;
-      color:var(--ink);
-    }
-    .detail-meta{
-      font-size:.78rem;
-      text-transform:uppercase;
-      letter-spacing:.5px;
-      color:var(--ink-3);
-      opacity:.85;
-      margin-bottom:.4rem;
-    }
-    .detail-body{margin:0;}
-    .detail-link{
-      display:inline-flex;
-      align-items:center;
-      gap:.3rem;
-      margin-top:.55rem;
-      font-size:.84rem;
-      font-weight:700;
-      text-decoration:none;
-      color:var(--blue);
-    }
-    .detail-link span.icon{
-      font-size:.9rem;
-    }
-    .detail-note{
-      margin-top:.4rem;
-      font-size:.78rem;
-      color:var(--ink-3);
+    .lane-path{
+      fill:none;
+      stroke-width:3.2;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+      stroke-dasharray:11 7;
       opacity:.9;
     }
-    .detail-placeholder{
-      margin-top:.3rem;
-      font-size:.8rem;
-      color:#777;
+
+    /* node */
+    .node{
+      cursor:pointer;
+      transition:transform .18s ease, filter .18s ease;
+      transform-origin:center center;
     }
-    .detail-card[data-active="true"]{display:block;}
+    .node-plate{
+      fill:#fffdf4;
+      stroke:#111827;
+      stroke-width:1.7;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+      stroke-dasharray:6 3 2 4;
+    }
+    .node-plate.shadow{
+      fill:#00000011;
+      stroke:#00000033;
+      transform:translate(4px,4px);
+    }
+    .node-badge{
+      fill:#111827;
+      stroke:#fef3c7;
+      stroke-width:1.4;
+    }
+    .node:hover{
+      transform:translateY(-4px) scale(1.02) rotate(-0.5deg);
+      filter:drop-shadow(0 8px 12px rgba(0,0,0,.24));
+    }
+    .node:focus-visible{
+      outline:2px solid var(--blue);
+      outline-offset:4px;
+    }
+    .node-label-main{
+      font-size:11px;
+      font-weight:700;
+      fill:#111827;
+    }
+    .node-label-sub{
+      font-size:9px;
+      fill:#4b5563;
+    }
+
+    .legend{
+      margin-top:.9rem;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      font-size:.8rem;
+      color:#4b5563;
+    }
+    .legend span{display:flex;align-items:center;gap:6px;}
+    .legend-pill{
+      width:16px;height:5px;border-radius:999px;
+    }
 
     .foot-note{
       margin-top:1.2rem;
@@ -248,27 +238,13 @@
       color:#6b6b6b;
     }
 
-    /* stop hover 스타일 (머메이드 느낌) */
-    .stop-node{
-      cursor:pointer;
-      transition:transform .18s ease, filter .18s ease;
+    @keyframes floaty {
+      0%{transform:translateY(0) rotate(-0.6deg);}
+      50%{transform:translateY(-3px) rotate(0.4deg);}
+      100%{transform:translateY(0) rotate(-0.6deg);}
     }
-    .stop-node .stop-circle{
-      transition:fill .18s ease, stroke-width .18s ease;
-    }
-    .stop-node .stop-label{
-      pointer-events:none;
-    }
-    .stop-node.is-active{
-      filter:drop-shadow(0 0 8px rgba(0,0,0,.4));
-    }
-    .stop-node.is-active .stop-circle{
-      stroke-width:3;
-    }
-
-    @media (max-width:720px){
-      .hero{padding:1.4rem;}
-      .diagram-shell{padding:.7rem;}
+    .node.float{
+      animation:floaty 5s ease-in-out infinite;
     }
   </style>
 </head>
@@ -287,416 +263,272 @@
 </header>
 
 <main>
-  <!-- HERO -->
   <section class="hero">
-    <div class="hero-pill">PARKSY LINES MAP</div>
-    <h1 class="hero-title">EduArt Subway Diagram</h1>
+    <div class="hero-pill">PARKSY LINES · SKETCH MAP</div>
+    <h1 class="hero-title">EduArt Excalimap</h1>
     <p class="hero-sub">
-      Mermaid-style map of the EduArt system:  
-      Tistory prompt engines → 5 Parksy personas → YouTube lanes → Naver hub → company domain.
+      Hand-drawn style route map for Parksy Series:  
+      prompt engines → personas → media lanes → company ground.
     </p>
     <p class="hero-note">
-      Tap any station on the map.  
-      A torn papyrus note slides in below with a short explanation and a URL slot.
+      Tap any node to jump to its URL (slots for now).  
+      Later, just replace each <code>data-url</code> value with the real link.
     </p>
   </section>
 
-  <!-- DIAGRAM -->
   <section class="diagram-shell">
-    <h2>Lines Overview</h2>
+    <h2>Lines & Nodes</h2>
     <p>
-      <strong>Line A</strong> (blue) · Tistory prompt engines  
-      <strong>Line B</strong> (gold) · 5 Parksy personas  
-      <strong>Line C</strong> (red) · YouTube, Naver meta-blog, dtslib.com
+      Blue = Tistory prompt engine lane · Gold = Parksy personas lane · Red = media & domains lane.  
+      Shapes are slightly wobbly on purpose — Excalidraw style.
     </p>
+
     <div class="diagram-wrap">
-      <svg class="diagram-svg"
-           viewBox="0 0 1200 620"
-           role="img"
-           aria-label="Subway-style map of Parksy lanes">
-        <!-- background parchment texture hint -->
+      <svg class="diagram-svg" viewBox="0 0 1200 620" role="img"
+           aria-label="Excalidraw-style map of Parksy lanes">
         <defs>
           <linearGradient id="laneA" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#4a90e2"/>
-            <stop offset="100%" stop-color="#00bcd4"/>
+            <stop offset="0%" stop-color="#3b82f6"/>
+            <stop offset="100%" stop-color="#0ea5e9"/>
           </linearGradient>
           <linearGradient id="laneB" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#d4af37"/>
-            <stop offset="100%" stop-color="#b8860b"/>
+            <stop offset="0%" stop-color="#facc15"/>
+            <stop offset="100%" stop-color="#b45309"/>
           </linearGradient>
           <linearGradient id="laneC" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#c44536"/>
-            <stop offset="100%" stop-color="#ff6b6b"/>
+            <stop offset="0%" stop-color="#ef4444"/>
+            <stop offset="100%" stop-color="#fb7185"/>
           </linearGradient>
+
+          <!-- subtle paper noise -->
+          <filter id="paperNoise">
+            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="noStitch" result="noise"/>
+            <feColorMatrix in="noise" type="matrix"
+                           values="0 0 0 0 0.8
+                                   0 0 0 0 0.75
+                                   0 0 0 0 0.6
+                                   0 0 0 0.09 0"/>
+            <feBlend in="SourceGraphic" in2="noise" mode="multiply"/>
+          </filter>
         </defs>
 
-        <!-- lane labels -->
-        <text x="120" y="70" font-size="16" fill="#2d1b12" font-weight="700">LINE A · Tistory Prompt Engines</text>
-        <text x="520" y="70" font-size="16" fill="#2d1b12" font-weight="700">LINE B · Parksy Personas</text>
-        <text x="900" y="70" font-size="16" fill="#2d1b12" font-weight="700">LINE C · Media & Domains</text>
+        <!-- outer sketch frame -->
+        <path class="sketch-border"
+              d="M40 60 Q80 40 170 50 T360 40 T620 55 T890 42 T1150 55
+                 Q1180 120 1160 190 T1165 360 T1155 530
+                 Q1060 575 910 580 T620 590 T320 575 T80 565
+                 Q50 470 55 370 T50 220 T40 60 Z"
+              fill="none" />
 
-        <!-- vertical rails -->
-        <path d="M120 110 L120 360" stroke="url(#laneA)" stroke-width="10" stroke-linecap="round"/>
-        <path d="M520 110 L520 460" stroke="url(#laneB)" stroke-width="10" stroke-linecap="round"/>
-        <path d="M910 110 L910 460" stroke="url(#laneC)" stroke-width="10" stroke-linecap="round"/>
+        <!-- lanes (살짝 휘어진 선) -->
+        <path class="lane-path" stroke="url(#laneA)"
+              d="M150 150
+                 Q160 210 145 260
+                 T155 360" />
+        <path class="lane-path" stroke="url(#laneB)"
+              d="M430 130
+                 Q520 140 560 210
+                 T545 340
+                 Q530 400 520 460" />
+        <path class="lane-path" stroke="url(#laneC)"
+              d="M850 150
+                 Q900 200 910 260
+                 T905 360
+                 Q900 430 890 470" />
 
-        <!-- connector arrows (A -> B, B -> C) -->
-        <path d="M130 180 C230 180 420 200 510 200" fill="none" stroke="rgba(0,0,0,0.25)" stroke-width="3" stroke-dasharray="8 6"/>
-        <polygon points="510,200 500,195 500,205" fill="rgba(0,0,0,0.25)"/>
-        <path d="M530 260 C650 260 800 260 900 260" fill="none" stroke="rgba(0,0,0,0.25)" stroke-width="3" stroke-dasharray="8 6"/>
-        <polygon points="900,260 890,255 890,265" fill="rgba(0,0,0,0.25)"/>
-        <path d="M530 360 C640 360 800 360 900 360" fill="none" stroke="rgba(0,0,0,0.25)" stroke-width="3" stroke-dasharray="8 6"/>
-        <polygon points="900,360 890,355 890,365" fill="rgba(0,0,0,0.25)"/>
+        <!-- loose connectors -->
+        <path class="lane-path" stroke="#9ca3af"
+              d="M190 180
+                 Q310 140 430 150" />
+        <path class="lane-path" stroke="#9ca3af"
+              d="M200 260
+                 Q320 250 430 230" />
+        <path class="lane-path" stroke="#9ca3af"
+              d="M220 330
+                 Q330 340 430 360" />
+        <path class="lane-path" stroke="#9ca3af"
+              d="M610 230
+                 Q720 210 830 190" />
+        <path class="lane-path" stroke="#9ca3af"
+              d="M610 280
+                 Q730 270 840 270" />
+        <path class="lane-path" stroke="#9ca3af"
+              d="M610 360
+                 Q725 350 840 340" />
+        <path class="lane-path" stroke="#9ca3af"
+              d="M600 440
+                 Q720 465 845 460" />
 
-        <!-- bottom convergence to Naver / dtslib -->
-        <path d="M520 460 L520 520" stroke="url(#laneB)" stroke-width="7" stroke-linecap="round"/>
-        <path d="M910 460 L910 520" stroke="url(#laneC)" stroke-width="7" stroke-linecap="round"/>
-        <path d="M520 520 C650 540 780 540 910 520" fill="none" stroke="rgba(0,0,0,0.25)" stroke-width="3" stroke-dasharray="8 6"/>
+        <!-- ===== NODES (각각 data-url로 클릭 이동) ===== -->
 
-        <!-- STATIONS (clickable groups) -->
-
-        <!-- Line A stops -->
-        <g class="stop-node" data-detail="detail-l1" transform="translate(120,150)">
-          <circle class="stop-circle" r="13" fill="#fff" stroke="url(#laneA)" stroke-width="2.4"/>
-          <rect x="-80" y="-28" width="160" height="26" rx="13"
-                fill="#ffffff" stroke="rgba(0,0,0,0.2)" stroke-width="1.2"/>
-          <text class="stop-label" x="0" y="-11" text-anchor="middle"
-                font-size="11" fill="#1a0f0a" font-weight="600">
-            L1 Prompt Engine
-          </text>
-          <text x="0" y="26" text-anchor="middle" font-size="9" fill="#555">Tistory</text>
+        <!-- Line A : Tistory prompt engines -->
+        <g class="node float" tabindex="0"
+           data-url="#"
+           transform="translate(150,150)">
+          <rect class="node-plate shadow" x="-80" y="-32" rx="18" ry="18" width="160" height="64"/>
+          <rect class="node-plate" x="-82" y="-34" rx="18" ry="18" width="160" height="64" filter="url(#paperNoise)"/>
+          <circle class="node-badge" cx="-60" cy="-18" r="9" fill="url(#laneA)"/>
+          <text class="node-label-main" x="-40" y="-14">L1 Prompt Engine</text>
+          <text class="node-label-sub" x="-40" y="8">Tistory · Single-shot templates</text>
+          <title>L1 Prompt Engine — later: replace data-url with real Tistory link.</title>
         </g>
 
-        <g class="stop-node" data-detail="detail-l2" transform="translate(120,230)">
-          <circle class="stop-circle" r="13" fill="#fff" stroke="url(#laneA)" stroke-width="2.4"/>
-          <rect x="-95" y="-28" width="190" height="26" rx="13"
-                fill="#ffffff" stroke="rgba(0,0,0,0.2)" stroke-width="1.2"/>
-          <text class="stop-label" x="0" y="-11" text-anchor="middle"
-                font-size="11" fill="#1a0f0a" font-weight="600">
-            L2 Project Instruction Engine
-          </text>
-          <text x="0" y="26" text-anchor="middle" font-size="9" fill="#555">Tistory / PWA</text>
+        <g class="node float" tabindex="0"
+           data-url="#"
+           transform="translate(150,250)">
+          <rect class="node-plate shadow" x="-95" y="-32" rx="18" ry="18" width="190" height="66"/>
+          <rect class="node-plate" x="-97" y="-34" rx="18" ry="18" width="190" height="66" filter="url(#paperNoise)"/>
+          <circle class="node-badge" cx="-73" cy="-18" r="9" fill="url(#laneA)"/>
+          <text class="node-label-main" x="-48" y="-14">L2 Project Engine</text>
+          <text class="node-label-sub" x="-48" y="8">Multi-LLM project specs</text>
+          <title>L2 Project Instruction Engine — PWA-style generator.</title>
         </g>
 
-        <g class="stop-node" data-detail="detail-meta" transform="translate(120,310)">
-          <circle class="stop-circle" r="13" fill="#fff" stroke="url(#laneA)" stroke-width="2.4"/>
-          <rect x="-84" y="-28" width="168" height="26" rx="13"
-                fill="#ffffff" stroke="rgba(0,0,0,0.2)" stroke-width="1.2"/>
-          <text class="stop-label" x="0" y="-11" text-anchor="middle"
-                font-size="11" fill="#1a0f0a" font-weight="600">
-            Meta-Loop Tools
-          </text>
-          <text x="0" y="26" text-anchor="middle" font-size="9" fill="#555">Future</text>
+        <g class="node float" tabindex="0"
+           data-url="#"
+           transform="translate(160,340)">
+          <rect class="node-plate shadow" x="-80" y="-30" rx="18" ry="18" width="170" height="62"/>
+          <rect class="node-plate" x="-82" y="-32" rx="18" ry="18" width="170" height="62" filter="url(#paperNoise)"/>
+          <circle class="node-badge" cx="-60" cy="-16" r="9" fill="url(#laneA)"/>
+          <text class="node-label-main" x="-40" y="-12">Meta-Tools (Future)</text>
+          <text class="node-label-sub" x="-40" y="8">Season & KR-Merit extras</text>
+          <title>Future meta-loop / KR Merit tools.</title>
         </g>
 
-        <!-- Line B stops (personas) -->
-        <g class="stop-node" data-detail="detail-tech" transform="translate(520,150)">
-          <circle class="stop-circle" r="13" fill="#fff" stroke="url(#laneB)" stroke-width="2.4"/>
-          <rect x="-110" y="-28" width="220" height="26" rx="13"
-                fill="#fffdf5" stroke="rgba(0,0,0,0.2)" stroke-width="1.2"/>
-          <text class="stop-label" x="0" y="-11" text-anchor="middle"
-                font-size="11" fill="#1a0f0a" font-weight="600">
-            Technician-Parksy · Devices
-          </text>
+        <!-- Line B : Personas -->
+        <g class="node float" tabindex="0"
+           data-url="#"
+           transform="translate(520,150)">
+          <rect class="node-plate shadow" x="-110" y="-34" rx="20" ry="20" width="220" height="68"/>
+          <rect class="node-plate" x="-112" y="-36" rx="20" ry="20" width="220" height="68" filter="url(#paperNoise)"/>
+          <circle class="node-badge" cx="-90" cy="-20" r="9" fill="url(#laneB)"/>
+          <text class="node-label-main" x="-68" y="-14">Technician-Parksy</text>
+          <text class="node-label-sub" x="-68" y="8">Devices · tool hacks lane</text>
         </g>
 
-        <g class="stop-node" data-detail="detail-blog" transform="translate(520,215)">
-          <circle class="stop-circle" r="13" fill="#fff" stroke="url(#laneB)" stroke-width="2.4"/>
-          <rect x="-110" y="-28" width="220" height="26" rx="13"
-                fill="#fffdf5" stroke="rgba(0,0,0,0.2)" stroke-width="1.2"/>
-          <text class="stop-label" x="0" y="-11" text-anchor="middle"
-                font-size="11" fill="#1a0f0a" font-weight="600">
-            Blogger-Parksy · KR TextStory
-          </text>
+        <g class="node float" tabindex="0"
+           data-url="#"
+           transform="translate(520,230)">
+          <rect class="node-plate shadow" x="-110" y="-34" rx="20" ry="20" width="220" height="68"/>
+          <rect class="node-plate" x="-112" y="-36" rx="20" ry="20" width="220" height="68" filter="url(#paperNoise)"/>
+          <circle class="node-badge" cx="-90" cy="-20" r="9" fill="url(#laneB)"/>
+          <text class="node-label-main" x="-68" y="-14">Blogger-Parksy</text>
+          <text class="node-label-sub" x="-68" y="8">KR TextStory · base logs</text>
         </g>
 
-        <g class="stop-node" data-detail="detail-philo" transform="translate(520,280)">
-          <circle class="stop-circle" r="13" fill="#fff" stroke="url(#laneB)" stroke-width="2.4"/>
-          <rect x="-110" y="-28" width="220" height="26" rx="13"
-                fill="#fffdf5" stroke="rgba(0,0,0,0.2)" stroke-width="1.2"/>
-          <text class="stop-label" x="0" y="-11" text-anchor="middle"
-                font-size="11" fill="#1a0f0a" font-weight="600">
-            Philosopher-Parksy · Essays
-          </text>
+        <g class="node float" tabindex="0"
+           data-url="#"
+           transform="translate(520,310)">
+          <rect class="node-plate shadow" x="-110" y="-34" rx="20" ry="20" width="220" height="70"/>
+          <rect class="node-plate" x="-112" y="-36" rx="20" ry="20" width="220" height="70" filter="url(#paperNoise)"/>
+          <circle class="node-badge" cx="-90" cy="-20" r="9" fill="url(#laneB)"/>
+          <text class="node-label-main" x="-68" y="-14">Philosopher-Parksy</text>
+          <text class="node-label-sub" x="-68" y="8">Essays · KR Merit theory</text>
         </g>
 
-        <g class="stop-node" data-detail="detail-vis" transform="translate(520,345)">
-          <circle class="stop-circle" r="13" fill="#fff" stroke="url(#laneB)" stroke-width="2.4"/>
-          <rect x="-110" y="-28" width="220" height="26" rx="13"
-                fill="#fffdf5" stroke="rgba(0,0,0,0.2)" stroke-width="1.2"/>
-          <text class="stop-label" x="0" y="-11" text-anchor="middle"
-                font-size="11" fill="#1a0f0a" font-weight="600">
-            Visualizer-Parksy · Diagrams
-          </text>
+        <g class="node float" tabindex="0"
+           data-url="#"
+           transform="translate(520,390)">
+          <rect class="node-plate shadow" x="-110" y="-34" rx="20" ry="20" width="220" height="70"/>
+          <rect class="node-plate" x="-112" y="-36" rx="20" ry="20" width="220" height="70" filter="url(#paperNoise)"/>
+          <circle class="node-badge" cx="-90" cy="-20" r="9" fill="url(#laneB)"/>
+          <text class="node-label-main" x="-68" y="-14">Visualizer-Parksy</text>
+          <text class="node-label-sub" x="-68" y="8">Diagrams · Excalidraw lane</text>
         </g>
 
-        <g class="stop-node" data-detail="detail-music" transform="translate(520,410)">
-          <circle class="stop-circle" r="13" fill="#fff" stroke="url(#laneB)" stroke-width="2.4"/>
-          <rect x="-110" y="-28" width="220" height="26" rx="13"
-                fill="#fffdf5" stroke="rgba(0,0,0,0.2)" stroke-width="1.2"/>
-          <text class="stop-label" x="0" y="-11" text-anchor="middle"
-                font-size="11" fill="#1a0f0a" font-weight="600">
-            Musician-Parksy · WebAppsBook Cast
-          </text>
+        <g class="node float" tabindex="0"
+           data-url="#"
+           transform="translate(520,470)">
+          <rect class="node-plate shadow" x="-110" y="-34" rx="20" ry="20" width="220" height="70"/>
+          <rect class="node-plate" x="-112" y="-36" rx="20" ry="20" width="220" height="70" filter="url(#paperNoise)"/>
+          <circle class="node-badge" cx="-90" cy="-20" r="9" fill="url(#laneB)"/>
+          <text class="node-label-main" x="-68" y="-14">Musician-Parksy</text>
+          <text class="node-label-sub" x="-68" y="8">WebAppsBook Cast · OST</text>
         </g>
 
-        <!-- Line C stops -->
-        <g class="stop-node" data-detail="detail-yt-main" transform="translate(910,160)">
-          <circle class="stop-circle" r="13" fill="#fff" stroke="url(#laneC)" stroke-width="2.4"/>
-          <rect x="-110" y="-28" width="220" height="26" rx="13"
-                fill="#fffef9" stroke="rgba(0,0,0,0.2)" stroke-width="1.2"/>
-          <text class="stop-label" x="0" y="-11" text-anchor="middle"
-                font-size="11" fill="#1a0f0a" font-weight="600">
-            YouTube · Parksy World
-          </text>
+        <!-- Line C : Media & domain -->
+        <g class="node float" tabindex="0"
+           data-url="#"
+           transform="translate(900,170)">
+          <rect class="node-plate shadow" x="-115" y="-34" rx="20" ry="20" width="230" height="68"/>
+          <rect class="node-plate" x="-117" y="-36" rx="20" ry="20" width="230" height="68" filter="url(#paperNoise)"/>
+          <circle class="node-badge" cx="-95" cy="-20" r="9" fill="url(#laneC)"/>
+          <text class="node-label-main" x="-72" y="-14">YouTube · Parksy World</text>
+          <text class="node-label-sub" x="-72" y="8">Main EduArt channel</text>
         </g>
 
-        <g class="stop-node" data-detail="detail-yt-cast" transform="translate(910,225)">
-          <circle class="stop-circle" r="13" fill="#fff" stroke="url(#laneC)" stroke-width="2.4"/>
-          <rect x="-110" y="-28" width="220" height="26" rx="13"
-                fill="#fffef9" stroke="rgba(0,0,0,0.2)" stroke-width="1.2"/>
-          <text class="stop-label" x="0" y="-11" text-anchor="middle"
-                font-size="11" fill="#1a0f0a" font-weight="600">
-            YouTube · WebAppsBook Cast
-          </text>
+        <g class="node float" tabindex="0"
+           data-url="#"
+           transform="translate(900,250)">
+          <rect class="node-plate shadow" x="-115" y="-34" rx="20" ry="20" width="230" height="70"/>
+          <rect class="node-plate" x="-117" y="-36" rx="20" ry="20" width="230" height="70" filter="url(#paperNoise)"/>
+          <circle class="node-badge" cx="-95" cy="-20" r="9" fill="url(#laneC)"/>
+          <text class="node-label-main" x="-72" y="-14">YouTube · WebAppsBook Cast</text>
+          <text class="node-label-sub" x="-72" y="8">Audio & live sessions</text>
         </g>
 
-        <g class="stop-node" data-detail="detail-naver" transform="translate(910,310)">
-          <circle class="stop-circle" r="13" fill="#fff" stroke="url(#laneC)" stroke-width="2.4"/>
-          <rect x="-110" y="-28" width="220" height="26" rx="13"
-                fill="#fffef9" stroke="rgba(0,0,0,0.2)" stroke-width="1.2"/>
-          <text class="stop-label" x="0" y="-11" text-anchor="middle"
-                font-size="11" fill="#1a0f0a" font-weight="600">
-            Naver Blog · Meta Hub
-          </text>
+        <g class="node float" tabindex="0"
+           data-url="#"
+           transform="translate(900,330)">
+          <rect class="node-plate shadow" x="-115" y="-34" rx="20" ry="20" width="230" height="68"/>
+          <rect class="node-plate" x="-117" y="-36" rx="20" ry="20" width="230" height="68" filter="url(#paperNoise)"/>
+          <circle class="node-badge" cx="-95" cy="-20" r="9" fill="url(#laneC)"/>
+          <text class="node-label-main" x="-72" y="-14">Naver Meta Blog</text>
+          <text class="node-label-sub" x="-72" y="8">All lanes collected</text>
         </g>
 
-        <g class="stop-node" data-detail="detail-dtslib" transform="translate(910,395)">
-          <circle class="stop-circle" r="13" fill="#fff" stroke="url(#laneC)" stroke-width="2.4"/>
-          <rect x="-110" y="-28" width="220" height="26" rx="13"
-                fill="#fffef9" stroke="rgba(0,0,0,0.2)" stroke-width="1.2"/>
-          <text class="stop-label" x="0" y="-11" text-anchor="middle"
-                font-size="11" fill="#1a0f0a" font-weight="600">
-            dtslib.com · Company
-          </text>
+        <g class="node float" tabindex="0"
+           data-url="#"
+           transform="translate(900,415)">
+          <rect class="node-plate shadow" x="-115" y="-34" rx="20" ry="20" width="230" height="70"/>
+          <rect class="node-plate" x="-117" y="-36" rx="20" ry="20" width="230" height="70" filter="url(#paperNoise)"/>
+          <circle class="node-badge" cx="-95" cy="-20" r="9" fill="url(#laneC)"/>
+          <text class="node-label-main" x="-72" y="-14">dtslib.com · Company</text>
+          <text class="node-label-sub" x="-72" y="8">WordPress · products</text>
         </g>
 
       </svg>
     </div>
-  </section>
 
-  <!-- DETAIL BOARD -->
-  <section class="detail-board" aria-live="polite">
-    <!-- default -->
-    <article class="detail-card" id="detail-default" data-active="true">
-      <div class="detail-meta">HOW TO USE · TAP A STATION</div>
-      <h3>Pick any station on the map.</h3>
-      <p class="detail-body">
-        This board shows a short English explanation for each lane stop.
-        Under <b>“URL slot”</b> you can later plug in the real address of the module:
-        Tistory page, YouTube channel, Naver blog, or WordPress route.
-      </p>
-      <p class="detail-placeholder">
-        Tip: search for <code>href="#"</code> in this file and replace it with your real URLs
-        when each module goes live.
-      </p>
-    </article>
-
-    <!-- LINE A details -->
-    <article class="detail-card" id="detail-l1">
-      <div class="detail-meta">LINE A · TISTORY PROMPT ENGINES</div>
-      <h3>L1 Prompt Engine (Tistory HTML)</h3>
-      <p class="detail-body">
-        Single-page prompt builder for one-shot tasks.  
-        You talk once, the engine generates a clean prompt template you can reuse
-        for ChatGPT / Claude / Grok. Perfect for “daily workhorse” patterns.
-      </p>
-      <a class="detail-link" href="#" target="_blank" rel="noopener">
-        <span class="icon">🔗</span>Open L1 Prompt Engine (URL slot)
-      </a>
-      <p class="detail-note">Replace <code>#</code> with the real Tistory URL when ready.</p>
-    </article>
-
-    <article class="detail-card" id="detail-l2">
-      <div class="detail-meta">LINE A · TISTORY PROMPT ENGINES</div>
-      <h3>L2 Project Instruction Engine</h3>
-      <p class="detail-body">
-        Multi-LLM project spec generator.  
-        One form → three instruction sets (GPT Brain / Claude CTO / Grok Media).  
-        Used for bigger seasons, not just small tasks.
-      </p>
-      <a class="detail-link" href="#" target="_blank" rel="noopener">
-        <span class="icon">🔗</span>Open L2 Project Engine (URL slot)
-      </a>
-      <p class="detail-note">Later: connect to the PWA version of your L2 engine.</p>
-    </article>
-
-    <article class="detail-card" id="detail-meta">
-      <div class="detail-meta">LINE A · TISTORY PROMPT ENGINES</div>
-      <h3>Meta-Loop & Season Tools (Future)</h3>
-      <p class="detail-body">
-        Planned tools for reviewing whole seasons:  
-        log digests, highlight extractors, and version timelines.
-        All of them will still live on the same Tistory / PWA base.
-      </p>
-      <a class="detail-link" href="#" target="_blank" rel="noopener">
-        <span class="icon">🔗</span>Meta-Loop tools (future URL slot)
-      </a>
-      <p class="detail-note">Keep this as a parking slot for your next-generation tools.</p>
-    </article>
-
-    <!-- LINE B details -->
-    <article class="detail-card" id="detail-tech">
-      <div class="detail-meta">LINE B · PARKSY PERSONAS</div>
-      <h3>Technician-Parksy · Devices & Tool Hacks</h3>
-      <p class="detail-body">
-        Hardware & workflow lane: Galaxy S25 / Tab / Dell XPS tuning, keyboard layouts,
-        recording presets, file-sync habits.  
-        If a future student copies only this lane, they still get a serious productivity boost.
-      </p>
-      <a class="detail-link" href="#" target="_blank" rel="noopener">
-        <span class="icon">🔗</span>Technician-Parksy hub (URL slot)
-      </a>
-    </article>
-
-    <article class="detail-card" id="detail-blog">
-      <div class="detail-meta">LINE B · PARKSY PERSONAS</div>
-      <h3>Blogger-Parksy · KR TextStory</h3>
-      <p class="detail-body">
-        All Korean text stories and logs.  
-        Raw episodes, season notes, “middle-aged high-schooler” essays,
-        and long-form reflections that later feed other lanes.
-      </p>
-      <a class="detail-link" href="#" target="_blank" rel="noopener">
-        <span class="icon">🔗</span>Blogger-Parksy hub (URL slot)
-      </a>
-    </article>
-
-    <article class="detail-card" id="detail-philo">
-      <div class="detail-meta">LINE B · PARKSY PERSONAS</div>
-      <h3>Philosopher-Parksy · Essays & Theory</h3>
-      <p class="detail-body">
-        Where structures are named: KR Merit drivers, EduArt formulas,
-        motivation models, and all the “why” behind every experiment.
-      </p>
-      <a class="detail-link" href="#" target="_blank" rel="noopener">
-        <span class="icon">🔗</span>Philosopher-Parksy hub (URL slot)
-      </a>
-    </article>
-
-    <article class="detail-card" id="detail-vis">
-      <div class="detail-meta">LINE B · PARKSY PERSONAS</div>
-      <h3>Visualizer-Parksy · Diagrams & Screens</h3>
-      <p class="detail-body">
-        Excalidraw-style diagrams, SVG roadmaps, screen mockups, and webtoon layouts.  
-        This About page map conceptually belongs to this lane.
-      </p>
-      <a class="detail-link" href="#" target="_blank" rel="noopener">
-        <span class="icon">🔗</span>Visualizer-Parksy hub (URL slot)
-      </a>
-    </article>
-
-    <article class="detail-card" id="detail-music">
-      <div class="detail-meta">LINE B · PARKSY PERSONAS</div>
-      <h3>Musician-Parksy · WebAppsBook Cast</h3>
-      <p class="detail-body">
-        Voice, music, and emotional direction: AI-assisted tracks, classical
-        curation models, and WebAppsBookCast episodes.
-      </p>
-      <a class="detail-link" href="#" target="_blank" rel="noopener">
-        <span class="icon">🔗</span>Musician-Parksy hub (URL slot)
-      </a>
-    </article>
-
-    <!-- LINE C details -->
-    <article class="detail-card" id="detail-yt-main">
-      <div class="detail-meta">LINE C · MEDIA & DOMAINS</div>
-      <h3>YouTube · Parksy World</h3>
-      <p class="detail-body">
-        Main EduArt channel. Short lessons, live drawing, prompt walkthroughs,
-        and “how a middle-aged high-schooler survives with AI” episodes.
-      </p>
-      <a class="detail-link" href="#" target="_blank" rel="noopener">
-        <span class="icon">🔗</span>Parksy World channel (URL slot)
-      </a>
-    </article>
-
-    <article class="detail-card" id="detail-yt-cast">
-      <div class="detail-meta">LINE C · MEDIA & DOMAINS</div>
-      <h3>YouTube · WebAppsBook Cast</h3>
-      <p class="detail-body">
-        Audio-first lane: music-driven storytelling, radio-style sessions,
-        and soundtrack experiments for each season of the EduArt engine.
-      </p>
-      <a class="detail-link" href="#" target="_blank" rel="noopener">
-        <span class="icon">🔗</span>WebAppsBook Cast channel (URL slot)
-      </a>
-    </article>
-
-    <article class="detail-card" id="detail-naver">
-      <div class="detail-meta">LINE C · MEDIA & DOMAINS</div>
-      <h3>Naver Blog · Meta Magazine</h3>
-      <p class="detail-body">
-        Central hub that collects everything:  
-        Tistory prompts, Parksy personas, YouTube episodes, and KR Merit side stories.  
-        Think of it as the public “patch notes” and showcase for the whole system.
-      </p>
-      <a class="detail-link" href="#" target="_blank" rel="noopener">
-        <span class="icon">🔗</span>Naver meta-blog (URL slot)
-      </a>
-    </article>
-
-    <article class="detail-card" id="detail-dtslib">
-      <div class="detail-meta">LINE C · MEDIA & DOMAINS</div>
-      <h3>dtslib.com · Company / WordPress</h3>
-      <p class="detail-body">
-        Final business layer.  
-        When lanes prove stable, they become products, services, or whitepapers here:
-        WordPress pages, documentation, and client-facing offers.
-      </p>
-      <a class="detail-link" href="#" target="_blank" rel="noopener">
-        <span class="icon">🔗</span>dtslib.com main site (URL slot)
-      </a>
-    </article>
+    <div class="legend">
+      <span><span class="legend-pill" style="background:linear-gradient(90deg,#3b82f6,#0ea5e9)"></span>Line A · Tistory prompt engines</span>
+      <span><span class="legend-pill" style="background:linear-gradient(90deg,#facc15,#b45309)"></span>Line B · Parksy personas</span>
+      <span><span class="legend-pill" style="background:linear-gradient(90deg,#ef4444,#fb7185)"></span>Line C · Media & domains</span>
+    </div>
   </section>
 
   <p class="foot-note">
-    This About page is intentionally light on text.  
-    The real story lives in each lane — once URLs are ready, this becomes your clickable treasure map.
+    To wire everything: search this file for <code>data-url="#"</code>  
+    and replace each <code>#</code> with the real URL of that module.
   </p>
 </main>
 
 <script>
-  // SVG station 클릭 → 디테일 카드 교체
+  // Node click → open data-url (새 탭)
   (function(){
-    const stops = document.querySelectorAll('.stop-node');
-    const detailCards = document.querySelectorAll('.detail-card');
+    const nodes = document.querySelectorAll('.node');
 
-    function showDetail(id){
-      detailCards.forEach(card=>{
-        card.dataset.active = (card.id === id) ? "true" : "false";
-      });
-    }
-    function activateStop(target){
-      stops.forEach(s=>s.classList.remove('is-active'));
-      if(target) target.classList.add('is-active');
-    }
+    nodes.forEach((node, index) => {
+      const url = node.getAttribute('data-url');
 
-    stops.forEach(stop=>{
-      stop.addEventListener('click', ()=>{
-        const id = stop.getAttribute('data-detail') || 'detail-default';
-        activateStop(stop);
-        showDetail(id);
-        // 모바일에서 아래로 살짝 스크롤
-        const board = document.querySelector('.detail-board');
-        if(board && window.innerWidth < 900){
-          board.scrollIntoView({behavior:'smooth', block:'start'});
+      // 랜덤 플로팅 딜레이로 조금씩 다른 움직임
+      const delay = (index * 0.9).toFixed(2);
+      node.style.animationDelay = delay + 's';
+
+      function openUrl(){
+        if(url && url !== '#'){
+          window.open(url, '_blank', 'noopener');
+        }
+      }
+
+      node.addEventListener('click', openUrl);
+      node.addEventListener('keydown', (e)=>{
+        if(e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          openUrl();
         }
       });
     });
-
-    // 초기 상태
-    showDetail('detail-default');
   })();
 </script>
 </body>
