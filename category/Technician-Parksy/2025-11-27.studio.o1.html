@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>PARKSY ORIENTATION ENGINE v3.6</title>
+  <meta name="theme-color" content="#0f0f17">
+
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/panzoom@9.4.3/dist/panzoom.min.js"></script>
+
+  <style>
+    :root {
+      --bg: #070811;
+      --fg: #f7f7fb;
+      --card: #141421;
+      --border: #26263a;
+      --north: #4db7ff;
+      --east: #7aff8f;
+      --south: #ff6f6f;
+      --west: #f6d96b;
+    }
+
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body {
+      background: radial-gradient(circle at top, #141428 0%, #050509 70%);
+      color: var(--fg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    header {
+      position: sticky; top: 0; z-index: 100;
+      padding: 24px 20px 18px; text-align: center;
+      backdrop-filter: blur(20px);
+      background: rgba(7,8,17,0.94);
+      border-bottom: 1px solid var(--border);
+    }
+    h1 { font-size: 24px; letter-spacing: 0.06em; margin-bottom: 4px; }
+    header p { font-size: 13px; opacity: 0.8; letter-spacing: 0.2em; }
+
+    main { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+    section { padding: 48px 0 56px; border-bottom: 1px solid var(--border); }
+    h2 { font-size: 24px; margin-bottom: 24px; font-weight: 600; }
+
+    .frame {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      margin: 24px 0;
+    }
+    .frame-title {
+      padding: 12px 16px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      opacity: 0.7;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .image-wrapper {
+      position: relative; width: 100%; height: 340px;
+      background: radial-gradient(circle at center, #1e1e2e 0%, #0c0c13 80%);
+      overflow: hidden; touch-action: none;
+    }
+    .image-wrapper::after {
+      content: "Pinch · Drag · Double-tap reset";
+      position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+      font-size: 12px; background: rgba(0,0,0,0.6); padding: 6px 12px; border-radius: 20px; opacity: 0.7;
+    }
+    .image-wrapper img { width: 100%; height: 100%; object-fit: contain; }
+
+    .two-col { display: grid; gap: 32px; margin-top: 20px; }
+    @media (min-width: 840px) { .two-col { grid-template-columns: 1.3fr 1fr; } }
+
+    /* 핵심: 다이어그램 박스 1/3 크기로 강제 축소 */
+    .mermaid-container {
+      position: relative;
+      height: 240px !important;     /* 모바일에서 딱 1/3 */
+      margin: 32px 0;
+      border-radius: 16px;
+      overflow: hidden;
+      background: transparent !important;
+    }
+    .mermaid-container svg {
+      background: transparent !important;
+      height: 100% !important;
+      width: 100% !important;
+    }
+
+    @media (max-width: 640px) {
+      .image-wrapper { height: 280px; }
+      .mermaid-container { height: 220px !important; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>PARKSY ORIENTATION ENGINE v3.6</h1>
+  <p>NORTH–ANCHORED ONE-PERSON AI STUDIO OS</p>
+</header>
+
+<main>
+
+  <section id="overview">
+    <h2>0. System Overview</h2>
+    <p><strong>PARKSY ROOM OS</strong> is a creative operating system built inside a single rectangular room in Anyang, Korea. The room is not treated as “interior decoration” but as a <strong>physical kernel</strong> that maps four absolute directions – North, East, South, West – to four cognitive modes: Reset, Production, Relaxation, Meta-Structure.</p>
+  </section>
+
+  <section id="north">
+    <h2 style="color:var(--north);">1. North (0°) – Archive & Reset Node</h2>
+    <p class="tagline">Recliner · Bookshelf · Wall TV (Threads Canvas)</p>
+    <div class="frame">
+      <div class="frame-title">NORTH PHOTO FRAME</div>
+      <div class="image-wrapper" id="img-north">
+        <img src="https://imagewh.netlify.app/StudioNorth.jpg" alt="North">
+      </div>
+    </div>
+    <div class="two-col">
+      <div>
+        <h3>1.1 Functional Role</h3>
+        <p>Facing straight North, the wall hosts a TV used as a <strong>thread canvas</strong>. This screen cycles through PARKSY’s active projects, GitHub pages, and long-term “season logs”. Beneath and around it sit the core bookshelf and working bags.</p>
+        <ul>
+          <li><strong>Archive & Memory Core</strong> – finished seasons, reference books, printed diagrams.</li>
+          <li><strong>Low-arousal Reset</strong> – recliner + TV for passive review.</li>
+          <li><strong>Anchor for Absolute North</strong> – all other directions are measured from this wall.</li>
+        </ul>
+        <h3>1.2 Cognitive Mapping</h3>
+        <p>Hippocampal archive state. Default Mode Network softly on. Place & Grid cells define “home base”.</p>
+        <h3>1.3 OS Contract</h3>
+        <p>No new fights started here. Only review, passive scroll, mood reset.</p>
+      </div>
+      <div>
+        <h3>1.4 Feng Shui</h3>
+        <p>North = water, depth, memory. Recliner = stable spine. Bookshelf = mountain behind the house.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="east">
+    <h2 style="color:var(--east);">2. East (90°) – Production & Expression Stack</h2>
+    <p class="tagline">Dual Monitors · Laptop · Piano · Voice IDE</p>
+    <div class="frame">
+      <div class="frame-title">EAST PHOTO FRAME</div>
+      <div class="image-wrapper" id="img-east">
+        <img src="https://imagewh.netlify.app/StudioEast.jpg" alt="East">
+      </div>
+    </div>
+    <div class="two-col">
+      <div>
+        <h3>2.1 Layers</h3>
+        <ul>
+          <li>L₁ Upper TV – dashboards</li>
+          <li>L₂ Dual Monitors – IDE</li>
+          <li>L₂.5 Laptop – Excel</li>
+          <li>L₃ Piano – timing</li>
+        </ul>
+        <h3>2.2 Multi-modal IDE</h3>
+        <p>Voice + Visual + Audio. Keyboard minimized.</p>
+        <h3>2.3 Rules</h3>
+        <p>One ticket · Always mirrored online · Light music</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="south">
+    <h2 style="color:var(--south);">3. South (180°) – Relaxation & Purification</h2>
+    <p class="tagline">Window · Bamboo Blinds · Air Cooler</p>
+    <div class="frame">
+      <div class="frame-title">SOUTH PHOTO FRAME</div>
+      <div class="image-wrapper" id="img-south">
+        <img src="https://imagewh.netlify.app/StudioSouth.jpg" alt="South">
+      </div>
+    </div>
+    <p>Natural light, ventilation. 5–15 min somatic reset only.</p>
+  </section>
+
+  <section id="west">
+    <h2 style="color:var(--west);">4. West (270°) – Meta & Structure Lab</h2>
+    <p class="tagline">Post-it Wall · Acrylic Board</p>
+    <div class="frame">
+      <div class="frame-title">WEST PHOTO FRAME</div>
+      <div class="image-wrapper" id="img-west">
+        <img src="https://imagewh.netlify.app/StudioWest.jpg" alt="West">
+      </div>
+    </div>
+    <p>Chaos → structure. Daily sync to East before sleep.</p>
+  </section>
+
+  <!-- 5. Diagram – 이제 진짜 딱 1/3 높이 -->
+  <section id="diagram">
+    <h2>5. ORIENTATION ENGINE SYSTEM GRAPH</h2>
+    <div class="frame">
+      <div class="frame-title">INTERACTIVE FLOW v3.6</div>
+      <div class="mermaid-container" id="mermaid-panel">
+        <div class="mermaid">
+%%{init: {'theme': 'dark', 'flowchart': {'useMaxWidth': true, 'curve': 'basis'}}}%%
+graph LR
+    N((NORTH<br>Reset·Archive)):::n
+    W((WEST<br>Meta·Structure)):::w
+    E((EAST<br>Production)):::e
+    S((SOUTH<br>Relax)):::s
+    C[(CENTER<br>Kernel)]:::c
+
+    N --> W --> E --> S --> N
+    C --- N & W & E & S
+
+    N -.->|DMN| DMN
+    W -.->|DMN| DMN
+    E -.->|CEN| CEN
+    S -.->|SN| SN
+
+    classDef n fill:#16263d,stroke:#4db7ff,stroke-width:4px,color:#fff
+    classDef w fill:#2a2a1a,stroke:#f6d96b,stroke-width:4px,color:#fff
+    classDef e fill:#1a331a,stroke:#7aff8f,stroke-width:4px,color:#fff
+    classDef s fill:#331a1a,stroke:#ff6f6f,stroke-width:4px,color:#fff
+    classDef c fill:#1a1a2e,stroke:#5cf0c0,stroke-width:5px,color:#5cf0c0
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="appendix">
+    <h2>6. Theory Appendix</h2>
+    <p>R = {N,E,S,W} × Layers × Phases × Interfaces<br>f: Ω → [0,1]³ (Focus, Stability, Revenue-Potential)<br>Near-bijection between theory and physical room</p>
+  </section>
+
+</main>
+
+<footer style="padding:60px 20px 40px;text-align:center;font-size:13px;opacity:0.6;">
+  PARKSY ORIENTATION ENGINE v3.6 · 2025 · True Final
+</footer>
+
+<script>
+  ['img-north','img-east','img-south','img-west'].forEach(id => {
+    const w = document.getElementById(id);
+    if (w) {
+      const img = w.querySelector('img');
+      if (img) {
+        const pz = panzoom(img, { maxZoom:6, minZoom:1 });
+        w.addEventListener('dblclick', () => pz.smoothZoomAbs(0,0,1) || pz.moveTo(0,0));
+      }
+    }
+  });
+
+  mermaid.initialize({ startOnLoad:true, theme:'dark', flowchart:{ useMaxWidth:true } });
+
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const svg = document.querySelector('#mermaid-panel svg');
+      if (svg) {
+        svg.style.background = 'transparent';
+        panzoom(svg, { maxZoom:4, minZoom:0.9 });
+      }
+    }, 600);
+  });
+</script>
+</body>
+</html>
