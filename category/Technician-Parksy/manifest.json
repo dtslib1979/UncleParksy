@@ -1,0 +1,140 @@
+{
+  "items": [
+    {
+      "title": "2025-08-27 UncleParksy Site Launch",
+      "path": "./2025-08-27-uncleparksy-site-launch.html",
+      "section": "Devices",
+      "type": "HTML",
+      "date": "2025-08-27",
+      "tags": ["launch"]
+    },
+    {
+      "title": "2025-08-29 샘플",
+      "path": "./2025-08-29 샘플.html",
+      "section": "Devices",
+      "type": "HTML",
+      "date": "2025-08-29",
+      "tags": ["korean", "sample"]
+    },
+    {
+      "title": "2025-11-27 Studio O1",
+      "path": "./2025-11-27.studio.o1.html",
+      "section": "Devices",
+      "type": "HTML",
+      "date": "2025-11-27",
+      "tags": ["studio"]
+    },
+    {
+      "title": "MermaidE",
+      "path": "./MermaidE.html",
+      "section": "Tools",
+      "type": "HTML",
+      "date": null,
+      "tags": ["mermaid"]
+    },
+    {
+      "title": "MermaidF",
+      "path": "./MermaidF.html",
+      "section": "Tools",
+      "type": "HTML",
+      "date": null,
+      "tags": ["mermaid"]
+    },
+    {
+      "title": "About",
+      "path": "./about.html",
+      "section": "General",
+      "type": "HTML",
+      "date": null,
+      "tags": ["about"]
+    },
+    {
+      "title": "Desktop",
+      "path": "./desktop.html",
+      "section": "Devices",
+      "type": "HTML",
+      "date": null,
+      "tags": ["desktop"]
+    },
+    {
+      "title": "Device Package",
+      "path": "./devicepkg.html",
+      "section": "Devices",
+      "type": "HTML",
+      "date": null,
+      "tags": ["device", "package"]
+    },
+    {
+      "title": "Device Package 2",
+      "path": "./devicepkg2.html",
+      "section": "Devices",
+      "type": "HTML",
+      "date": null,
+      "tags": ["device", "package"]
+    },
+    {
+      "title": "Idea",
+      "path": "./idea.html",
+      "section": "Tools",
+      "type": "HTML",
+      "date": null,
+      "tags": ["idea"]
+    },
+    {
+      "title": "Layer Gemini EP1",
+      "path": "./layer.gemini.ep1.html",
+      "section": "Tools",
+      "type": "HTML",
+      "date": null,
+      "tags": ["layer", "gemini"]
+    },
+    {
+      "title": "Level 2 Prompt Generator",
+      "path": "./level2promptgen.html",
+      "section": "Tools",
+      "type": "HTML",
+      "date": null,
+      "tags": ["prompt", "generator"]
+    },
+    {
+      "title": "Mid Sci Bio",
+      "path": "./mid-sci-bio.html",
+      "section": "General",
+      "type": "HTML",
+      "date": null,
+      "tags": ["science", "bio"]
+    },
+    {
+      "title": "PC Format",
+      "path": "./pc-format.html",
+      "section": "Devices",
+      "type": "HTML",
+      "date": null,
+      "tags": ["pc", "format"]
+    },
+    {
+      "title": "Schedule",
+      "path": "./schedule.html",
+      "section": "General",
+      "type": "HTML",
+      "date": null,
+      "tags": ["schedule"]
+    },
+    {
+      "title": "trial6",
+      "path": "./trial6.html",
+      "section": "Experiments",
+      "type": "HTML",
+      "date": null,
+      "tags": ["trial", "test"]
+    },
+    {
+      "title": "uploadtest",
+      "path": "./uploadtest.html",
+      "section": "Experiments",
+      "type": "HTML",
+      "date": null,
+      "tags": ["upload", "test"]
+    }
+  ]
+}

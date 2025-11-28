@@ -1,0 +1,36 @@
+{
+  "items": [
+    {
+      "title": "2025-09-03 Immediate Sync Test",
+      "path": "./2025-09-03-immediate-sync-test.html",
+      "section": "Logs",
+      "type": "HTML",
+      "date": "2025-09-03",
+      "tags": ["sync", "test"]
+    },
+    {
+      "title": "ObsidianUT",
+      "path": "./ObsidianUT.html",
+      "section": "Logs",
+      "type": "HTML",
+      "date": null,
+      "tags": ["obsidian"]
+    },
+    {
+      "title": "trial5",
+      "path": "./trial5.html",
+      "section": "Experiments",
+      "type": "HTML",
+      "date": null,
+      "tags": ["trial", "test"]
+    },
+    {
+      "title": "uploadtest",
+      "path": "./uploadtest.html",
+      "section": "Experiments",
+      "type": "HTML",
+      "date": null,
+      "tags": ["upload", "test"]
+    }
+  ]
+}

@@ -556,20 +556,34 @@ window.addEventListener('pageshow', (e) => {
   if (e.persisted) resetMain();
 });
 
-/* home.json counts */
+/* Load counts from each category's manifest.json */
 async function loadHomeJsonCounts(){
-  try{
-    const r = await fetch('/assets/home.json', { cache: 'no-store' });
-    if(!r.ok) return;
-    const data = await r.json();
-    document.querySelectorAll('.chapter-count[data-cat]').forEach(el=>{
-      const key = el.getAttribute('data-cat');
-      if(key in data){
-        el.textContent = data[key];
+  const countElements = document.querySelectorAll('.chapter-count[data-cat]');
+  const promises = Array.from(countElements).map(async el => {
+    const cat = el.getAttribute('data-cat');
+    const path = el.getAttribute('data-path');
+    if (!cat || !path) return;
+    
+    try {
+      // Try to fetch manifest.json from the category folder
+      const manifestPath = `/${path}/manifest.json`;
+      const r = await fetch(manifestPath, { cache: 'no-store' });
+      if (r.ok) {
+        const data = await r.json();
+        // Count items in manifest
+        const items = Array.isArray(data.items) ? data.items : (Array.isArray(data) ? data : []);
+        el.textContent = items.length;
         el.classList.remove('loading');
+        if (items.length > 0) {
+          el.style.transform = 'scale(1.1)';
+          setTimeout(() => el.style.transform = 'scale(1)', 200);
+        }
       }
-    });
-  }catch(e){}
+    } catch(e) {
+      // Manifest not available, will fall back to GitHub API in loadChapterCounts
+    }
+  });
+  await Promise.all(promises);
 }
 
 /* GitHub API fallback counts */
