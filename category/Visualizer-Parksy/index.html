@@ -275,7 +275,6 @@ async function loadFromGitHub(){
     const list = await res.json();
 
     const htmlFiles = list.filter(e => e.type === 'file' && /\.html?$/i.test(e.name) && e.name.toLowerCase() !== 'index.html');
-    if (htmlFiles.length === 0) throw new Error('No HTML files found in folder via GitHub API.');
 
     allItems = htmlFiles.map((f,i)=>({
       title: decodeURIComponent(f.name.replace(/\.html?$/i,'')),
@@ -290,6 +289,11 @@ async function loadFromGitHub(){
     note.textContent = '• source: GitHub Contents API';
     loading.style.display='none'; document.getElementById('content').style.display='block';
     applySort(currentSort);
+
+    // If zero items, still show panel (empty state is fine)
+    if(htmlFiles.length === 0){
+      note.textContent += ' • (no HTML files found here)';
+    }
   }catch(e){
     loading.style.display='none';
     err.style.display='block';
