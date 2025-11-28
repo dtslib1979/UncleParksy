@@ -558,11 +558,10 @@ window.addEventListener('pageshow', (e) => {
 
 /* Load counts from each category's manifest.json */
 async function loadHomeJsonCounts(){
-  const countElements = document.querySelectorAll('.chapter-count[data-cat]');
+  const countElements = document.querySelectorAll('.chapter-count[data-path]');
   const promises = Array.from(countElements).map(async el => {
-    const cat = el.getAttribute('data-cat');
     const path = el.getAttribute('data-path');
-    if (!cat || !path) return;
+    if (!path) return;
     
     try {
       // Try to fetch manifest.json from the category folder
