@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "title": "2025-09-03 check2",
+      "path": "./2025-09-03 check2.html",
+      "section": "Cast",
+      "type": "HTML",
+      "date": "2025-09-03",
+      "tags": ["check"]
+    },
+    {
+      "title": "trial2",
+      "path": "./trial2.html",
+      "section": "Experiments",
+      "type": "HTML",
+      "date": null,
+      "tags": ["trial", "test"]
+    },
+    {
+      "title": "uploadtest",
+      "path": "./uploadtest.html",
+      "section": "Experiments",
+      "type": "HTML",
+      "date": null,
+      "tags": ["upload", "test"]
+    }
+  ]
+}

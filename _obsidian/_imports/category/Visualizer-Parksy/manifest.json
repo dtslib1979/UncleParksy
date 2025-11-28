@@ -6,15 +6,15 @@
       "section": "Field Notes",
       "type": "HTML",
       "date": "2025-08-29",
-      "tags": ["korean","note"]
+      "tags": ["korean", "note"]
     },
     {
-      "title": "2025-08-30 Verbal coding …",
+      "title": "2025-08-30 Verbal coding wordmaster",
       "path": "./2025-08-30 Verbal coding wordmaster.html",
       "section": "Field Notes",
       "type": "HTML",
       "date": "2025-08-30",
-      "tags": ["verbal","coding"]
+      "tags": ["verbal", "coding"]
     },
     {
       "title": "2025-09-02 VAMEW",
@@ -25,12 +25,52 @@
       "tags": ["vamew"]
     },
     {
-      "title": "2025년 8월 27일 기독교…",
+      "title": "2025년 8월 27일 기독교모델",
       "path": "./2025년 8월 27일 기독교모델.html",
       "section": "Field Notes",
       "type": "HTML",
       "date": "2025-08-27",
       "tags": ["korean"]
+    },
+    {
+      "title": "MeEvalModel",
+      "path": "./MeEvalModel.html",
+      "section": "Diagrams",
+      "type": "HTML",
+      "date": null,
+      "tags": ["model", "evaluation"]
+    },
+    {
+      "title": "MermaidEngine",
+      "path": "./MermaidEngine.html",
+      "section": "Diagrams",
+      "type": "HTML",
+      "date": null,
+      "tags": ["mermaid", "diagram"]
+    },
+    {
+      "title": "Philosophy",
+      "path": "./Philosophy.html",
+      "section": "Field Notes",
+      "type": "HTML",
+      "date": null,
+      "tags": ["philosophy"]
+    },
+    {
+      "title": "trial4",
+      "path": "./trial4.html",
+      "section": "Experiments",
+      "type": "HTML",
+      "date": null,
+      "tags": ["trial", "test"]
+    },
+    {
+      "title": "uploadtest",
+      "path": "./uploadtest.html",
+      "section": "Experiments",
+      "type": "HTML",
+      "date": null,
+      "tags": ["upload", "test"]
     }
   ]
 }
