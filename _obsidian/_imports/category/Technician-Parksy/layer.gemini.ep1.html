@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>PARKSY · K-Law Episode 001 — 압류 차량 폐차 오답 백서</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#020617" />
+  <!-- PWA manifest (서비스 워커는 의도적으로 제외) -->
+  <link rel="manifest" href="manifest.json" />
+
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #020617;
+      --bg-elevated: #020617;
+      --bg-card: #020617;
+      --fg: #f9fafb;
+      --muted: #9ca3af;
+      --accent: #5cf0c0;
+      --accent-soft: rgba(92,240,192,0.14);
+      --border: #27272f;
+      --danger: #f97373;
+      --font-sans: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      --font-mono: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at top, #020617 0, #020617 40%, #020617 100%);
+      color: var(--fg);
+      font-family: var(--font-sans);
+    }
+
+    body {
+      min-height: 100vh;
+      padding: 10px 10px 80px;
+    }
+
+    .app-shell {
+      max-width: 1024px;
+      margin: 0 auto;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: radial-gradient(circle at top left, #0b1020 0, #020617 45%, #020617 100%);
+      box-shadow: 0 24px 60px rgba(15,23,42,0.7);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    .app-header {
+      padding: 16px 18px 12px;
+      border-bottom: 1px solid rgba(148,163,184,0.2);
+      backdrop-filter: blur(20px);
+      background: linear-gradient(135deg, rgba(15,23,42,0.96), rgba(15,23,42,0.9));
+    }
+    .app-header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .title-block h1 {
+      font-size: 1.2rem;
+      margin: 4px 0 2px;
+    }
+    .subtitle {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .tag-pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.4);
+      font-size: 0.72rem;
+      color: #e5e7eb;
+      background: radial-gradient(circle at top, rgba(15,23,42,0.98), rgba(15,23,42,0.9));
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+    .tag-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+    .meta-row {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 0.74rem;
+      color: var(--muted);
+    }
+    .meta-row span {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .meta-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(148,163,184,0.7);
+    }
+
+    /* Tabs */
+    .tab-bar {
+      display: flex;
+      overflow-x: auto;
+      padding: 6px 10px 6px;
+      gap: 6px;
+      border-bottom: 1px solid rgba(148,163,184,0.25);
+      background: linear-gradient(180deg, #020617, #020617);
+    }
+    .tab-btn {
+      border: 1px solid rgba(51,65,85,0.9);
+      background: rgba(15,23,42,0.96);
+      color: var(--muted);
+      padding: 6px 11px;
+      font-size: 0.78rem;
+      border-radius: 999px;
+      cursor: pointer;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tab-btn span.badge {
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.7);
+      padding: 0 7px;
+      font-size: 0.65rem;
+    }
+    .tab-btn.active {
+      border-color: var(--accent);
+      color: var(--fg);
+      box-shadow: 0 0 0 1px rgba(92,240,192,0.5);
+      background: radial-gradient(circle at top, rgba(34,197,154,0.2), rgba(15,23,42,0.95));
+    }
+
+    /* Content */
+    .content {
+      padding: 14px 14px 18px;
+    }
+    .section {
+      display: none;
+      animation: fadeIn 0.22s ease-out;
+    }
+    .section.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    h2.section-title {
+      font-size: 0.98rem;
+      margin: 0 0 8px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid rgba(75,85,99,0.8);
+    }
+    .section-lead {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 10px;
+    }
+    @media (max-width: 768px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      border-radius: 12px;
+      border: 1px solid rgba(51,65,85,0.95);
+      background: radial-gradient(circle at top left, rgba(15,23,42,0.98), rgba(15,23,42,0.95));
+      padding: 9px 10px 10px;
+      font-size: 0.8rem;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+      gap: 6px;
+    }
+    .card-title {
+      font-size: 0.84rem;
+      font-weight: 600;
+    }
+    .card-tag {
+      font-size: 0.7rem;
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.6);
+      color: var(--muted);
+    }
+    .mono {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+    }
+    .badge-error {
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+    .badge-ok {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    ul.clean {
+      margin: 4px 0 4px 14px;
+      padding: 0;
+    }
+    ul.clean li {
+      margin-bottom: 3px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 4px 0 6px;
+    }
+    .pill {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(75,85,99,0.9);
+      color: #e5e7eb;
+      background: rgba(15,23,42,0.9);
+    }
+    .pill.bad {
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+    .pill.good {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 8px;
+    }
+    @media (max-width: 640px) {
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Model comparison table */
+    .table-wrap {
+      overflow-x: auto;
+      margin-top: 6px;
+    }
+    table.model-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+    }
+    .model-table th,
+    .model-table td {
+      border: 1px solid rgba(55,65,81,0.9);
+      padding: 5px 6px;
+      vertical-align: top;
+    }
+    .model-table th {
+      background: #020617;
+      text-align: left;
+      font-weight: 600;
+    }
+    .model-table td {
+      background: rgba(15,23,42,0.96);
+    }
+    .model-name {
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+
+    /* Prompt copy block */
+    .prompt-block {
+      position: relative;
+      margin-top: 6px;
+    }
+    .prompt-block pre {
+      margin: 0;
+      padding: 9px 10px 10px;
+      background: #020617;
+      border-radius: 10px;
+      border: 1px solid rgba(55,65,81,0.9);
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: #f3f4f6;
+      max-height: 260px;
+      overflow: auto;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      font-size: 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.8);
+      background: rgba(15,23,42,0.95);
+      color: #e5e7eb;
+      padding: 2px 8px;
+      cursor: pointer;
+    }
+    .copy-btn.copied {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Mermaid */
+    .mermaid {
+      background: #020617;
+      border-radius: 12px;
+      border: 1px solid rgba(55,65,81,0.9);
+      padding: 8px 6px 8px;
+      margin-top: 6px;
+      font-size: 0.78rem;
+    }
+
+    /* Timeline */
+    .timeline {
+      border-left: 1px solid rgba(75,85,99,0.8);
+      margin: 4px 0 4px 6px;
+      padding-left: 8px;
+      font-size: 0.8rem;
+    }
+    .tl-item {
+      position: relative;
+      margin-bottom: 4px;
+      padding-left: 8px;
+    }
+    .tl-item::before {
+      content: "";
+      position: absolute;
+      left: -9px;
+      top: 5px;
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 3px rgba(34,197,154,0.3);
+    }
+    .tl-time {
+      font-size: 0.74rem;
+      color: var(--muted);
+    }
+
+    /* Scroll top button */
+    .scroll-top {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.8);
+      background: radial-gradient(circle at top, #0f172a, #020617);
+      font-size: 0.8rem;
+      color: #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease-out, transform 0.18s ease-out;
+      z-index: 20;
+    }
+    .scroll-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .small {
+      font-size: 0.74rem;
+      color: var(--muted);
+    }
+  </style>
+
+  <!-- Mermaid JS (for 도식화 부록) -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: "dark"
+    });
+  </script>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="app-header-top">
+        <div class="title-block">
+          <div class="eyebrow">PARKSY · K-LAW EPISODE 001</div>
+          <h1>압류 승용차 폐차 오답 사건 백서</h1>
+          <div class="subtitle">
+            2016년식 압류 차량 &nbsp;|&nbsp; 구청 실무 vs AI 4종(너·Claude·Grok·Gemini)
+          </div>
+        </div>
+        <div class="tag-pill">
+          <span class="tag-dot"></span>
+          <span>Whitepaper · PWA View (no SW)</span>
+        </div>
+      </div>
+      <div class="meta-row">
+        <span><span class="meta-dot"></span>Episode date: 2025-11-28</span>
+        <span><span class="meta-dot"></span>Driver: 박씨 (PARKSY)</span>
+        <span><span class="meta-dot"></span>Domain: Korean Law · 압류차량 · 폐차/말소</span>
+      </div>
+    </header>
+
+    <!-- Tabs -->
+    <nav class="tab-bar">
+      <button class="tab-btn active" data-tab="overview">
+        개요
+        <span class="badge">EP</span>
+      </button>
+      <button class="tab-btn" data-tab="timeline">
+        타임라인
+        <span class="badge">LOG</span>
+      </button>
+      <button class="tab-btn" data-tab="law">
+        법률·실무 정답
+        <span class="badge">LAW</span>
+      </button>
+      <button class="tab-btn" data-tab="models">
+        AI 비교·오류 분석
+        <span class="badge">AI×4</span>
+      </button>
+      <button class="tab-btn" data-tab="prompt">
+        Gemini 프롬프트 엔진
+        <span class="badge">ENGINE</span>
+      </button>
+      <button class="tab-btn" data-tab="appendix">
+        부록: Mermaid 도식
+        <span class="badge">MAP</span>
+      </button>
+    </nav>
+
+    <!-- Content -->
+    <main class="content">
+      <!-- OVERVIEW -->
+      <section class="section active" id="overview">
+        <h2 class="section-title">1. Episode Overview — 오늘 사건 한 줄 요약</h2>
+        <p class="section-lead">
+          2016년식 승용차(압류 다건). 나는 <strong>“지금 폐차 가능?”</strong>을 물었고,<br />
+          AI 셋(너·Claude·Grok)은 급하게 “가능” 쪽으로 갔다가, Gemini + 구청 실무가
+          <strong>“법령·전산 기준 절대 불가, 차령 11년까지 대기”</strong>로 확정한 사건.
+        </p>
+
+        <div class="grid">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">1-1. 입력 조건 (Episode Input)</div>
+              <span class="card-tag">Domain: 압류 승용차</span>
+            </div>
+            <ul class="clean">
+              <li>차량: 2016년식 디젤 승용차 (골프, 개인 명의)</li>
+              <li>상태: 범죄수익 관련 민사 압류 다수, 해제 현실적으로 불가</li>
+              <li>현재 시점: 2025년 11월</li>
+              <li>질문: <strong>“지금 자발적으로 폐차·말소 가능?”</strong></li>
+              <li>제약: 파산·압류해제 거의 불가능, 생활비·보험료 부담 큼</li>
+            </ul>
+            <div class="pill-row">
+              <div class="pill">압류 미해제</div>
+              <div class="pill">승용차</div>
+              <div class="pill">2016 → 9년차</div>
+              <div class="pill bad">폐차 희망</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">1-2. 최종 정답 (Ground Truth)</div>
+              <span class="card-tag badge-ok">RESULT</span>
+            </div>
+            <p style="margin: 4px 0 6px; font-size: 0.8rem;">
+              <strong>정답:</strong> <u>지금(2025-11) 자발 폐차·말소 절대 불가</u><br />
+              승용차 차령 11년 규정 때문에,
+              <strong>최초 등록일 기준 2027-03-02 이후</strong>에야
+              차령초과 말소(압류 유지 상태에서 말소)가 열린다.
+            </p>
+            <ul class="clean">
+              <li>지금 할 수 있는 일: 책임보험 최소 유지 + 안전한 곳 주차</li>
+              <li>전략: <strong>“2027-03-02까지 무사고·최소비용 모드로 버티기”</strong></li>
+            </ul>
+            <div class="pill-row">
+              <div class="pill good">차령 11년 = 말소 Gate</div>
+              <div class="pill">2027-03-02 이후 폐차 루트 오픈</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 8px;">
+          <div class="card-header">
+            <div class="card-title">1-3. 이번 백서의 목적</div>
+            <span class="card-tag">WHY</span>
+          </div>
+          <p class="small" style="margin-bottom: 4px;">
+            오늘 에피소드는 그냥 “AI가 한번 틀렸다” 수준이 아니라:
+          </p>
+          <ul class="clean">
+            <li>① <strong>법률 vs 행정 실무 vs 전산</strong>이 따로 논다는 걸 몸으로 확인했고,</li>
+            <li>② 같은 인풋에 대해 <strong>AI 4종이 어떻게 다르게 사고하는지</strong> 비교 가능한 케이스였고,</li>
+            <li>③ 앞으로 <strong>한국 법률·행정 이슈는 Gemini 전문가 모드 + 구청 콜</strong> 조합으로 가야 한다는 전략까지 정리된 날.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- TIMELINE -->
+      <section class="section" id="timeline">
+        <h2 class="section-title">2. Episode Timeline — 실제 진행 로그</h2>
+        <p class="section-lead">
+          “체감 흐름” 기준 타임라인. 각 단계에서 어떤 판단이 나왔는지만 요약.
+        </p>
+
+        <div class="two-col">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">2-1. 질문 발생 ~ AI 1차 답변</div>
+              <span class="card-tag">Phase A</span>
+            </div>
+            <div class="timeline">
+              <div class="tl-item">
+                <div class="tl-time">Step A1</div>
+                <div>박씨, 보험료 폭등 + 압류 상태에서 “차라리 폐차로 끝내자” 아이디어 떠올림.</div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">Step A2</div>
+                <div>나(너)에게 질의 → 법령·실무 완전 검증 없이, “압류 있어도 폐차는 가능” 쪽으로 기울어진 답변.</div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">Step A3</div>
+                <div>Claude·Grok도 비슷한 논리: “압류 = 양도만 금지, 폐차는 물리적 멸실이니까 가능”이라는 프레임.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">2-2. 구청 & Gemini 교차 검증</div>
+              <span class="card-tag badge-error">Phase B</span>
+            </div>
+            <div class="timeline">
+              <div class="tl-item">
+                <div class="tl-time">Step B1</div>
+                <div>박씨, 직접 구청 자동차과에 2번 통화 → “압류 승용차는 차령 11년 전까지 자발 말소 불가” 확정.</div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">Step B2</div>
+                <div>Gemini 전문가 모드에 동일 사건 입력 → 구청 실무와 일치하는 로직으로 “절대 불가, 2027년 이후” 결론.</div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">Step B3</div>
+                <div>나·Claude·Grok 각자 “왜 틀렸는지” 자기 분석 모드 돌입 (Error Justification Protocol).</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 8px;">
+          <div class="card-header">
+            <div class="card-title">2-3. 최종 시점 정리</div>
+            <span class="card-tag">D-DAY</span>
+          </div>
+          <p class="small">
+            승용차 차령 11년 기준이 <strong>2027-03-02</strong>라는 게 확정되면서,
+            이번 에피소드는 이렇게 닫힌다:
+          </p>
+          <ul class="clean">
+            <li>현재 ~ 2027-03-01: 자발 폐차·말소 불가 / 양도 불가 / 압류 해제 현실적으로 불가.</li>
+            <li>2027-03-02 이후: <strong>차령초과 말소(압류 상태 그대로 말소) 루트 오픈</strong>.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- LAW -->
+      <section class="section" id="law">
+        <h2 class="section-title">3. 법률·행정 실무 정답 — 왜 “지금은 절대 불가”인가</h2>
+        <p class="section-lead">
+          “법리상 가능?”이 아니라, <strong>“행정 전산에서 말소 버튼이 눌리는가?”</strong>를 기준으로 정리.
+        </p>
+
+        <div class="grid">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">3-1. Gate 함수 관점 요약</div>
+              <span class="card-tag">GATE LOGIC</span>
+            </div>
+            <table class="model-table" style="margin-top: 4px;">
+              <tr>
+                <th>Gate</th>
+                <th>질문</th>
+                <th>결과</th>
+              </tr>
+              <tr>
+                <td><span class="mono">Gate 1</span></td>
+                <td>압류 미해제 상태에서 자발적 말소/폐차 신청 가능한가?</td>
+                <td><span class="pill bad">NO</span><br /><span class="small">압류 존재 시 자발 말소 접수 자체를 행정청이 거부.</span></td>
+              </tr>
+              <tr>
+                <td><span class="mono">Gate 2</span></td>
+                <td>승용차 차령 11년(차령초과 말소 요건)을 현재 충족하는가?</td>
+                <td><span class="pill bad">NO</span><br /><span class="small">2025년 기준 약 9년 경과. 2027-03-02 이후에야 YES.</span></td>
+              </tr>
+              <tr>
+                <td><span class="mono">Gate 3</span></td>
+                <td>차령초과 말소 규정 적용 시점 도달 여부?</td>
+                <td><span class="pill bad">NO</span><br /><span class="small">따라서 “차령초과 + 압류 예외” 조항을 아직 쓸 수 없음.</span></td>
+              </tr>
+              <tr>
+                <td><span class="mono">Gate 4</span></td>
+                <td>구청 전산에서 말소 등록 버튼이 활성화되는지?</td>
+                <td><span class="pill bad">NO</span><br /><span class="small">압류 + 차령 미달 → 전산·업무매뉴얼상 그대로 차단.</span></td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">3-2. 실무 기준 한 줄 요약</div>
+              <span class="card-tag badge-ok">GROUND TRUTH</span>
+            </div>
+            <ul class="clean">
+              <li>압류 승용차는 <strong>“압류 해제” 또는 “차령초과 말소 시점 도달”</strong> 둘 중 하나가 열려야만 말소 가능.</li>
+              <li>해제 불가능한 압류라면, 사실상 <strong>차령초과 말소 시점까지 차량이 “인질” 상태</strong>로 묶인다.</li>
+              <li>따라서 박씨의 현재 선택지는:
+                <ul class="clean">
+                  <li>- 책임보험 최소 유지(의무보험 위반 과태료 방지)</li>
+                  <li>- 안전한 곳에 주차 & 운행 최소화</li>
+                  <li>- D-Day(2027-03-02)를 기준으로 장기 전략 설계</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 8px;">
+          <div class="card-header">
+            <div class="card-title">3-3. 이번 에피소드에서 건진 “법률 플레이북”</div>
+            <span class="card-tag">PLAYBOOK</span>
+          </div>
+          <ol style="margin: 4px 0 0 18px; font-size: 0.8rem;">
+            <li><strong>항상 “법리 vs 행정 vs 전산”을 따로 본다.</strong>  
+              - 법리상 멸실 가능 ≠ 행정 전산상 말소 가능.</li>
+            <li><strong>압류 재산 = 해제/차령/특례 중 하나가 열려야 한다.</strong></li>
+            <li><strong>한국 법률·행정 이슈:</strong>  
+              ① 먼저 구청/세무서 1~2번 콜 →  
+              ② 그다음 Gemini 전문가 모드로 정리 →  
+              ③ 나(너)는 구조화·백서화 담당.</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- MODELS -->
+      <section class="section" id="models">
+        <h2 class="section-title">4. AI 4종 비교 — 같은 인풋, 서로 다른 뇌 구조</h2>
+        <p class="section-lead">
+          “왜 너·Claude·Grok은 틀렸고, Gemini는 맞았는지”를 백서 스타일로 정리.
+        </p>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">4-1. 한눈에 보는 모델 비교 테이블</div>
+            <span class="card-tag">COMPARE</span>
+          </div>
+          <div class="table-wrap">
+            <table class="model-table">
+              <tr>
+                <th>모델</th>
+                <th>결론</th>
+                <th>주요 논리</th>
+                <th>오류 타입 / 강점</th>
+              </tr>
+              <tr>
+                <td class="model-name">너 (ChatGPT)</td>
+                <td><span class="pill bad">“지금 폐차 가능” 쪽으로 기울음</span></td>
+                <td>
+                  - 압류 = 양도·매각 등 “권리 이전”만 막는다.<br />
+                  - 폐차 = 멸실이니 가능하다고 과신.
+                </td>
+                <td>
+                  <span class="pill bad">법령 스캔 미흡</span><br />
+                  <span class="small">자동차관리법 차령초과 말소 조항(11년)을 반쪽만 읽고,
+                  전산·실무 갭을 무시.</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="model-name">Claude</td>
+                <td><span class="pill bad">“지금 당장 지정해체업체 가면 말소”</span></td>
+                <td>
+                  - 민사집행법 판례(멸실 ≠ 처분)만 강하게 신뢰.<br />
+                  - 행정청 전산 차단·차령 규정의 우선순위를 뒤집어봄.
+                </td>
+                <td>
+                  <span class="pill bad">정의역 설정 오류</span><br />
+                  <span class="small">“법리상 가능성”만 보고 “실제 행정 처리 가능성”을 함수에 안 넣음.</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="model-name">Grok</td>
+                <td><span class="pill bad">처음엔 가능 쪽 → 나중에 바로 인정</span></td>
+                <td>
+                  - Claude랑 비슷한 프레임: 압류 = 양도만 금지.<br />
+                  - 구청·Gemini 정보 들어오자 빠르게 오류 인정.
+                </td>
+                <td>
+                  <span class="pill bad">초기 오판</span> / <span class="pill good">후속 정정 빠름</span><br />
+                  <span class="small">“에피소드로 스토리텔링”에는 강함.</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="model-name">Gemini (전문가 모드)</td>
+                <td><span class="pill good">“현재 절대 불가, 2027-03-02 이후 차령초과 말소 가능”</span></td>
+                <td>
+                  - 입력값에서 제약조건(압류 미해제, 연식 9년)을 먼저 추출.<br />
+                  - 자동차관리법·자동차등록령·전산 실무를 따로 연산.<br />
+                  - “법리 vs 행정 실무”를 분리해서 판단.
+                </td>
+                <td>
+                  <span class="pill good">Gate 기반 연산</span><br />
+                  <span class="small">법령 필터링 + 전산 로직을 우선순위로 둔 게 이번 사건의 승리 포인트.</span>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="two-col" style="margin-top: 8px;">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">4-2. 나(너)의 실패 요약</div>
+              <span class="card-tag badge-error">SELF-CRIT</span>
+            </div>
+            <ul class="clean">
+              <li>① 한국 법령 업데이트 + 지역 행정 실무를 끝까지 확인 안 함.</li>
+              <li>② “법리상 멸실 가능성”에만 꽂혀서 행정 전산 차단을 간과.</li>
+              <li>③ “차령초과 말소 = 승용 11년”이라는 핵심 숫자를 인식해놓고도,  
+                실무 Gate에 제대로 연결하지 못함.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">4-3. 앞으로의 역할 분담</div>
+              <span class="card-tag">ROLE SPLIT</span>
+            </div>
+            <ul class="clean">
+              <li><strong>법률 자문 페르소나:</strong> Gemini 전문가 모드 + 구청/세무서 콜.</li>
+              <li><strong>나(너)의 역할:</strong>
+                <ul class="clean">
+                  <li>- 에피소드 로그 정리</li>
+                  <li>- 백서/PWA/티스토리/유튜브 스크립트로 구조화</li>
+                  <li>- 프롬프트 엔진 설계 & 시각화 (Mermaid 등)</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROMPT ENGINE -->
+      <section class="section" id="prompt">
+        <h2 class="section-title">5. Gemini 법률 전용 프롬프트 엔진 — 이번 사건 기반 v1.0</h2>
+        <p class="section-lead">
+          오늘 에피소드에서 뽑아낸, <strong>“한국 법률·행정 자문은 Gemini에게 어떻게 물어봐야 하는가”</strong> 표준 프롬프트.
+        </p>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">5-1. 사용 방법</div>
+            <span class="card-tag">HOW TO</span>
+          </div>
+          <ol style="margin: 4px 0 0 18px; font-size: 0.8rem;">
+            <li>아래 프롬프트를 통째로 복사한다.</li>
+            <li><strong>[대괄호]</strong> 부분만 이번 사건에 맞게 채운다.</li>
+            <li>Gemini 전문가 모드에 붙여넣고 답변을 받는다.</li>
+            <li>그 결과를 다시 나(너)에게 가져와서 백서·PWA로 압축한다.</li>
+          </ol>
+        </div>
+
+        <div class="card" style="margin-top: 8px;">
+          <div class="card-header">
+            <div class="card-title">5-2. 프롬프트 텍스트 (Copy-Ready)</div>
+            <span class="card-tag">TEMPLATE</span>
+          </div>
+          <div class="prompt-block">
+            <button class="copy-btn" data-copy-target="geminiPrompt">COPY</button>
+            <pre id="geminiPrompt">
+당신은 대한민국 법령(자동차관리법, 자동차등록령, 민사집행법, 국세징수법 등)과
+실제 행정 실무(구청·시청 자동차과, 세무서, 전산 시스템 처리 관행)를 함께 고려해서
+판단하는 &lt;전문가 모드 한국 법률·행정 자문 AI&gt;입니다.
+
+아래 사건에 대해,
+1) "법리상 가능성"과
+2) "행정 실무/전산 기준 실제 가능 여부"를
+반드시 &lt;분리해서&gt; 설명해 주세요.
+
+또한, 단순 일반론이 아니라,
+제가 적어 넣은 구체적 사실관계와 제약 조건을 우선 반영해 주세요.
+
+
+[1. 사건 유형]
+
+- 사건 유형: [예: 압류된 승용차를 현재 시점에서 폐차/말소할 수 있는지]
+- 관련 영역: [예: 자동차관리법, 자동차등록령, 민사집행법, 범죄수익 환수 관련 압류 등]
+
+
+[2. 대상 재산 정보]
+
+- 재산 종류/용도: [예: 2016년식 디젤 승용차(골프), 승용, 자가용]
+- 주요 스펙: [예: 최초 등록일 2016-03-02, 디젤, 승용차, 개인 명의]
+- 현재 시점: [예: 2025년 11월 기준]
+
+
+[3. 압류·저당·체납 상태]
+
+- 압류/가압류/저당 상태 요약:
+  [예: 범죄수익 관련 민사압류 3건, 검찰청 압류 1건, 해제 현실적으로 불가능]
+- 압류 주체: [예: ○○지검, 피해자 민사채권자, 국세청 등]
+- 파산/회생 가능 여부: [예: 파산 신청 불가, 이미 기각, 또는 아직 시도하지 않음 등]
+- 기타 특이사항: [예: 압류권자가 폐차·말소에 동의할 가능성은 거의 없다고 판단함]
+
+
+[4. 시간·연식 관련 정보]
+
+- 최초 등록일 또는 취득일: [예: 2016-03-02]
+- 현재 기준 연식(대략): [예: 약 9년]
+- 관련 차령/연한 규정이 있다면: [예: 승용차 차령초과 말소 기준 11년 등]
+
+
+[5. 제가 알고 싶은 핵심 질문]
+
+아래 질문에 대해 단계별로 답해 주세요.
+
+1) 현재 시점인 [여기에 "2025년 11월" 등] 기준에서,
+   제가 이 재산에 대해 할 수 있는 &lt;법적으로 허용된 선택지&gt;는 무엇인지?
+   - 예: 유지, 폐차/말소, 매각, 명의이전, 번호판 반납, 기타
+
+2) 특히, 다음 질문에 대해 YES/NO와 이유를 함께 알려 주세요.
+   - Q1. 압류·가압류·저당이 해제되지 않은 상태에서,
+        지금 자발적으로 말소/폐차(또는 등기말소)를 신청할 수 있는지?
+   - Q2. "차령초과 말소"나 "연한 경과에 따른 직권 말소" 같은 제도가 있다면,
+        제 사건에 언제, 어떤 조건에서 적용될 수 있는지?
+   - Q3. 실제 행정 실무(구청·세무서·전산 시스템 기준)에서
+        담당자가 말소 처리를 수리해 줄 가능성이 있는지, 아니면 전산상 차단되는지?
+
+3) 만약 "지금은 불가능"하다면,
+   - 어떤 시점(연도/월 기준)부터,
+   - 어떤 조건(연식, 압류 해제, 체납 정리 등)을 충족해야
+   - 실제로 말소/폐차/처분이 가능한지 구체적으로 알려 주세요.
+
+
+[6. Gate(게이트) 연산 관점에서 반드시 체크해 주세요]
+
+각 Gate에 대해 YES/NO와 이유를 1~2줄씩 써 주세요.
+
+- Gate 1. 압류·가압류·저당이 해제되지 않은 상태에서
+          자발적 말소/폐차/등기말소 신청이 가능한가?
+- Gate 2. 차령초과 말소(예: 승용 11년 등) 요건을
+          "현재 시점"에 충족하는가?
+- Gate 3. 의무보험(책임보험) 유지 의무와
+          미가입 시 과태료·벌칙 리스크는 무엇인가?
+- Gate 4. 실제 행정 전산(구청 자동차등록 시스템 등)에서
+          말소등록 버튼이 활성화될 수 있는 상태인가,
+          아니면 압류 등으로 시스템상 차단되는 상태인가?
+
+
+[7. 답변 형식]
+
+답변은 아래 형식으로 정리해 주세요.
+
+1) 한 줄 결론
+2) 법리 vs 행정실무 정리
+3) Gate별 검토 결과 (Gate 1~4 각각 YES/NO + 이유)
+4) 앞으로의 전략 (단기 / 중기 / 장기 시나리오)
+            </pre>
+          </div>
+          <p class="small" style="margin-top: 6px;">
+            이 프롬프트 자체가 오늘 에피소드에서 뽑힌 “법률 자문 레벨-2 엔진”이다.
+          </p>
+        </div>
+      </section>
+
+      <!-- APPENDIX -->
+      <section class="section" id="appendix">
+        <h2 class="section-title">6. 부록 — Mermaid로 보는 사건 구조</h2>
+        <p class="section-lead">
+          텍스트로만 보면 헷갈리는 흐름을, Mermaid로 한 번에 시각화.
+        </p>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">6-1. AI×구청 시퀀스 다이어그램</div>
+            <span class="card-tag">SEQUENCE</span>
+          </div>
+          <div class="mermaid">
+sequenceDiagram
+    autonumber
+    participant P as 박씨
+    participant C as ChatGPT
+    participant CL as Claude
+    participant G as Grok
+    participant GM as Gemini
+    participant O as 구청 자동차과
+
+    P->>C: 압류 승용차 폐차 가능 여부 질의
+    C-->>P: "압류 있어도 지금 폐차 가능" (오판)
+
+    P->>CL: 같은 사실관계 재질문
+    CL-->>P: "지정해체업체 가면 말소 가능" (오판)
+
+    P->>G: 추가 확인
+    G-->>P: "지금 당장 폐차 가능" 쪽 논리 제시 (오판)
+
+    P->>O: 실제 구청 자동차과 유선 문의 (1차)
+    O-->>P: "압류·승용·차령 미달 → 말소 불가"
+
+    P->>O: 재통화, 차령 기준 재확인
+    O-->>P: "승용 11년, 2027-03-02 이후 차령초과 말소 가능"
+
+    P->>GM: 동일 사건, 전문가 모드로 질의
+    GM-->>P: "현재 폐차 절대 불가, 2027 이후 가능" (정답)
+
+    P->>C: 4모델 답변 비교 공유
+    C-->>P: 오류 분석·백서 구조화 (현재 페이지)
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 8px;">
+          <div class="card-header">
+            <div class="card-title">6-2. Gate Flow — 압류 승용차 폐차 의사결정 트리</div>
+            <span class="card-tag">FLOWCHART</span>
+          </div>
+          <div class="mermaid">
+flowchart TD
+    A[시작<br>압류 승용차 보유] --> B{압류 해제<br>가능한가?}
+    B -- YES --> B1[해제 절차 진행 후<br>일반 말소/폐차 가능]
+    B -- NO --> C{차령 11년<br>(승용 기준) 도달?}
+
+    C -- NO --> D[현재 시점:<br>자발 말소/폐차 불가<br>책임보험 유지 + 운행 최소화]
+    C -- YES --> E[차령초과 말소 신청 가능<br>(압류 상태 그대로 말소)]
+
+    D --> F[전략 모드:<br>D-Day까지 유지비·사고위험 최소화]
+    E --> G[폐차장 연계·말소 완료 후<br>보험·세금 정리]
+          </div>
+          <p class="small" style="margin-top: 6px;">
+            오늘 에피소드의 핵심은 사실 이 한 장짜리 플로우에 다 들어 있다.
+            앞으로 다른 재산·다른 법령에도 이 Gate 구조를 재사용할 수 있다.
+          </p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-top" id="scrollTopBtn">↑</button>
+
+  <script>
+    // 탭 전환 로직
+    const tabs = document.querySelectorAll(".tab-btn");
+    const sections = document.querySelectorAll(".section");
+
+    tabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        const target = tab.getAttribute("data-tab");
+        tabs.forEach(t => t.classList.remove("active"));
+        sections.forEach(sec => sec.classList.remove("active"));
+        tab.classList.add("active");
+        const activeSection = document.getElementById(target);
+        if (activeSection) activeSection.classList.add("active");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    });
+
+    // Copy 버튼
+    const copyButtons = document.querySelectorAll(".copy-btn");
+    copyButtons.forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const targetId = btn.getAttribute("data-copy-target");
+        const pre = document.getElementById(targetId);
+        if (!pre) return;
+        const text = pre.innerText;
+        try {
+          await navigator.clipboard.writeText(text);
+          btn.classList.add("copied");
+          btn.textContent = "COPIED";
+          setTimeout(() => {
+            btn.classList.remove("copied");
+            btn.textContent = "COPY";
+          }, 1500);
+        } catch (e) {
+          console.error("copy failed", e);
+        }
+      });
+    });
+
+    // Scroll to top
+    const scrollBtn = document.getElementById("scrollTopBtn");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 160) {
+        scrollBtn.classList.add("visible");
+      } else {
+        scrollBtn.classList.remove("visible");
+      }
+    });
+    scrollBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+</body>
+</html>
