@@ -1,6 +1,15 @@
 {
   "items": [
     {
+      "id": "2025-11-28-uploadtest",
+      "title": "Upload Test",
+      "path": "./uploadtest.html",
+      "section": "Field Notes",
+      "type": "HTML",
+      "date": "2025-11-28",
+      "tags": ["korean", "note"]
+    },
+    {
       "title": "2025-08-29 테스트",
       "path": "./2025-08-29 테스트.html",
       "section": "Field Notes",
