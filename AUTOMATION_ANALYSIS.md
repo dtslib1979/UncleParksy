@@ -147,7 +147,7 @@
 #### 🚫 "덮어쓰기"가 아닌 이유
 
 - `pages-maintenance.yml`의 AWK 스크립트는 **해당 폴더의 파일을 기반으로 리스트를 재생성**하므로, 새 파일이 추가되면 리스트에 포함됨
-- `generate_category_index.py`는 **index.html을 수정하지 않음** (주석에 명시: "Advanced index.html files are now preserved")
+- `generate_category_index.py`는 **index.html을 수정하지 않음** (소스 파일 `scripts/generate_category_index.py` 15행 주석: `# Note: Advanced index.html files are now preserved`)
 - 두 워크플로우 간에 **직접적인 파일 충돌은 없음**
 
 ---
@@ -201,12 +201,12 @@ on:
 ### 🔧 **실제로 문제가 발생하는 경우의 해결책**
 
 #### 문제 시나리오 1: "카운트가 업데이트되지 않음"
-- **확인**: GitHub Actions 탭에서 `category-index.yml` 실행 여부 확인
-- **해결**: `workflow_dispatch`로 수동 트리거
+- **확인**: GitHub Actions 탭 (https://github.com/dtslib1979/UncleParksy/actions) → `🗂️ Category Index Builder` 워크플로우 실행 이력 확인
+- **해결**: Actions 탭 → `🗂️ Category Index Builder` 선택 → "Run workflow" 버튼 클릭 또는 `gh workflow run category-index.yml` 명령어 실행
 
 #### 문제 시나리오 2: "index.html 리스트가 비어있음"
-- **확인**: `pages-maintenance.yml`의 AWK 스크립트가 `<ul id="post-list">` 태그를 찾는지 확인
-- **해결**: index.html에 `<ul id="post-list">` 태그가 있는지 확인
+- **확인**: `pages-maintenance.yml`의 AWK 스크립트는 `<ul id="post-list">` 태그를 찾아 내용을 교체함. 해당 카테고리의 `index.html` 파일에서 이 태그가 있는지 확인: `grep -n 'post-list' category/<Persona>/index.html`
+- **해결**: index.html에 `<ul id="post-list">` 태그가 없다면 추가하거나, 해당 index.html이 `pages-maintenance.yml`의 AWK 스크립트 대상인지 확인 (`.github/workflows/pages-maintenance.yml` 40-84행 참조)
 
 #### 문제 시나리오 3: "manifest.json에 새 파일이 없음"
 - **원인**: `assets/manifest.json`은 `archive/` 폴더만 스캔
