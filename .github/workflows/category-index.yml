@@ -4,9 +4,10 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - "category/**.html"
+      - "category/**/*.html"
       - "scripts/generate_category_index.py"
-  workflow_dispatch:
+      - "assets/home.json"
+  workflow_dispatch: {}
 
 concurrency:
   group: category-index-build
