@@ -1,37 +1,36 @@
-[
-  {
-    "id": "2025-11-28-uploadtest",
-    "title": "Upload Test",
-    "file": "uploadtest.html",
-    "date": "2025-11-28",
-    "tags": ["korean", "note"]
-  },
-  {
-    "id": "2025-08-29-test",
-    "title": "2025-08-29 테스트",
-    "file": "2025-08-29 테스트.html",
-    "date": "2025-08-29",
-    "tags": ["korean", "note"]
-  },
-  {
-    "id": "2025-08-30-verbal-coding",
-    "title": "2025-08-30 Verbal coding wordmaster",
-    "file": "2025-08-30 Verbal coding wordmaster.html",
-    "date": "2025-08-30",
-    "tags": ["verbal", "coding"]
-  },
-  {
-    "id": "2025-09-02-vamew",
-    "title": "2025-09-02 VAMEW",
-    "file": "2025-09-02 VAMEW.html",
-    "date": "2025-09-02",
-    "tags": ["vamew"]
-  },
-  {
-    "id": "2025-08-27-christian-model",
-    "title": "2025년 8월 27일 기독교모델",
-    "file": "2025년 8월 27일 기독교모델.html",
-    "date": "2025-08-27",
-    "tags": ["korean"]
-  }
-]
+{
+  "items": [
+    {
+      "title": "2025-08-29 테스트",
+      "path": "./2025-08-29 테스트.html",
+      "section": "Field Notes",
+      "type": "HTML",
+      "date": "2025-08-29",
+      "tags": ["korean","note"]
+    },
+    {
+      "title": "2025-08-30 Verbal coding …",
+      "path": "./2025-08-30 Verbal coding wordmaster.html",
+      "section": "Field Notes",
+      "type": "HTML",
+      "date": "2025-08-30",
+      "tags": ["verbal","coding"]
+    },
+    {
+      "title": "2025-09-02 VAMEW",
+      "path": "./2025-09-02 VAMEW.html",
+      "section": "Field Notes",
+      "type": "HTML",
+      "date": "2025-09-02",
+      "tags": ["vamew"]
+    },
+    {
+      "title": "2025년 8월 27일 기독교…",
+      "path": "./2025년 8월 27일 기독교모델.html",
+      "section": "Field Notes",
+      "type": "HTML",
+      "date": "2025-08-27",
+      "tags": ["korean"]
+    }
+  ]
+}
