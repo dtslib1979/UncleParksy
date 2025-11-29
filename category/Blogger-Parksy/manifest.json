@@ -3,7 +3,7 @@
     {
       "title": "uploadtest",
       "path": "./uploadtest.html",
-      "section": "Essays",
+      "section": "WebAppsBook",
       "type": "HTML",
       "date": null,
       "tags": []
@@ -11,7 +11,7 @@
     {
       "title": "trial3",
       "path": "./trial3.html",
-      "section": "Essays",
+      "section": "WebAppsBook",
       "type": "HTML",
       "date": null,
       "tags": []
@@ -19,7 +19,7 @@
     {
       "title": "Golive",
       "path": "./Golive.html",
-      "section": "Essays",
+      "section": "WebAppsBook",
       "type": "HTML",
       "date": null,
       "tags": []

@@ -3,7 +3,7 @@
     {
       "title": "uploadtest",
       "path": "./uploadtest.html",
-      "section": "Essays",
+      "section": "Logs",
       "type": "HTML",
       "date": null,
       "tags": []
@@ -11,7 +11,7 @@
     {
       "title": "trial5",
       "path": "./trial5.html",
-      "section": "Essays",
+      "section": "Logs",
       "type": "HTML",
       "date": null,
       "tags": []
@@ -19,7 +19,7 @@
     {
       "title": "ObsidianUT",
       "path": "./ObsidianUT.html",
-      "section": "Essays",
+      "section": "Logs",
       "type": "HTML",
       "date": null,
       "tags": []
@@ -27,7 +27,7 @@
     {
       "title": "immediate-sync-test",
       "path": "./2025-09-03-immediate-sync-test.html",
-      "section": "Essays",
+      "section": "Logs",
       "type": "HTML",
       "date": "2025-09-03",
       "tags": []

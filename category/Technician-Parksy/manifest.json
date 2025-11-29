@@ -3,7 +3,7 @@
     {
       "title": "uploadtest",
       "path": "./uploadtest.html",
-      "section": "Essays",
+      "section": "Devices",
       "type": "HTML",
       "date": null,
       "tags": []
@@ -11,7 +11,7 @@
     {
       "title": "trial6",
       "path": "./trial6.html",
-      "section": "Essays",
+      "section": "Devices",
       "type": "HTML",
       "date": null,
       "tags": []
@@ -19,7 +19,7 @@
     {
       "title": "schedule",
       "path": "./schedule.html",
-      "section": "Essays",
+      "section": "Devices",
       "type": "HTML",
       "date": null,
       "tags": []
@@ -27,7 +27,7 @@
     {
       "title": "pc-format",
       "path": "./pc-format.html",
-      "section": "Essays",
+      "section": "Devices",
       "type": "HTML",
       "date": null,
       "tags": []
@@ -35,7 +35,7 @@
     {
       "title": "mid-sci-bio",
       "path": "./mid-sci-bio.html",
-      "section": "Essays",
+      "section": "Devices",
       "type": "HTML",
       "date": null,
       "tags": []
@@ -43,7 +43,7 @@
     {
       "title": "level2promptgen",
       "path": "./level2promptgen.html",
-      "section": "Essays",
+      "section": "Devices",
       "type": "HTML",
       "date": null,
       "tags": []
@@ -51,7 +51,7 @@
     {
       "title": "layer.gemini.ep1",
       "path": "./layer.gemini.ep1.html",
-      "section": "Essays",
+      "section": "Devices",
       "type": "HTML",
       "date": null,
       "tags": []
@@ -59,7 +59,7 @@
     {
       "title": "idea",
       "path": "./idea.html",
-      "section": "Essays",
+      "section": "Devices",
       "type": "HTML",
       "date": null,
       "tags": []
@@ -67,7 +67,7 @@
     {
       "title": "humanprompt",
       "path": "./humanprompt.html",
-      "section": "Essays",
+      "section": "Devices",
       "type": "HTML",
       "date": null,
       "tags": []
@@ -75,7 +75,7 @@
     {
       "title": "hhh",
       "path": "./hhh.html",
-      "section": "Essays",
+      "section": "Devices",
       "type": "HTML",
       "date": null,
       "tags": []
@@ -83,7 +83,7 @@
     {
       "title": "hello",
       "path": "./hello.html",
-      "section": "Essays",
+      "section": "Devices",
       "type": "HTML",
       "date": null,
       "tags": []
@@ -91,7 +91,7 @@
     {
       "title": "devicepkg2",
       "path": "./devicepkg2.html",
-      "section": "Essays",
+      "section": "Devices",
       "type": "HTML",
       "date": null,
       "tags": []
@@ -99,7 +99,7 @@
     {
       "title": "devicepkg",
       "path": "./devicepkg.html",
-      "section": "Essays",
+      "section": "Devices",
       "type": "HTML",
       "date": null,
       "tags": []
@@ -107,7 +107,7 @@
     {
       "title": "desktop",
       "path": "./desktop.html",
-      "section": "Essays",
+      "section": "Devices",
       "type": "HTML",
       "date": null,
       "tags": []
@@ -115,7 +115,7 @@
     {
       "title": "about",
       "path": "./about.html",
-      "section": "Essays",
+      "section": "Devices",
       "type": "HTML",
       "date": null,
       "tags": []
@@ -123,7 +123,7 @@
     {
       "title": "MermaidF",
       "path": "./MermaidF.html",
-      "section": "Essays",
+      "section": "Devices",
       "type": "HTML",
       "date": null,
       "tags": []
@@ -131,7 +131,7 @@
     {
       "title": "MermaidE",
       "path": "./MermaidE.html",
-      "section": "Essays",
+      "section": "Devices",
       "type": "HTML",
       "date": null,
       "tags": []
@@ -139,7 +139,7 @@
     {
       "title": ".studio.o1",
       "path": "./2025-11-27.studio.o1.html",
-      "section": "Essays",
+      "section": "Devices",
       "type": "HTML",
       "date": "2025-11-27",
       "tags": []
@@ -147,7 +147,7 @@
     {
       "title": "샘플",
       "path": "./2025-08-29 샘플.html",
-      "section": "Essays",
+      "section": "Devices",
       "type": "HTML",
       "date": "2025-08-29",
       "tags": []
@@ -155,7 +155,7 @@
     {
       "title": "uncleparksy-site-launch",
       "path": "./2025-08-27-uncleparksy-site-launch.html",
-      "section": "Essays",
+      "section": "Devices",
       "type": "HTML",
       "date": "2025-08-27",
       "tags": []

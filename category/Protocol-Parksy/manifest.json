@@ -3,7 +3,7 @@
     {
       "title": "uploadtest",
       "path": "./uploadtest.html",
-      "section": "Essays",
+      "section": "Protocols",
       "type": "HTML",
       "date": null,
       "tags": []
@@ -11,7 +11,7 @@
     {
       "title": "trial",
       "path": "./trial.html",
-      "section": "Essays",
+      "section": "Protocols",
       "type": "HTML",
       "date": null,
       "tags": []
@@ -19,7 +19,7 @@
     {
       "title": "meevalmodel",
       "path": "./meevalmodel.html",
-      "section": "Essays",
+      "section": "Protocols",
       "type": "HTML",
       "date": null,
       "tags": []
@@ -27,7 +27,7 @@
     {
       "title": "CHECK1",
       "path": "./2025-09-03 CHECK1.html",
-      "section": "Essays",
+      "section": "Protocols",
       "type": "HTML",
       "date": "2025-09-03",
       "tags": []
@@ -35,7 +35,7 @@
     {
       "title": "10testaments",
       "path": "./10testaments.html",
-      "section": "Essays",
+      "section": "Protocols",
       "type": "HTML",
       "date": null,
       "tags": []

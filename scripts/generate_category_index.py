@@ -14,8 +14,11 @@ def extract_date_from_filename(filename):
     for pattern in DATE_PATTERNS:
         m = pattern.match(filename)
         if m:
-            y, mo, d = m.groups()
-            return f"{y}-{int(mo):02d}-{int(d):02d}"
+            try:
+                y, mo, d = m.groups()
+                return f"{y}-{int(mo):02d}-{int(d):02d}"
+            except (ValueError, TypeError):
+                continue
     return None
 
 def extract_title_from_filename(filename):
@@ -26,7 +29,21 @@ def extract_title_from_filename(filename):
     # Remove date prefixes
     name = re.sub(r'^\d{4}-\d{2}-\d{2}[-_\s]*', '', name)
     name = re.sub(r'^\d{4}년\s*\d{1,2}월\s*\d{1,2}일\s*', '', name)
-    return name.strip() or filename[:-5] if filename.endswith('.html') else filename
+    name = name.strip()
+    if not name:
+        name = filename[:-5] if filename.endswith('.html') else filename
+    return name
+
+# Section mapping based on category name
+SECTION_MAP = {
+    "Philosopher-Parksy": "Essays",
+    "Blogger-Parksy": "WebAppsBook",
+    "Visualizer-Parksy": "Diagrams",
+    "Musician-Parksy": "Audio",
+    "Technician-Parksy": "Devices",
+    "Orbit-Log": "Logs",
+    "Protocol-Parksy": "Protocols",
+}
 
 for cat in os.listdir(root):
     path = os.path.join(root, cat)
@@ -42,6 +59,7 @@ for cat in os.listdir(root):
     
     # Also update category manifest.json with current file list
     manifest_path = os.path.join(path, "manifest.json")
+    section = SECTION_MAP.get(cat, "General")
     items = []
     for f in files:
         date_str = extract_date_from_filename(f)
@@ -49,7 +67,7 @@ for cat in os.listdir(root):
         items.append({
             "title": title,
             "path": f"./{f}",
-            "section": "Essays",
+            "section": section,
             "type": "HTML",
             "date": date_str,
             "tags": []

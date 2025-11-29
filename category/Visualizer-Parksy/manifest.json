@@ -3,7 +3,7 @@
     {
       "title": "uploadtest",
       "path": "./uploadtest.html",
-      "section": "Essays",
+      "section": "Diagrams",
       "type": "HTML",
       "date": null,
       "tags": []
@@ -11,7 +11,7 @@
     {
       "title": "trial4",
       "path": "./trial4.html",
-      "section": "Essays",
+      "section": "Diagrams",
       "type": "HTML",
       "date": null,
       "tags": []
@@ -19,7 +19,7 @@
     {
       "title": "Philosophy",
       "path": "./Philosophy.html",
-      "section": "Essays",
+      "section": "Diagrams",
       "type": "HTML",
       "date": null,
       "tags": []
@@ -27,7 +27,7 @@
     {
       "title": "MermaidEngine",
       "path": "./MermaidEngine.html",
-      "section": "Essays",
+      "section": "Diagrams",
       "type": "HTML",
       "date": null,
       "tags": []
@@ -35,7 +35,7 @@
     {
       "title": "MeEvalModel",
       "path": "./MeEvalModel.html",
-      "section": "Essays",
+      "section": "Diagrams",
       "type": "HTML",
       "date": null,
       "tags": []
@@ -43,7 +43,7 @@
     {
       "title": "기독교모델",
       "path": "./2025년 8월 27일 기독교모델.html",
-      "section": "Essays",
+      "section": "Diagrams",
       "type": "HTML",
       "date": "2025-08-27",
       "tags": []
@@ -51,7 +51,7 @@
     {
       "title": "VAMEW",
       "path": "./2025-09-02 VAMEW.html",
-      "section": "Essays",
+      "section": "Diagrams",
       "type": "HTML",
       "date": "2025-09-02",
       "tags": []
@@ -59,7 +59,7 @@
     {
       "title": "Verbal coding wordmaster",
       "path": "./2025-08-30 Verbal coding wordmaster.html",
-      "section": "Essays",
+      "section": "Diagrams",
       "type": "HTML",
       "date": "2025-08-30",
       "tags": []
@@ -67,7 +67,7 @@
     {
       "title": "테스트",
       "path": "./2025-08-29 테스트.html",
-      "section": "Essays",
+      "section": "Diagrams",
       "type": "HTML",
       "date": "2025-08-29",
       "tags": []
