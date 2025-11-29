@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Device Chronicles — UncleParksy Archive</title>
-<meta name="description" content="Circuit–blueprint themed index that auto-lists HTML notes in this folder. Uses local manifest if present, otherwise falls back to the GitHub Contents API." />
+<title>Category Index — UncleParksy</title>
+<meta name="description" content="Auto-generated category index for UncleParksy — lists all HTML logs in this folder using local manifest or GitHub Contents API." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -91,7 +91,7 @@ body::after{
 .link:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.35)}
 .btn-row{display:flex;gap:.5rem;flex-wrap:wrap}
 .btn{
-  padding:.5rem 1rem;border:none;border-radius:12px;cursor:pointer;font-weight:800;font-size:.85rem;
+  padding:.5rem 1rem;border:none;border-radius:12px;cursor:pointer;font-weight:800;font-size;.85rem;
   background:linear-gradient(180deg, rgba(22,34,59,.9), rgba(19,29,48,.95));
   color:var(--ink-2); border:1px solid var(--line); transition:.2s; letter-spacing:.4px;
 }
@@ -110,19 +110,18 @@ body::after{
 
 /* Cards */
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.1rem}
-.device-card{
+.item-card{
   position:relative; padding:1.1rem; color:var(--ink);
   background:linear-gradient(180deg, rgba(25,38,66,.9), rgba(21,32,56,.9));
   border:1px solid var(--line); border-radius:14px; box-shadow:0 10px 28px rgba(0,0,0,.25)
 }
-.device-card h3{margin:.2rem 0 .3rem; font-weight:900}
-.device-meta{font-size:.86rem;color:var(--ink-3)}
-.device-foot{display:flex;justify-content:space-between;align-items:center;gap:.5rem;margin-top:.65rem}
+.item-card h3{margin:.2rem 0 .3rem; font-weight:900}
+.item-meta{font-size:.86rem;color:var(--ink-3)}
+.item-foot{display:flex;justify-content:space-between;align-items:center;gap:.5rem;margin-top:.65rem}
 .badge{
   display:inline-flex; align-items:center; gap:.35rem; padding:.25rem .6rem; font-size:.75rem; font-weight:800;
   border-radius:1rem; color:#021018; background:linear-gradient(90deg,var(--teal),var(--cyan)); box-shadow:inset 0 1px 0 rgba(255,255,255,.15)
 }
-.badge::before{content:"📱"}
 .tag{display:inline-block;margin:.1rem .25rem 0 0;padding:.18rem .55rem;border-radius:.7rem;font-size:.72rem;background:rgba(56,232,255,.08);border:1px solid var(--line)}
 .open{
   display:inline-flex;align-items:center;gap:.4rem;padding:.38rem .75rem;border-radius:.6rem;
@@ -157,14 +156,28 @@ body::after{
 </style>
 </head>
 
-<body>
+<!--
+  ✅ 카테고리마다 바꾸는 곳
+  data-cat-id        = 카테고리 폴더 이름 (예: Blogger-Parksy)
+  data-section-label = 테이블 "Section" 컬럼에 찍힐 텍스트
+  data-badge-label   = 배지 안에 들어갈 텍스트
+  data-display-title = 상단 H1 (없으면 cat id 사용)
+  data-display-sub   = 상단 서브타이틀
+-->
+<body
+  data-cat-id="Technician-Parksy"
+  data-section-label="Device Logs"
+  data-badge-label="Device"
+  data-display-title="Device Logs"
+  data-display-sub="Device setups, Samsung keyboard tricks, and tool hacks for Technician-Parksy."
+>
   <header class="header">
-    <h1 class="title">Device Chronicles</h1>
-    <p class="subtitle">Tales and secrets of our mystical digital devices.</p>
+    <h1 class="title js-cat-title">Category Title</h1>
+    <p class="subtitle js-cat-subtitle">Category subtitle goes here.</p>
   </header>
 
   <div class="counter">
-    <p><b id="file-count">0</b> device logs online <span class="small" id="source-note"></span></p>
+    <p><b id="file-count">0</b> items online <span class="small" id="source-note"></span></p>
   </div>
 
   <nav class="controls">
@@ -178,7 +191,7 @@ body::after{
     </div>
     <div class="btn-row" aria-label="view">
       <button class="btn active" id="btn-table">📒 Ledger</button>
-      <button class="btn" id="btn-cards">📱 Cards</button>
+      <button class="btn" id="btn-cards">📦 Cards</button>
     </div>
   </nav>
 
@@ -221,21 +234,27 @@ body::after{
   </main>
 
 <script>
-/* ================= Configuration =================
-   Fallback: GitHub Contents API when no manifest lists this folder. */
+/* ================= Category-level Config ================= */
+// body data-* 속성에서 읽어오기
+const CAT_ID          = document.body.dataset.catId || 'Category';
+const SECTION_LABEL   = document.body.dataset.sectionLabel || 'Section';
+const BADGE_LABEL     = document.body.dataset.badgeLabel || 'Item';
+const DISPLAY_TITLE   = document.body.dataset.displayTitle || CAT_ID;
+const DISPLAY_SUB     = document.body.dataset.displaySub || '';
+/* ======================================================== */
+
+/* ================= Repo Settings (공통) ================= */
 const GH_OWNER  = 'dtslib1979';
 const GH_REPO   = 'UncleParksy';
 const GH_BRANCH = 'main';
-/* ================================================= */
+/* ======================================================== */
 
+// manifest 후보: 카테고리별 + 공통
 const MANIFEST_CANDIDATES = [
-  './device-chronicles.manifest.json',
-  './manifest-device.json',
+  `./${CAT_ID}.manifest.json`,
+  `./${CAT_ID.toLowerCase()}.manifest.json`,
   './manifest.json',
-  '../assets/device-chronicles.manifest.json',
-  '../assets/manifest-device.json',
   '../assets/manifest.json',
-  '../../assets/manifest.json',
   '/assets/manifest.json'
 ];
 
@@ -244,11 +263,17 @@ let allItems = [];
 let filtered = [];
 let currentPage = 0;
 let currentSort = 'section';
-const CURRENT_DIR = location.pathname.replace(/[^\/]*$/, ''); // e.g. /category/device-chronicles/
+const CURRENT_DIR = location.pathname.replace(/[^\/]*$/, ''); // e.g. /category/Blogger-Parksy/
 
 document.addEventListener('DOMContentLoaded', async () => {
+  // 헤더 텍스트 sync
+  const tEl = document.querySelector('.js-cat-title');
+  const sEl = document.querySelector('.js-cat-subtitle');
+  if (tEl) tEl.textContent = DISPLAY_TITLE;
+  if (sEl && DISPLAY_SUB) sEl.textContent = DISPLAY_SUB;
+
   const ok = await loadFromManifest();
-  if (!ok) await loadFromGitHub();      // fallback: list *.html in this folder
+  if (!ok) await loadFromGitHub();      // fallback: *.html in this folder
   initSorting();
   initViewToggle();
   renderAll();
@@ -257,6 +282,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadFromManifest(){
   const loading = document.getElementById('loading');
   const note = document.getElementById('source-note');
+
   for (const path of MANIFEST_CANDIDATES){
     try{
       const res = await fetch(path, {cache:'no-cache'});
@@ -265,13 +291,16 @@ async function loadFromManifest(){
       const items = Array.isArray(data.items) ? data.items : (Array.isArray(data) ? data : []);
       const cleaned = normalizeItems(items).filter(inThisCategory);
       if (cleaned.length === 0) continue;
+
       allItems = cleaned;
       document.getElementById('file-count').textContent = allItems.length;
       note.textContent = `• manifest: ${path}`;
       loading.style.display='none'; document.getElementById('content').style.display='block';
       applySort(currentSort);
       return true;
-    }catch{ /* try next */ }
+    }catch(e){
+      // try next candidate
+    }
   }
   return false;
 }
@@ -293,11 +322,11 @@ async function loadFromGitHub(){
 
     allItems = htmlFiles.map((f)=>({
       title: decodeURIComponent(f.name.replace(/\.html?$/i,'')),
-      path: `./${encodeURIComponent(f.name)}`,
-      section: 'Devices',
+      path:  `./${encodeURIComponent(f.name)}`,
+      section: SECTION_LABEL,
       type: 'HTML',
-      date: guessDateFromName(f.name),
-      tags: []
+      date:  guessDateFromName(f.name),
+      tags:  []
     }));
 
     document.getElementById('file-count').textContent = allItems.length;
@@ -316,18 +345,24 @@ function normalizeItems(items){
     const x = {...it};
     x.title   = (it.title ?? it.name ?? `Untitled #${i+1}`).toString();
     x.path    = (it.path ?? it.url ?? '').toString().trim();
-    x.section = (it.section ?? it.category ?? 'Devices').toString();
+    x.section = (it.section ?? it.category ?? SECTION_LABEL).toString();
     x.type    = (it.type ?? it.kind ?? '').toString();
-    x.tags    = Array.isArray(it.tags) ? it.tags : (typeof it.tags === 'string' ? it.tags.split(',').map(s=>s.trim()).filter(Boolean) : []);
+    x.tags    = Array.isArray(it.tags)
+      ? it.tags
+      : (typeof it.tags === 'string'
+        ? it.tags.split(',').map(s=>s.trim()).filter(Boolean)
+        : []);
     x.date    = it.date ? new Date(it.date) : null;
     return x;
   });
 }
+
 function inThisCategory(item){
   if (!item.path) return false;
   const abs = new URL(item.path, location.href).pathname;
   return abs.startsWith(CURRENT_DIR);
 }
+
 function guessDateFromName(name){
   const m = name.match(/(20\d{2})[-_\.](\d{2})[-_\.](\d{2})/);
   if(!m) return null;
@@ -348,22 +383,39 @@ function initSorting(){
     });
   });
 }
+
 function applySort(type){
   filtered = [...allItems];
   switch(type){
-    case 'newest': filtered.sort((a,b)=>(b.date?.getTime()||0)-(a.date?.getTime()||0)); break;
-    case 'oldest': filtered.sort((a,b)=>(a.date?.getTime()||0)-(b.date?.getTime()||0)); break;
-    case 'title':  filtered.sort((a,b)=>a.title.localeCompare(b.title,'en')); break;
+    case 'newest':
+      filtered.sort((a,b)=>(b.date?.getTime()||0)-(a.date?.getTime()||0));
+      break;
+    case 'oldest':
+      filtered.sort((a,b)=>(a.date?.getTime()||0)-(b.date?.getTime()||0));
+      break;
+    case 'title':
+      filtered.sort((a,b)=>a.title.localeCompare(b.title,'en'));
+      break;
     case 'section':
-    default:       filtered.sort((a,b)=>a.section.localeCompare(b.section,'en') || a.title.localeCompare(b.title,'en'));
+    default:
+      filtered.sort((a,b)=>
+        a.section.localeCompare(b.section,'en') ||
+        a.title.localeCompare(b.title,'en')
+      );
   }
 }
+
 function initViewToggle(){
   const t = document.getElementById('btn-table');
   const c = document.getElementById('btn-cards');
-  t.addEventListener('click', ()=>{ t.classList.add('active'); c.classList.remove('active'); showView('table'); });
-  c.addEventListener('click', ()=>{ c.classList.add('active'); t.classList.remove('active'); showView('cards'); });
+  t.addEventListener('click', ()=>{
+    t.classList.add('active'); c.classList.remove('active'); showView('table');
+  });
+  c.addEventListener('click', ()=>{
+    c.classList.add('active'); t.classList.remove('active'); showView('cards');
+  });
 }
+
 function showView(which){
   document.getElementById('table-view').style.display = (which==='table') ? 'block' : 'none';
   document.getElementById('card-view').style.display  = (which==='cards') ? 'block' : 'none';
@@ -371,7 +423,10 @@ function showView(which){
 
 /* renderers */
 function renderAll(){ renderTable(); renderCards(); renderPagination(); }
-function pageSlice(){ const start = currentPage * itemsPerPage; return filtered.slice(start, start + itemsPerPage); }
+function pageSlice(){
+  const start = currentPage * itemsPerPage;
+  return filtered.slice(start, start + itemsPerPage);
+}
 
 function renderTable(){
   const tbody = document.getElementById('tbody');
@@ -379,7 +434,7 @@ function renderTable(){
   for (const item of pageSlice()){
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td><span class="badge">Device</span></td>
+      <td><span class="badge">${esc(BADGE_LABEL)}</span></td>
       <td><strong>${esc(item.title)}</strong></td>
       <td>${esc(item.type || '-')}</td>
       <td>${item.date ? item.date.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}) : 'No date'}</td>
@@ -393,13 +448,13 @@ function renderCards(){
   const wrap = document.getElementById('cards');
   wrap.innerHTML = '';
   for (const item of pageSlice()){
-    const d = document.createElement('div'); d.className='device-card';
+    const d = document.createElement('div'); d.className='item-card';
     const dateStr = item.date ? item.date.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}) : 'No date';
     d.innerHTML = `
-      <span class="badge">Device</span>
+      <span class="badge">${esc(BADGE_LABEL)}</span>
       <h3>${esc(item.title)}</h3>
-      <div class="device-meta">${esc(item.type || '-')} · ${dateStr}</div>
-      <div class="device-foot">
+      <div class="item-meta">${esc(item.type || '-')} · ${dateStr}</div>
+      <div class="item-foot">
         <div>${(item.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
         ${item.path ? `<a class="open" href="${item.path}">Open</a>` : ''}
       </div>`;
@@ -419,12 +474,16 @@ function renderPagination(){
   next.onclick = ()=>{ if(currentPage<totalPages-1){ currentPage++; renderAll(); } };
 
   const startItem = filtered.length ? (currentPage*itemsPerPage + 1) : 0;
-  const endItem = Math.min((currentPage+1)*itemsPerPage, filtered.length);
+  const endItem   = Math.min((currentPage+1)*itemsPerPage, filtered.length);
   info.textContent = `${startItem}-${endItem} / ${filtered.length}`;
 }
 
 /* utils */
-function esc(s){ return (s??'').toString().replace(/[&<>"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m])) }
+function esc(s){
+  return (s??'').toString().replace(/[&<>"']/g, m=>({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[m]));
+}
 </script>
 </body>
-</html> 
+</html>
