@@ -2,7 +2,6 @@ name: 🗂️ Category Index Builder (즉시 동기화 연동)
 
 on:
   push:
-    branches: [ "main" ]
     paths:
       - "category/**/*.html"
       - "scripts/generate_category_index.py"
