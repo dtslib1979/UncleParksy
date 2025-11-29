@@ -1,7 +1,32 @@
-import os, datetime, json
+import os, datetime, json, re
 
 root = "category"
 home_data = {}
+
+# Date pattern for extracting date from filename
+DATE_PATTERNS = [
+    re.compile(r'^(\d{4})-(\d{2})-(\d{2})'),  # 2025-08-29
+    re.compile(r'^(\d{4})년\s*(\d{1,2})월\s*(\d{1,2})일'),  # 2025년 8월 29일
+]
+
+def extract_date_from_filename(filename):
+    """Extract date from filename in various formats."""
+    for pattern in DATE_PATTERNS:
+        m = pattern.match(filename)
+        if m:
+            y, mo, d = m.groups()
+            return f"{y}-{int(mo):02d}-{int(d):02d}"
+    return None
+
+def extract_title_from_filename(filename):
+    """Extract title from filename by removing date prefix and extension."""
+    name = filename
+    if name.endswith('.html'):
+        name = name[:-5]
+    # Remove date prefixes
+    name = re.sub(r'^\d{4}-\d{2}-\d{2}[-_\s]*', '', name)
+    name = re.sub(r'^\d{4}년\s*\d{1,2}월\s*\d{1,2}일\s*', '', name)
+    return name.strip() or filename[:-5] if filename.endswith('.html') else filename
 
 for cat in os.listdir(root):
     path = os.path.join(root, cat)
@@ -12,9 +37,27 @@ for cat in os.listdir(root):
     files.sort(reverse=True)
     count = len(files)
 
-    # Note: Advanced index.html files are now preserved
-    # Only update home_data for count tracking
+    # Update home_data for count tracking
     home_data[cat] = count
+    
+    # Also update category manifest.json with current file list
+    manifest_path = os.path.join(path, "manifest.json")
+    items = []
+    for f in files:
+        date_str = extract_date_from_filename(f)
+        title = extract_title_from_filename(f)
+        items.append({
+            "title": title,
+            "path": f"./{f}",
+            "section": "Essays",
+            "type": "HTML",
+            "date": date_str,
+            "tags": []
+        })
+    
+    manifest_data = {"items": items}
+    with open(manifest_path, "w", encoding="utf-8") as mf:
+        json.dump(manifest_data, mf, ensure_ascii=False, indent=2)
 
 # 홈 카드 카운트 저장 (JSON으로)
 os.makedirs("assets", exist_ok=True)

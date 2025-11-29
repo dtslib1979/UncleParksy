@@ -1,28 +1,28 @@
 {
   "items": [
     {
-      "title": "Golive",
-      "path": "./Golive.html",
-      "section": "Spells",
+      "title": "uploadtest",
+      "path": "./uploadtest.html",
+      "section": "Essays",
       "type": "HTML",
       "date": null,
-      "tags": ["golive"]
+      "tags": []
     },
     {
       "title": "trial3",
       "path": "./trial3.html",
-      "section": "Experiments",
+      "section": "Essays",
       "type": "HTML",
       "date": null,
-      "tags": ["trial", "test"]
+      "tags": []
     },
     {
-      "title": "uploadtest",
-      "path": "./uploadtest.html",
-      "section": "Experiments",
+      "title": "Golive",
+      "path": "./Golive.html",
+      "section": "Essays",
       "type": "HTML",
       "date": null,
-      "tags": ["upload", "test"]
+      "tags": []
     }
   ]
 }

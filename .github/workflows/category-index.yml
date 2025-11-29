@@ -35,8 +35,8 @@ jobs:
         run: |
           git config user.name "actions-bot"
           git config user.email "actions@github.com"
-          git add category/*/index.html assets/home.json || true
-          git commit -m "auto: update category indexes" || echo "no changes"
+          git add category/*/index.html category/*/manifest.json assets/home.json || true
+          git commit -m "auto: update category indexes and manifests" || echo "no changes"
           git pull --rebase origin main || true
           git push
 
