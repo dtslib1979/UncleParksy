@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PARKSY OS v1.3 Final — Human × AI Hybrid OS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta property="og:title" content="PARKSY OS v1.3 Final — Human × AI Hybrid OS" />
+  <meta property="og:description" content="Biological Intelligence as First Brain, Artificial Intelligence as Editing Butler." />
+  <meta property="og:image" content="https://paksy.kr/os-og-en.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="manifest" href="data:application/manifest+json,{
+    \"name\":\"PARKSY OS v1.3\",
+    \"short_name\":\"PARKSY OS\",
+    \"start_url\":\".\",
+    \"display\":\"standalone\",
+    \"background_color\":\"#050814\",
+    \"theme_color\":\"#f9c93d\",
+    \"icons\":[{\"src\":\"https://paksy.kr/favicon.ico\",\"sizes\":\"192x192\",\"type\":\"image/png\"}]
+  }">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <style>
+    :root{--bg-main:#050814;--bg-card:#0e1324;--bg-chip:#141a33;--accent:#f9c93d;--accent-soft:#ffeb99;--accent-strong:#ff8b3d;--text-main:#f5f5ff;--text-muted:#a5a9c9;--border-soft:#262a3f;--radius-lg:18px;--radius-md:12px;--radius-pill:999px;--shadow-soft:0 18px 40px rgba(0,0,0,.45);--transition-fast:.2s ease-out;--transition-med:.35s ease-out;--font-main:system-ui,-apple-system,sans-serif;--font-mono:"SF Mono",ui-monospace,Menlo,monospace}
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    body{margin:0;padding:0;font-family:var(--font-main);background:radial-gradient(circle at top,#181c3b 0,#050814 55%,#000 100%);color:var(--text-main);-webkit-font-smoothing:antialiased}
+    .app{max-width:900px;margin:0 auto;padding:16px 16px 80px}
+    header.app-header{position:sticky;top:0;z-index:20;padding-bottom:8px;margin-bottom:8px;backdrop-filter:blur(16px);background:linear-gradient(to bottom,rgba(5,8,20,.9),rgba(5,8,20,.65))}
+    .title-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .app-title{font-size:1.2rem;font-weight:700;letter-spacing:.03em;display:flex;align-items:center;gap:6px}
+    .badge{font-size:.78rem;padding:4px 9px;border-radius:var(--radius-pill);background:rgba(249,201,61,.1);border:1px solid rgba(249,201,61,.5);color:var(--accent-soft)}
+    .subtitle{font-size:.82rem;color:var(--text-muted);line-height:1.5}
+    .pill-nav{display:flex;gap:6px;overflow-x:auto;padding:4px 2px 2px;scrollbar-width:none}
+    .pill-nav::-webkit-scrollbar{display:none}
+    .pill-btn{flex-shrink:0;border:1px solid var(--border-soft);border-radius:var(--radius-pill);padding:6px 10px;font-size:.78rem;background:rgba(9,12,28,.9);color:var(--text-muted);display:inline-flex;align-items:center;gap:5px;cursor:pointer;transition:all var(--transition-fast)}
+    .pill-btn span.dot{width:6px;height:6px;border-radius:50%;background:var(--border-soft)}
+    .pill-btn.active{background:linear-gradient(135deg,#f9c93d,#ff8b3d);border-color:rgba(255,255,255,.15);color:#141213}
+    .pill-btn.active span.dot{background:rgba(0,0,0,.65)}
+    .pill-btn:active{transform:scale(.97)}
+    main{margin-top:10px}
+    .section{display:none;opacity:0;transform:translateX(8px);transition:opacity var(--transition-med),transform var(--transition-med)}
+    .section.active{display:block;opacity:1;transform:none}
+    .section-title-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:16px 0 8px}
+    .section-title{font-size:1rem;font-weight:600;display:inline-flex;align-items:center;gap:6px}
+    .section-title span.emoji{font-size:1.1rem}
+    .section-tag{font-size:.7rem;padding:3px 8px;border-radius:var(--radius-pill);border:1px solid var(--border-soft);color:var(--text-muted)}
+    .card{background:radial-gradient(circle at top left,#1c2347 0,#050814 45%);border-radius:var(--radius-lg);padding:12px 12px 14px;margin-bottom:12px;border:1px solid rgba(255,255,255,.03);box-shadow:var(--shadow-soft)}
+    .card-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
+    .card-title{font-size:.9rem;font-weight:600;display:inline-flex;align-items:center;gap:6px}
+    .chip{font-size:.72rem;border-radius:var(--radius-pill);padding:3px 8px;background:var(--bg-chip);color:var(--text-muted);border:1px solid var(--border-soft)}
+    .card-body{font-size:.8rem;color:var(--text-muted);line-height:1.55}
+    .key-math{font-family:var(--font-mono);font-size:.78rem;background:rgba(0,0,0,.4);border-radius:var(--radius-md);padding:7px 8px;border:1px solid var(--border-soft);margin-top:6px;overflow-x:auto}
+    .pill-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+    .pill{font-size:.7rem;border-radius:var(--radius-pill);padding:3px 7px;border:1px solid var(--border-soft);background:rgba(20,26,51,.9);color:var(--text-muted)}
+    .two-col{display:grid;grid-template-columns:1.1fr 1.1fr;gap:8px;margin-top:6px}
+    @media(max-width:640px){.two-col{grid-template-columns:1fr}}
+    .list-compact{list-style:none;padding:0;margin:4px 0 0;font-size:.78rem;color:var(--text-muted)}
+    .list-compact li{margin-bottom:3px;display:flex;gap:6px;align-items:flex-start}
+    .list-compact li span.bullet{font-size:.72rem;margin-top:2px}
+    .section-footer-note{font-size:.74rem;color:var(--text-muted);margin-top:6px;opacity:.8}
+    .mermaid-card{background:radial-gradient(circle at top right,#242f5a 0,#050814 50%);border-radius:var(--radius-lg);padding:10px 10px 12px;margin-top:10px;border:1px solid rgba(255,255,255,.08);overflow-x:auto}
+    .mermaid-label{font-size:.74rem;color:var(--accent-soft);margin-bottom:4px;opacity:.9}
+    footer.app-footer{position:fixed;bottom:0;left:0;right:0;padding:6px 12px 10px;background:linear-gradient(to top,rgba(0,0,0,.95),rgba(0,0,0,.65));backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,.06);z-index:30}
+    .footer-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .footer-text{font-size:.72rem;color:var(--text-muted)}
+    .footer-btn{font-size:.75rem;border-radius:var(--radius-pill);border:1px solid var(--border-soft);padding:4px 10px;background:#10152a;color:var(--text-main);display:inline-flex;align-items:center;gap:4px;cursor:pointer;transition:background var(--transition-fast),transform .08s}
+    .footer-btn.primary{background:linear-gradient(135deg,#f9c93d,#ff8b3d);color:#17110b;border-color:rgba(0,0,0,.4)}
+    .footer-btn:active{transform:scale(.96)}
+  </style>
+</head>
+<body>
+<div class="app">
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="title-row">
+        <div class="app-title"><span>🧠 PARKSY OS</span><span class="badge">v1.3 Final</span></div>
+      </div>
+      <div class="subtitle">
+        Biological Intelligence (BI) as the <strong>first brain OS</strong>,<br />
+        Artificial Intelligence (AI) as a <strong>high-speed editing butler</strong> —<br />
+        fused into one hybrid operating system for creative work.
+      </div>
+      <nav class="pill-nav">
+        <button class="pill-btn active" data-target="executive"><span class="dot"></span><span>Executive</span></button>
+        <button class="pill-btn" data-target="human-os"><span class="dot"></span><span>Human OS</span></button>
+        <button class="pill-btn" data-target="ai-os"><span class="dot"></span><span>AI OS</span></button>
+        <button class="pill-btn" data-target="hybrid"><span class="dot"></span><span>Hybrid & Ports</span></button>
+        <button class="pill-btn" data-target="execution"><span class="dot"></span><span>Execution</span></button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Executive -->
+    <section class="section active" data-section="executive">
+      <div class="section-title-row"><div class="section-title"><span class="emoji">✨</span><span>Executive Overview</span></div><div class="section-tag">Layer 0</div></div>
+      <div class="card">
+        <div class="card-header"><div class="card-title"><span class="icon">🧬</span><span>Core Definition</span></div><div class="chip">Domain → Codomain</div></div>
+        <div class="card-body">
+          <div class="pill-list"><span class="pill">BI = Biological Intelligence OS</span><span class="pill">AI = Artificial Editing OS</span><span class="pill">HI = BI × AI</span><span class="pill">P = 6 Skillset Ports</span></div>
+          <div class="key-math">C(v1.3) ≈ 99 / 100<br>σ(v1.3) ≈ 0.9996<br>Π(C,σ) = TRUE</div>
+        </div>
+      </div>
+      <div class="mermaid-card"><div class="mermaid-label">Global Architecture</div><div class="mermaid">
+graph TD
+    subgraph "BI — Biological Intelligence"
+        B[Human OS\nL0–L6 Hierarchy]
+    end
+    subgraph "AI — Artificial Intelligence"
+        A[AI OS\n3-Layer Prompt Stack]
+    end
+    subgraph "Physical Ports"
+        P1[Note] P2[Drawing] P3[Writing] P4[Music] P5[App] P6[Code]
+    end
+    B --> HI[HI = BI × AI]
+    A --> HI
+    HI --> P1 & P2 & P3 & P4 & P5 & P6
+      </div></div>
+    </section>
+
+    <!-- Human OS -->
+    <section class="section" data-section="human-os">
+      <div class="section-title-row"><div class="section-title"><span class="emoji">🧠</span><span>Human Prompt Hierarchy</span></div><div class="section-tag">Layer 1</div></div>
+      <div class="card">
+        <div class="card-header"><div class="card-title"><span class="icon">🪜</span><span>L0–L6</span></div><div class="chip">Biological LLM</div></div>
+        <div class="card-body">
+          <ul class="list-compact">
+            <li><span class="bullet">L0</span><span><strong>Humanity</strong> — error, fantasy, desire</span></li>
+            <li><span class="bullet">L1</span><span><strong>Senses</strong></span></li>
+            <li><span class="bullet">L2</span><span><strong>Instinct</strong></span></li>
+            <li><span class="bullet">L3</span><span><strong>Emotion</strong> — primary engine</span></li>
+            <li><span class="bullet">L4</span><span><strong>Modules</strong></span></li>
+            <li><span class="bullet">L5</span><span><strong>Structure</strong></span></li>
+            <li><span class="bullet">L6</span><span><strong>Physicalization</strong></span></li>
+          </ul>
+          <div class="key-math">BI = {sense, instinct, emotion, fantasy, error, modules, physicalization}</div>
+        </div>
+      </div>
+      <div class="mermaid-card"><div class="mermaid-label">Human OS Stack</div><div class="mermaid">
+graph TD
+    L0[L0 Humanity\nerror · fantasy · desire] --> L1[L1 Senses] --> L2[L2 Instinct] --> L3[L3 Emotion\nPrimary Engine] --> L4[L4 Modules] --> L5[L5 Structure] --> L6[L6 Physicalization]
+      </div></div>
+    </section>
+
+    <!-- AI OS -->
+    <section class="section" data-section="ai-os">
+      <div class="section-title-row"><div class="section-title"><span class="emoji">🤖</span><span>AI Prompt Hierarchy</span></div></div>
+      <div class="card">
+        <div class="card-header"><div class="card-title"><span class="icon">📚</span><span>3-Layer Stack</span></div></div>
+        <div class="card-body">
+          <div class="two-col">
+            <div><strong>L1 Meta</strong><ul class="list-compact"><li><span class="bullet">•</span><span>tone, style, format</span></li></ul></div>
+            <div><strong>L2 Persona</strong><ul class="list-compact"><li><span class="bullet">•</span><span>Writer, Engineer…</span></li></ul></div>
+          </div>
+          <div class="two-col">
+            <div><strong>L3 Domain Vocab</strong><ul class="list-compact"><li><span class="bullet">•</span><span>law, code, art…</span></li></ul></div>
+            <div><strong>AI Core</strong><ul class="list-compact"><li><span class="bullet">•</span><span>editing · finishing · speed</span></li></ul></div>
+          </div>
+        </div>
+      </div>
+      <div class="mermaid-card"><div class="mermaid-label">AI Prompt Stack</div><div class="mermaid">
+graph TD
+    L1[L1 Meta\nMeta Instructions] --> L2[L2\nFunctional Persona] --> L3[L3\nDomain Vocabulary] --> AI[AI Editing OS]
+      </div></div>
+    </section>
+
+    <!-- Hybrid & Ports -->
+    <section class="section" data-section="hybrid">
+      <div class="section-title-row"><div class="section-title"><span class="emoji">⚡</span><span>Hybrid & 6 Ports</span></div></div>
+      <div class="card">
+        <div class="card-header"><div class="card-title"><span class="icon">⚙️</span><span>Formula</span></div></div>
+        <div class="card-body"><div class="key-math">HI = BI × AI<br>Output = HI × P</div></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title"><span class="icon">🎨</span><span>6 Skillset Ports</span></div></div>
+        <div class="card-body">
+          <div class="two-col">
+            <div><ul class="list-compact"><li><span class="bullet">1</span><span>Note/Diagram</span></li><li><span class="bullet">2</span><span>Drawing</span></li><li><span class="bullet">3</span><span>Writing</span></li></ul></div>
+            <div><ul class="list-compact"><li><span class="bullet">4</span><span>Music/Voice</span></li><li><span class="bullet">5</span><span>App/PWA</span></li><li><span class="bullet">6</span><span>Code/Automation</span></li></ul></div>
+          </div>
+        </div>
+      </div>
+      <div class="mermaid-card"><div class="mermaid-label">BI × AI → 6 Ports</div><div class="mermaid">
+graph LR
+    BI[BI\nHuman OS] --> HI[HI = BI × AI]
+    AI[AI\nEditing OS] --> HI
+    HI --> N[Note] & D[Drawing] & W[Writing] & M[Music] & A[App] & C[Code]
+      </div></div>
+    </section>
+
+    <!-- Execution -->
+    <section class="section" data-section="execution">
+      <div class="section-title-row"><div class="section-title"><span class="emoji">🚀</span><span>Execution Flow</span></div></div>
+      <div class="card">
+        <div class="card-header"><div class="card-title"><span class="icon">📝</span><span>Human Tasks (3)</span></div></div>
+        <div class="card-body">
+          <ol class="list-compact" style="margin-left:0;padding-left:0;">
+            <li><span class="bullet">1</span><span>Update modules</span></li>
+            <li><span class="bullet">2</span><span>Create one physical sample</span></li>
+            <li><span class="bullet">3</span><span>Maintain BI base values</span></li>
+          </ol>
+        </div>
+      </div>
+      <div class="mermaid-card"><div class="mermaid-label">Execution Sequence</div><div class="mermaid">
+sequenceDiagram
+    participant BI as BI (Human)
+    participant AI as AI (Butler)
+    participant P as 6 Ports
+    participant W as World
+    BI->>AI: hierarchies
+    AI->>P: drafts & code
+    BI->>P: final tweak
+    P->>W: publish
+    W->>BI: feedback → modules
+      </div></div>
+    </section>
+  </main>
+</div>
+
+<footer class="app-footer">
+  <div class="footer-inner">
+    <div class="footer-text">PARKSY OS v1.3 · BI × AI · 2025</div>
+    <div class="footer-actions">
+      <button class="footer-btn" id="prevBtn">◀ Prev</button>
+      <button class="footer-btn primary" id="nextBtn">Next ▶</button>
+    </div>
+  </div>
+</footer>
+
+<script>
+  mermaid.initialize({startOnLoad:true, theme:"dark", flowchart:{ useMaxWidth:true }});
+  const order = ["executive","human-os","ai-os","hybrid","execution"];
+  const sections = document.querySelectorAll(".section");
+  const pills = document.querySelectorAll(".pill-btn");
+  function go(i){
+    sections.forEach(s=>s.classList.toggle("active",s.dataset.section===order[i]));
+    pills.forEach(p=>p.classList.toggle("active",p.dataset.target===order[i]));
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
+  pills.forEach((p,i)=>p.onclick=()=>go(i));
+  document.getElementById("prevBtn").onclick=()=>{let i=order.indexOf(document.querySelector(".section.active").dataset.section);go((i-1+order.length)%order.length);}
+  document.getElementById("nextBtn").onclick=()=>{let i=order.indexOf(document.querySelector(".section.active").dataset.section);go((i+1)%order.length);}
+</script>
+</body>
+</html>
