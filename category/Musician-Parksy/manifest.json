@@ -1,28 +1,28 @@
 {
   "items": [
     {
-      "title": "2025-09-03 check2",
-      "path": "./2025-09-03 check2.html",
-      "section": "Cast",
+      "title": "uploadtest",
+      "path": "./uploadtest.html",
+      "section": "Audio",
       "type": "HTML",
-      "date": "2025-09-03",
-      "tags": ["check"]
+      "date": null,
+      "tags": []
     },
     {
       "title": "trial2",
       "path": "./trial2.html",
-      "section": "Experiments",
+      "section": "Audio",
       "type": "HTML",
       "date": null,
-      "tags": ["trial", "test"]
+      "tags": []
     },
     {
-      "title": "uploadtest",
-      "path": "./uploadtest.html",
-      "section": "Experiments",
+      "title": "check2",
+      "path": "./2025-09-03 check2.html",
+      "section": "Audio",
       "type": "HTML",
-      "date": null,
-      "tags": ["upload", "test"]
+      "date": "2025-09-03",
+      "tags": []
     }
   ]
 }

@@ -1,52 +1,76 @@
 {
   "items": [
     {
-      "title": "2025-08-29 test",
-      "path": "./2025-08-29 test.html",
+      "title": "uploadtest",
+      "path": "./uploadtest.html",
       "section": "Essays",
       "type": "HTML",
-      "date": "2025-08-29",
-      "tags": ["test"]
-    },
-    {
-      "title": "2025년 8월 29일 깃허브설정",
-      "path": "./2025년 8월 29일 깃허브설정.html",
-      "section": "Essays",
-      "type": "HTML",
-      "date": "2025-08-29",
-      "tags": ["korean", "github"]
-    },
-    {
-      "title": "Mermaid",
-      "path": "./Mermaid.html",
-      "section": "Diagrams",
-      "type": "HTML",
       "date": null,
-      "tags": ["mermaid", "diagram"]
-    },
-    {
-      "title": "MermaidEngine",
-      "path": "./MermaidEngine.html",
-      "section": "Diagrams",
-      "type": "HTML",
-      "date": null,
-      "tags": ["mermaid", "engine"]
+      "tags": []
     },
     {
       "title": "trial7",
       "path": "./trial7.html",
-      "section": "Experiments",
+      "section": "Essays",
       "type": "HTML",
       "date": null,
-      "tags": ["trial", "test"]
+      "tags": []
     },
     {
-      "title": "uploadtest",
-      "path": "./uploadtest.html",
-      "section": "Experiments",
+      "title": "tip",
+      "path": "./tip.html",
+      "section": "Essays",
       "type": "HTML",
       "date": null,
-      "tags": ["upload", "test"]
+      "tags": []
+    },
+    {
+      "title": "human.prompt",
+      "path": "./human.prompt.html",
+      "section": "Essays",
+      "type": "HTML",
+      "date": null,
+      "tags": []
+    },
+    {
+      "title": "hello",
+      "path": "./hello.html",
+      "section": "Essays",
+      "type": "HTML",
+      "date": null,
+      "tags": []
+    },
+    {
+      "title": "MermaidEngine",
+      "path": "./MermaidEngine.html",
+      "section": "Essays",
+      "type": "HTML",
+      "date": null,
+      "tags": []
+    },
+    {
+      "title": "Mermaid",
+      "path": "./Mermaid.html",
+      "section": "Essays",
+      "type": "HTML",
+      "date": null,
+      "tags": []
+    },
+    {
+      "title": "깃허브설정",
+      "path": "./2025년 8월 29일 깃허브설정.html",
+      "section": "Essays",
+      "type": "HTML",
+      "date": "2025-08-29",
+      "tags": []
+    },
+    {
+      "title": "test",
+      "path": "./2025-08-29 test.html",
+      "section": "Essays",
+      "type": "HTML",
+      "date": "2025-08-29",
+      "tags": []
     }
   ]
 }
