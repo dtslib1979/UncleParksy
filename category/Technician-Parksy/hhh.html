@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>PARKSY OS · Prompt Engine</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <style>
+    :root {
+      --bg-main:#050814;
+      --bg-card:#0e1324;
+      --bg-chip:#141a33;
+      --accent:#f9c93d;
+      --accent-strong:#ff8b3d;
+      --text-main:#f5f5ff;
+      --text-muted:#a5a9c9;
+      --border-soft:#262a3f;
+      --radius-lg:18px;
+      --radius-md:12px;
+      --radius-pill:999px;
+      --shadow-soft:0 16px 32px rgba(0,0,0,0.45);
+      --font-main:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      --font-mono:"SF Mono",ui-monospace,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+    }
+
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+    body{
+      margin:0;
+      padding:0;
+      font-family:var(--font-main);
+      background:radial-gradient(circle at top,#181c3b 0,#050814 55%,#000 100%);
+      color:var(--text-main);
+      -webkit-font-smoothing:antialiased;
+    }
+    .app{
+      max-width:900px;
+      margin:0 auto;
+      padding:16px 16px 72px;
+    }
+    .header{
+      margin-bottom:14px;
+    }
+    .title-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+    }
+    .title-main{
+      font-size:1.1rem;
+      font-weight:700;
+      letter-spacing:0.03em;
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+    .badge{
+      font-size:0.74rem;
+      padding:3px 8px;
+      border-radius:var(--radius-pill);
+      border:1px solid rgba(249,201,61,0.6);
+      background:rgba(249,201,61,0.06);
+      color:var(--accent);
+    }
+    .subtitle{
+      margin-top:6px;
+      font-size:0.82rem;
+      color:var(--text-muted);
+      line-height:1.5;
+    }
+    .pill-row{
+      margin-top:10px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+    }
+    .pill{
+      font-size:0.72rem;
+      border-radius:var(--radius-pill);
+      padding:3px 8px;
+      border:1px solid var(--border-soft);
+      background:var(--bg-chip);
+      color:var(--text-muted);
+    }
+
+    .card{
+      background:radial-gradient(circle at top left,#1c2347 0,#050814 45%);
+      border-radius:var(--radius-lg);
+      padding:11px 12px 13px;
+      margin-top:12px;
+      border:1px solid rgba(255,255,255,0.04);
+      box-shadow:var(--shadow-soft);
+    }
+    .card-title-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+      margin-bottom:6px;
+    }
+    .card-title{
+      font-size:0.9rem;
+      font-weight:600;
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+    .card-title span.icon{font-size:1.05rem;}
+    .chip-small{
+      font-size:0.7rem;
+      padding:3px 7px;
+      border-radius:var(--radius-pill);
+      border:1px solid var(--border-soft);
+      background:rgba(9,12,28,0.9);
+      color:var(--text-muted);
+    }
+
+    .field-row{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+      margin-top:6px;
+    }
+    label{
+      font-size:0.78rem;
+      color:var(--text-muted);
+    }
+    select, input[type="text"], textarea{
+      width:100%;
+      border-radius:var(--radius-md);
+      border:1px solid var(--border-soft);
+      background:rgba(3,6,18,0.9);
+      color:var(--text-main);
+      font-size:0.8rem;
+      padding:7px 9px;
+      font-family:var(--font-main);
+      outline:none;
+    }
+    select:focus, input[type="text"]:focus, textarea:focus{
+      border-color:var(--accent);
+      box-shadow:0 0 0 1px rgba(249,201,61,0.3);
+    }
+    textarea{min-height:70px;resize:vertical;}
+
+    .inline-2{
+      display:grid;
+      grid-template-columns:1.05fr 1.05fr;
+      gap:8px;
+    }
+    @media (max-width:640px){
+      .inline-2{grid-template-columns:1fr;}
+    }
+
+    .hint{
+      font-size:0.72rem;
+      color:var(--text-muted);
+      margin-top:3px;
+      opacity:0.8;
+    }
+
+    .output-area{
+      margin-top:10px;
+    }
+    #result{
+      width:100%;
+      min-height:180px;
+      border-radius:var(--radius-lg);
+      border:1px solid rgba(255,255,255,0.06);
+      background:rgba(0,0,0,0.6);
+      color:var(--accent-soft,#fffde7);
+      font-family:var(--font-mono);
+      font-size:0.78rem;
+      padding:10px;
+      white-space:pre-wrap;
+      overflow-y:auto;
+    }
+
+    .btn-row{
+      margin-top:10px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .btn{
+      border-radius:var(--radius-pill);
+      border:1px solid var(--border-soft);
+      background:#10152a;
+      color:var(--text-main);
+      font-size:0.8rem;
+      padding:7px 14px;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+    }
+    .btn.primary{
+      background:linear-gradient(135deg,#f9c93d,#ff8b3d);
+      color:#17110b;
+      border-color:rgba(0,0,0,0.5);
+    }
+    .btn:active{transform:scale(0.97);}
+    .small-note{
+      margin-top:6px;
+      font-size:0.7rem;
+      color:var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <header class="header">
+    <div class="title-row">
+      <div class="title-main">
+        <span>🧠 PARKSY OS</span>
+        <span class="badge">Human Prompt Engine v1.0</span>
+      </div>
+    </div>
+    <div class="subtitle">
+      “내 뇌 = 퍼스트 브레인 OS, 인공지능 = 편집·마감 집사”라는 전제를<br>
+      그대로 프롬프트로 뽑아주는 <strong>리버스 엔지니어링 엔진</strong>.
+    </div>
+    <div class="pill-row">
+      <span class="pill">BI = 감각·본능·감정·실수·판타지·모듈</span>
+      <span class="pill">AI = 편집·마감·속도·반복·형식통일</span>
+      <span class="pill">HI = BI × AI</span>
+    </div>
+  </header>
+
+  <!-- 1. AI 역할 / 모드 -->
+  <section class="card">
+    <div class="card-title-row">
+      <div class="card-title">
+        <span class="icon">🤖</span>
+        <span>1. AI Role · Mode Preset</span>
+      </div>
+      <div class="chip-small">AI OS Layer</div>
+    </div>
+
+    <div class="field-row">
+      <label for="presetRole">① 프리셋 선택</label>
+      <select id="presetRole">
+        <option value="second-brain">Second Brain · 구조화 코치</option>
+        <option value="cto">CTO · Code & Architecture</option>
+        <option value="broadcast">Live Broadcast · Format Director</option>
+        <option value="lawyer">Legal / Systematic Analyst</option>
+        <option value="custom">Custom (직접 작성)</option>
+      </select>
+    </div>
+
+    <div class="field-row">
+      <label for="aiRoleText">② AI에게 줄 “정체성 문장”</label>
+      <textarea id="aiRoleText"></textarea>
+      <div class="hint">예) You are my Second Brain in PARKSY OS mode. Structure & clarity first, expansion second. Never academic, always concise, witty, and practical.</div>
+    </div>
+
+    <div class="inline-2" style="margin-top:6px;">
+      <div class="field-row">
+        <label for="tone">Tone · Style</label>
+        <input id="tone" type="text" value="concise, witty, philosophical, non-academic">
+      </div>
+      <div class="field-row">
+        <label for="language">Output Language</label>
+        <input id="language" type="text" value="Korean + English keywords (bilingual)">
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. BI 상태 / 감정 -->
+  <section class="card">
+    <div class="card-title-row">
+      <div class="card-title">
+        <span class="icon">🧬</span>
+        <span>2. BI State · Emotion & Instinct</span>
+      </div>
+      <div class="chip-small">BI Layer</div>
+    </div>
+
+    <div class="inline-2">
+      <div class="field-row">
+        <label for="emotion">지금 감정 / 에너지</label>
+        <input id="emotion" type="text" placeholder="예: 살짝 불안하지만, 창작 의지는 높음">
+      </div>
+      <div class="field-row">
+        <label for="instinct">본능적 드라이버</label>
+        <input id="instinct" type="text" placeholder="예: 생존, 재미, 매력 자본, 시간 절약">
+      </div>
+    </div>
+
+    <div class="field-row">
+      <label for="fantasy">판타지 · 실수까지 포함한 “인간 맛”</label>
+      <textarea id="fantasy" placeholder="예: 실수해도 괜찮으니, 내 말투와 비뚤어진 농담까지 살려서 정리해줘."></textarea>
+    </div>
+  </section>
+
+  <!-- 3. 생각 레벨 / 포트 설정 -->
+  <section class="card">
+    <div class="card-title-row">
+      <div class="card-title">
+        <span class="icon">🪜</span>
+        <span>3. Thinking Layer · Port 선택</span>
+      </div>
+      <div class="chip-small">PARKSY OS 레벨</div>
+    </div>
+
+    <div class="inline-2">
+      <div class="field-row">
+        <label for="thinkingLayer">생각 레벨 (어디서 놀 건가?)</label>
+        <select id="thinkingLayer">
+          <option value="philosophy">철학 레이어 (의미·개념 정리)</option>
+          <option value="structure">구조 레이어 (표·모델·수식)</option>
+          <option value="execution">실행 레이어 (튜토리얼·체크리스트)</option>
+          <option value="meta">메타 평가 (자기 점수 매기기)</option>
+        </select>
+      </div>
+      <div class="field-row">
+        <label for="port">물성화 포트 (6 Skillsets)</label>
+        <select id="port">
+          <option value="blog">Writing · Blog / Tistory</option>
+          <option value="pwa">App / PWA 구조</option>
+          <option value="drawing">Drawing · Diagram 설명</option>
+          <option value="music">Music / Voice 구조</option>
+          <option value="code">Code / Automation 템플릿</option>
+          <option value="mixed">Mixed (여러 포트 동시에)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <label for="goal">이번에 AI에게 시킬 핵심 목표</label>
+      <textarea id="goal" placeholder="예: 오늘 떠든 'Human Prompt Hierarchy'를 일반인이 따라 할 수 있는 3단계 튜토리얼 + 예시 프롬프트 세트로 만들어줘."></textarea>
+    </div>
+  </section>
+
+  <!-- 4. 원석 입력 / 제약 -->
+  <section class="card">
+    <div class="card-title-row">
+      <div class="card-title">
+        <span class="icon">🧱</span>
+        <span>4. Raw Input · Constraints</span>
+      </div>
+      <div class="chip-small">RAW → Prompt</div>
+    </div>
+
+    <div class="field-row">
+      <label for="raw">[RAW] 지금 머릿속에 있는 말 / 메모 (그대로 붙여넣기)</label>
+      <textarea id="raw" placeholder="예: 오늘 대화 로그 일부, 핵심 문장, 스크린샷 설명 등"></textarea>
+      <div class="hint">LLM에 바로 넣을 내용이 아니라, “내 머리 속 원석”을 여기에 적어두고, 아래 버튼으로 완성 프롬프트를 만든다.</div>
+    </div>
+
+    <div class="field-row">
+      <label for="constraints">형식 · 제약조건</label>
+      <textarea id="constraints" placeholder="예: ① 소제목 3개 이하, ② 코드 블록은 최소, ③ 예시는 한국 중년 창작자 기준으로."></textarea>
+    </div>
+  </section>
+
+  <!-- 결과 -->
+  <section class="card output-area">
+    <div class="card-title-row">
+      <div class="card-title">
+        <span class="icon">⚡</span>
+        <span>5. Generated Prompt (복사해서 LLM에 붙여넣기)</span>
+      </div>
+      <div class="chip-small">BI × AI Prompt</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn primary" id="btnGenerate">🚀 프롬프트 생성</button>
+      <button class="btn" id="btnCopy">📋 복사</button>
+      <button class="btn" id="btnReset">🧹 초기화</button>
+    </div>
+
+    <textarea id="result" readonly></textarea>
+    <div class="small-note">
+      * TIP: 한 번 생성한 뒤, 프롬프트 안에 나오는 문구를 조금씩 고쳐가며 “박씨 전용 버전”으로 커스터마이즈하면 된다.
+    </div>
+  </section>
+</div>
+
+<script>
+  // --- 프리셋 역할 텍스트 ------------------------------------
+  const rolePresets = {
+    "second-brain":
+`You are my Second Brain running in PARKSY OS mode.
+Treat my Biological Intelligence (BI) as the main operating system
+and use your Artificial Intelligence (AI) as a high-speed editing & finishing engine.
+Priority: structure > clarity > expansion.
+Tone: non-academic, concise, witty, a bit like an honest friend.`,
+    "cto":
+`You are my CTO in PARKSY OS.
+Your job: translate my messy ideas into clear architectures, models, and code skeletons.
+Explain design choices in human language, and only then show minimal code needed.`,
+    "broadcast":
+`You are my Live Broadcast Format Director.
+Turn my raw thoughts into repeatable show formats, prompt templates,
+and segment structures for YouTube / live streaming.`,
+    "lawyer":
+`You are my Legal & Systematic Analyst.
+Map my situation to the right legal / procedural structure,
+then generate step-by-step checklists and sample forms in plain language.`,
+    "custom": ""
+  };
+
+  const presetSelect = document.getElementById("presetRole");
+  const aiRoleText = document.getElementById("aiRoleText");
+
+  function applyPresetRole() {
+    const key = presetSelect.value;
+    aiRoleText.value = rolePresets[key] || "";
+  }
+
+  presetSelect.addEventListener("change", applyPresetRole);
+  // 초기값
+  applyPresetRole();
+
+  // --- 프롬프트 생성 ------------------------------------------
+  function generatePrompt() {
+    const aiRole = aiRoleText.value.trim();
+    const tone = document.getElementById("tone").value.trim();
+    const language = document.getElementById("language").value.trim();
+    const emotion = document.getElementById("emotion").value.trim();
+    const instinct = document.getElementById("instinct").value.trim();
+    const fantasy = document.getElementById("fantasy").value.trim();
+    const thinkingLayer = document.getElementById("thinkingLayer").value;
+    const port = document.getElementById("port").value;
+    const goal = document.getElementById("goal").value.trim();
+    const raw = document.getElementById("raw").value.trim();
+    const constraints = document.getElementById("constraints").value.trim();
+
+    const thinkingMap = {
+      "philosophy": "Philosophy Layer (clarify concepts, meaning, and core principles).",
+      "structure": "Structure Layer (tables, models, formulas, OS diagrams).",
+      "execution": "Execution Layer (tutorials, checklists, concrete steps).",
+      "meta": "Meta Evaluation Layer (score, self-evaluation, hypothesis and stability)."
+    };
+
+    const portMap = {
+      "blog": "Writing · Blog / Tistory article as the main port.",
+      "pwa": "App / PWA structure (HTML/CSS/JS skeletons and information architecture).",
+      "drawing": "Drawing / Diagram descriptions (for AI image tools or human illustrators).",
+      "music": "Music / Voice structure (sections, mood flow, instrumentation hints).",
+      "code": "Code / Automation templates (minimal but working, with comments).",
+      "mixed": "Multiple ports at once (blog + PWA + drawing etc.), but keep one as the primary."
+    };
+
+    const layerText = thinkingMap[thinkingLayer] || "";
+    const portText = portMap[port] || "";
+
+    const prompt =
+`[IDENTITY · PARKSY OS]
+
+${aiRole || "(Define the AI role here.)"}
+
+Use PARKSY OS assumptions:
+- BI (Biological Intelligence) = senses, instinct, emotion, fantasy, error, personal modules.
+- AI (Artificial Intelligence) = editing, finishing, speed, repetition, style unification.
+- HI = BI × AI (non-linear synergy, not BI + AI).
+
+Tone & style:
+- ${tone || "concise, witty, philosophical, non-academic"}
+- Output language: ${language || "Korean with some English keywords"}
+
+[BI STATE · HUMAN CONTEXT]
+
+- Current emotion / energy: ${emotion || "(not specified)"}
+- Instinct / drive: ${instinct || "(not specified)"}
+- Human flavour (fantasy, errors allowed): ${fantasy || "(not specified)"}
+
+[THINKING LAYER & PORT]
+
+- Main thinking layer: ${layerText}
+- Main physical port (6 Skillsets): ${portText}
+
+[TASK · WHAT YOU SHOULD DO]
+
+Here is my raw brain dump:
+
+[RAW]
+${raw || "(I will paste my messy notes here.)"}
+
+Using the PARKSY OS model, transform this RAW into a clear output:
+
+${goal || "- Summarise the core idea, structure it, and turn it into a reusable template or tutorial."}
+
+[CONSTRAINTS]
+
+${constraints || "- Keep it practical and copy-paste ready for Tistory / GitHub / PWA.\n- Minimise unnecessary explanations.\n- Use headings, short paragraphs, and bullet points."}
+
+[OUTPUT FORMAT]
+
+1) 3-line concept compression (what this is really about).
+2) Structured outline based on the chosen thinking layer.
+3) Final draft for the chosen port (Tistory / PWA / etc.), ready to publish.
+4) Optional: 2–3 sample prompts so I can reuse this as a prompt engine.
+
+Remember: respect my BI (emotion + fantasy + errors) first,
+then use your AI power only for structure, clarity, and finishing.`;
+
+    document.getElementById("result").value = prompt;
+  }
+
+  document.getElementById("btnGenerate").addEventListener("click", generatePrompt);
+
+  // --- 복사 / 초기화 ------------------------------------------
+  document.getElementById("btnCopy").addEventListener("click", () => {
+    const out = document.getElementById("result");
+    out.select();
+    try {
+      document.execCommand("copy");
+    } catch(e) {}
+  });
+
+  document.getElementById("btnReset").addEventListener("click", () => {
+    document.getElementById("raw").value = "";
+    document.getElementById("goal").value = "";
+    document.getElementById("constraints").value = "";
+    document.getElementById("result").value = "";
+  });
+</script>
+</body>
+</html>
