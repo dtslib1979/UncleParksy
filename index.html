@@ -24,7 +24,7 @@
 <meta name="twitter:image" content="https://dtslib1979.github.io/assets/og/cover.png">
 
 <!-- PWA / Icons -->
-<link rel="icon" href="/assets/icons/favicon.ico">
+<link rel="icon" href="/assets/icons/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#f7f3e8">
@@ -779,6 +779,19 @@ function maybeNotify(msg){
     if(document.hidden && !audioEl.paused) audioEl.pause();
   });
 })();
+
+/* === Service Worker Registration === */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then((registration) => {
+        console.log('ServiceWorker registered:', registration.scope);
+      })
+      .catch((err) => {
+        console.error('ServiceWorker registration failed:', err);
+      });
+  });
+}
 </script>
 
 <!-- noscript fallback -->

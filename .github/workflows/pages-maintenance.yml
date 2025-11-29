@@ -28,16 +28,22 @@ jobs:
           done < <(find . -type f -name "*.html" | sort)
           echo '</urlset>' >> sitemap.xml
 
+      - name: Verify directory structure
+        run: |
+          mkdir -p category
+          echo "Category structure:"
+          ls -la category/
+
       - name: Rebuild category indexes (latest first)
         run: |
           set -e
-          for d in category/system-configuration \
-                   category/writers-path \
-                   category/blog-transformation \
-                   category/device-chronicles \
-                   category/webappsbook-codex \
-                   category/webappsbookcast \
-                   category/thought-archaeology; do
+          for d in category/Philosopher-Parksy \
+                   category/Blogger-Parksy \
+                   category/Visualizer-Parksy \
+                   category/Musician-Parksy \
+                   category/Technician-Parksy \
+                   category/Orbit-Log \
+                   category/Protocol-Parksy; do
             [[ -d "$d" ]] || continue
             # HTML 파일들을 찾아서 정렬 (한글 날짜와 영문 날짜 모두 지원)
             LIST=$(find "$d" -maxdepth 1 -type f -name "*.html" ! -name "index.html" | sort -r)
