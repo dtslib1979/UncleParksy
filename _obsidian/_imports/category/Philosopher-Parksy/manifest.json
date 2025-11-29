@@ -17,6 +17,14 @@
       "tags": ["korean", "github"]
     },
     {
+      "title": "Human Prompt",
+      "path": "./human.prompt.html",
+      "section": "Essays",
+      "type": "HTML",
+      "date": null,
+      "tags": ["prompt", "human"]
+    },
+    {
       "title": "Mermaid",
       "path": "./Mermaid.html",
       "section": "Diagrams",
@@ -31,6 +39,14 @@
       "type": "HTML",
       "date": null,
       "tags": ["mermaid", "engine"]
+    },
+    {
+      "title": "Tip",
+      "path": "./tip.html",
+      "section": "Essays",
+      "type": "HTML",
+      "date": null,
+      "tags": ["tip"]
     },
     {
       "title": "trial7",
