@@ -25,6 +25,22 @@
       "tags": ["studio"]
     },
     {
+      "title": "HHH",
+      "path": "./hhh.html",
+      "section": "Experiments",
+      "type": "HTML",
+      "date": null,
+      "tags": ["test"]
+    },
+    {
+      "title": "Human Prompt",
+      "path": "./humanprompt.html",
+      "section": "Tools",
+      "type": "HTML",
+      "date": null,
+      "tags": ["prompt", "human"]
+    },
+    {
       "title": "MermaidE",
       "path": "./MermaidE.html",
       "section": "Tools",
