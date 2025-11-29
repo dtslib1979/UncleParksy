@@ -24,6 +24,7 @@
     body{margin:0;padding:0;font-family:var(--font-main);background:radial-gradient(circle at top,#181c3b 0,#050814 55%,#000 100%);color:var(--text-main);-webkit-font-smoothing:antialiased}
     .app{max-width:900px;margin:0 auto;padding:16px 16px 80px}
     header.app-header{position:sticky;top:0;z-index:20;padding-bottom:8px;margin-bottom:8px;backdrop-filter:blur(16px);background:linear-gradient(to bottom,rgba(5,8,20,.9),rgba(5,8,20,.65))}
+    
     .title-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
     .app-title{font-size:1.2rem;font-weight:700;letter-spacing:.03em;display:flex;align-items:center;gap:6px}
     .badge{font-size:.78rem;padding:4px 9px;border-radius:var(--radius-pill);background:rgba(249,201,61,.1);border:1px solid rgba(249,201,61,.5);color:var(--accent-soft)}
@@ -64,6 +65,37 @@
     .footer-btn{font-size:.75rem;border-radius:var(--radius-pill);border:1px solid var(--border-soft);padding:4px 10px;background:#10152a;color:var(--text-main);display:inline-flex;align-items:center;gap:4px;cursor:pointer;transition:background var(--transition-fast),transform .08s}
     .footer-btn.primary{background:linear-gradient(135deg,#f9c93d,#ff8b3d);color:#17110b;border-color:rgba(0,0,0,.4)}
     .footer-btn:active{transform:scale(.96)}
+
+    /* === NEW: media frames (YouTube + Spotify) === */
+    .hero-frame {
+      margin-top:10px;
+    }
+    .frame-border {
+      border-radius:16px;
+      border:2px solid rgba(255,255,255,0.18);
+      overflow:hidden;
+      box-shadow:0 14px 28px rgba(0,0,0,0.55);
+      background:#000;
+    }
+    .media-frame {
+      margin:16px 0;
+    }
+    .media-title {
+      font-size:0.9rem;
+      font-weight:600;
+      margin-bottom:4px;
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+    .media-title span.icon {
+      font-size:1.05rem;
+    }
+    .media-desc {
+      font-size:0.78rem;
+      color:var(--text-muted);
+      margin-bottom:6px;
+    }
   </style>
 </head>
 <body>
@@ -78,6 +110,22 @@
         Artificial Intelligence (AI) as a <strong>high-speed editing butler</strong> —<br />
         fused into one hybrid operating system for creative work.
       </div>
+
+      <!-- 🔺 HEADER YOUTUBE FRAME (SHORT #1) -->
+      <div class="hero-frame">
+        <div class="frame-border">
+          <iframe 
+            width="100%" 
+            height="260"
+            src="https://www.youtube.com/embed/xnjeGD6N2ck"
+            title="PARKSY OS Header Short"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+
       <nav class="pill-nav">
         <button class="pill-btn active" data-target="executive"><span class="dot"></span><span>Executive</span></button>
         <button class="pill-btn" data-target="human-os"><span class="dot"></span><span>Human OS</span></button>
@@ -186,6 +234,26 @@ graph LR
       </div></div>
     </section>
 
+    <!-- 🔊 SPOTIFY THEME SECTION (MIDDLE) -->
+    <section class="media-frame">
+      <div class="media-title"><span class="icon">🎧</span><span>PARKSY OS · Theme Track</span></div>
+      <div class="media-desc">
+        a-ha - <strong>Take On Me</strong> · 작업용 하이브리드 인텔리전스 BGM
+      </div>
+      <div class="frame-border">
+        <iframe
+          style="border-radius:12px"
+          src="https://open.spotify.com/embed/track/2WfaOiMkCvy7F5fcp2zZ8L?utm_source=generator"
+          width="100%"
+          height="80"
+          frameborder="0"
+          allowfullscreen=""
+          loading="lazy"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+        </iframe>
+      </div>
+    </section>
+
     <!-- Execution -->
     <section class="section" data-section="execution">
       <div class="section-title-row"><div class="section-title"><span class="emoji">🚀</span><span>Execution Flow</span></div></div>
@@ -212,6 +280,26 @@ sequenceDiagram
     W->>BI: feedback → modules
       </div></div>
     </section>
+
+    <!-- 🔺 BOTTOM YOUTUBE FRAME (SHORT #2) -->
+    <section class="media-frame">
+      <div class="media-title"><span class="icon">📺</span><span>PARKSY OS · Outro Short</span></div>
+      <div class="media-desc">
+        페이지 맨 하단 액자 · Outro 느낌으로 마무리.
+      </div>
+      <div class="frame-border">
+        <iframe 
+          width="100%" 
+          height="260"
+          src="https://www.youtube.com/embed/2NAMAWG_qVM"
+          title="PARKSY OS Outro Short"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </section>
+
   </main>
 </div>
 
@@ -241,3 +329,4 @@ sequenceDiagram
 </script>
 </body>
 </html>
+```0
