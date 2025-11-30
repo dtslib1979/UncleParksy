@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Painter Parksy · Health × Bitterness Report</title>
+  <meta name="description" content="Structured art analysis for three works related to health and bitterness, prepared for Human × AI creative remix." />
+  <meta name="theme-color" content="#050509" />
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #050509;
+      --bg-soft: #0b1020;
+      --card: #0f172a;
+      --fg: #f9fafb;
+      --muted: #9ca3af;
+      --accent: #facc15;
+      --accent-soft: rgba(250, 204, 21, 0.12);
+      --border: #1f2937;
+      --radius-lg: 20px;
+      --radius-sm: 10px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.85);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 16px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #111827 0, #020617 55%, #000 100%);
+      color: var(--fg);
+    }
+
+    .shell {
+      max-width: 960px;
+      margin: 0 auto 56px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    header.main-header {
+      background: linear-gradient(135deg, rgba(250, 204, 21, 0.12), rgba(56, 189, 248, 0.12));
+      border-radius: 22px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      box-shadow: var(--shadow-soft);
+      padding: 18px 16px 18px 16px;
+      position: sticky;
+      top: 12px;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+    }
+
+    .main-header h1 {
+      font-size: 1.3rem;
+      margin: 0 0 4px 0;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 0.72rem;
+      margin-bottom: 10px;
+    }
+
+    .pill {
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.92);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+    }
+
+    .pill span.icon {
+      font-size: 0.85rem;
+    }
+
+    .toc {
+      margin-top: 10px;
+      padding: 10px 10px 8px 10px;
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px dashed rgba(148, 163, 184, 0.5);
+      font-size: 0.78rem;
+    }
+
+    .toc-title {
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .toc-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 4px 12px;
+    }
+
+    @media (max-width: 640px) {
+      .toc-list {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .toc-list li a {
+      color: var(--fg);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .toc-list li a span.index {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(250, 204, 21, 0.6);
+      font-size: 0.7rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(250, 204, 21, 0.08);
+    }
+
+    .toc-list li a span.label {
+      font-size: 0.78rem;
+    }
+
+    .card {
+      background: rgba(15, 23, 42, 0.98);
+      border-radius: 22px;
+      border: 1px solid rgba(148, 163, 184, 0.32);
+      box-shadow: var(--shadow-soft);
+      padding: 18px 16px 18px 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at 10% -10%, rgba(250, 204, 21, 0.2), transparent 55%),
+                  radial-gradient(circle at 110% 20%, rgba(56, 189, 248, 0.26), transparent 55%);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .art-header {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 10px;
+    }
+
+    .art-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .art-meta-line {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .section-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin: 10px 0 3px 0;
+    }
+
+    .block-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .block-title-row h2 {
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    .chip {
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.92);
+      font-size: 0.7rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .grid-two {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 768px) {
+      .grid-two {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    p {
+      font-size: 0.84rem;
+      line-height: 1.5;
+      margin: 0 0 6px 0;
+    }
+
+    ul {
+      margin: 4px 0 6px 18px;
+      padding: 0;
+      font-size: 0.82rem;
+    }
+
+    li {
+      margin-bottom: 2px;
+    }
+
+    .url-box {
+      font-size: 0.78rem;
+      background: #020617;
+      border-radius: 8px;
+      padding: 6px 8px;
+      border: 1px solid rgba(15, 23, 42, 0.9);
+      word-break: break-all;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .tag {
+      font-size: 0.68rem;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      color: var(--muted);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+      margin-top: 8px;
+      background: rgba(2, 6, 23, 0.96);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    thead {
+      background: rgba(15, 23, 42, 0.96);
+    }
+
+    th, td {
+      padding: 6px 8px;
+      border-bottom: 1px solid rgba(30, 64, 175, 0.4);
+      vertical-align: top;
+    }
+
+    th {
+      text-align: left;
+      font-weight: 600;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .block {
+      margin-top: 10px;
+      padding: 10px 10px 9px 10px;
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    .block.collapsible {
+      cursor: pointer;
+    }
+
+    .block.collapsible[data-collapsed="true"] .block-body {
+      display: none;
+    }
+
+    .block-label {
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+    .block-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .chevron {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .block-body {
+      margin-top: 4px;
+    }
+
+    footer.page-foot {
+      margin: 26px auto 0 auto;
+      max-width: 960px;
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="main-header">
+      <h1>Painter Parksy · Health × Bitterness Report</h1>
+      <div class="subtitle">
+        Three structured analyses of public-domain artworks related to health and bitterness, formatted as modules for Human × AI remix.
+      </div>
+      <div class="pill-row">
+        <div class="pill"><span class="icon">🎨</span><span>Painter-Parksy · Curation Engine</span></div>
+        <div class="pill"><span class="icon">🧠</span><span>Health, Bitterness, Symbol Layers</span></div>
+        <div class="pill"><span class="icon">📱</span><span>Mobile-first · Single HTML (no service worker)</span></div>
+      </div>
+      <div class="toc">
+        <div class="toc-title">ARTWORKS</div>
+        <ul class="toc-list">
+          <li><a href="#art-1"><span class="index">1</span><span class="label">William Blake – The Sick Rose</span></a></li>
+          <li><a href="#art-2"><span class="index">2</span><span class="label">Gray's Anatomy – Lymphatics of the Head and Neck</span></a></li>
+          <li><a href="#art-3"><span class="index">3</span><span class="label">Book of Hours – Illuminated Border</span></a></li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- ARTWORK 1 -->
+    <article id="art-1" class="card">
+      <div class="card-inner">
+        <div class="art-header">
+          <div class="art-title">1. William Blake – <em>The Sick Rose</em> (c. 1794)</div>
+          <div class="art-meta-line">English Romantic · manuscript-like page from <em>Songs of Experience</em> · framed poem and image</div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Block 1</div>
+          <div class="block-title">Artwork Metadata</div>
+          <div class="block-body">
+            <p><strong>Title</strong>: <em>The Sick Rose</em></p>
+            <p><strong>Artist / Period</strong>: William Blake, English Romantic, c. 1794</p>
+            <p><strong>Civilization tag</strong>: Christian Europe, Romantic revival of medieval manuscript style</p>
+            <p><strong>High-resolution image URL</strong>:</p>
+            <div class="url-box">https://commons.wikimedia.org/wiki/File:William_Blake_-_The_Sick_Rose_-_Songs_of_Innocence_and_of_Experience_-_Google_Art_Project.jpg</div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Block 2</div>
+          <div class="block-title">Emotion &amp; Sensory Mapping</div>
+          <div class="block-body">
+            <p><strong>Plutchik mix</strong>: sadness + fear + disgust → a bitter awareness of internal corruption.</p>
+            <ul>
+              <li>Damp, mouldy garden air clinging to the skin</li>
+              <li>Thorny stems scraping along the fingers</li>
+              <li>Sweet but slightly rotten flower smell</li>
+              <li>Night wind moving through leaves like a whisper</li>
+              <li>Sticky, dark sap imagined on the fingertips</li>
+              <li>Almost no sound, just the sense of something chewing in the dark</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Block 3</div>
+          <div class="block-title">Symbols &amp; Clichés</div>
+          <div class="block-body grid-two">
+            <div>
+              <p><strong>Colors</strong></p>
+              <ul>
+                <li>Dirty reds, browns, and muted greens: life-force already bruised</li>
+                <li>Dark ink lines like dried blood around the forms</li>
+              </ul>
+              <p><strong>Shapes &amp; Geometry</strong></p>
+              <ul>
+                <li>Twisting stems that echo serpents or a warped double helix</li>
+                <li>Oval flower form reading as a wounded heart or organ</li>
+              </ul>
+            </div>
+            <div>
+              <p><strong>Icons &amp; Motifs</strong></p>
+              <ul>
+                <li>Rose: body, love, vitality turned into infected flesh</li>
+                <li>Invisible “worm”: disease, secret sin, parasitic desire</li>
+                <li>Storm and night: unconscious fear and depressive weather</li>
+              </ul>
+              <p><strong>Composition</strong></p>
+              <ul>
+                <li>Text block in the middle reads as a diagnosis report</li>
+                <li>Vines forming a loose frame around the poem, like illness surrounding a case file</li>
+                <li>Mild asymmetry that keeps the eye slightly off-balance</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Block 4</div>
+          <div class="block-title">Philosophical Reading (Semiotics)</div>
+          <div class="block-body">
+            <p>
+              The rose, usually a cliché of beauty and romantic love, becomes a sign for corrupted flesh. The usual
+              code of Romantic love is reversed: affection itself is the infection. Health appears as a kind of
+              impossible purity; any intense desire already carries its own worm.
+            </p>
+            <p>
+              In semiotic terms, the signifier “rose” stays the same, but the signified flips from idealized romance to
+              self-destructive compulsion. The page works like a tiny illuminated sermon: image plus text conveying that
+              decay starts from inside, not from an external demon.
+            </p>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Block 5</div>
+          <div class="block-title">Neural Association Flow</div>
+          <div class="block-body">
+            <p><strong>Primary trigger</strong>: warm reds and a floral shape → automatic “rose / romance” recognition in visual cortex.</p>
+            <p><strong>Association chain (example)</strong>:</p>
+            <ul>
+              <li>Rose → romance → intimacy → vulnerability → infection → hospital / clinic</li>
+              <li>Twisting vines → snake → temptation → guilt → moral disease</li>
+              <li>Word “Sick” in the title → body → diagnosis → prognosis → fear of results</li>
+            </ul>
+            <p><strong>Common impressions</strong> (probable):</p>
+            <ul>
+              <li>“Beautiful, but something is wrong.”</li>
+              <li>“This feels like a toxic relationship or addiction metaphor.”</li>
+              <li>“This is about a psychological illness more than a physical one.”</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Block 6</div>
+          <div class="block-title">Music Matching</div>
+          <div class="block-body">
+            <ul>
+              <li>
+                <strong>Classical</strong>: Mahler – <em>Adagietto</em> from Symphony No. 5.
+                Lush strings carry a romantic surface, but harmonic bruises spread underneath like a slow infection.
+              </li>
+              <li>
+                <strong>Modern / Film / Ambient</strong>: Max Richter – <em>On the Nature of Daylight</em>.
+                A lyrical line is slowly swallowed by heavy harmonies, mirroring the way beauty is eaten by inner rot.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Block 7</div>
+          <div class="block-title">Parksy Remix Directions</div>
+          <div class="block-body">
+            <p><strong>Visual remix</strong></p>
+            <ul>
+              <li>Keep the manuscript-style frame but replace the rose with anatomical organs drawn as fragile flowers.</li>
+              <li>Hide a nearly invisible digital worm, made of glitch pixels, crawling along the vines.</li>
+            </ul>
+            <p><strong>Story remix</strong></p>
+            <ul>
+              <li>A webtoon panel where a medical report is framed by organic vines, with fragments of Blake-like poetry instead of speech bubbles.</li>
+              <li>An essay scene: someone waiting for test results, imagining their organs as a garden slowly turning brown.</li>
+            </ul>
+            <p><strong>Music remix</strong></p>
+            <ul>
+              <li>60–70 BPM; harp or piano arpeggios as petals, low industrial pulses as the worm.</li>
+              <li>Introduce a single detuned instrument over time to show health sliding out of tune.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Block 8</div>
+          <div class="block-title">Concept Module</div>
+          <div class="block-body">
+            <table>
+              <tbody>
+                <tr><th>Core Concept</th><td>Corrupted vitality</td></tr>
+                <tr><th>Sub Concepts</th><td>decay; infection; forbidden desire; parasitic love; autoimmune impulse; prognosis; confession; memento mori</td></tr>
+                <tr><th>Emotion Link</th><td>bitterness; fear; quiet sadness; morbid curiosity</td></tr>
+                <tr><th>Sensory Drivers</th><td>damp garden air; thorn-scratches; sticky sap; night wind; sweet-rot smell</td></tr>
+                <tr><th>Symbol Cluster</th><td>red and brown petals; twisting vine frame; invisible worm; poem text as diagnosis slab</td></tr>
+                <tr><th>Philosophical Axes</th><td>semiotics of illness; Romantic irony; body–soul split</td></tr>
+                <tr><th>Story Hooks</th><td>hospital results day; relationship as medical chart; dream of a rose garden as hospital corridor; priest reading a diagnosis instead of a sermon</td></tr>
+                <tr><th>Visual Hooks</th><td>manuscript frame UI; organ–flower hybrids; warm-but-dirty palette; text as tombstone element</td></tr>
+                <tr><th>Music Hooks</th><td>slow pulse under lyrical melody; creeping dissonance; swell then collapse of strings</td></tr>
+                <tr><th>Anti-Concept</th><td>clean bill of health; naïve first love; aseptic minimalism</td></tr>
+                <tr><th>Tags</th><td>#sickrose #romanticism #manuscript #corruptedhealth #parasite #bitterlove #frameaswound</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ARTWORK 2 -->
+    <article id="art-2" class="card">
+      <div class="card-inner">
+        <div class="art-header">
+          <div class="art-title">2. Gray's Anatomy – Lymphatics of the Head and Neck (1858)</div>
+          <div class="art-meta-line">Industrial-era Europe · medical illustration by Henry Vandyke Carter for <em>Gray's Anatomy</em></div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Block 1</div>
+          <div class="block-title">Artwork Metadata</div>
+          <div class="block-body">
+            <p><strong>Title</strong>: <em>Lymphatics of the Head and Neck</em> (Plate 1194, Gray's Anatomy)</p>
+            <p><strong>Artist / Period</strong>: Henry Vandyke Carter, medical illustrator, 1858</p>
+            <p><strong>Civilization tag</strong>: Industrial Europe, scientific gaze on the once-medieval body</p>
+            <p><strong>High-resolution image URL</strong>:</p>
+            <div class="url-box">https://upload.wikimedia.org/wikipedia/commons/5/54/Gray1194.png</div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Block 2</div>
+          <div class="block-title">Emotion &amp; Sensory Mapping</div>
+          <div class="block-body">
+            <p><strong>Plutchik mix</strong>: anticipation + fear + disgust → clinical dread with a thin layer of trust in expertise.</p>
+            <ul>
+              <li>Cool, chalky texture of printed paper</li>
+              <li>Phantom sensation of the scalp being lifted</li>
+              <li>Sterile alcohol or iodine smell imagined from hospitals</li>
+              <li>Metallic taste of instruments on the tongue</li>
+              <li>Harsh fluorescent light in a quiet exam room</li>
+              <li>Ticking clock counting seconds toward diagnosis</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Block 3</div>
+          <div class="block-title">Symbols &amp; Clichés</div>
+          <div class="block-body grid-two">
+            <div>
+              <p><strong>Colors</strong></p>
+              <ul>
+                <li>Monochrome lines: health is converted into information instead of flesh.</li>
+                <li>Darker strokes emphasize "critical" nodes and pathways.</li>
+              </ul>
+              <p><strong>Shapes &amp; Geometry</strong></p>
+              <ul>
+                <li>Tree-like branching vessels forming a nervous forest around the head.</li>
+                <li>Oval outlines reading as both sliced skull and fragile halo.</li>
+              </ul>
+            </div>
+            <div>
+              <p><strong>Icons &amp; Motifs</strong></p>
+              <ul>
+                <li>Lymph nodes as checkpoints, gates, or judgment seats.</li>
+                <li>Thin labeling lines as bureaucratic wires tying body to language.</li>
+              </ul>
+              <p><strong>Composition</strong></p>
+              <ul>
+                <li>Central head profile under a net of branches and labels: the patient under total scrutiny.</li>
+                <li>Blank background: no world, only analytic space.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Block 4</div>
+          <div class="block-title">Philosophical Reading (Foucault – Medical Gaze)</div>
+          <div class="block-body">
+            <p>
+              The body appears as a map to be governed rather than a sacred mystery. Health becomes legibility: a healthy
+              body is one whose diagram can be read and managed; disease is noise, shadow, or missing data.
+            </p>
+            <p>
+              Medieval relic culture looked at bones as holy fragments; here, anatomy is raw infrastructure. Power now
+              operates through biopolitics: managing circulation, nodes, and risk. Bitterness enters where the self is
+              absent from its own representation, reduced to branches and labels.
+            </p>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Block 5</div>
+          <div class="block-title">Neural Association Flow</div>
+          <div class="block-body">
+            <p><strong>Primary trigger</strong>: side-view head covered in branches → hospital diagrams in visual cortex.</p>
+            <p><strong>Association chain (example)</strong>:</p>
+            <ul>
+              <li>Diagram → hospital poster → check-up → early detection → cancer → mortality statistics</li>
+              <li>Branches → trees → networks → fragility of one broken node → systemic collapse</li>
+            </ul>
+            <p><strong>Common impressions</strong> (probable):</p>
+            <ul>
+              <li>“My insides are much more complicated than I want to admit.”</li>
+              <li>“If one small part fails, everything might fall apart.”</li>
+              <li>“Doctors live in this map; I just live in the body.”</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Block 6</div>
+          <div class="block-title">Music Matching</div>
+          <div class="block-body">
+            <ul>
+              <li>
+                <strong>Classical</strong>: Beethoven – String Quartet Op. 131.
+                The music is analytical but deeply emotional, like a surgeon who still feels every cut.
+              </li>
+              <li>
+                <strong>Modern / Ambient</strong>: Ben Frost – "The Carpathians".
+                Cold electronic textures with an underlying organic rumble mirror the collision between medical tech and living tissue.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Block 7</div>
+          <div class="block-title">Parksy Remix Directions</div>
+          <div class="block-body">
+            <p><strong>Visual remix</strong></p>
+            <ul>
+              <li>Recolor the vessels in toxic neon (acid green, magenta) and add small medieval demons riding on lymph nodes.</li>
+              <li>Turn the profile head into a UI map where tapping a node opens emotional or memory logs.</li>
+            </ul>
+            <p><strong>Story remix</strong></p>
+            <ul>
+              <li>A character reviews their scan and tags each node with emotions such as regret, shame, anger, compassion.</li>
+              <li>A near-future state monitors citizens’ lymph networks with implants, rating national “emotional health.”</li>
+            </ul>
+            <p><strong>Music remix</strong></p>
+            <ul>
+              <li>90 BPM mechanical beat as heartbeat plus MRI pulse; dissonant violin harmonics as nerve zaps.</li>
+              <li>Use stereo panning delays to mimic signals jumping from node to node.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Block 8</div>
+          <div class="block-title">Concept Module</div>
+          <div class="block-body">
+            <table>
+              <tbody>
+                <tr><th>Core Concept</th><td>Mapped vulnerability</td></tr>
+                <tr><th>Sub Concepts</th><td>surveillance medicine; anatomical mapping; lymph network; diagnosis; clinical gaze; industrial body; bureaucratic organs</td></tr>
+                <tr><th>Emotion Link</th><td>anxious curiosity; clinical fear; resignation; bitter trust in science</td></tr>
+                <tr><th>Sensory Drivers</th><td>sterile alcohol scent; paper dryness; metallic taste; fluorescent light; ticking clock</td></tr>
+                <tr><th>Symbol Cluster</th><td>profile head; branching trees; labeled nodes; white-void background</td></tr>
+                <tr><th>Philosophical Axes</th><td>Foucault’s medical gaze; biopolitics; datafication of flesh</td></tr>
+                <tr><th>Story Hooks</th><td>doctor explaining the map like subway lines; patient secretly renaming nodes; hacker redrawing anatomy by altering records; public health map as religious icon</td></tr>
+                <tr><th>Visual Hooks</th><td>node-based UI; tree-branch diagrams for feelings; monochrome base with single accent color; anatomy merged with transit maps</td></tr>
+                <tr><th>Music Hooks</th><td>mechanical ticks; low drones; high harmonic "nerve" sounds; abrupt cut endings like blackouts</td></tr>
+                <tr><th>Anti-Concept</th><td>holistic spa imagery; nature-healing posters; soft watercolor bodies</td></tr>
+                <tr><th>Tags</th><td>#graysanatomy #medicalgaze #healthmap #industrialbody #bitterscience</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ARTWORK 3 -->
+    <article id="art-3" class="card">
+      <div class="card-inner">
+        <div class="art-header">
+          <div class="art-title">3. Book of Hours – Illuminated Border and Miniature (c. 1480)</div>
+          <div class="art-meta-line">Late medieval Catholic Europe · French Book of Hours with richly decorated border and small central scene</div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Block 1</div>
+          <div class="block-title">Artwork Metadata</div>
+          <div class="block-body">
+            <p><strong>Title</strong>: Decorative border and miniature from a French Book of Hours (MS M.136)</p>
+            <p><strong>Artist / Period</strong>: Anonymous illuminator related to Maître François, c. 1480</p>
+            <p><strong>Civilization tag</strong>: Late medieval Catholic Europe</p>
+            <p><strong>High-resolution image portal</strong> (zoomable manuscript images):</p>
+            <div class="url-box">https://www.themorgan.org/manuscript/77027</div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Block 2</div>
+          <div class="block-title">Emotion &amp; Sensory Mapping</div>
+          <div class="block-body">
+            <p><strong>Plutchik mix</strong>: trust + sadness + anticipation → quiet, slightly bitter piety.</p>
+            <ul>
+              <li>Warm candle wax near the back of the hand</li>
+              <li>Old parchment smell mixed with dusty library air</li>
+              <li>Sharp glitter when gold leaf catches the light</li>
+              <li>Soft rustle of pages turning in a stone church</li>
+              <li>Cold creeping up from the stone floor</li>
+              <li>Incense and dust combining into a dry taste at the back of the throat</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Block 3</div>
+          <div class="block-title">Symbols &amp; Clichés</div>
+          <div class="block-body grid-two">
+            <div>
+              <p><strong>Colors</strong></p>
+              <ul>
+                <li>Blue and gold: heaven and divine authority.</li>
+                <li>Red accents: blood, sacrifice, and earthly life.</li>
+                <li>Green leaves: earthly health and resilience.</li>
+              </ul>
+              <p><strong>Shapes &amp; Geometry</strong></p>
+              <ul>
+                <li>Rectangular border as protective frame, like an immune wall around the text.</li>
+                <li>Repeating floral patterns as visual heartbeat or breathing rhythm.</li>
+              </ul>
+            </div>
+            <div>
+              <p><strong>Icons &amp; Motifs</strong></p>
+              <ul>
+                <li>Tiny saints tending the sick or praying, skull motifs, and small creatures in the margins.</li>
+                <li>Birds, snails, and hybrids suggesting randomness of fate and mutation.</li>
+              </ul>
+              <p><strong>Composition</strong></p>
+              <ul>
+                <li>Miniature scene in the center, surrounded by a heavy decorative frame.</li>
+                <li>Text blocks linked to the image: a kind of spiritual prescription for the event depicted.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Block 4</div>
+          <div class="block-title">Philosophical Reading (Structuralism)</div>
+          <div class="block-body">
+            <p>
+              The page acts as a ritual interface. The central miniature is the event (illness, prayer, miracle), while
+              the border encodes the rule-set of the universe: theology, social order, and spiritual medicine. Health in
+              this world is alignment with that frame. A body may be sick, but if the soul fits the decorative grammar,
+              it is considered saved.
+            </p>
+            <p>
+              Bitterness enters where the painted golden promise collides with harsh medieval reality: famine, plague,
+              untreated pain. The frame is perfect; the world outside is not.
+            </p>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Block 5</div>
+          <div class="block-title">Neural Association Flow</div>
+          <div class="block-body">
+            <p><strong>Primary trigger</strong>: shiny gold and deep blue border → “precious, holy, protected.”</p>
+            <p><strong>Association chain (example)</strong>:</p>
+            <ul>
+              <li>Gold frame → treasure → rarity → sacred object → forbidden touch</li>
+              <li>Dense decoration → safety → control → also mild suffocation</li>
+              <li>Latin script → unknown rules → obedience → spiritual security → anxiety about breaking rules</li>
+            </ul>
+            <p><strong>Common impressions</strong> (probable):</p>
+            <ul>
+              <li>“Someone prayed very seriously with this book.”</li>
+              <li>“They tried to build a safe little universe on this page.”</li>
+              <li>“Reality outside the frame was probably much rougher than this beauty.”</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Block 6</div>
+          <div class="block-title">Music Matching</div>
+          <div class="block-body">
+            <ul>
+              <li>
+                <strong>Classical</strong>: Palestrina – <em>Missa Papae Marcelli</em> (any Kyrie or Gloria).
+                Floating polyphonic lines mirror the layered floral patterns of the border and the steady breath of prayer.
+              </li>
+              <li>
+                <strong>Modern / Ambient</strong>: Arvo Pärt – <em>Spiegel im Spiegel</em>.
+                Sparse, repeating figures feel like candle flames reflected over and over in the gold leaf.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Block 7</div>
+          <div class="block-title">Parksy Remix Directions</div>
+          <div class="block-body">
+            <p><strong>Visual remix</strong></p>
+            <ul>
+              <li>Use the illuminated border logic as a PWA layout: center for live content, border for health and ritual status indicators.</li>
+              <li>Swap medieval plants for modern hospital icons (IV bags as vines, pill-shaped flowers, ECG-line leaves).</li>
+            </ul>
+            <p><strong>Story remix</strong></p>
+            <ul>
+              <li>A medieval patient imagines a future AI doctor inside the miniature, answering prayers as medical advice.</li>
+              <li>A modern essay compares the smartphone lock screen to a Book of Hours page: widgets as miniatures, notifications as marginalia.</li>
+            </ul>
+            <p><strong>Music remix</strong></p>
+            <ul>
+              <li>Layer simple Gregorian-style chant over modern ambient pads, gradually distorting the chant to show tension between faith and reality.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Block 8</div>
+          <div class="block-title">Concept Module</div>
+          <div class="block-body">
+            <table>
+              <tbody>
+                <tr><th>Core Concept</th><td>Framed salvation</td></tr>
+                <tr><th>Sub Concepts</th><td>ritual health; spiritual immunity; border magic; sacred time; liturgy; ornament as armor</td></tr>
+                <tr><th>Emotion Link</th><td>calm devotion; quiet sadness; faint hope; bittersweet nostalgia</td></tr>
+                <tr><th>Sensory Drivers</th><td>candle warmth; parchment smell; gold glint; stone-floor chill; whispering pages</td></tr>
+                <tr><th>Symbol Cluster</th><td>blue–gold palette; rectangular border; floral scrolls; tiny sacred scene</td></tr>
+                <tr><th>Philosophical Axes</th><td>structuralism of ritual; medieval body–soul medicine; aesthetics of control</td></tr>
+                <tr><th>Story Hooks</th><td>patient using an AR Book of Hours app; ICU room whose walls glow like illuminated borders; nurse building modern marginalia around a bed</td></tr>
+                <tr><th>Visual Hooks</th><td>border-as-UI frame; miniature-as-widget; gold-leaf gradients; gothic script as texture</td></tr>
+                <tr><th>Music Hooks</th><td>slow modal scales; bell-like piano; reverb-heavy choir pads evoking stone interiors</td></tr>
+                <tr><th>Anti-Concept</th><td>bare minimalist UI; secular clinic; plain white ebook page</td></tr>
+                <tr><th>Tags</th><td>#bookofhours #medievalframe #spiritualhealth #ornamentasarmor #bitterpiety #borderUI</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <footer class="page-foot">
+    Painter Parksy · Health × Bitterness · Single-file HTML for GitHub Pages (no service worker).
+  </footer>
+
+  <script>
+    // Simple collapsible behaviour for blocks on mobile
+    document.addEventListener("click", function (ev) {
+      const block = ev.target.closest(".block.collapsible");
+      if (!block) return;
+      const current = block.getAttribute("data-collapsed") === "true";
+      block.setAttribute("data-collapsed", current ? "false" : "true");
+    });
+  </script>
+</body>
+</html>
