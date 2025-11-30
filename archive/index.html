@@ -396,6 +396,13 @@ body::before{
       '한', '글', '이', '야', '기', '블', '로', '그', '이', '야', '기'
     ];
 
+    // HTML escape helper to prevent XSS
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
     // Initialize
     document.addEventListener('DOMContentLoaded', async () => {
       await loadManifest();
@@ -537,16 +544,19 @@ body::before{
           })
         : '날짜 미상';
       
-      // Build comment HTML if present
+      // Build comment HTML if present (with XSS protection)
       const commentHtml = item.comment 
-        ? `<p class="card-comment">${item.comment}</p>` 
+        ? `<p class="card-comment">${escapeHtml(item.comment)}</p>` 
         : '';
+      
+      // Escape title for XSS protection
+      const safeTitle = escapeHtml(item.title || '제목 없음');
       
       card.innerHTML = `
         <div class="card-content">
           <div>
             <span class="card-label">ER RUN</span>
-            <h3 class="card-title">${item.title || '제목 없음'}</h3>
+            <h3 class="card-title">${safeTitle}</h3>
             ${commentHtml}
           </div>
           <div class="card-date">${formattedDate}</div>
