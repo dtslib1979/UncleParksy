@@ -1,44 +1,33 @@
 {
   "items": [
     {
-      "title": "2025-08-29 테스트",
-      "path": "./2025-08-29 테스트.html",
-      "section": "Field Notes",
-      "type": "HTML",
-      "date": "2025-08-29",
-      "tags": ["korean", "note"]
-    },
-    {
-      "title": "2025-08-30 Verbal coding wordmaster",
-      "path": "./2025-08-30 Verbal coding wordmaster.html",
-      "section": "Field Notes",
-      "type": "HTML",
-      "date": "2025-08-30",
-      "tags": ["verbal", "coding"]
-    },
-    {
-      "title": "2025-09-02 VAMEW",
-      "path": "./2025-09-02 VAMEW.html",
-      "section": "Field Notes",
-      "type": "HTML",
-      "date": "2025-09-02",
-      "tags": ["vamew"]
-    },
-    {
-      "title": "2025년 8월 27일 기독교모델",
-      "path": "./2025년 8월 27일 기독교모델.html",
-      "section": "Field Notes",
-      "type": "HTML",
-      "date": "2025-08-27",
-      "tags": ["korean"]
-    },
-    {
-      "title": "MeEvalModel",
-      "path": "./MeEvalModel.html",
-      "section": "Diagrams",
+      "title": "uploadtest",
+      "path": "./uploadtest.html",
+      "section": "Visuals",
       "type": "HTML",
       "date": null,
-      "tags": ["model", "evaluation"]
+      "tags": [
+        "test",
+        "upload"
+      ]
+    },
+    {
+      "title": "trial4",
+      "path": "./trial4.html",
+      "section": "Visuals",
+      "type": "HTML",
+      "date": null,
+      "tags": [
+        "trial"
+      ]
+    },
+    {
+      "title": "Philosophy",
+      "path": "./Philosophy.html",
+      "section": "Visuals",
+      "type": "HTML",
+      "date": null,
+      "tags": []
     },
     {
       "title": "MermaidEngine",
@@ -46,31 +35,51 @@
       "section": "Diagrams",
       "type": "HTML",
       "date": null,
-      "tags": ["mermaid", "diagram"]
+      "tags": [
+        "mermaid"
+      ]
     },
     {
-      "title": "Philosophy",
-      "path": "./Philosophy.html",
-      "section": "Field Notes",
+      "title": "MeEvalModel",
+      "path": "./MeEvalModel.html",
+      "section": "Visuals",
       "type": "HTML",
       "date": null,
-      "tags": ["philosophy"]
+      "tags": []
     },
     {
-      "title": "trial4",
-      "path": "./trial4.html",
-      "section": "Experiments",
+      "title": "2025년 8월 27일 기독교모델",
+      "path": "./2025년 8월 27일 기독교모델.html",
+      "section": "Visuals",
       "type": "HTML",
-      "date": null,
-      "tags": ["trial", "test"]
+      "date": "2025-08-27",
+      "tags": [
+        "korean"
+      ]
     },
     {
-      "title": "uploadtest",
-      "path": "./uploadtest.html",
-      "section": "Experiments",
+      "title": "2025 09 02 VAMEW",
+      "path": "./2025-09-02 VAMEW.html",
+      "section": "Visuals",
       "type": "HTML",
-      "date": null,
-      "tags": ["upload", "test"]
+      "date": "2025-09-02",
+      "tags": []
+    },
+    {
+      "title": "2025 08 30 Verbal coding wordmaster",
+      "path": "./2025-08-30 Verbal coding wordmaster.html",
+      "section": "Visuals",
+      "type": "HTML",
+      "date": "2025-08-30",
+      "tags": []
+    },
+    {
+      "title": "2025 08 29 테스트",
+      "path": "./2025-08-29 테스트.html",
+      "section": "Visuals",
+      "type": "HTML",
+      "date": "2025-08-29",
+      "tags": []
     }
   ]
 }
