@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>KR TextStory — UncleParksy Archive</title>
-<meta name="description" content="Korean blog stories and writings from the EduArt Engineer's digital archive" />
+<title>KR ER RUN ARCHIVE — UncleParksy</title>
+<meta name="description" content="번뜩이는 아이디어와 에피소드가 양산 직전 시드로 보관되는 ER Run Archive" />
 
 <!-- Same fonts as main page -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -171,20 +171,20 @@ body::before{
 /* Treasure cards grid */
 .treasure-grid{
   display:grid; 
-  grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
-  gap:clamp(1.2rem,3.5vw,2rem);
+  grid-template-columns:1fr;
+  gap:clamp(0.8rem,2vw,1.2rem);
   margin-bottom:2rem;
 }
 
-/* Individual treasure cards */
+/* Individual treasure cards - more compact for archive feel */
 .treasure-card{
-  position:relative; min-height:200px; 
+  position:relative; min-height:100px; 
   background:linear-gradient(135deg, rgba(255,255,255,.2) 0%, rgba(247,243,232,.95) 30%, rgba(232,220,192,.9) 100%);
-  border-radius:18px; padding:clamp(1rem,3vw,1.5rem); 
+  border-radius:12px; padding:clamp(0.7rem,2vw,1rem); 
   border:2px solid rgba(212,175,55,.25);
   cursor:pointer; text-decoration:none; color:inherit;
   transition:all .35s ease;
-  box-shadow:0 8px 24px var(--shadow-l);
+  box-shadow:0 4px 12px var(--shadow-l);
   
   /* Random rotation and offset for "삐뚤빼뚤" effect */
   transform:rotate(var(--random-rotate)) translate(var(--random-x), var(--random-y));
@@ -193,13 +193,13 @@ body::before{
 .treasure-card::before{
   content:""; position:absolute; inset:0; left:-100%;
   background:linear-gradient(90deg, transparent, rgba(212,175,55,.15), transparent);
-  transition:left .55s ease; z-index:1; border-radius:18px;
+  transition:left .55s ease; z-index:1; border-radius:12px;
 }
 
 .treasure-card:hover{
-  transform:rotate(0deg) translate(0, -8px) scale(1.02);
+  transform:rotate(0deg) translate(0, -4px) scale(1.01);
   border-color:var(--primary-gold);
-  box-shadow:0 16px 48px var(--shadow-d), 0 0 32px rgba(212,175,55,.35);
+  box-shadow:0 8px 24px var(--shadow-d), 0 0 20px rgba(212,175,55,.35);
 }
 .treasure-card:hover::before{left:100%}
 
@@ -209,20 +209,26 @@ body::before{
 }
 
 .card-label{
-  display:inline-block; padding:.3rem .8rem; border-radius:12px; 
-  font-size:.75rem; font-weight:700; text-transform:uppercase; 
-  letter-spacing:.5px; margin-bottom:.8rem;
+  display:inline-block; padding:.2rem .6rem; border-radius:10px; 
+  font-size:.7rem; font-weight:700; text-transform:uppercase; 
+  letter-spacing:.5px; margin-bottom:.5rem;
   background:linear-gradient(135deg, var(--purple), #8a2be2); 
   color:#fff; text-shadow:1px 1px 2px rgba(0,0,0,.3);
 }
 
 .card-title{
-  font-weight:700; font-size:clamp(1.1rem,2.8vw,1.4rem); 
-  color:var(--ink); margin:0 0 .8rem; line-height:1.3;
+  font-weight:700; font-size:clamp(0.95rem,2.2vw,1.15rem); 
+  color:var(--ink); margin:0 0 .4rem; line-height:1.3;
+}
+
+.card-comment{
+  font-size:.8rem; color:var(--ink-2); opacity:.85; 
+  margin:0 0 .4rem; line-height:1.3;
+  font-style:italic;
 }
 
 .card-date{
-  font-size:.9rem; color:var(--ink-3); opacity:.7; 
+  font-size:.8rem; color:var(--ink-3); opacity:.7; 
   margin-top:auto; font-style:italic;
 }
 
@@ -278,21 +284,29 @@ body::before{
 /* Mobile touch interactions */
 @media (pointer: coarse){
   .treasure-card{
-    min-height:180px;
+    min-height:90px;
   }
   .treasure-card:hover{
     transform:rotate(var(--random-rotate)) translate(var(--random-x), var(--random-y));
   }
   .treasure-card:active{
-    transform:rotate(0deg) translate(0, -4px) scale(1.01);
+    transform:rotate(0deg) translate(0, -2px) scale(1.01);
   }
 }
 
-/* Tablet layout */
-@media (min-width:768px) and (max-width:1200px){
+/* Tablet layout - 2 columns */
+@media (min-width:768px){
   .treasure-grid{
     grid-template-columns:repeat(2, 1fr);
-    gap:1.5rem;
+    gap:1rem;
+  }
+}
+
+/* Desktop layout - 3 columns */
+@media (min-width:1024px){
+  .treasure-grid{
+    grid-template-columns:repeat(3, 1fr);
+    gap:1.2rem;
   }
 }
 
@@ -318,14 +332,14 @@ body::before{
 
   <!-- Header -->
   <header class="archive-header">
-    <h1 class="archive-title">🏺 KR TextStory Archive</h1>
-    <p class="archive-subtitle">한국어로 쓰여진 소중한 이야기들의 보관소</p>
+    <h1 class="archive-title">🌱 KR ER RUN ARCHIVE</h1>
+    <p class="archive-subtitle">번뜩이는 아이디어와 에피소드가 양산 직전 시드로 보관되는 공간</p>
   </header>
 
   <!-- 📊 File Counter Display -->
   <div class="file-counter">
     <p class="counter-text">
-      총 <span class="counter-number" id="file-count">0</span>개의 보물 이야기가 보관되어 있습니다
+      총 <span class="counter-number" id="file-count">0</span>개의 ER 시드가 보관되어 있습니다
     </p>
   </div>
 
@@ -334,7 +348,7 @@ body::before{
     <a href="../index.html" class="back-link">← 그리모어로 돌아가기</a>
     
     <div class="sort-controls">
-      <button class="sort-btn active" data-sort="random">🎲 랜덤</button>
+      <button class="sort-btn active" data-sort="random">🎲 영감용 랜덤</button>
       <button class="sort-btn" data-sort="newest">📅 최신순</button>
       <button class="sort-btn" data-sort="oldest">📜 오래된순</button>
       <button class="sort-btn" data-sort="title">🔤 제목순</button>
@@ -345,11 +359,11 @@ body::before{
   <main class="treasure-container">
     <div class="scroll-viewer">
       <div id="loading" class="loading-message">
-        📚 보물 목록을 불러오는 중...
+        🌱 ER 시드 목록을 불러오는 중...
       </div>
       
       <div id="error" class="error-message" style="display:none">
-        ❌ 보물 목록을 불러올 수 없습니다. 나중에 다시 시도해주세요.
+        ❌ ER 시드 목록을 불러올 수 없습니다. 나중에 다시 시도해주세요.
       </div>
       
       <div id="content" style="display:none">
@@ -426,7 +440,7 @@ body::before{
         // Show error details
         const errorDiv = document.getElementById('error');
         errorDiv.innerHTML = `
-          ❌ 보물 목록을 불러올 수 없습니다.<br>
+          ❌ ER 시드 목록을 불러올 수 없습니다.<br>
           <small style="opacity:0.7">오류: ${error.message}</small><br>
           <small style="opacity:0.7">경로: ../assets/manifest.json</small>
         `;
@@ -506,10 +520,10 @@ body::before{
       
       console.log(`🔗 Card link: ${card.href} (원본: ${item.path})`);
       
-      // Random rotation and translation for "삐뚤빼뚤" effect
-      const rotate = (Math.random() - 0.5) * 4; // -2deg to 2deg
-      const translateX = (Math.random() - 0.5) * 8; // -4px to 4px
-      const translateY = (Math.random() - 0.5) * 8; // -4px to 4px
+      // Random rotation and translation for subtle "삐뚤빼뚤" effect (reduced for compact layout)
+      const rotate = (Math.random() - 0.5) * 2; // -1deg to 1deg
+      const translateX = (Math.random() - 0.5) * 4; // -2px to 2px
+      const translateY = (Math.random() - 0.5) * 4; // -2px to 2px
       
       card.style.setProperty('--random-rotate', `${rotate}deg`);
       card.style.setProperty('--random-x', `${translateX}px`);
@@ -523,11 +537,17 @@ body::before{
           })
         : '날짜 미상';
       
+      // Build comment HTML if present
+      const commentHtml = item.comment 
+        ? `<p class="card-comment">${item.comment}</p>` 
+        : '';
+      
       card.innerHTML = `
         <div class="card-content">
           <div>
-            <span class="card-label">KR Story</span>
+            <span class="card-label">ER RUN</span>
             <h3 class="card-title">${item.title || '제목 없음'}</h3>
+            ${commentHtml}
           </div>
           <div class="card-date">${formattedDate}</div>
         </div>
