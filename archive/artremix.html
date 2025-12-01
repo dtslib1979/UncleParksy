@@ -1,0 +1,931 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <title>Art Remix w/ Grok · 영상 사전 OS 백서 v3.1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="description" content="기존 담론을 편집 가능한 데이터로 낮추고, 박씨 언어 OS 모듈로 리믹스하여 YouTube 영상 사전으로 쌓는 시스템 백서." />
+  <meta name="color-scheme" content="dark" />
+
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #050509;
+      --bg-soft: #0b0f1a;
+      --bg-softer: #05060a;
+      --fg: #f9fafb;
+      --muted: #9ca3af;
+      --border: #1f2933;
+      --accent: #f9c93d;
+      --accent-soft: rgba(249, 201, 61, 0.12);
+      --danger: #f97373;
+      --pill-bg: rgba(15, 23, 42, 0.9);
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.6);
+      --shadow-subtle: 0 12px 24px rgba(0, 0, 0, 0.45);
+      --max-width: 880px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at top left, #111827 0, #020308 52%, #000 100%);
+      color: var(--fg);
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body {
+      padding: max(16px, env(safe-area-inset-top))
+               max(14px, env(safe-area-inset-right))
+               max(42px, env(safe-area-inset-bottom))
+               max(14px, env(safe-area-inset-left));
+      display: flex;
+      justify-content: center;
+    }
+
+    main {
+      width: 100%;
+      max-width: var(--max-width);
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: -80px;
+      background: #020617;
+      color: var(--fg);
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      font-size: 13px;
+      z-index: 50;
+      transition: top 0.16s ease-out;
+    }
+
+    .skip-link:focus-visible {
+      top: 12px;
+      text-decoration: none;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.24);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .badge strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .hero {
+      background: radial-gradient(circle at top left, rgba(249, 201, 61, 0.18), transparent 55%),
+                  linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(3, 7, 18, 0.96));
+      border-radius: 24px;
+      padding: 20px 18px 18px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 110% -10%, rgba(249, 201, 61, 0.24), transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-kicker {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .hero-title {
+      font-size: clamp(24px, 4.4vw, 32px);
+      line-height: 1.18;
+      margin: 0 0 8px;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-title span.highlight {
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .hero-meta span {
+      padding: 3px 9px;
+      border-radius: var(--radius-pill);
+      background: rgba(15, 23, 42, 0.88);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+    }
+
+    .hero-meta span strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    nav[aria-label="목차"] {
+      margin-bottom: 4px;
+    }
+
+    .toc-card {
+      margin: 18px 0 22px;
+      padding: 12px 12px 10px;
+      border-radius: 16px;
+      background: rgba(15, 23, 42, 0.93);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .toc-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 4px 10px;
+      font-size: 13px;
+    }
+
+    @media (max-width: 520px) {
+      .toc-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .toc-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 0;
+      color: var(--muted);
+    }
+
+    .toc-link span.index {
+      width: 16px;
+      font-variant-numeric: tabular-nums;
+      color: rgba(148, 163, 184, 0.82);
+    }
+
+    .toc-link span.label {
+      color: #e5e7eb;
+    }
+
+    .toc-link:hover span.label {
+      color: var(--accent);
+    }
+
+    h2 {
+      margin: 24px 0 10px;
+      font-size: 18px;
+      line-height: 1.4;
+      letter-spacing: 0.01em;
+    }
+
+    h3 {
+      margin: 18px 0 6px;
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    p {
+      margin: 4px 0 8px;
+      font-size: 14px;
+      line-height: 1.8;
+      color: #e5e7eb;
+    }
+
+    ul {
+      margin: 6px 0 10px 18px;
+      padding: 0;
+    }
+
+    li {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #e5e7eb;
+      margin-bottom: 3px;
+    }
+
+    .section {
+      padding: 14px 12px 14px;
+      border-radius: var(--radius-lg);
+      background:
+        radial-gradient(circle at top left, rgba(15, 23, 42, 0.9), rgba(3, 7, 18, 0.96));
+      border: 1px solid rgba(31, 41, 55, 0.98);
+      box-shadow: var(--shadow-subtle);
+      margin-bottom: 14px;
+      transition: border-color 0.18s ease-out, transform 0.14s ease-out;
+    }
+
+    .section:hover {
+      border-color: rgba(148, 163, 184, 0.5);
+    }
+
+    .section-kicker {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+    .section-tagline {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .callout {
+      margin: 8px 0 10px;
+      padding: 8px 9px;
+      border-radius: var(--radius-md);
+      border: 1px dashed rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.92);
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: var(--radius-pill);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(75, 85, 99, 0.9);
+      color: var(--muted);
+    }
+
+    .pill strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    code,
+    pre {
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+
+    pre {
+      margin: 8px 0 10px;
+      padding: 10px 11px;
+      border-radius: 12px;
+      background: #020617;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      overflow-x: auto;
+      color: #e5e7eb;
+    }
+
+    .footer-note {
+      margin-top: 16px;
+      font-size: 12px;
+      color: var(--muted);
+      text-align: left;
+    }
+
+    .scholar-table {
+      margin-top: 6px;
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 13px;
+    }
+
+    .scholar-table th,
+    .scholar-table td {
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      padding: 6px 7px;
+      vertical-align: top;
+    }
+
+    .scholar-table th {
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--accent);
+      font-weight: 600;
+      text-align: left;
+    }
+
+    .scholar-table td:first-child {
+      width: 90px;
+      white-space: nowrap;
+    }
+
+    .mermaid-card {
+      margin-top: 14px;
+      padding: 10px 9px;
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(55, 65, 81, 0.95);
+    }
+
+    .mermaid-note {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .mermaid {
+      background: #020617;
+      border-radius: 10px;
+      padding: 10px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+    }
+
+    @media (min-width: 960px) {
+      body {
+        padding-top: max(26px, env(safe-area-inset-top));
+      }
+
+      .hero {
+        padding: 22px 22px 20px;
+      }
+
+      .section {
+        padding: 16px 16px 15px;
+      }
+
+      nav[aria-label="목차"] .toc-card {
+        position: sticky;
+        top: 16px;
+        z-index: 10;
+      }
+    }
+  </style>
+</head>
+<body>
+<a href="#s0" class="skip-link">본문 바로가기</a>
+<main aria-label="백서 본문">
+  <!-- Badges -->
+  <div class="badge-row">
+    <div class="badge"><strong>OS</strong><span>Art Remix w/ Grok</span></div>
+    <div class="badge"><strong>Form</strong><span>1-Page Mobile Web</span></div>
+    <div class="badge"><strong>Role</strong><span>EduArt Engineer · 박씨</span></div>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-kicker">WHITEPAPER · v3.1</div>
+      <h1 class="hero-title">
+        Art Remix <span class="highlight">w/ Grok</span><br />
+        영상 사전 OS 백서
+      </h1>
+      <p class="hero-sub">
+        기존 세계의 클리셰와 담론을 ‘편집 가능한 데이터’로 낮추고,<br />
+        박씨 언어 OS 모듈로 리믹스하여 YouTube 영상 사전으로 쌓는 시스템 설명서.
+      </p>
+      <div class="hero-meta">
+        <span><strong>TARGET</strong>&nbsp;L3 · Architecture</span>
+        <span><strong>FOCUS</strong>&nbsp;언어 OS · 영상 사전</span>
+        <span><strong>MEDIUM</strong>&nbsp;YouTube Shorts</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOC -->
+  <nav aria-label="목차">
+    <section class="toc-card">
+      <div class="toc-title">Sections</div>
+      <div class="toc-grid">
+        <a class="toc-link" href="#s0"><span class="index">00</span><span class="label">한 줄 요약</span></a>
+        <a class="toc-link" href="#s1"><span class="index">01</span><span class="label">배경</span></a>
+        <a class="toc-link" href="#s2"><span class="index">02</span><span class="label">시스템 개념</span></a>
+        <a class="toc-link" href="#s3"><span class="index">03</span><span class="label">5대 모듈</span></a>
+        <a class="toc-link" href="#s4"><span class="index">04</span><span class="label">영상 사전 메커니즘</span></a>
+        <a class="toc-link" href="#s5"><span class="index">05</span><span class="label">클리셰 vs 박씨 모듈</span></a>
+        <a class="toc-link" href="#s6"><span class="index">06</span><span class="label">관리 시스템</span></a>
+        <a class="toc-link" href="#s7"><span class="index">07</span><span class="label">학문적 백본</span></a>
+        <a class="toc-link" href="#s8"><span class="index">08</span><span class="label">EduArt Engineer 관점</span></a>
+        <a class="toc-link" href="#s9"><span class="index">09</span><span class="label">앞으로의 사용처</span></a>
+        <a class="toc-link" href="#s10"><span class="index">10</span><span class="label">맺음말</span></a>
+      </div>
+    </section>
+  </nav>
+
+  <!-- 0. 한 줄 요약 -->
+  <section id="s0" class="section">
+    <div class="section-kicker">00 · OVERVIEW</div>
+    <h2>한 줄 요약</h2>
+    <p>
+      <strong>Art Remix w/ Grok</strong>은 이렇게 정의된다:
+    </p>
+    <p>
+      <strong>“기존 세계가 만들어놓은 클리셰·담론·표준을<br />
+      ‘편집 가능한 원재료’로 낮추고,<br />
+      내 개념·감정·기호·문법 모듈로 리믹스해서<br />
+      YouTube 영상 사전(OS)로 쌓는 시스템.”</strong>
+    </p>
+  </section>
+
+  <!-- 1. 배경 -->
+  <section id="s1" class="section">
+    <div class="section-kicker">01 · CONTEXT</div>
+    <h2>배경: 조회수 92 → 언어 OS까지</h2>
+    <p>
+      출발점은 되게 소박했다.
+    </p>
+    <ul>
+      <li>“쇼츠 하루 92명? 이게 많은 건가? 나 왜 흔들리지?”</li>
+      <li>“손그림 + Grok 그리기 + 영상화… 이거 20분이면 한 컷 가능하네.”</li>
+      <li>“그럼 하루 5~6개, 한 달 150개도 찍겠는데?”</li>
+    </ul>
+    <p>
+      여기서 질문이 바뀐다.
+    </p>
+    <p>
+      <strong>“이걸 그냥 아무 말 대잔치로 쌓을 거냐,<br />
+      아니면 OS 수준의 ‘영상 사전’으로 만들 거냐?”</strong>
+    </p>
+    <p>그 순간부터 구조가 이렇게 점프했다.</p>
+    <ul>
+      <li>정적 이미지 사전 → <strong>영상 사전</strong></li>
+      <li>“콘텐츠” → <strong>모듈</strong></li>
+      <li>감성 쇼츠 → <strong>언어 OS</strong></li>
+    </ul>
+  </section>
+
+  <!-- 2. 시스템 개념 -->
+  <section id="s2" class="section">
+    <div class="section-kicker">02 · SYSTEM</div>
+    <h2>시스템 개념</h2>
+    <h3>2-1. 이 프로젝트의 이름</h3>
+    <ul>
+      <li>채널 이름: <strong>Art Remix w/ Grok</strong></li>
+      <li>실체: <strong>YouTube Shorts 기반 “모듈형 영상 사전”</strong></li>
+    </ul>
+    <p>세 단어를 이렇게 쓴다.</p>
+    <ul>
+      <li><strong>Art</strong>: 손그림, 실수, 감정, 리듬, 기호</li>
+      <li><strong>Remix</strong>: 기존 클리셰·담론을 가져와 내 구조로 재조립</li>
+      <li><strong>w/ Grok</strong>: 그리기·영상 조립 툴로서의 Grok</li>
+    </ul>
+
+    <h3>2-2. 핵심 관점 (4축)</h3>
+    <ol>
+      <li>
+        <strong>기존 담론·클리셰 = 편집 가능한 원재료</strong><br />
+        영화 장면, 명화, 공용 감정어, 스토리 포맷은 더 이상 “진리”가 아니라
+        <strong>데이터·샘플·파츠</strong>다.
+      </li>
+      <li>
+        <strong>내 모듈(개념/감정/기호/문법/에너지) = 생성 엔진</strong><br />
+        박씨 손·목소리·리듬·실수가 들어갈 때만 “박씨 언어”가 된다.
+      </li>
+      <li>
+        <strong>영상 = 움직이는 언어 단위</strong><br />
+        텍스트 사전이 아니라 15~40초짜리 “언어 유닛(모듈)”이 쌓인다.
+      </li>
+      <li>
+        <strong>YouTube = 무료 글로벌 CDN + 검색 DB</strong><br />
+        저장·백업·추천·검색까지 YouTube가 담당하고, 나는 <strong>모듈 생성</strong>에 집중한다.
+      </li>
+    </ol>
+  </section>
+
+  <!-- 3. 5대 모듈 -->
+  <section id="s3" class="section">
+    <div class="section-kicker">03 · MODULES</div>
+    <h2>OS의 원자: 5대 모듈</h2>
+    <p>박씨 세계관은 딱 <strong>5종 모듈</strong>로 고정한다. 이게 이 OS의 원자다.</p>
+    <h3>1) Concept Modules (개념)</h3>
+    <p>Mass, Center, Boundary, Flow, Limit, Density…</p>
+
+    <h3>2) Emotion Modules (감정)</h3>
+    <p>Calm, Tension, Desire, Empathy, Aggro…</p>
+
+    <h3>3) Symbol Modules (기호·도형)</h3>
+    <p>Triangle, Circle, Line, Dot, Cross…</p>
+
+    <h3>4) Grammar / Order Modules (문장·사고 흐름)</h3>
+    <p>Adj → Noun → Verb → Adv, Zoom In / Zoom Out, Boundary → Expansion…</p>
+
+    <h3>5) Energy / Color Modules (에너지·색감·질감)</h3>
+    <p>Warm, Cold, Blue, Red, High, Low, Drift…</p>
+
+    <p>
+      이 5개를 <strong>×(곱하기) 연산</strong>으로 조합해서
+      거의 무한한 의미 공간을 만든다.
+    </p>
+  </section>
+
+  <!-- 4. 영상 사전 메커니즘 -->
+  <section id="s4" class="section">
+    <div class="section-kicker">04 · MECHANISM</div>
+    <h2>영상 사전 메커니즘</h2>
+
+    <h3>4-1. 단위: “영상 모듈(15~40초)”</h3>
+    <p>각 모듈 조합은 <strong>영상 1개</strong>로 표현한다.</p>
+    <ul>
+      <li>손그림 · Grok 그리기</li>
+      <li>간단한 움직임/전환</li>
+      <li>자막은 최소, 감각 + 구조 전달 위주</li>
+      <li>길이는 15~40초</li>
+    </ul>
+    <p>이 한 편이 이렇게 된다.</p>
+    <ul>
+      <li>시각 정보</li>
+      <li>감정 벡터</li>
+      <li>기호 구조</li>
+      <li>에너지 레벨</li>
+      <li>개념 구조</li>
+    </ul>
+
+    <h3>4-2. 제목 문법: 곱하기 네이밍</h3>
+    <p>제목이 곧 <strong>“모듈 코드”</strong>다.</p>
+    <pre><code>Mass × Calm × Blue × L2
+Triangle × Desire × Drift × S1
+Center × Boundary × Warm × Concept
+Desire × Expansion × Red × Emotion</code></pre>
+    <p>대략 이런 규칙을 쓴다.</p>
+    <ul>
+      <li>앞쪽: 개념 / 상징 / 감정 / 에너지</li>
+      <li>뒤쪽: 레벨·시즌·타입 (L2, S1, G, E 등)</li>
+    </ul>
+
+    <h3>4-3. 검색 = 모듈 필터링 엔진</h3>
+    <p>YouTube 검색은 제목을 최우선으로 보기 때문에 이렇게 쓸 수 있다.</p>
+    <ul>
+      <li><code>Mass</code> 검색 → 질량 관련 모든 모듈</li>
+      <li><code>Calm × Blue</code> 검색 → 잔잔 + 푸른 계열 영상만</li>
+      <li><code>Triangle</code> 검색 → 삼각형 상징 관련</li>
+      <li><code>L2</code> 검색 → 2레벨 난이도 모듈들</li>
+      <li><code>Emotion</code> 검색 → 감정 계열 모듈들</li>
+    </ul>
+    <p>
+      플레이리스트가 없어도, <strong>검색 조합만으로 “동적 사전·동적 플레이리스트”</strong>가 된다.
+    </p>
+    <p>
+      즉 YouTube 전체가 <strong>박씨 OS의 모듈 DB</strong>로 동작한다.
+    </p>
+
+    <div class="callout">
+      이제 검색 메커니즘이 잡혔으니,  
+      <strong>“무슨 재료를 어떻게 다루는가”</strong> 관점에서
+      클리셰와 박씨 모듈의 층을 나눠보자.
+    </div>
+  </section>
+
+  <!-- 5. 클리셰 vs 박씨 모듈 -->
+  <section id="s5" class="section">
+    <div class="section-kicker">05 · LAYERS</div>
+    <h2>두 층 구조: 클리셰 vs 박씨 모듈</h2>
+
+    <h3>5-1. 클리셰 층 (Raw Material Layer)</h3>
+    <p>여기는 “이미 세상에 있는 것들”이다.</p>
+    <ul>
+      <li>영화 문법, 장르 클리셰</li>
+      <li>명화, 밈, 문화 코드</li>
+      <li>기성 감정어, 스토리 포맷</li>
+    </ul>
+    <p>
+      여기서 박씨의 태도는 간단하다:
+      <strong>“존경? ㄴㄴ. 편집용 데이터 창고.”</strong>
+    </p>
+    <ul>
+      <li>클리셰 사전 플레이리스트로 묶는다.</li>
+      <li>누구나 이해 가능한 “공용 패턴 레퍼런스” 역할을 한다.</li>
+      <li>박씨 얼굴/목소리는 필수 아님. <strong>선택과 편집</strong>만 하기도 한다.</li>
+    </ul>
+
+    <h3>5-2. 박씨 모듈 층 (OS Engine Layer)</h3>
+    <p>여기는 정반대다. “박씨 없이 존재할 수 없는 층.”</p>
+    <ul>
+      <li>Concept / Emotion / Symbol / Grammar / Energy 5대 모듈</li>
+      <li>손그림, 판서, AI 리믹스, 목소리, 리듬, 실수 포함</li>
+      <li>박씨의 선택·조합·시점이 들어간 순간 탄생</li>
+    </ul>
+    <p>
+      이 층에서 만들어지는 것들이 바로 <strong>언어 OS · 사고 OS · EduArt Engineer의 기본 기술</strong>이다.
+    </p>
+
+    <p><strong>정리하면:</strong></p>
+    <ul>
+      <li><strong>클리셰 = 재료창고 (원재료 층)</strong></li>
+      <li><strong>박씨 모듈 = 언어 공장 (OS 엔진 층)</strong></li>
+    </ul>
+  </section>
+
+  <!-- 6. 관리 시스템 -->
+  <section id="s6" class="section">
+    <div class="section-kicker">06 · OPERATIONS</div>
+    <h2>관리 시스템: 미친 듯이 단순하게</h2>
+    <p>실제로 관리해야 할 건 딱 세 가지다.</p>
+
+    <h3>6-1. 실질적인 관리 단위 3개</h3>
+    <ol>
+      <li>
+        <strong>YouTube 영상 자체</strong><br />
+        모듈의 “물리적 구현체”. CDN, 백업, 추천, 검색까지 여기서 해결.
+      </li>
+      <li>
+        <strong>제목(네이밍)</strong><br />
+        모듈 코드이자 검색 쿼리 핵심.
+      </li>
+      <li>
+        <strong>Master Module Table (텍스트 1장)</strong><br />
+        예를 들어:
+        <pre><code># PARKSY OS · Master Module Table v1.0
+
+## Concept Modules
+Mass, Center, Boundary, Flow, Limit, Density…
+
+## Emotion Modules
+Calm, Desire, Tension, Empathy, Aggro…
+
+## Symbol Modules
+Triangle, Circle, Line, Cross, Dot…
+
+## Grammar / Order Modules
+Adj→Noun→Verb→Adv
+Zoom In/Out
+Boundary → Expansion …
+
+## Energy / Color Modules
+Warm, Cold, Blue, Red, High, Low, Drift…</code></pre>
+        이 1장이 일종의 “주보”다. 나머지는 영상·제목이 한다.
+      </li>
+    </ol>
+
+    <h3>6-2. 플레이리스트는 “보기 편하게만”</h3>
+    <p>플레이리스트는 기능보다는 “뷰” 역할이다.</p>
+    <ul>
+      <li>CLICHÉ DICTIONARY</li>
+      <li>CONCEPT DICTIONARY</li>
+      <li>EMOTION DICTIONARY</li>
+      <li>SYMBOL / ICON DICTIONARY</li>
+      <li>MASTERPIECE DICTIONARY</li>
+      <li>GRAMMAR / THINKING DICTIONARY</li>
+      <li>PARKSY LOGIC &amp; HABIT DICTIONARY</li>
+    </ul>
+    <p>
+      첫 방문자에게는 목차, 나중의 나에게는 <strong>뷰 필터</strong> 정도.  
+      실질적인 OS 기능은 여전히 <strong>제목 검색</strong>이 담당한다.
+    </p>
+  </section>
+
+  <!-- 7. 학문적 백본 -->
+  <section id="s7" class="section">
+    <div class="section-kicker">07 · THEORY</div>
+    <h2>학문적 백본 (이름만 걸어두기)</h2>
+    <div class="callout">
+      이 섹션은 “이거 학문적으로도 말 되냐?” 물어볼 사람을 위한 용도다.<br />
+      그냥 쓰고 즐길 거면 건너뛰어도 된다.
+    </div>
+    <p>핵심 아이디어는 여러 이론과 자연스럽게 겹친다.</p>
+
+    <table class="scholar-table" lang="en">
+      <thead>
+        <tr>
+          <th>영역</th>
+          <th>학자</th>
+          <th>이 백서에서의 구현</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>기호학</td>
+          <td>Roland Barthes, Louis Hjelmslev</td>
+          <td>
+            바르트의 ‘신화 해체’처럼, 기존 클리셰를 자연스러운 진리가 아니라
+            <strong>편집 가능한 데이터</strong>로 취급.  
+            헬름슬레우의 표현/내용 4층 구조는
+            <code>Mass × Calm × Blue × L2</code> 같은 제목 형식으로 코드화.
+          </td>
+        </tr>
+        <tr>
+          <td>포스트구조주의</td>
+          <td>Deleuze &amp; Guattari, Derrida</td>
+          <td>
+            리좀(rhizome)처럼 모듈이 곱셈 조합으로 어디든 연결되는 구조.  
+            데리다의 차연(différance)은
+            Mass가 어떤 조합에 쓰이느냐에 따라 의미가 끝없이 변주되는 방식에서 드러난다.
+          </td>
+        </tr>
+        <tr>
+          <td>미디어 이론</td>
+          <td>McLuhan, Kittler, Manovich</td>
+          <td>
+            맥루한: “미디어가 메시지”라면, 여기서는 <strong>YouTube 자체가 언어 OS의 일부</strong>.  
+            마노비치의 데이터베이스 내러티브는 “영상 사전 + 검색” 구조와 그대로 겹친다.
+          </td>
+        </tr>
+        <tr>
+          <td>정보/컴퓨팅</td>
+          <td>Shannon, Knuth</td>
+          <td>
+            5대 모듈 × 각 n개가 만들어내는 조합 수 = 잠재 정보량.  
+            크누스 식으로 보면, 제목 규칙은 인간이 읽기 쉬운 <strong>“문학적 코드(literate code)”</strong>에 가깝다.
+          </td>
+        </tr>
+        <tr>
+          <td>예술 이론</td>
+          <td>Sol LeWitt, Duchamp, Cage</td>
+          <td>
+            르윗의 “아이디어가 작품을 만드는 기계”처럼, Master Table이 곧 생성 엔진.  
+            뒤샹의 레디메이드처럼, 클리셰를 가져와 “선택 자체”를 창작의 일부로 쓴다.  
+            케이지 쪽에서는 AI·실수·우연성을 아트에 포함시키는 태도가 겹친다.
+          </td>
+        </tr>
+        <tr>
+          <td>언어 철학</td>
+          <td>Wittgenstein, Austin</td>
+          <td>
+            비트겐슈타인의 “의미 = 사용” 관점에서, 모듈 이름은 고정 의미보다
+            어떤 검색·조합에 쓰이는지가 중요하다.  
+            오스틴의 수행적 발화처럼, 모듈 영상은 단순 설명이 아니라
+            <strong>새 의미 공간을 실행</strong>하는 행위에 가깝다.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="mermaid-card">
+      <div class="mermaid-note">
+        아래 그래프는 “학문 영역 → PARKSY OS → 구현 결과”의 관계를 한 번에 보여준다.
+      </div>
+      <div class="mermaid">
+        <!-- Mermaid diagram -->
+        <pre class="mermaid"><code>graph TB
+  A[기호학<br/>Barthes/Hjelmslev] --> Z[PARKSY OS]
+  B[포스트구조주의<br/>Deleuze/Derrida] --> Z
+  C[미디어 이론<br/>McLuhan/Manovich] --> Z
+  D[정보/컴퓨팅<br/>Shannon/Knuth] --> Z
+  E[예술 이론<br/>LeWitt/Duchamp/Cage] --> Z
+  F[언어 철학<br/>Wittgenstein/Austin] --> Z
+
+  Z --> G[기존 담론 편집화]
+  Z --> H[모듈 조합 문법]
+  Z --> I[YouTube = 모듈 DB]
+  Z --> J[영상 = 언어 단위]</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. EduArt Engineer 관점 -->
+  <section id="s8" class="section">
+    <div class="section-kicker">08 · ROLE</div>
+    <h2>EduArt Engineer 입장에서의 의미</h2>
+    <p>이 영상 사전 OS는 사실 <strong>스킬셋 아카이브</strong>다.</p>
+    <ul>
+      <li>손그림 실력</li>
+      <li>AI 다루는 감각 (Grok, 생성 모델 등)</li>
+      <li>개념 압축·정리 능력</li>
+      <li>감정 모델링 감각</li>
+      <li>문법·사고 구조 설계 능력</li>
+      <li>모바일 기반 툴 운용 능력</li>
+      <li>Grok·ChatGPT·Claude와 협업하는 감각</li>
+    </ul>
+    <p>
+      이 전부가 <strong>“영상 모듈”이라는 형태로 물성화</strong>된다.  
+      그냥 “화가 박씨”의 교양이라기보다, <strong>EduArt Engineer 박씨의 기술 아카이브</strong>에 더 가깝다.
+    </p>
+    <p>
+      그래서 이 채널은 스킬셋 계정에 붙어 있는 게 맞다.  
+      <strong>기능 학습 → 기초 교양 정리 → 실력이 모듈로 저장되는 OS 단계</strong>로 넘어간 셈이다.
+    </p>
+  </section>
+
+  <!-- 9. 앞으로의 사용처 -->
+  <section id="s9" class="section">
+    <div class="section-kicker">09 · USE CASES</div>
+    <h2>앞으로의 사용처</h2>
+    <p>이 OS 위에서 할 수 있는 것들:</p>
+    <ul>
+      <li>PWA 사전 앱 (각 모듈 → YouTube 링크로 연결)</li>
+      <li>GitHub 기반 <strong>“Parksy OS 매뉴얼”</strong></li>
+      <li>Tistory 튜토리얼: “이 구조를 따라 만들면 너도 네 언어 OS를 만들 수 있다”</li>
+      <li>강의/워크숍:
+        <ul>
+          <li>기존 담론을 데이터로 낮추는 법</li>
+          <li>YouTube를 모듈 DB로 쓰는 법</li>
+        </ul>
+      </li>
+      <li>나중에 AI에게:
+        <ul>
+          <li>“Mass × Calm × Blue 느낌으로 장면 뽑아줘.”</li>
+          <li>“Triangle × Tension × Red 모듈 기반으로 음악 추천해줘.”</li>
+        </ul>
+      </li>
+    </ul>
+    <p>
+      지금의 영상 사전이 곧 나중의 <strong>프롬프트 사전</strong>이 된다.
+    </p>
+  </section>
+
+  <!-- 10. 맺음말 -->
+  <section id="s10" class="section">
+    <div class="section-kicker">10 · CLOSING</div>
+    <h2>맺음말</h2>
+    <p>마지막으로, 이 백서 전체를 다시 한 줄로 압축하면 이렇게 된다.</p>
+    <p>
+      <strong>
+        “나는 기존 세계의 패턴을 ‘편집 가능한 샘플팩’으로 만들고,<br />
+        내 언어 모듈로 리믹스해서,<br />
+        YouTube를 글로벌 언어 서버로 쓰는 EduArt Engineer다.”
+      </strong>
+    </p>
+    <p>
+      이 문서가 그 전체 구조를 한 번에 박아둔<br />
+      <strong>Art Remix w/ Grok · 영상 사전 OS 백서 v3.1</strong>이다.
+    </p>
+
+    <div class="footer-note">
+      다음 단계는 단순하다:<br />
+      ① Master Module Table v1.0을 실제로 적고,<br />
+      ② 제목 네이밍 규칙을 고정하고,<br />
+      ③ 하루 1~5개씩 모듈 영상을 쌓는 것.  
+      그러면 나머지는 YouTube와 시간이 대신 정리해준다.
+    </div>
+  </section>
+</main>
+
+<!-- Mermaid -->
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    if (window.mermaid) {
+      mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    }
+  });
+</script>
+</body>
+</html>
