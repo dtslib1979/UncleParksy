@@ -1,6 +1,11 @@
 {
-  "count": 27,
+  "count": 28,
   "items": [
+    {
+      "title": "artremix",
+      "path": "archive/artremix.html",
+      "date": "2025-12-01"
+    },
     {
       "title": "Independent.finger",
       "path": "archive/Independent.finger.html",
