@@ -4,17 +4,25 @@
 Archive Manifest Generator for UncleParksy PWA ER RUN
 Scans /archive/*.html files and generates assets/manifest.archive.json
 
+NOTE: This file (assets/manifest.archive.json) is auto-generated.
+      Do NOT edit manually - it will be overwritten by this script.
+
 Requirements:
 - Scan /archive/*.html (excluding index.html)
 - Extract date/title from 'YYYY-MM-DD-제목.html' format
 - For non-dated files, use file modification time
 - Output JSON with count and items sorted by date (newest first)
+
+Exit codes:
+- 0: Success
+- 3: Count mismatch (validation error)
+- 4: Write failure
 """
 
 import os
 import json
 import re
-import shutil
+import sys
 from pathlib import Path
 from datetime import datetime
 
@@ -59,30 +67,41 @@ def validate_manifest(manifest, html_files):
     Checks:
     - JSON is valid (already implicitly checked by json.dumps)
     - count matches actual file count
-    """
-    errors = []
     
+    Returns exit code: 0 for success, 3 for count mismatch
+    """
     actual_count = len(html_files)
     if manifest['count'] != actual_count:
-        errors.append(f"Count mismatch: manifest has {manifest['count']}, but {actual_count} files found")
+        print(f"❌ Count mismatch: manifest has {manifest['count']}, but {actual_count} files found")
+        return 3
     
     if len(manifest['items']) != actual_count:
-        errors.append(f"Items count mismatch: {len(manifest['items'])} items, but {actual_count} files found")
+        print(f"❌ Items count mismatch: {len(manifest['items'])} items, but {actual_count} files found")
+        return 3
     
-    return errors
+    return 0
 
 
-def backup_existing_manifest(manifest_path):
+def atomic_write(filepath, content):
     """
-    Create a backup of existing manifest if it exists.
-    Returns True if backup was created, False otherwise.
+    Atomically write content to filepath using temp file + os.replace.
+    
+    Returns exit code: 0 for success, 4 for write failure
     """
-    if manifest_path.exists():
-        backup_path = manifest_path.with_suffix('.json.backup')
-        shutil.copy2(manifest_path, backup_path)
-        print(f"📋 Created backup: {backup_path}")
-        return True
-    return False
+    tmp_path = filepath.with_suffix('.json.tmp')
+    try:
+        tmp_path.write_text(content, encoding='utf-8')
+        os.replace(tmp_path, filepath)
+        print(f"✅ Wrote {filepath}")
+        return 0
+    except OSError as e:
+        print(f"❌ Write failure: {e}")
+        # Clean up temp file if it exists
+        try:
+            tmp_path.unlink(missing_ok=True)
+        except OSError:
+            pass
+        return 4
 
 
 def main():
@@ -98,9 +117,6 @@ def main():
         print(f"⚠️ Warning: Scan directory {SCAN_DIR} does not exist")
         SCAN_DIR.mkdir(parents=True, exist_ok=True)
     
-    # Backup existing manifest on first run
-    backup_existing_manifest(OUT_FILE)
-    
     # Find all HTML files (excluding index.html)
     html_files = [
         f for f in SCAN_DIR.glob("*.html")
@@ -114,15 +130,23 @@ def main():
     items = []
     for filepath in html_files:
         title, date_str = extract_metadata(filepath)
+        # Strip whitespace from filename for path
+        clean_filename = filepath.name.strip()
         
         items.append({
             "title": title,
-            "path": f"archive/{filepath.name}",
+            "path": f"archive/{clean_filename}",
             "date": date_str
         })
     
-    # Sort by date (newest first)
-    items.sort(key=lambda x: x['date'], reverse=True)
+    # Sort by date (newest first) - handle invalid dates by putting them at the end
+    def sort_key(item):
+        try:
+            return datetime.fromisoformat(item['date'])
+        except ValueError:
+            return datetime.min
+    
+    items.sort(key=sort_key, reverse=True)
     
     # Build manifest
     manifest = {
@@ -131,21 +155,21 @@ def main():
     }
     
     # Validate manifest
-    errors = validate_manifest(manifest, html_files)
-    if errors:
-        for error in errors:
-            print(f"❌ Validation error: {error}")
-        return 1
+    exit_code = validate_manifest(manifest, html_files)
+    if exit_code != 0:
+        return exit_code
     
     # Validate JSON serialization
     try:
         json_str = json.dumps(manifest, ensure_ascii=False, indent=2)
     except (TypeError, ValueError) as e:
         print(f"❌ JSON validation error: {e}")
-        return 1
+        return 4
     
-    # Write manifest (complete overwrite)
-    OUT_FILE.write_text(json_str, encoding='utf-8')
+    # Atomic write manifest
+    exit_code = atomic_write(OUT_FILE, json_str)
+    if exit_code != 0:
+        return exit_code
     
     print(f"✅ Generated {OUT_FILE} with {len(items)} items")
     

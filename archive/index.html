@@ -411,11 +411,11 @@ body::before{
       initTouchSupport();
     });
 
-    // 🎯 Load manifest.json (수정된 경로 처리)
+    // 🎯 Load manifest.archive.json (아카이브 전용 매니페스트)
     async function loadManifest() {
       try {
-        console.log('📡 Fetching manifest.json...');
-        const response = await fetch('../assets/manifest.json');
+        console.log('📡 Fetching manifest.archive.json...');
+        const response = await fetch('../assets/manifest.archive.json');
         
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -449,7 +449,7 @@ body::before{
         errorDiv.innerHTML = `
           ❌ ER 시드 목록을 불러올 수 없습니다.<br>
           <small style="opacity:0.7">오류: ${error.message}</small><br>
-          <small style="opacity:0.7">경로: ../assets/manifest.json</small>
+          <small style="opacity:0.7">경로: ../assets/manifest.archive.json</small>
         `;
       }
     }
