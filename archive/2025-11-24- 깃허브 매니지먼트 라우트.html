@@ -1,0 +1,867 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>≡ GitHub Management Route ≡ — UncleParksy v1</title>
+  <meta name="description" content="박씨 × ChatGPT × GitHub Spaces × Agent 라우트를 표준 문서로 정리한 GitHub 관리 가이드 페이지." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Philosopher:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #050814;
+      --bg-alt: #0d1020;
+      --card: #101427;
+      --accent: #facc45;
+      --accent-soft: rgba(250, 204, 21, 0.12);
+      --accent-strong: #fde68a;
+      --text: #f9fafb;
+      --muted: #94a3b8;
+      --danger: #fb7185;
+      --success: #4ade80;
+      --border: rgba(148, 163, 184, 0.3);
+      --shadow-soft: 0 18px 40px rgba(15,23,42,0.9);
+      --radius-lg: 22px;
+      --radius-pill: 999px;
+      --transition-fast: 160ms ease-out;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(circle at top, #111827 0, #020617 52%, #000 100%);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page-shell {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 18px 14px 32px;
+    }
+
+    header.hero {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      background: linear-gradient(to bottom, rgba(2,6,23,0.96), rgba(2,6,23,0.85) 40%, rgba(2,6,23,0));
+      backdrop-filter: blur(14px);
+    }
+
+    .badge-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.5);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(250,204,21,0.8);
+    }
+
+    .title-block h1 {
+      font-family: "Philosopher", system-ui;
+      font-size: clamp(24px, 6vw, 32px);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .title-block h1 span {
+      color: var(--accent);
+    }
+
+    .title-block p {
+      font-size: 13px;
+      color: var(--muted);
+      max-width: 520px;
+      line-height: 1.5;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0,1.5fr) minmax(0,1.2fr);
+      gap: 12px;
+      margin-top: 12px;
+      align-items: stretch;
+    }
+
+    @media (max-width: 768px) {
+      .hero-grid {
+        grid-template-columns: minmax(0,1fr);
+      }
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .pill {
+      padding: 5px 11px;
+      border-radius: var(--radius-pill);
+      background: rgba(15,23,42,0.9);
+      border: 1px dashed rgba(148,163,184,0.5);
+      font-size: 11px;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill strong {
+      color: var(--accent-strong);
+      font-weight: 600;
+    }
+
+    .card {
+      border-radius: var(--radius-lg);
+      background: radial-gradient(circle at top, rgba(30,64,175,0.38), rgba(15,23,42,0.95));
+      border: 1px solid rgba(148,163,184,0.45);
+      box-shadow: var(--shadow-soft);
+      padding: 14px 14px 15px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at top left, rgba(250,204,21,0.08), transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card h2 {
+      font-size: 15px;
+      margin-bottom: 4px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .card p {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .route-grid {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .route-grid {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+      }
+    }
+
+    .route-step {
+      background: rgba(15,23,42,0.9);
+      border-radius: 18px;
+      border: 1px solid rgba(148,163,184,0.4);
+      padding: 10px 9px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .route-step::after {
+      content: attr(data-label);
+      position: absolute;
+      top: 7px;
+      right: 9px;
+      font-size: 10px;
+      color: rgba(148,163,184,0.7);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .step-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.6);
+      font-size: 10px;
+      margin-bottom: 4px;
+    }
+
+    .step-tag span {
+      font-size: 12px;
+    }
+
+    .step-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .step-body {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .step-body strong {
+      color: var(--accent-strong);
+      font-weight: 600;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 4px;
+    }
+
+    .chip {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: var(--radius-pill);
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.4);
+      color: var(--muted);
+    }
+
+    main {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    section.block {
+      background: rgba(15,23,42,0.88);
+      border-radius: 20px;
+      border: 1px solid rgba(148,163,184,0.35);
+      padding: 14px 14px 14px;
+      box-shadow: 0 16px 35px rgba(15,23,42,0.85);
+    }
+
+    .block-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .block-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .block-title-emoji {
+      font-size: 18px;
+    }
+
+    .block-title-text {
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .block-sub {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .pill-mini {
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148,163,184,0.45);
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .cols-2 {
+      display: grid;
+      grid-template-columns: minmax(0,1.2fr) minmax(0,1.1fr);
+      gap: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .cols-2 {
+        grid-template-columns: minmax(0,1fr);
+      }
+    }
+
+    ul.compact {
+      list-style: none;
+      display: grid;
+      gap: 4px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    ul.compact li::before {
+      content: "•";
+      color: var(--accent);
+      margin-right: 5px;
+    }
+
+    .code-card {
+      background: #020617;
+      border-radius: 16px;
+      border: 1px solid rgba(148,163,184,0.5);
+      padding: 9px 10px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 11px;
+      color: #e5e7eb;
+      overflow-x: auto;
+      position: relative;
+    }
+
+    .code-card pre {
+      white-space: pre;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 7px;
+      right: 7px;
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148,163,184,0.6);
+      background: rgba(15,23,42,0.95);
+      color: var(--muted);
+      font-size: 9px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .copy-btn:hover {
+      background: rgba(248,250,252,0.05);
+      color: var(--accent-strong);
+      border-color: var(--accent);
+      transform: translateY(-0.5px);
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 5px;
+    }
+
+    .tag {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: var(--radius-pill);
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.5);
+      color: var(--muted);
+    }
+
+    .alert {
+      border-radius: 14px;
+      padding: 8px 10px;
+      font-size: 11px;
+      line-height: 1.6;
+      margin-top: 6px;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .alert--danger {
+      background: rgba(248,113,113,0.08);
+      border: 1px solid rgba(248,113,113,0.5);
+      color: var(--danger);
+    }
+
+    .alert--ok {
+      background: rgba(34,197,94,0.06);
+      border: 1px solid rgba(74,222,128,0.5);
+      color: var(--success);
+    }
+
+    .alert-emoji {
+      font-size: 14px;
+      margin-top: 1px;
+    }
+
+    .alert span {
+      color: #e5e7eb;
+    }
+
+    .diagram-card {
+      background: #020617;
+      border-radius: 16px;
+      border: 1px solid rgba(148,163,184,0.5);
+      padding: 9px 10px;
+      overflow-x: auto;
+    }
+
+    .diagram-card .mermaid {
+      font-size: 11px;
+      min-width: 260px;
+    }
+
+    footer.page-footer {
+      margin-top: 16px;
+      padding-top: 10px;
+      border-top: 1px dashed rgba(148,163,184,0.4);
+      font-size: 10px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .footer-pill {
+      border-radius: var(--radius-pill);
+      padding: 3px 9px;
+      border: 1px solid rgba(148,163,184,0.4);
+    }
+
+    a {
+      color: var(--accent-strong);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="badge-row">
+        <div class="badge">
+          <div class="badge-dot"></div>
+          <span>GitHub Management Route · v1</span>
+        </div>
+        <div class="badge">
+          <span>"코드는 스페이스/에이전트만 만진다" 원칙</span>
+        </div>
+      </div>
+
+      <div class="hero-grid">
+        <div class="title-block">
+          <h1>≡ <span>GitHub</span> Management Route ≡</h1>
+          <p>
+            박씨 · ChatGPT · GitHub Spaces · Agent 네 명이 각자 할 일만 하는 라우트.
+            "나는 코드 안 친다" 선언을 전제로, 삽질 없이 레포를 굴리는 표준 동선 정리본.
+          </p>
+
+          <div class="pill-list">
+            <div class="pill"><strong>Goal</strong> 깃허브 구조/자동화는 스페이스에게, 결론과 질문만 사람/ChatGPT에게</div>
+            <div class="pill"><strong>Scope</strong> GitHub Pages · CI · 카테고리 인덱스 · 아카이브 매니페스트</div>
+            <div class="pill"><strong>Rule</strong> 레포 코드 직접 수정 금지, 인스트럭션만 작성</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-inner">
+            <h2>오늘 정리한 라우트 요약</h2>
+            <p>
+              ① 박씨: 하고 싶은 거 / 문제 상황 구어체로 턴 던짐<br>
+              ② ChatGPT: 그걸 <strong>지시서</strong>로 구조화해서 정제<br>
+              ③ GitHub Spaces: 레포 열람·설계·코드·PR까지 싹 담당<br>
+              ④ Agent: 스페이스가 시킨 대로만 커밋·푸시·배포 수행
+            </p>
+
+            <div class="route-grid">
+              <div class="route-step" data-label="01">
+                <div class="step-tag"><span>🧠</span><span>박씨</span></div>
+                <div class="step-title">Raw 발화</div>
+                <div class="step-body">
+                  "야 아카이브 롤업 왜 안 돼?" 처럼<br>
+                  감정 듬뿍, 상관 없음. <strong>문제·욕망</strong>만 던지면 끝.
+                </div>
+              </div>
+
+              <div class="route-step" data-label="02">
+                <div class="step-tag"><span>🤖</span><span>ChatGPT</span></div>
+                <div class="step-title">구조화·번역</div>
+                <div class="step-body">
+                  증상 → 원인 후보 → 요구사항 → 테스트 플랜까지
+                  <strong>스페이스가 이해할 언어</strong>로 재정리.
+                </div>
+              </div>
+
+              <div class="route-step" data-label="03">
+                <div class="step-tag"><span>🧩</span><span>GitHub Spaces</span></div>
+                <div class="step-title">설계 + 코드</div>
+                <div class="step-body">
+                  레포 열람, 파이썬/워크플로/HTML/JS 설계·구현.
+                  직접 <strong>코드를 치는 뇌+손</strong>.
+                </div>
+              </div>
+
+              <div class="route-step" data-label="04">
+                <div class="step-tag"><span>🛠️</span><span>Agent</span></div>
+                <div class="step-title">알바형 실행</div>
+                <div class="step-body">
+                  생각 없음, 자율성 없음. 스페이스가 준
+                  <strong>작업 스크립트</strong>만 그대로 수행.
+                </div>
+              </div>
+            </div>
+
+            <div class="chip-row">
+              <div class="chip">"두뇌" = 박씨 + ChatGPT</div>
+              <div class="chip">"개발자" = GitHub Spaces</div>
+              <div class="chip">"손" = Agent</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Block: Route Spec as Pseudo-Code -->
+      <section class="block" id="route-spec">
+        <div class="block-header">
+          <div class="block-title">
+            <div class="block-title-emoji">📜</div>
+            <div>
+              <div class="block-title-text">라우트 스펙 — Pseudo Config</div>
+              <div class="block-sub">GitHub Spaces에게 던질 때 쓸 수 있는 기본 구조 템플릿</div>
+            </div>
+          </div>
+          <div class="pill-mini">copy &amp; paste for Spaces</div>
+        </div>
+
+        <div class="code-card" data-copy-target="route-config">
+          <button class="copy-btn" type="button" aria-label="라우트 설정 복사">
+            <span>📋</span><span>copy</span>
+          </button>
+          <pre id="route-config">route:
+  name: "GitHub Management Route v1"
+  context:
+    owner: "dtslib1979"
+    repo: "UncleParksy"
+    intent: "레포 구조·자동화는 Spaces, 질문·결론만 사람/ChatGPT 레이어에서 처리"
+
+  actors:
+    - id: "user"
+      label: "박씨"
+      role: "문제 제기, 욕망 정의, 최종 결정"
+    - id: "chatgpt"
+      label: "ChatGPT"
+      role: "문제 구조화, 지시서 작성, 테스트 시나리오 설계"
+    - id: "spaces"
+      label: "GitHub Spaces"
+      role: "레포 열람, 설계, 코드 작성, PR 생성"
+    - id: "agent"
+      label: "GitHub Agent"
+      role: "Spaces가 작성한 스크립트/코드를 그대로 실행하는 알바생"
+
+  rules:
+    - "User와 ChatGPT는 레포에 직접 코드 커밋 금지"
+    - "구현이 필요하면 항상 'Spaces 지시서'부터 작성"
+    - "Agent는 생각하지 않으며, 항상 Spaces 지시를 전제로 실행"
+    - "문제 발생 시, 먼저 라우트가 지켜졌는지부터 점검"
+
+  default_flow:
+    - step: "발화"
+      from: "user"
+      to: "chatgpt"
+      summary: "감정 섞인 자연어로 상황 설명 (예: 아카이브 롤업 안 됨)"
+    - step: "지시서 작성"
+      from: "chatgpt"
+      to: "spaces"
+      summary: "원인 후보·파일 후보·워크플로 영향·테스트 방법까지 포함한 요청서 생성"
+    - step: "설계/구현"
+      from: "spaces"
+      to: "agent"
+      summary: "코드/PR/스크립트 생성 및 Agent용 실행 플랜 전달"
+    - step: "실행"
+      from: "agent"
+      to: "repo"
+      summary: "브랜치 생성, 커밋, PR, 머지, 배포까지 자동 수행"
+
+  break_glass_flow:
+    - "레포가 이미 꼬여 있으면, Spaces에게 '현황 진단 + 복구 플랜'부터 요청"
+    - "ChatGPT는 기존 삽질 히스토리를 요약해서 같이 전달"</pre>
+        </div>
+      </section>
+
+      <!-- Block: Mermaid Diagram — Happy Path -->
+      <section class="block" id="diagram-happy">
+        <div class="block-header">
+          <div class="block-title">
+            <div class="block-title-emoji">🧬</div>
+            <div>
+              <div class="block-title-text">Mermaid — 기본 라우트 다이어그램</div>
+              <div class="block-sub">"누가 누구에게 무엇을 넘기는지" 한 눈에 보는 OS 구조</div>
+            </div>
+          </div>
+          <div class="pill-mini">flowchart · copy &amp; reuse</div>
+        </div>
+
+        <div class="diagram-card" data-copy-target="mermaid-happy">
+          <button class="copy-btn" type="button" aria-label="머메이드 다이어그램 복사">
+            <span>📋</span><span>copy</span>
+          </button>
+          <pre class="mermaid" id="mermaid-happy">flowchart LR
+  U["🧠 박씨\nRaw 발화"] --> C["🤖 ChatGPT\n구조화 &amp; 지시서"]
+  C --> S["🧩 GitHub Spaces\n설계 + 코드 + PR"]
+  S --> A["🛠️ Agent\n알바형 실행"]
+  A --> R["📦 Repo &amp; CI/CD\n(카테고리 인덱스, 아카이브 manifest)"]
+  R --> P["📱 GitHub Pages / PWA\n모바일 퍼블릭 뷰"]
+
+  classDef brain fill:#0f172a,stroke:#facc15,stroke-width:1.2px,color:#e5e7eb;
+  classDef engine fill:#020617,stroke:#64748b,stroke-width:1.1px,color:#e5e7eb;
+  classDef hands fill:#111827,stroke:#f97316,stroke-width:1.1px,color:#e5e7eb;
+
+  class U,C brain;
+  class S engine;
+  class A hands;
+  class R,P engine;</pre>
+        </div>
+      </section>
+
+      <!-- Block: Mermaid Diagram — 삽질 Anti-Pattern -->
+      <section class="block" id="diagram-fail">
+        <div class="block-header">
+          <div class="block-title">
+            <div class="block-title-emoji">🔥</div>
+            <div>
+              <div class="block-title-text">Mermaid — 오늘 삽질 케이스 Anti-Pattern</div>
+              <div class="block-sub">아카이브 manifest / 롤업 꼬였던 구조를 반면교사로 문서화</div>
+            </div>
+          </div>
+          <div class="pill-mini">remember this and don’t repeat</div>
+        </div>
+
+        <div class="diagram-card" data-copy-target="mermaid-fail">
+          <button class="copy-btn" type="button" aria-label="머메이드 삽질 다이어그램 복사">
+            <span>📋</span><span>copy</span>
+          </button>
+          <pre class="mermaid" id="mermaid-fail">sequenceDiagram
+  autonumber
+  participant U as 🧠 박씨
+  participant R as 📦 Repo
+  participant CI as ⚙️ CI (Category Index WF)
+  participant P as 📱 Archive Page
+
+  Note over U: "새 글 두 개 올렸는데…<br/>랜딩 카운트는 26, 아카이브는 24?" 🤨
+
+  U-&gt;&gt;R: 수동으로 archive HTML 업로드 (정상)
+  R-&gt;&gt;CI: push 트리거 (원래는 manifest 갱신해야 함)
+
+  Note over CI: 이전에 만들어 둔<br/>assets/manifest.json / manifest.archive.json<br/>스펙이 뒤섞여 있음
+
+  CI--&gt;R: 카테고리 인덱스는 업데이트되지만<br/>archive manifest는 일부만 갱신
+
+  P-&gt;&gt;R: ../assets/manifest.json fetch 시도
+  R--&gt;P: 오래된 JSON 응답 (count=24)
+  P--&gt;U: "리스트에는 24개만 보임" 😵
+
+  Note over U: ChatGPT랑 수동으로 JSON 수정 시도하면?<br/>▶ 스페이스/에이전트 설계랑 또 어긋날 위험
+
+  U-&gt;&gt;ChatGPT: "이거 왜 24개야? 수동으로 때려박아도 돼?"
+  ChatGPT-&gt;&gt;U: "NO. 이건 Spaces/CI 설계 영역.<br/>우리는 라우트·지시서만 잡자."</pre>
+        </div>
+
+        <div class="alert alert--danger">
+          <div class="alert-emoji">🚫</div>
+          <div>
+            <span>Anti-Pattern 요약:</span><br />
+            <span>assets/manifest*.json 을 사람 손 + ChatGPT 코드로 직접 만지면,
+            CI 스크립트/워크플로 스펙과 어긋나서 또 다른 꼬임이 생긴다.</span>
+          </div>
+        </div>
+
+        <div class="alert alert--ok">
+          <div class="alert-emoji">✅</div>
+          <div>
+            <span>정석 라우트:</span><br />
+            <span>"증상 설명" → "ChatGPT가 지시서 작성" → "Spaces가 manifest 생성 스크립트·워크플로 설계" → "Agent가 실행" 순서만 지키면 됨.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Block: Checklists -->
+      <section class="block" id="checklists">
+        <div class="block-header">
+          <div class="block-title">
+            <div class="block-title-emoji">✅</div>
+            <div>
+              <div class="block-title-text">운영 체크리스트</div>
+              <div class="block-sub">"이 선 넘으면 사고" 라인들을 한 번에 보게 정리</div>
+            </div>
+          </div>
+          <div class="pill-mini">for daily use</div>
+        </div>
+
+        <div class="cols-2">
+          <div>
+            <div class="tag-row">
+              <div class="tag">DO · 해야 할 것</div>
+            </div>
+            <ul class="compact">
+              <li>문제 생기면 <strong>구어체로</strong> 상황부터 말하기 (숫자·경로는 대충이어도 됨).</li>
+              <li>ChatGPT에게 <strong>"Spaces/Agent 라우트용 인스트럭션 만들어줘"</strong>라고 명시 요청.</li>
+              <li>스페이스에게 요청할 때는 항상 <strong>"현재 증상" + "원인 추정" + "원하는 상태" + "테스트 방법" 세트로 전달.</strong></li>
+              <li>Agent는 <strong>"알바생"</strong>이라고 생각하고, 설계는 절대 맡기지 않기.</li>
+              <li>새 카테고리 / PWA 라우트 만들 땐, 이 페이지를 <strong>OS 레퍼런스</strong>로 삼기.</li>
+            </ul>
+          </div>
+
+          <div>
+            <div class="tag-row">
+              <div class="tag">DON’T · 하면 안 되는 것</div>
+            </div>
+            <ul class="compact">
+              <li>GitHub 웹에서 <strong>archive/index.html</strong>이나 <strong>assets/manifest*.json</strong>을 직접 열고 수정하지 않는다.</li>
+              <li>"이 정도면 알겠지"하고 ChatGPT 코드 그대로 레포에 복붙하지 않는다.</li>
+              <li>Spaces 없이 Agent에게 바로 <strong>"이 파일 좀 이렇게 바꿔"</strong> 식으로 시키지 않는다.</li>
+              <li>레포 구조가 애매하면, 손대기 전에 <strong>"현황 리뷰 인스트럭션"</strong>부터 ChatGPT에게 요청하기.</li>
+              <li>문제가 꼬였을 때, <strong>원인보다 예쁜 UI 먼저 바꾸려 하지 않기.</strong></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Block: Ready-Made Prompt for Spaces -->
+      <section class="block" id="prompt-template">
+        <div class="block-header">
+          <div class="block-title">
+            <div class="block-title-emoji">🧾</div>
+            <div>
+              <div class="block-title-text">GitHub Spaces 요청용 프롬프트 템플릿</div>
+              <div class="block-sub">이 블록만 복붙해서, 그날그날 상황만 채워 넣으면 됨</div>
+            </div>
+          </div>
+          <div class="pill-mini">copy, edit, send</div>
+        </div>
+
+        <div class="code-card" data-copy-target="spaces-prompt">
+          <button class="copy-btn" type="button" aria-label="스페이스 프롬프트 복사">
+            <span>📋</span><span>copy</span>
+          </button>
+          <pre id="spaces-prompt">[Context]
+- Repo: dtslib1979/UncleParksy
+- Feature: KR ER RUN Archive + Category Index Auto-Update
+- Principle: User/ChatGPT는 코드 직접 수정 금지, 설계/코드/PR은 전부 GitHub Spaces/Agent에서 처리
+
+[Current Symptom]
+- 예: 레포 기준 archive 디렉터리에는 HTML이 26개 존재함.
+- 메인 랜딩 카운터에는 26개로 표시됨.
+- 그러나 /archive/index.html에서 보이는 리스트는 24개까지만 노출됨.
+- 최근에 추가한 파일: Independent.finger.html, 2025-11-24- independent-finger.html
+
+[What I Want]
+1) archive에 HTML을 새로 추가하면:
+   - 관련 manifest(예: assets/manifest.archive.json)가 CI에서 자동 재생성될 것
+   - /archive/index.html이 항상 최신 manifest를 읽어, 개수가 자동으로 맞춰질 것
+2) 수동으로 JSON을 편집할 필요가 전혀 없도록 설계할 것
+3) 카테고리 인덱스 자동화 스크립트와 충돌하지 않도록 정리할 것
+
+[What You Should Inspect]
+- archive/index.html: 어떤 JSON 경로를 fetch 하는지
+- assets/ 이하 manifest 관련 JSON 파일 구조 (이름/필드/사용처)
+- .github/workflows/ 디렉터리 내 category-index 관련 워크플로
+- scripts/ 디렉터리 내 manifest/인덱스 생성 파이썬 스크립트
+
+[What You Should Deliver]
+1) 설계 메모 (간단한 구조 다이어그램 or 리스트)
+2) 필요한 새 파이썬 스크립트 or 기존 스크립트 수정안
+3) 워크플로(yml) 수정안 (어떤 파일을 언제 갱신·커밋하는지)
+4) archive/index.html이 어떤 JSON을 읽어야 하는지에 대한 명확한 결정
+5) 로컬/CI에서의 테스트 방법 (파일 하나 추가했을 때 무엇을 확인하면 되는지)
+
+[Style]
+- 가급적이면 기존 구조를 존중하고, 최소 변경으로 문제를 해결
+- 사람이 만지지 말아야 할 파일은 주석/README로 명시
+- 나중에 ChatGPT에게 설명할 수 있을 정도로, 주요 포인트를 간단 명료하게 적어 주세요.</pre>
+        </div>
+      </section>
+    </main>
+
+    <footer class="page-footer">
+      <div class="footer-pill">v1 · GitHub Management Route · "두뇌 = 박씨·ChatGPT / 개발자 = Spaces / 손 = Agent"</div>
+      <div>이 HTML 자체도 &ldquo;설계 참고용&quot; · 실제 반영은 항상 Spaces/Agent 경유.</div>
+    </footer>
+  </div>
+
+  <!-- Mermaid (ESM) -->
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({ startOnLoad: true, theme: "dark" });
+  </script>
+
+  <script>
+    // Copy buttons
+    document.addEventListener("click", async (ev) => {
+      const btn = ev.target.closest(".copy-btn");
+      if (!btn) return;
+      const parent = btn.closest("[data-copy-target]");
+      if (!parent) return;
+      const id = parent.getAttribute("data-copy-target");
+      const el = document.getElementById(id);
+      if (!el) return;
+      const text = el.textContent;
+      try {
+        await navigator.clipboard.writeText(text);
+        const original = btn.innerHTML;
+        btn.innerHTML = "<span>✔</span><span>copied</span>";
+        btn.style.borderColor = "var(--success)";
+        btn.style.color = "var(--success)";
+        setTimeout(() => {
+          btn.innerHTML = original;
+          btn.style.borderColor = "rgba(148,163,184,0.6)";
+          btn.style.color = "var(--muted)";
+        }, 1300);
+      } catch (e) {
+        console.error("Copy failed", e);
+      }
+    });
+  </script>
+</body>
+</html>
