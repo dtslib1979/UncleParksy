@@ -130,21 +130,19 @@ def main():
     items = []
     for filepath in html_files:
         title, date_str = extract_metadata(filepath)
-        # Strip whitespace from filename for path
-        clean_filename = filepath.name.strip()
         
         items.append({
             "title": title,
-            "path": f"archive/{clean_filename}",
+            "path": f"archive/{filepath.name}",
             "date": date_str
         })
     
-    # Sort by date (newest first) - handle invalid dates by putting them at the end
+    # Sort by date (newest first) - invalid dates go to the end
     def sort_key(item):
         try:
-            return datetime.fromisoformat(item['date'])
+            return (1, datetime.fromisoformat(item['date']))
         except ValueError:
-            return datetime.min
+            return (0, datetime.min)  # Tuple ensures invalid dates sort last with reverse=True
     
     items.sort(key=sort_key, reverse=True)
     
