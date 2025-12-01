@@ -48,7 +48,8 @@ def extract_metadata(filepath):
         try:
             datetime.strptime(date_str, '%Y-%m-%d')
         except ValueError:
-            # Invalid date, treat as non-dated file
+            # Invalid date format (e.g., 9999-99-99), treat as non-dated file
+            print(f"⚠️ Warning: Invalid date format in filename: {filepath.name}")
             date_str = None
             title = stem.strip()
     else:
