@@ -5,6 +5,7 @@ on:
     paths:
       - 'category/**.html'
       - 'category/**/**.html'
+      - 'archive/*.html'
       - 'index.html'
       - 'assets/**'
       - '.github/workflows/pages-maintenance.yml'
