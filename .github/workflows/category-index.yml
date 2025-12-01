@@ -6,7 +6,7 @@ on:
       - "category/**/*.html"
       - "archive/*.html"
       - "scripts/generate_category_index.py"
-      - "scripts/generate_archive_manifest.py"
+      - "scripts/generate_manifest.py"
       - "assets/home.json"
   workflow_dispatch: {}
 
@@ -35,13 +35,13 @@ jobs:
 
       - name: ▶️ Run archive manifest generator
         run: |
-          python scripts/generate_archive_manifest.py
+          python scripts/generate_manifest.py
 
       - name: 📤 Commit & Push
         run: |
           git config user.name "actions-bot"
           git config user.email "actions@github.com"
-          git add category/*/index.html category/*/manifest.json assets/home.json assets/manifest.archive.json || true
+          git add category/*/index.html category/*/manifest.json assets/home.json assets/manifest.json || true
           git commit -m "auto: update category indexes, manifests and archive manifest" || echo "no changes"
           git pull --rebase origin main || true
           git push
