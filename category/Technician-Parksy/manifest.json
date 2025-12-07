@@ -146,6 +146,14 @@
       ]
     },
     {
+      "title": "AutomationEngineWF2",
+      "path": "./AutomationEngineWF2.html",
+      "section": "Devices",
+      "type": "HTML",
+      "date": null,
+      "tags": []
+    },
+    {
       "title": "AutomationEngine WP",
       "path": "./AutomationEngine-WP.html",
       "section": "Devices",
