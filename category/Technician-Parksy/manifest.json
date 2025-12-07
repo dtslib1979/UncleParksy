@@ -22,6 +22,16 @@
       ]
     },
     {
+      "title": "testsingle",
+      "path": "./testsingle.html",
+      "section": "Devices",
+      "type": "HTML",
+      "date": null,
+      "tags": [
+        "test"
+      ]
+    },
+    {
       "title": "schedule",
       "path": "./schedule.html",
       "section": "Devices",
