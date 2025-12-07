@@ -22,6 +22,14 @@
       ]
     },
     {
+      "title": "single",
+      "path": "./single.html",
+      "section": "Visuals",
+      "type": "HTML",
+      "date": null,
+      "tags": []
+    },
+    {
       "title": "Philosophy",
       "path": "./Philosophy.html",
       "section": "Visuals",
