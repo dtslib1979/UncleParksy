@@ -22,6 +22,14 @@
       ]
     },
     {
+      "title": "sample2",
+      "path": "./sample2.html",
+      "section": "Blog",
+      "type": "HTML",
+      "date": null,
+      "tags": []
+    },
+    {
       "title": "sample",
       "path": "./sample.html",
       "section": "Blog",
