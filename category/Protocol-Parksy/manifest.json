@@ -22,6 +22,16 @@
       ]
     },
     {
+      "title": "testsingle",
+      "path": "./testsingle.html",
+      "section": "Protocols",
+      "type": "HTML",
+      "date": null,
+      "tags": [
+        "test"
+      ]
+    },
+    {
       "title": "meevalmodel",
       "path": "./meevalmodel.html",
       "section": "Protocols",
