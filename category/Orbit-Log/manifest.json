@@ -22,6 +22,14 @@
       ]
     },
     {
+      "title": "single",
+      "path": "./single.html",
+      "section": "Logs",
+      "type": "HTML",
+      "date": null,
+      "tags": []
+    },
+    {
       "title": "ObsidianUT",
       "path": "./ObsidianUT.html",
       "section": "Logs",
