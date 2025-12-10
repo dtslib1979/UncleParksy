@@ -149,6 +149,16 @@ Parksy → Final arbiter, voice, and publish trigger.
 
 ---
 
+## 📖 Documentation
+
+For comprehensive technical documentation, please refer to:
+
+- **[Technical Architecture White Paper](TECHNICAL_ARCHITECTURE_WHITEPAPER.md)** - Complete system architecture, installation guide, and developer documentation (617 lines)
+- **[Development Log](DEVELOPMENT_LOG.md)** - Development history and automation summary
+- **[Structure Evaluation Report](구조평가보고서.md)** - Repository quality assessment (85/100, Grade A)
+
+---
+
 ## 📜 License
 
 MIT License — fork, remix, attribute.
