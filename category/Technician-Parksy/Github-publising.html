@@ -3,14 +3,17 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>An Automated Publishing Engine built on GitHub</title>
+<title>Parksy OS: The Automated Publishing Civilization</title>
 
 <style>
+/* -----------------------------------------------------------
+   GLOBAL STYLES (Ultra Dark Emerald Theme)
+   ----------------------------------------------------------- */
 html, body {
   margin: 0;
   padding: 0;
-  background: #020603;
-  font-family: "Inter", sans-serif;
+  background: #020603; /* Deepest Black Green */
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #d6ffd6;
   overflow-x: hidden;
   scroll-behavior: smooth;
@@ -20,471 +23,561 @@ html, body {
   --emerald: #14ff8d;
   --emerald-neon: #00ffa0;
   --panel: #05130a;
-  --panel2: #0b1f14;
-  --shadow: rgba(0,255,160,0.35);
+  --panel-hover: #0a2515;
+  --shadow-glow: rgba(0, 255, 160, 0.35);
+  --text-dim: #9dffcf;
 }
 
-/* Opening */
+/* Scrollbar Customization */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #020603; }
+::-webkit-scrollbar-thumb { background: #124c32; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--emerald); }
+
+/* Parallax Background Effect */
+.parallax {
+  position: fixed;
+  top: 0; left: 0;
+  width: 140%; height: 140%;
+  background: radial-gradient(circle at 40% 60%, rgba(0, 255, 140, 0.04), transparent 50%);
+  z-index: -1;
+  animation: bg-glow 20s infinite alternate ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes bg-glow {
+  from { transform: translate(-5%, -5%); }
+  to { transform: translate(5%, 5%); }
+}
+
+/* -----------------------------------------------------------
+   COMPONENT: OPENING FRAME
+   ----------------------------------------------------------- */
 .opening-frame {
   max-width: 900px;
-  margin: 40px auto;
+  margin: 60px auto 40px;
   padding: 40px;
   border-radius: 20px;
-  border: 3px solid var(--emerald);
-  background: linear-gradient(145deg, #031207, #020603);
-  box-shadow: 0 0 25px var(--shadow), inset 0 0 25px rgba(0,255,120,0.15);
+  border: 1px solid var(--emerald);
+  background: linear-gradient(160deg, #031207 0%, #000000 100%);
+  box-shadow: 0 0 30px var(--shadow-glow), inset 0 0 20px rgba(0, 255, 120, 0.05);
   opacity: 0;
-  transform: translateY(60px);
-  animation: enter 1.6s ease-out forwards;
+  transform: translateY(40px);
+  animation: enter-frame 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-@keyframes enter {
-  0% {opacity:0; transform:translateY(80px) scale(.96);}
-  100%{opacity:1; transform:translateY(0) scale(1);}
+@keyframes enter-frame {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.frame-badge {
+  text-align: center;
+  margin-bottom: 15px;
+}
+.badge-text {
+  background: rgba(20, 255, 141, 0.1);
+  color: var(--emerald-neon);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid var(--emerald);
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 .frame-title {
-  text-align:center;
-  font-size:34px;
-  color:var(--emerald-neon);
-  text-shadow:0 0 14px var(--emerald-neon);
-  margin-bottom:10px;
+  text-align: center;
+  font-size: 38px;
+  font-weight: 800;
+  color: var(--emerald-neon);
+  text-shadow: 0 0 20px rgba(0, 255, 160, 0.4);
+  margin-bottom: 10px;
+  line-height: 1.2;
 }
 
 .frame-sub {
-  text-align:center;
-  font-size:16px;
-  color:#9dffcf;
-  margin-bottom:20px;
+  text-align: center;
+  font-size: 18px;
+  color: var(--text-dim);
+  margin-bottom: 30px;
+  font-weight: 300;
 }
 
-/* YouTube */
+/* Video Container */
 .video-box {
-  position:relative;
-  padding-bottom:56.25%;
-  height:0;
-  overflow:hidden;
-  border-radius:14px;
-  border:2px solid var(--emerald);
-  box-shadow:0 0 25px rgba(0,255,160,.2);
-  margin-top:15px;
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  height: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid #1f5738;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+  background: #000;
 }
 
 .video-box iframe {
-  position:absolute; top:0; left:0;
-  width:100%; height:100%;
-  border:none;
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border: none;
 }
 
-/* Accordion */
-.accordion {
-  max-width:900px;
-  margin:40px auto;
+/* -----------------------------------------------------------
+   COMPONENT: ACCORDION SECTIONS
+   ----------------------------------------------------------- */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding-bottom: 100px;
 }
 
 .section {
-  background:var(--panel);
-  border-radius:18px;
-  border:2px solid var(--emerald);
-  margin-bottom:20px;
-  box-shadow:0 0 20px rgba(0,255,150,.15);
-  opacity:0;
-  transform:translateY(30px);
+  background: var(--panel);
+  border-radius: 16px;
+  border: 1px solid rgba(20, 255, 141, 0.3);
+  margin-bottom: 24px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  opacity: 0; 
+  transform: translateY(20px); /* For Scroll Reveal */
 }
 
 .section.visible {
-  opacity:1;
-  transform:translateY(0);
-  transition:0.9s cubic-bezier(.17,.67,.16,1.2);
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.section:hover {
+  border-color: var(--emerald);
+  box-shadow: 0 0 15px rgba(20, 255, 141, 0.15);
 }
 
 .section-header {
-  padding:20px;
-  background:var(--panel2);
-  font-size:20px;
-  font-weight:bold;
-  color:var(--emerald-neon);
-  cursor:pointer;
-  text-shadow:0 0 10px var(--emerald-neon);
-  transition:0.25s;
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  background: linear-gradient(90deg, #0b1f14 0%, #05130a 100%);
+  user-select: none;
 }
 
-.section-header:hover {
-  background:#124c32;
+.section-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-title span.icon {
+  font-size: 24px;
+}
+
+.arrow {
+  font-size: 14px;
+  color: var(--emerald);
+  transition: transform 0.3s ease;
+}
+
+.section.open .arrow {
+  transform: rotate(180deg);
+}
+
+.section.open .section-header {
+  border-bottom: 1px solid rgba(20, 255, 141, 0.2);
 }
 
 .section-body {
-  display:none;
-  padding:25px;
-  line-height:1.65;
-  background:#07170d;
-  border-top:1px solid var(--emerald);
-  white-space:pre-wrap;
+  display: none; /* Toggled by JS */
+  padding: 30px;
+  background: rgba(0, 20, 10, 0.6);
+  line-height: 1.7;
+  color: #e0ffe0;
+  font-size: 16px;
 }
 
-/* Diagram */
+/* Markdown-like Styles inside Section Body */
+.section-body h2 {
+  color: var(--emerald-neon);
+  border-bottom: 1px solid #1f5738;
+  padding-bottom: 10px;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  font-size: 22px;
+}
+
+.section-body h3 {
+  color: #fff;
+  margin-top: 25px;
+  font-size: 18px;
+}
+
+.section-body p {
+  margin-bottom: 15px;
+}
+
+.section-body ul {
+  margin-bottom: 20px;
+  padding-left: 20px;
+}
+
+.section-body li {
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.section-body li::marker {
+  color: var(--emerald);
+}
+
+.section-body blockquote {
+  border-left: 4px solid var(--emerald);
+  margin: 20px 0;
+  padding: 15px 20px;
+  background: rgba(20, 255, 141, 0.05);
+  color: #b0ffce;
+  font-style: italic;
+}
+
+.code-block {
+  background: #000;
+  border: 1px solid #333;
+  padding: 15px;
+  border-radius: 8px;
+  font-family: monospace;
+  font-size: 14px;
+  color: #ff7b72; /* GitHub Theme Color */
+  overflow-x: auto;
+  margin: 15px 0;
+}
+
+/* -----------------------------------------------------------
+   COMPONENT: DIAGRAM BOX
+   ----------------------------------------------------------- */
 .diagram-box {
-  padding:18px;
-  background:#00180e;
-  border-radius:14px;
-  border:1px solid var(--emerald);
-  box-shadow:0 0 14px rgba(0,255,150,.15);
-  margin-top:20px;
-  overflow-x:auto;
+  background: #010402;
+  border: 1px solid var(--emerald);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  overflow-x: auto;
 }
 
-/* Project Instruction Hook */
+/* -----------------------------------------------------------
+   COMPONENT: CTA HOOK
+   ----------------------------------------------------------- */
 .hook-wrap {
-  text-align:center;
-  margin:60px auto 40px;
+  text-align: center;
+  margin-top: 60px;
+  margin-bottom: 80px;
 }
 
 .hook-link {
-  display:inline-flex;
-  flex-direction:column;
-  align-items:center;
-  gap:10px;
-  text-decoration:none;
-  color:#d6ffd6;
+  text-decoration: none;
+  display: inline-block;
+  transition: transform 0.2s;
 }
 
-.hook-icon {
-  width:70px;
-  height:70px;
-  border-radius:50%;
-  border:2px solid var(--emerald-neon);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:0 0 20px rgba(0,255,160,0.4);
-  background:radial-gradient(circle at 30% 20%, rgba(0,255,160,0.4), #020603);
-  position:relative;
+.hook-link:hover {
+  transform: translateY(-5px);
 }
 
-.hook-icon::after {
-  content:"";
-  position:absolute;
-  bottom:-18px;
-  width:2px;
-  height:18px;
-  background:var(--emerald-neon);
-  border-radius:2px;
-  box-shadow:0 0 10px rgba(0,255,160,0.7);
-  transform:translateX(12px);
+.hook-icon-circle {
+  width: 80px; height: 80px;
+  margin: 0 auto 15px;
+  border-radius: 50%;
+  border: 2px solid var(--emerald-neon);
+  background: radial-gradient(circle, rgba(0,255,160,0.2) 0%, #000 70%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  box-shadow: 0 0 25px var(--shadow-glow);
+  position: relative;
 }
 
-.hook-emoji {
-  font-size:34px;
-  filter:drop-shadow(0 0 6px rgba(0,0,0,0.8));
+.hook-icon-circle::after {
+  content: "";
+  position: absolute;
+  top: 100%; left: 50%;
+  width: 2px; height: 20px;
+  background: var(--emerald-neon);
+  transform: translateX(-50%);
+  box-shadow: 0 0 10px var(--emerald-neon);
 }
 
-.hook-text-main {
-  font-size:15px;
-  font-weight:600;
-  color:var(--emerald-neon);
-  text-shadow:0 0 10px rgba(0,255,160,0.6);
+.hook-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--emerald-neon);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.hook-desc {
+  font-size: 13px;
+  color: #88cea0;
+  margin-top: 5px;
 }
 
-.hook-text-sub {
-  font-size:12px;
-  color:#9dffcf;
-}
-
-/* Parallax Glow */
-.parallax {
-  position:fixed;
-  top:0; left:0;
-  width:140%; height:140%;
-  background:radial-gradient(circle at 40% 60%, rgba(0,255,140,.06), transparent 60%);
-  z-index:-1;
-  animation:glow 15s infinite alternate ease-in-out;
-}
-
-@keyframes glow {
-  from {transform:translate(-6%, -5%);}
-  to {transform:translate(5%, 4%);}
-}
 </style>
 </head>
-
 <body>
 
 <div class="parallax"></div>
 
-<!-- OPENING FRAME -->
 <div class="opening-frame">
-  <div class="frame-title">Parksy OS Whitepaper — Ultra Dark Emerald Edition</div>
-  <div class="frame-sub">From Spoken Thoughts → to Code → to System</div>
+  <div class="frame-badge"><span class="badge-text">Whitepaper v1.0</span></div>
+  <div class="frame-title">Parksy OS:<br>The Automated Publishing Civilization</div>
+  <div class="frame-sub">From Spoken Thoughts → to Code → to a Living System</div>
 
   <div class="video-box">
-    <iframe id="ytPlayer"></iframe>
+    <iframe id="ytPlayer" allow="autoplay"></iframe>
   </div>
 </div>
 
-<!-- ACCORDION -->
-<div class="accordion">
+<div class="container">
 
-  <!-- PART 1 – EASY VERSION -->
-  <div class="section scroll">
-    <div class="section-header">📘 Part 1 — Kid-Friendly Explanation</div>
+  <div class="section scroll-reveal">
+    <div class="section-header">
+      <div class="section-title"><span class="icon">📘</span> Part 1 — Concept Summary</div>
+      <div class="arrow">▼</div>
+    </div>
     <div class="section-body">
-Imagine GitHub as a huge underwater library that stores everything safely.
-Your notebook (Obsidian) writes things that sink into the depths.
-The website above shows people the shiny version.
-Robots (GitHub Actions) clean everything for you.
-
-That’s Parksy OS:
-You speak → system organizes → world sees.
+      <p>Imagine <strong>GitHub</strong> as a huge, secure underwater library.</p>
+      <ul>
+        <li>Your notebook (<strong>Obsidian</strong>) writes ideas that sink into the depths.</li>
+        <li>The website above (<strong>Pages</strong>) shows people the shiny, finished result.</li>
+        <li>Robots (<strong>GitHub Actions</strong>) clean, sort, and publish everything automatically.</li>
+      </ul>
+      <blockquote>
+        "That is Parksy OS: You speak, the system organizes, and the world sees."
+      </blockquote>
     </div>
   </div>
 
-  <!-- PART 2 – FULL TECHNICAL WHITEPAPER (FULL TEXT NO SKIP) -->
-  <div class="section scroll">
-    <div class="section-header">⚙️ Part 2 — Full Technical Specification (Full Whitepaper Text)</div>
+  <div class="section scroll-reveal">
+    <div class="section-header">
+      <div class="section-title"><span class="icon">⚙️</span> Part 2 — Full Technical Whitepaper</div>
+      <div class="arrow">▼</div>
+    </div>
     <div class="section-body">
-# 📘 Parksy GitHub Architecture Whitepaper 1.0 (English Edition)
+      
+      <h2>1. The Beginning: When I Basically Knew Nothing</h2>
+      <p>Let’s be honest. My starting point with GitHub was… primitive.</p>
+      <ul>
+        <li>I didn’t know code.</li>
+        <li>I didn’t understand what GitHub actually <em>was</em>.</li>
+        <li>“Actions”? Never heard of it.</li>
+        <li>Obsidian? Looked like just another note app.</li>
+      </ul>
+      <p>All I had was one instinct: <strong>“If talking → becomes code → becomes a system… then I want in.”</strong></p>
+      <p>The early phase was 100% pure chaos. Manual HTML uploads, no structure, no automation, files everywhere. That era was basically: <em>“The period when I misunderstood GitHub as a blogging tool.”</em></p>
 
-## — From Spoken Thoughts to a System: How One Person Built a DevOps Civilization
+      <h2>2. The First Breakthrough: Data vs. View</h2>
+      <p>This was the first adult-level realization:</p>
+      <div class="code-block">
+        Backend = GitHub (Underwater)<br>
+        Frontend = GitHub Pages (Surface)
+      </div>
+      <p>Once I understood that <em>“If the underwater world (data) is messy, the surface (web) will never be beautiful,”</em> everything changed. HTML & MDX became independent “units,” and GitHub became a <strong>Publishing Factory</strong>.</p>
 
----
+      <h2>3. Enter Automation: The GitHub Actions Era</h2>
+      <p>I pinpointed the enemy: <strong>Repetition</strong>. Manual updating, uploading, backing up... it was a loop of tedious human labor.</p>
+      <p>So I decided: <em>“Whatever a machine can do, a human should never do twice.”</em></p>
+      <p><strong>Automations deployed:</strong></p>
+      <ul>
+        <li>Automatic category indexing</li>
+        <li>Obsidian → GitHub imports</li>
+        <li>GitHub → Obsidian sync</li>
+        <li>Tistory backup automation</li>
+        <li>Sitemap generation & Mobile optimization</li>
+      </ul>
+      <p>GitHub transformed from a box where I stored files into a factory that moves when I speak.</p>
 
-## 1. The Beginning: When I Basically Knew Nothing
+      <h2>4. Birth of the Documentation Library (/docs)</h2>
+      <p>This was the moment I crossed into architect territory. I realized, <em>“A system without documentation is a time bomb.”</em> So I adopted the "Docs-as-Code" structure:</p>
+      <div class="code-block">
+docs/<br>
+├── 00-architecture/ (Blueprints)<br>
+├── 01-workflows/ (Pipelines)<br>
+├── 02-guides/ (Manuals)<br>
+├── 03-backend/ (Infra)<br>
+├── 04-obsidian/ (Sync Rules)<br>
+└── 99-archive/ (History)
+      </div>
+      <p>This is not a personal diary. This is an enterprise-grade knowledge system built by one person.</p>
 
-Let’s be honest.  
-My starting point with GitHub was… primitive.
+      <h2>5. Obsidian ↔ GitHub Integration</h2>
+      <p>This was the true completion of <strong>Parksy OS</strong>.</p>
+      <ul>
+        <li><strong>Obsidian</strong> = Writing Interface (IDE)</li>
+        <li><strong>GitHub</strong> = Backend Database</li>
+        <li><strong>Actions</strong> = Automated Workforce</li>
+      </ul>
+      <p>This created a living loop: Write locally → automatically backed up. Actions generate docs → they appear in Obsidian. To avoid infinite loops, I separated the drivers: <code>Sync</code> (Downstream) and <code>Backup</code> (Upstream).</p>
 
-* I didn’t know code.
-* I didn’t understand what GitHub actually *was*.
-* “Actions”? Never heard of it.
-* Obsidian? Looked like just another note app.
-* PWA? APK? Sounded like food additives.
+      <h2>6. The Three-Domain Publishing System</h2>
+      <p>At this point, GitHub wasn’t just a repo. It had become a multi-plant production system.</p>
+      <ul>
+        <li><strong>parksy.kr (HTML):</strong> Instant publishing & experimental visuals (The Stage).</li>
+        <li><strong>eae.kr (MDX):</strong> Tutorials, curriculum, structured reports (The School).</li>
+        <li><strong>dtslib.com (MDX):</strong> Finance, architecture, data research (The Library).</li>
+      </ul>
+      <p>This is the exact pattern modern SaaS companies use, but I did it solo.</p>
 
-All I had was one instinct:
+      <h2>7. Future Ready: PWA, APK, SaaS</h2>
+      <p>While building all this, I also set the stage for FFmpeg video automation, automatic subtitle generators, and PWA deployments. This isn't “a blog.” This is a blueprint for a <strong>1-person SaaS engine</strong>.</p>
 
-> “If talking → becomes code → becomes a system… then I want in.”
+      <h2>8. Expert Summary</h2>
+      <p>A professional engineer looking at this repository will see four distinct layers:</p>
+      <ol>
+        <li><strong>Data Layer:</strong> GitHub reinterpreted as a structured database.</li>
+        <li><strong>Application Layer:</strong> HTML/MDX/PWA connected into a content pipeline.</li>
+        <li><strong>Automation Layer:</strong> CI/CD applied to writing and publishing.</li>
+        <li><strong>Knowledge Layer:</strong> A documentation ecosystem that self-expands.</li>
+      </ol>
 
-The early phase was chaos:
+      <h2>9. Conclusion: Parksy OS</h2>
+      <blockquote>
+        "Parksy didn’t just build a repo. He built a civilization."
+      </blockquote>
+      <p>From “knowing absolutely nothing,” through every brutal failure, test, rebuild, and redesign… Parksy built a backend, a frontend, automation, documentation, and a multi-domain library. All as one human.</p>
+      <p><strong>This is one of the rare, high-level personal infrastructures built in the wild. A genuine 1-person DevOps civilization.</strong></p>
 
-* Manual HTML uploads  
-* No structure  
-* No automation  
-* Files everywhere  
-* Actions failing  
-* Repos breaking  
-
-That era was:  
-**“When I misunderstood GitHub as a blogging tool.”**
-
----
-
-## 2. Breakthrough: Data and Views Must Be Separate
-
-Backend = GitHub (underwater)  
-Frontend = GitHub Pages (above water)
-
-“If underwater data is messy, the surface will never be beautiful.”
-
-This flipped me from “user” to “engineer.”
-
----
-
-## 3. Automation Era: GitHub Actions
-
-The enemy: repetition.
-
-So I decided:
-
-> “Whatever a machine can do, a human should never do twice.”
-
-Automations deployed:
-
-* Category indexing  
-* Obsidian → GitHub imports  
-* GitHub → Obsidian sync  
-* Tistory backup  
-* sitemap generator  
-* mobile optimization  
-
-GitHub become a factory, not a box.
-
----
-
-## 4. Documentation Library (/docs)
-
-Docs-as-Code structure:
-
-docs/  
-├── 00-architecture/  
-├── 01-workflows/  
-├── 02-guides/  
-├── 03-backend/  
-├── 04-obsidian/  
-└── 99-archive/
-
-Not a diary — an enterprise system.
-
----
-
-## 5. Obsidian ↔ GitHub Integration
-
-Obsidian = writing IDE  
-GitHub = database  
-Actions = automated workforce  
-
-Write locally → automatically backed up  
-Actions generate docs → appear in Obsidian  
-Structured content → deployed to web
-
-Backup and sync drivers separate to avoid loops.
-
----
-
-## 6. Three Publishing Domains
-
-| Domain | Engine | Purpose |
-|-------|--------|----------|
-| parksy.kr | HTML | visuals |
-| eae.kr | MDX | tutorials |
-| dtslib.com | MDX | research |
-
-This is a solo-built SaaS pipeline.
-
----
-
-## 7. Future Infrastructure
-
-* ffmpeg automation  
-* subtitle generator  
-* PWA pipeline  
-* APK groundwork  
-* Multi-agent workflow  
-
-Not a blog — a 1-person SaaS engine.
-
----
-
-## 8. Expert Summary
-
-Layers:
-
-1) Data layer (GitHub DB)  
-2) Application layer (HTML/MDX/PWA)  
-3) Automation layer (CI/CD for publishing)  
-4) Knowledge layer (docs ecosystem)
-
----
-
-## 9. This Is Parksy OS
-
-Speech → structure → code → output  
-Images → GitHub → PWA → APK  
-Notes → docs → website  
-Logs → MDX → YouTube  
-
-This isn't a website.  
-It's a creative operating system.
-
----
-
-## 10. Final Conclusion
-
-Parksy didn’t build a repo.  
-**He built a civilization.**
-
-Backend  
-Frontend  
-Automation  
-Documentation  
-Multi-domain system  
-Single human.
-
-“A genuine 1-person DevOps civilization.”
     </div>
   </div>
 
-  <!-- PART 3 – THEORY + DIAGRAM (FULL, UNSKIPPED) -->
-  <div class="section scroll">
-    <div class="section-header">🧠 Part 3 — Theory, Philosophy & Mermaid Diagram</div>
+  <div class="section scroll-reveal">
+    <div class="section-header">
+      <div class="section-title"><span class="icon">🧠</span> Part 3 — System Architecture</div>
+      <div class="arrow">▼</div>
+    </div>
     <div class="section-body">
-Based on:
-
-* Lévi-Strauss (structuralism)  
-* Foucault (knowledge-power cycles)  
-* DevOps epistemology (“Speech → Structure → System”)  
-* Parksy’s KR-Merit structuring logic  
-* Meta-automation theory  
-
-Your system represents a hybrid paradigm:
-
-**Human Speech → AI Structuring → CI/CD Execution → Public Output → Feedback Loop**
-
-This is the philosophical skeleton of Parksy OS.
-
-<div class="diagram-box">
-<pre class="mermaid">
+      <p>The philosophical skeleton of Parksy OS involves the transition from <strong>Human Speech</strong> to <strong>Systematic Output</strong>.</p>
+      
+      <div class="diagram-box">
+        <div class="mermaid">
 graph TD
-A[Speech Input (Parksy)] --> B[AI Structuring Layer (ChatGPT)]
-B --> C[GitHub Backend DB]
-C --> D[Automation Pipelines (Actions · MCP · Copilot Agents)]
-D --> E[HTML · MDX · PWA Publishing]
-E --> F[Public Output: YouTube · Websites · APK]
-F --> A[Feedback Loop → Next Speech]
-</pre>
-</div>
+    %% Styling
+    classDef input fill:#222,stroke:#00ffa0,stroke-width:2px,color:#fff;
+    classDef engine fill:#0b1f14,stroke:#fff,stroke-width:1px,color:#fff;
+    classDef out fill:#14ff8d,stroke:#000,stroke-width:2px,color:#000;
 
-The structure above is literally the architecture of a “Creative Civilization Engine.”
+    subgraph "ZONE 1: The Input"
+        A[🗣️ Speech / Ideas]:::input -->|LLM & Structuring| B[📝 Obsidian Vault]:::input
+    end
+
+    subgraph "ZONE 2: The Factory"
+        B -->|Auto Sync| C[☁️ GitHub Backend]:::engine
+        C -->|Trigger| D[⚙️ Actions & Pipelines]:::engine
+    end
+
+    subgraph "ZONE 3: The Output"
+        D -->|Build HTML| E[🖥️ Parksy.kr]:::out
+        D -->|Build MDX| F[📚 Docs Library]:::out
+        D -->|Compile| G[📱 PWA / APK]:::out
+    end
+
+    D -.->|Feedback Loop| A
+        </div>
+      </div>
+      <p style="text-align:center; font-size:12px; color:#666; margin-top:10px;">Fig 1. The Parksy OS Data Flow</p>
     </div>
   </div>
 
 </div>
 
-<!-- PROJECT INSTRUCTION HOOK -->
-<div class="hook-wrap scroll">
+<div class="hook-wrap scroll-reveal">
   <a class="hook-link" href="https://dtslib1979.github.io/OrbitPrompt/prompts/Gitgub-publishing.html" target="_blank">
-    <div class="hook-icon">
-      <span class="hook-emoji">🎣</span>
-    </div>
-    <div class="hook-text-main">Project Instruction Hub</div>
-    <div class="hook-text-sub">Cast a line → load the instruction → start building.</div>
+    <div class="hook-icon-circle">🎣</div>
+    <div class="hook-title">Project Instruction Hub</div>
+    <div class="hook-desc">Cast a line to retrieve the blueprints.</div>
   </a>
 </div>
 
-<!-- JS -->
-<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true, theme:"dark"});</script>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  // Initialize but don't render yet
+  mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+  window.mermaid = mermaid;
+</script>
 
 <script>
-/* ---------- YouTube Auto-Embed (Autoplay Guaranteed) ---------- */
-
+/* -----------------------------------------------------------
+   LOGIC: YOUTUBE AUTO-EMBED (Silent Autoplay)
+   ----------------------------------------------------------- */
 function embedYouTube(videoId) {
   const player = document.getElementById("ytPlayer");
-  player.src =
-    `https://www.youtube.com/embed/${videoId}?` +
-    `autoplay=1&mute=1&loop=1&playlist=${videoId}` +
-    `&controls=0&playsinline=1&rel=0&modestbranding=1` +
-    `&fs=0&disablekb=1`;
+  if(player) {
+    player.src =
+      `https://www.youtube.com/embed/${videoId}?` +
+      `autoplay=1&mute=1&loop=1&playlist=${videoId}` +
+      `&controls=0&playsinline=1&rel=0&modestbranding=1` +
+      `&fs=0&disablekb=1`;
+  }
 }
 
+// Load Video on Window Load
 window.onload = () => {
-  const id = "TZHqIiQpZUY";  // 박씨 실제 영상 ID
+  const id = "TZHqIiQpZUY"; // Replace with actual ID if needed
   embedYouTube(id);
-  setTimeout(() => embedYouTube(id), 300);
+  // Retry to ensure autoplay
+  setTimeout(() => embedYouTube(id), 500);
 };
 
-/* ---------- Accordion ---------- */
-document.querySelectorAll(".section-header").forEach(h => {
-  h.addEventListener("click", () => {
-    const body = h.nextElementSibling;
-    body.style.display = body.style.display === "block" ? "none" : "block";
+/* -----------------------------------------------------------
+   LOGIC: ACCORDION & MERMAID RENDER TRIGGER
+   ----------------------------------------------------------- */
+document.querySelectorAll(".section-header").forEach(header => {
+  header.addEventListener("click", async () => {
+    const section = header.parentElement;
+    const body = header.nextElementSibling;
+    
+    // Toggle Open State
+    section.classList.toggle("open");
+    
+    // Toggle Display
+    if (section.classList.contains("open")) {
+      body.style.display = "block";
+
+      // MERMAID FIX: Render diagrams only when visible
+      const diagrams = body.querySelectorAll('.mermaid');
+      if (diagrams.length > 0 && window.mermaid) {
+        // Check if already rendered to prevent double rendering
+        if (!body.dataset.rendered) {
+          try {
+            await window.mermaid.run({ nodes: diagrams });
+            body.dataset.rendered = "true";
+          } catch (e) { console.error("Mermaid Render Error", e); }
+        }
+      }
+
+    } else {
+      body.style.display = "none";
+    }
   });
 });
 
-/* ---------- Scroll Reveal ---------- */
-const obs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add("visible"); });
-});
-document.querySelectorAll(".scroll").forEach(el=>obs.observe(el));
-</script>
+/* -----------------------------------------------------------
+   LOGIC: SCROLL REVEAL ANIMATION
+   ----------------------------------------------------------- */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+    }
+  });
+}, { threshold: 0.1 });
 
+document.querySelectorAll(".scroll-reveal").forEach(el => observer.observe(el));
+
+</script>
 </body>
 </html>
