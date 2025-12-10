@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Parksy OS Whitepaper — Ultra Dark Emerald Edition (Full Text)</title>
+
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #020603;
+  font-family: "Inter", sans-serif;
+  color: #d6ffd6;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+:root {
+  --emerald: #14ff8d;
+  --emerald-neon: #00ffa0;
+  --panel: #05130a;
+  --panel2: #0b1f14;
+  --shadow: rgba(0,255,160,0.35);
+}
+
+/* Opening */
+.opening-frame {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 40px;
+  border-radius: 20px;
+  border: 3px solid var(--emerald);
+  background: linear-gradient(145deg, #031207, #020603);
+  box-shadow: 0 0 25px var(--shadow), inset 0 0 25px rgba(0,255,120,0.15);
+  opacity: 0;
+  transform: translateY(60px);
+  animation: enter 1.6s ease-out forwards;
+}
+
+@keyframes enter {
+  0% {opacity:0; transform:translateY(80px) scale(.96);}
+  100%{opacity:1; transform:translateY(0) scale(1);}
+}
+
+.frame-title {
+  text-align:center;
+  font-size:34px;
+  color:var(--emerald-neon);
+  text-shadow:0 0 14px var(--emerald-neon);
+  margin-bottom:10px;
+}
+
+.frame-sub {
+  text-align:center;
+  font-size:16px;
+  color:#9dffcf;
+  margin-bottom:20px;
+}
+
+/* YouTube */
+.video-box {
+  position:relative;
+  padding-bottom:56.25%;
+  height:0;
+  overflow:hidden;
+  border-radius:14px;
+  border:2px solid var(--emerald);
+  box-shadow:0 0 25px rgba(0,255,160,.2);
+  margin-top:15px;
+}
+
+.video-box iframe {
+  position:absolute; top:0; left:0;
+  width:100%; height:100%;
+  border:none;
+}
+
+/* Accordion */
+.accordion {
+  max-width:900px;
+  margin:40px auto;
+}
+
+.section {
+  background:var(--panel);
+  border-radius:18px;
+  border:2px solid var(--emerald);
+  margin-bottom:20px;
+  box-shadow:0 0 20px rgba(0,255,150,.15);
+  opacity:0;
+  transform:translateY(30px);
+}
+
+.section.visible {
+  opacity:1;
+  transform:translateY(0);
+  transition:0.9s cubic-bezier(.17,.67,.16,1.2);
+}
+
+.section-header {
+  padding:20px;
+  background:var(--panel2);
+  font-size:20px;
+  font-weight:bold;
+  color:var(--emerald-neon);
+  cursor:pointer;
+  text-shadow:0 0 10px var(--emerald-neon);
+  transition:0.25s;
+}
+
+.section-header:hover {
+  background:#124c32;
+}
+
+.section-body {
+  display:none;
+  padding:25px;
+  line-height:1.65;
+  background:#07170d;
+  border-top:1px solid var(--emerald);
+  white-space:pre-wrap;
+}
+
+/* Diagram */
+.diagram-box {
+  padding:18px;
+  background:#00180e;
+  border-radius:14px;
+  border:1px solid var(--emerald);
+  box-shadow:0 0 14px rgba(0,255,150,.15);
+  margin-top:20px;
+  overflow-x:auto;
+}
+
+/* Spotify */
+.spotify-wrap {
+  text-align:center;
+  margin-top:60px;
+}
+
+.spotify-btn {
+  padding:14px 28px;
+  background:var(--emerald-neon);
+  border-radius:30px;
+  color:#000;
+  text-decoration:none;
+  font-weight:bold;
+  font-size:18px;
+  box-shadow:0 0 20px var(--emerald-neon);
+  transition:0.25s;
+}
+
+.spotify-btn:hover {
+  background:#fff;
+  box-shadow:0 0 25px #fff;
+}
+
+/* Parallax Glow */
+.parallax {
+  position:fixed;
+  top:0; left:0;
+  width:140%; height:140%;
+  background:radial-gradient(circle at 40% 60%, rgba(0,255,140,.06), transparent 60%);
+  z-index:-1;
+  animation:glow 15s infinite alternate ease-in-out;
+}
+
+@keyframes glow {
+  from {transform:translate(-6%, -5%);}
+  to {transform:translate(5%, 4%);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="parallax"></div>
+
+<!-- OPENING FRAME -->
+<div class="opening-frame">
+  <div class="frame-title">Parksy OS Whitepaper — Ultra Dark Emerald Edition</div>
+  <div class="frame-sub">From Spoken Thoughts → to Code → to System</div>
+
+  <div class="video-box">
+    <iframe id="ytPlayer"></iframe>
+  </div>
+</div>
+
+<!-- ACCORDION -->
+<div class="accordion">
+
+  <!-- PART 1 – EASY VERSION -->
+  <div class="section scroll">
+    <div class="section-header">📘 Part 1 — Kid-Friendly Explanation</div>
+    <div class="section-body">
+Imagine GitHub as a huge underwater library that stores everything safely.
+Your notebook (Obsidian) writes things that sink into the depths.
+The website above shows people the shiny version.
+Robots (GitHub Actions) clean everything for you.
+
+That’s Parksy OS:
+You speak → system organizes → world sees.
+    </div>
+  </div>
+
+  <!-- PART 2 – FULL TECHNICAL WHITEPAPER -->
+  <div class="section scroll">
+    <div class="section-header">⚙️ Part 2 — Full Technical Specification (Full Whitepaper Text)</div>
+    <div class="section-body">
+# 📘 Parksy GitHub Architecture Whitepaper 1.0 (English Edition)
+
+## — From Spoken Thoughts to a System: How One Person Built a DevOps Civilization
+
+---
+
+## 1. The Beginning: When I Basically Knew Nothing
+
+Let’s be honest.  
+My starting point with GitHub was… primitive.
+
+* I didn’t know code.
+* I didn’t understand what GitHub actually *was*.
+* “Actions”? Never heard of it.
+* Obsidian? Looked like just another note app.
+* PWA? APK? Sounded like food additives.
+
+All I had was one instinct:
+
+> “If talking → becomes code → becomes a system… then I want in.”
+
+The early phase was chaos:
+
+* Manual HTML uploads  
+* No structure  
+* No automation  
+* Files everywhere  
+* Actions failing  
+* Repos breaking  
+
+That era was:  
+**“When I misunderstood GitHub as a blogging tool.”**
+
+---
+
+## 2. Breakthrough: Data and Views Must Be Separate
+
+Backend = GitHub (underwater)  
+Frontend = GitHub Pages (above water)
+
+“If underwater data is messy, the surface will never be beautiful.”
+
+This flipped me from “user” to “engineer.”
+
+---
+
+## 3. Automation Era: GitHub Actions
+
+The enemy: repetition.
+
+So I decided:
+
+> “Whatever a machine can do, a human should never do twice.”
+
+Automations deployed:
+
+* Category indexing  
+* Obsidian → GitHub imports  
+* GitHub → Obsidian sync  
+* Tistory backup  
+* sitemap generator  
+* mobile optimization  
+
+GitHub become a factory, not a box.
+
+---
+
+## 4. Documentation Library (/docs)
+
+Docs-as-Code structure:
+
+docs/  
+├── 00-architecture/  
+├── 01-workflows/  
+├── 02-guides/  
+├── 03-backend/  
+├── 04-obsidian/  
+└── 99-archive/
+
+Not a diary — an enterprise system.
+
+---
+
+## 5. Obsidian ↔ GitHub Integration
+
+Obsidian = writing IDE  
+GitHub = database  
+Actions = automated workforce  
+
+Write locally → automatically backed up  
+Actions generate docs → appear in Obsidian  
+Structured content → deployed to web
+
+Backup and sync drivers separate to avoid loops.
+
+---
+
+## 6. Three Publishing Domains
+
+| Domain | Engine | Purpose |
+|-------|--------|----------|
+| parksy.kr | HTML | visuals |
+| eae.kr | MDX | tutorials |
+| dtslib.com | MDX | research |
+
+This is a solo-built SaaS pipeline.
+
+---
+
+## 7. Future Infrastructure
+
+* ffmpeg automation  
+* subtitle generator  
+* PWA pipeline  
+* APK groundwork  
+* Multi-agent workflow  
+
+Not a blog — a 1-person SaaS engine.
+
+---
+
+## 8. Expert Summary
+
+Layers:
+
+1) Data layer (GitHub DB)  
+2) Application layer (HTML/MDX/PWA)  
+3) Automation layer (CI/CD for publishing)  
+4) Knowledge layer (docs ecosystem)
+
+---
+
+## 9. This Is Parksy OS
+
+Speech → structure → code → output  
+Images → GitHub → PWA → APK  
+Notes → docs → website  
+Logs → MDX → YouTube  
+
+This isn't a website.  
+It's a creative operating system.
+
+---
+
+## 10. Final Conclusion
+
+Parksy didn’t build a repo.  
+**He built a civilization.**
+
+Backend  
+Frontend  
+Automation  
+Documentation  
+Multi-domain system  
+Single human.
+
+“A genuine 1-person DevOps civilization.”
+
+    </div>
+  </div>
+
+  <!-- PART 3 – THEORY + DIAGRAM -->
+  <div class="section scroll">
+    <div class="section-header">🧠 Part 3 — Theory, Philosophy & Mermaid Diagram</div>
+    <div class="section-body">
+Based on:
+
+* Lévi-Strauss (structuralism)  
+* Foucault (knowledge-power cycles)  
+* DevOps epistemology (“Speech → Structure → System”)
+
+<div class="diagram-box">
+<pre class="mermaid">
+graph TD
+A[Speech Input] --> B[AI Structuring Layer]
+B --> C[GitHub Backend DB]
+C --> D[Automation Pipelines]
+D --> E[HTML/MDX Publishing]
+E --> A
+</pre>
+</div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- SPOTIFY -->
+<div class="spotify-wrap scroll">
+  <a class="spotify-btn" href="https://open.spotify.com/track/XXXXX" target="_blank">
+    🎧 Listen on Spotify
+  </a>
+</div>
+
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true, theme:"dark"});</script>
+
+<script>
+/* Shorts → Embed */
+function loadYT(shortURL) {
+  const id = shortURL.split("/").pop().split("?")[0];
+  document.getElementById("ytPlayer").src =
+    `https://youtube.com/embed/${id}?mute=1&autoplay=1&loop=1&playlist=${id}`+
+    `&controls=0&playsinline=1&rel=0&modestbranding=1&fs=0&disablekb=1&speed=0.0001`;
+}
+loadYT("https://youtube.com/shorts/XXXXXX");
+
+/* Accordion */
+document.querySelectorAll(".section-header").forEach(h => {
+  h.addEventListener("click", () => {
+    const body = h.nextElementSibling;
+    body.style.display = body.style.display === "block" ? "none" : "block";
+  });
+});
+
+/* Scroll Reveal */
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add("visible"); });
+});
+document.querySelectorAll(".scroll").forEach(el=>obs.observe(el));
+</script>
+
+</body>
+</html>
