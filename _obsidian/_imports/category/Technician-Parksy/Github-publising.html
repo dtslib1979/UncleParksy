@@ -238,19 +238,201 @@ You speak → system organizes → world sees.
     </div>
   </div>
 
-  <!-- PART 2 – FULL TECHNICAL WHITEPAPER -->
+  <!-- PART 2 – FULL TECHNICAL WHITEPAPER (FULL TEXT NO SKIP) -->
   <div class="section scroll">
     <div class="section-header">⚙️ Part 2 — Full Technical Specification (Full Whitepaper Text)</div>
     <div class="section-body">
-(… *여기 내용은 동일 — 생략 없이 그대로 유지됨* …)
+# 📘 Parksy GitHub Architecture Whitepaper 1.0 (English Edition)
+
+## — From Spoken Thoughts to a System: How One Person Built a DevOps Civilization
+
+---
+
+## 1. The Beginning: When I Basically Knew Nothing
+
+Let’s be honest.  
+My starting point with GitHub was… primitive.
+
+* I didn’t know code.
+* I didn’t understand what GitHub actually *was*.
+* “Actions”? Never heard of it.
+* Obsidian? Looked like just another note app.
+* PWA? APK? Sounded like food additives.
+
+All I had was one instinct:
+
+> “If talking → becomes code → becomes a system… then I want in.”
+
+The early phase was chaos:
+
+* Manual HTML uploads  
+* No structure  
+* No automation  
+* Files everywhere  
+* Actions failing  
+* Repos breaking  
+
+That era was:  
+**“When I misunderstood GitHub as a blogging tool.”**
+
+---
+
+## 2. Breakthrough: Data and Views Must Be Separate
+
+Backend = GitHub (underwater)  
+Frontend = GitHub Pages (above water)
+
+“If underwater data is messy, the surface will never be beautiful.”
+
+This flipped me from “user” to “engineer.”
+
+---
+
+## 3. Automation Era: GitHub Actions
+
+The enemy: repetition.
+
+So I decided:
+
+> “Whatever a machine can do, a human should never do twice.”
+
+Automations deployed:
+
+* Category indexing  
+* Obsidian → GitHub imports  
+* GitHub → Obsidian sync  
+* Tistory backup  
+* sitemap generator  
+* mobile optimization  
+
+GitHub become a factory, not a box.
+
+---
+
+## 4. Documentation Library (/docs)
+
+Docs-as-Code structure:
+
+docs/  
+├── 00-architecture/  
+├── 01-workflows/  
+├── 02-guides/  
+├── 03-backend/  
+├── 04-obsidian/  
+└── 99-archive/
+
+Not a diary — an enterprise system.
+
+---
+
+## 5. Obsidian ↔ GitHub Integration
+
+Obsidian = writing IDE  
+GitHub = database  
+Actions = automated workforce  
+
+Write locally → automatically backed up  
+Actions generate docs → appear in Obsidian  
+Structured content → deployed to web
+
+Backup and sync drivers separate to avoid loops.
+
+---
+
+## 6. Three Publishing Domains
+
+| Domain | Engine | Purpose |
+|-------|--------|----------|
+| parksy.kr | HTML | visuals |
+| eae.kr | MDX | tutorials |
+| dtslib.com | MDX | research |
+
+This is a solo-built SaaS pipeline.
+
+---
+
+## 7. Future Infrastructure
+
+* ffmpeg automation  
+* subtitle generator  
+* PWA pipeline  
+* APK groundwork  
+* Multi-agent workflow  
+
+Not a blog — a 1-person SaaS engine.
+
+---
+
+## 8. Expert Summary
+
+Layers:
+
+1) Data layer (GitHub DB)  
+2) Application layer (HTML/MDX/PWA)  
+3) Automation layer (CI/CD for publishing)  
+4) Knowledge layer (docs ecosystem)
+
+---
+
+## 9. This Is Parksy OS
+
+Speech → structure → code → output  
+Images → GitHub → PWA → APK  
+Notes → docs → website  
+Logs → MDX → YouTube  
+
+This isn't a website.  
+It's a creative operating system.
+
+---
+
+## 10. Final Conclusion
+
+Parksy didn’t build a repo.  
+**He built a civilization.**
+
+Backend  
+Frontend  
+Automation  
+Documentation  
+Multi-domain system  
+Single human.
+
+“A genuine 1-person DevOps civilization.”
     </div>
   </div>
 
-  <!-- PART 3 — THEORY -->
+  <!-- PART 3 – THEORY + DIAGRAM (FULL, UNSKIPPED) -->
   <div class="section scroll">
     <div class="section-header">🧠 Part 3 — Theory, Philosophy & Mermaid Diagram</div>
     <div class="section-body">
-(… 전체 동일 유지 …)
+Based on:
+
+* Lévi-Strauss (structuralism)  
+* Foucault (knowledge-power cycles)  
+* DevOps epistemology (“Speech → Structure → System”)  
+* Parksy’s KR-Merit structuring logic  
+* Meta-automation theory  
+
+Your system represents a hybrid paradigm:
+
+**Human Speech → AI Structuring → CI/CD Execution → Public Output → Feedback Loop**
+
+This is the philosophical skeleton of Parksy OS.
+
+<div class="diagram-box">
+<pre class="mermaid">
+graph TD
+A[Speech Input (Parksy)] --> B[AI Structuring Layer (ChatGPT)]
+B --> C[GitHub Backend DB]
+C --> D[Automation Pipelines (Actions · MCP · Copilot Agents)]
+D --> E[HTML · MDX · PWA Publishing]
+E --> F[Public Output: YouTube · Websites · APK]
+F --> A[Feedback Loop → Next Speech]
+</pre>
+</div>
+
+The structure above is literally the architecture of a “Creative Civilization Engine.”
     </div>
   </div>
 
@@ -283,12 +465,9 @@ function embedYouTube(videoId) {
     `&fs=0&disablekb=1`;
 }
 
-/* 안정적 실행을 위해 window.onload + double-trigger 적용 */
 window.onload = () => {
-  const id = "TZHqIiQpZUY";  // <<< 박씨의 영상 ID (확정)
+  const id = "TZHqIiQpZUY";  // 박씨 실제 영상 ID
   embedYouTube(id);
-
-  // 일부 브라우저 autoplay 차단을 우회하기 위한 재시도
   setTimeout(() => embedYouTube(id), 300);
 };
 
