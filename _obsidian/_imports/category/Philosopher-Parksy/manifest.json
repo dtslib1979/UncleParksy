@@ -1,36 +1,15 @@
 {
   "items": [
     {
-      "title": "2025-08-29 test",
-      "path": "./2025-08-29 test.html",
-      "section": "Essays",
-      "type": "HTML",
-      "date": "2025-08-29",
-      "tags": ["test"]
-    },
-    {
-      "title": "2025년 8월 29일 깃허브설정",
-      "path": "./2025년 8월 29일 깃허브설정.html",
-      "section": "Essays",
-      "type": "HTML",
-      "date": "2025-08-29",
-      "tags": ["korean", "github"]
-    },
-    {
-      "title": "Mermaid",
-      "path": "./Mermaid.html",
-      "section": "Diagrams",
+      "title": "uploadtest",
+      "path": "./uploadtest.html",
+      "section": "Experiments",
       "type": "HTML",
       "date": null,
-      "tags": ["mermaid", "diagram"]
-    },
-    {
-      "title": "MermaidEngine",
-      "path": "./MermaidEngine.html",
-      "section": "Diagrams",
-      "type": "HTML",
-      "date": null,
-      "tags": ["mermaid", "engine"]
+      "tags": [
+        "test",
+        "upload"
+      ]
     },
     {
       "title": "trial7",
@@ -38,15 +17,91 @@
       "section": "Experiments",
       "type": "HTML",
       "date": null,
-      "tags": ["trial", "test"]
+      "tags": [
+        "trial"
+      ]
     },
     {
-      "title": "uploadtest",
-      "path": "./uploadtest.html",
-      "section": "Experiments",
+      "title": "tip",
+      "path": "./tip.html",
+      "section": "Essays",
       "type": "HTML",
       "date": null,
-      "tags": ["upload", "test"]
+      "tags": []
+    },
+    {
+      "title": "newtype",
+      "path": "./newtype.html",
+      "section": "Essays",
+      "type": "HTML",
+      "date": null,
+      "tags": []
+    },
+    {
+      "title": "human.prompt",
+      "path": "./human.prompt.html",
+      "section": "Essays",
+      "type": "HTML",
+      "date": null,
+      "tags": []
+    },
+    {
+      "title": "hello",
+      "path": "./hello.html",
+      "section": "Essays",
+      "type": "HTML",
+      "date": null,
+      "tags": []
+    },
+    {
+      "title": "MermaidEngine",
+      "path": "./MermaidEngine.html",
+      "section": "Essays",
+      "type": "HTML",
+      "date": null,
+      "tags": [
+        "mermaid"
+      ]
+    },
+    {
+      "title": "Mermaid",
+      "path": "./Mermaid.html",
+      "section": "Essays",
+      "type": "HTML",
+      "date": null,
+      "tags": [
+        "mermaid"
+      ]
+    },
+    {
+      "title": "Independent finger",
+      "path": "./Independent-finger.html",
+      "section": "Essays",
+      "type": "HTML",
+      "date": null,
+      "tags": []
+    },
+    {
+      "title": "2025년 8월 29일 깃허브설정",
+      "path": "./2025년 8월 29일 깃허브설정.html",
+      "section": "Essays",
+      "type": "HTML",
+      "date": "2025-08-29",
+      "tags": [
+        "github",
+        "setup",
+        "korean"
+      ]
+    },
+    {
+      "title": "2025 08 29 test",
+      "path": "./2025-08-29 test.html",
+      "section": "Experiments",
+      "type": "HTML",
+      "date": "2025-08-29",
+      "tags": [
+        "test"
+      ]
     }
   ]
 }

@@ -1,28 +1,57 @@
 {
   "items": [
     {
-      "title": "2025-09-03 check2",
-      "path": "./2025-09-03 check2.html",
-      "section": "Cast",
+      "title": "uploadtest",
+      "path": "./uploadtest.html",
+      "section": "Audio",
       "type": "HTML",
-      "date": "2025-09-03",
-      "tags": ["check"]
+      "date": null,
+      "tags": [
+        "test",
+        "upload"
+      ]
     },
     {
       "title": "trial2",
       "path": "./trial2.html",
-      "section": "Experiments",
+      "section": "Audio",
       "type": "HTML",
       "date": null,
-      "tags": ["trial", "test"]
+      "tags": [
+        "trial"
+      ]
     },
     {
-      "title": "uploadtest",
-      "path": "./uploadtest.html",
-      "section": "Experiments",
+      "title": "ff",
+      "path": "./ff.html",
+      "section": "Audio",
       "type": "HTML",
       "date": null,
-      "tags": ["upload", "test"]
+      "tags": []
+    },
+    {
+      "title": "AutomationE",
+      "path": "./AutomationE.html",
+      "section": "Audio",
+      "type": "HTML",
+      "date": null,
+      "tags": []
+    },
+    {
+      "title": "Automation",
+      "path": "./Automation.html",
+      "section": "Audio",
+      "type": "HTML",
+      "date": null,
+      "tags": []
+    },
+    {
+      "title": "2025 09 03 check2",
+      "path": "./2025-09-03 check2.html",
+      "section": "Audio",
+      "type": "HTML",
+      "date": "2025-09-03",
+      "tags": []
     }
   ]
 }

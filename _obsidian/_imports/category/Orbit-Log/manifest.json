@@ -1,12 +1,33 @@
 {
   "items": [
     {
-      "title": "2025-09-03 Immediate Sync Test",
-      "path": "./2025-09-03-immediate-sync-test.html",
+      "title": "uploadtest",
+      "path": "./uploadtest.html",
       "section": "Logs",
       "type": "HTML",
-      "date": "2025-09-03",
-      "tags": ["sync", "test"]
+      "date": null,
+      "tags": [
+        "test",
+        "upload"
+      ]
+    },
+    {
+      "title": "trial5",
+      "path": "./trial5.html",
+      "section": "Logs",
+      "type": "HTML",
+      "date": null,
+      "tags": [
+        "trial"
+      ]
+    },
+    {
+      "title": "single",
+      "path": "./single.html",
+      "section": "Logs",
+      "type": "HTML",
+      "date": null,
+      "tags": []
     },
     {
       "title": "ObsidianUT",
@@ -14,23 +35,25 @@
       "section": "Logs",
       "type": "HTML",
       "date": null,
-      "tags": ["obsidian"]
+      "tags": []
     },
     {
-      "title": "trial5",
-      "path": "./trial5.html",
-      "section": "Experiments",
+      "title": "AutomationWorld",
+      "path": "./AutomationWorld.html",
+      "section": "Logs",
       "type": "HTML",
       "date": null,
-      "tags": ["trial", "test"]
+      "tags": []
     },
     {
-      "title": "uploadtest",
-      "path": "./uploadtest.html",
-      "section": "Experiments",
+      "title": "2025 09 03 immediate sync test",
+      "path": "./2025-09-03-immediate-sync-test.html",
+      "section": "Logs",
       "type": "HTML",
-      "date": null,
-      "tags": ["upload", "test"]
+      "date": "2025-09-03",
+      "tags": [
+        "test"
+      ]
     }
   ]
 }

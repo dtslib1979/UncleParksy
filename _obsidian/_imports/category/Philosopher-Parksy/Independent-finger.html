@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>The Independent Finger · Storyboard Prompt Engine</title>
+  <meta name="description" content="Mobile-first, single-page prompt engine that lets anyone generate a THE INDEPENDENT FINGER style storyboard prompt from their own life." />
+  <meta name="theme-color" content="#050814" />
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #020617;
+      --card: #020617;
+      --card-soft: #020617;
+      --fg: #f9fafb;
+      --muted: #9ca3af;
+      --accent: #facc15;
+      --accent-soft: rgba(250,204,21,0.12);
+      --border: #1f2937;
+      --pill: rgba(15,23,42,0.96);
+      --shadow: 0 18px 40px rgba(0,0,0,0.7);
+      --radius-xl: 1.5rem;
+      --radius-lg: 1.1rem;
+      --radius-pill: 999px;
+      --font-sans: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      --font-mono: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at top, #020617 0, #020617 40%, #000 100%);
+      color: var(--fg);
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body { min-height: 100vh; }
+
+    .app {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1.1rem 1.1rem 5.5rem;
+    }
+
+    header.hero {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      padding-bottom: 0.6rem;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      background: linear-gradient(to bottom, rgba(2,6,23,0.96), rgba(2,6,23,0.9), transparent);
+    }
+
+    .hero-card {
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(148,163,184,0.35);
+      background:
+        radial-gradient(circle at top left, rgba(248,250,252,0.04), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(250,204,21,0.10), transparent 60%),
+        rgba(15,23,42,0.96);
+      padding: 0.9rem 1rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      gap: 0.8rem;
+      align-items: flex-start;
+    }
+
+    .hero-main { flex: 1 1 auto; min-width: 0; }
+
+    .hero-badge {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .hero-dot {
+      width: 0.42rem;
+      height: 0.42rem;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(250,204,21,0.35);
+    }
+
+    .hero-title {
+      font-size: 1.25rem;
+      font-weight: 650;
+      letter-spacing: 0.03em;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      align-items: baseline;
+    }
+
+    .hero-tag {
+      font-size: 0.72rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(250,204,21,0.7);
+      background: radial-gradient(circle at top, rgba(250,204,21,0.18), transparent 65%);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .hero-sub {
+      margin-top: 0.25rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      max-width: 27rem;
+    }
+
+    .hero-side {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      align-items: flex-end;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    .hero-side-pill {
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148,163,184,0.5);
+      padding: 0.15rem 0.55rem;
+      background: rgba(15,23,42,0.96);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .hero-side-pill span.key {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      opacity: 0.9;
+    }
+
+    @media (max-width: 720px) {
+      .hero-card { flex-direction: column; }
+      .hero-side { align-items: flex-start; }
+    }
+
+    main { margin-top: 0.9rem; }
+
+    .section {
+      margin-bottom: 0.9rem;
+      scroll-margin-top: 6rem;
+    }
+
+    .card {
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(31,41,55,0.95);
+      background:
+        radial-gradient(circle at top left, rgba(148,163,184,0.06), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(15,23,42,0.96), rgba(2,6,23,0.98));
+      padding: 0.9rem 0.9rem 0.95rem;
+      box-shadow: var(--shadow);
+    }
+
+    .sec-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      margin-bottom: 0.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .sec-badge {
+      padding: 0.05rem 0.45rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148,163,184,0.7);
+      font-size: 0.62rem;
+    }
+
+    .sec-title {
+      font-size: 0.95rem;
+      font-weight: 650;
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+
+    .sec-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.55rem;
+    }
+
+    .grid-two {
+      display: grid;
+      grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+      gap: 0.7rem;
+    }
+
+    @media (max-width: 720px) {
+      .grid-two { grid-template-columns: minmax(0,1fr); }
+    }
+
+    .field {
+      margin-bottom: 0.5rem;
+    }
+
+    .field-label {
+      font-size: 0.78rem;
+      margin-bottom: 0.15rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+    }
+
+    .field-label span.tip {
+      font-size: 0.68rem;
+      color: var(--muted);
+    }
+
+    .input, .textarea {
+      width: 100%;
+      border-radius: 0.9rem;
+      border: 1px solid rgba(51,65,85,0.9);
+      background: rgba(15,23,42,0.95);
+      color: var(--fg);
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      padding: 0.5rem 0.6rem;
+      outline: none;
+      resize: vertical;
+      min-height: 0;
+    }
+
+    .input:focus, .textarea:focus {
+      border-color: rgba(250,204,21,0.9);
+      box-shadow: 0 0 0 1px rgba(250,204,21,0.4);
+    }
+
+    .textarea {
+      min-height: 3.2rem;
+    }
+
+    .hint-list {
+      margin: 0.1rem 0 0;
+      padding-left: 1rem;
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .hint-list li { margin-bottom: 0.1rem; }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-top: 0.2rem;
+      font-size: 0.68rem;
+      color: var(--muted);
+    }
+
+    .pill {
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(51,65,85,0.9);
+      padding: 0.1rem 0.45rem;
+      background: rgba(15,23,42,0.96);
+    }
+
+    .pill strong { color: var(--accent); }
+
+    .btn-row {
+      margin-top: 0.4rem;
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(250,204,21,0.9);
+      background: radial-gradient(circle at top, rgba(250,204,21,0.2), rgba(24,24,27,0.98));
+      color: #fefce8;
+      font-size: 0.8rem;
+      padding: 0.45rem 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn.secondary {
+      border-color: rgba(148,163,184,0.8);
+      background: rgba(15,23,42,0.96);
+      color: var(--muted);
+    }
+
+    .btn span.key {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+    }
+
+    .output-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.3rem;
+      font-size: 0.78rem;
+    }
+
+    .badge-soft {
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148,163,184,0.7);
+      padding: 0.1rem 0.5rem;
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .output-area {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      line-height: 1.5;
+      min-height: 10rem;
+      white-space: pre-wrap;
+    }
+
+    footer {
+      margin-top: 0.8rem;
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="hero">
+      <div class="hero-card">
+        <div class="hero-main">
+          <div class="hero-badge">
+            <span class="hero-dot"></span>
+            <span>THE INDEPENDENT FINGER · PROMPT ENGINE</span>
+          </div>
+          <div class="hero-title">
+            <span>The Independent Finger</span>
+            <span class="hero-tag">Storyboard Prompt Factory</span>
+          </div>
+          <div class="hero-sub">
+            Turn any life story into a <strong>THE INDEPENDENT FINGER</strong>-style episode.
+            Fill in your reality, your skills, and your five finger modules. The engine will
+            generate a ready-to-use prompt for ChatGPT (or any LLM) that answers in Korean.
+          </div>
+        </div>
+        <div class="hero-side">
+          <div class="hero-side-pill">
+            <span class="key">STEP 1</span>
+            <span>Fill cards</span>
+          </div>
+          <div class="hero-side-pill">
+            <span class="key">STEP 2</span>
+            <span>Tap Generate</span>
+          </div>
+          <div class="hero-side-pill">
+            <span class="key">STEP 3</span>
+            <span>Copy → Paste to AI</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- SECTION 1: CORE PERSONA -->
+      <section class="section" id="sec-core">
+        <div class="card">
+          <div class="sec-label">
+            <span class="sec-badge">01</span>
+            <span>Core Persona · Who is the Independent?</span>
+          </div>
+          <div class="sec-title">Your Independent Profile</div>
+          <div class="sec-sub">
+            Describe the person at the center of the episode. This can be you, or someone you coach.
+          </div>
+          <div class="grid-two">
+            <div>
+              <div class="field">
+                <div class="field-label">
+                  <span>Name or Nickname</span>
+                  <span class="tip">Short handle is fine.</span>
+                </div>
+                <input class="input" id="name" placeholder="e.g. UncleParksy, Mina, Joon" />
+              </div>
+              <div class="field">
+                <div class="field-label">
+                  <span>Age / Life Stage</span>
+                  <span class="tip">Teen, 20s, 47, etc.</span>
+                </div>
+                <input class="input" id="age" placeholder="e.g. 19, late 20s, 47" />
+              </div>
+              <div class="field">
+                <div class="field-label">
+                  <span>Current Physical Job or Situation</span>
+                  <span class="tip">Where do they actually spend time?</span>
+                </div>
+                <textarea class="textarea" id="job" placeholder="e.g. part-time in a kitchen, convenience store, warehouse, care home, delivery, no stable job, etc."></textarea>
+              </div>
+            </div>
+            <div>
+              <div class="field">
+                <div class="field-label">
+                  <span>Main Pain / Frustration</span>
+                  <span class="tip">1–2 honest lines.</span>
+                </div>
+                <textarea class="textarea" id="pain" placeholder="e.g. feels stuck in low-status work, ashamed of job title, drowning in lectures but no action, etc."></textarea>
+              </div>
+              <div class="field">
+                <div class="field-label">
+                  <span>Secret Strength or Survival History</span>
+                  <span class="tip">What have they already survived?</span>
+                </div>
+                <textarea class="textarea" id="past" placeholder="e.g. caring for family, prison, debt, mental health struggles, migration, dropout, etc."></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 2: REAL SKILL + CONTENT OS -->
+      <section class="section" id="sec-tracks">
+        <div class="card">
+          <div class="sec-label">
+            <span class="sec-badge">02</span>
+            <span>Tracks · Real Skill + Content OS</span>
+          </div>
+          <div class="sec-title">Two Tracks of Independence</div>
+          <div class="sec-sub">
+            The Independent always walks on two tracks: one physical survival skill, one content/AI operating system.
+          </div>
+          <div class="grid-two">
+            <div>
+              <div class="field">
+                <div class="field-label">
+                  <span>Real Skill Track (Hunting Skill)</span>
+                  <span class="tip">3D / field / hands-on.</span>
+                </div>
+                <textarea class="textarea" id="realSkill" placeholder="e.g. cooking, electrical work, plumbing, carpentry, car repair, nursing support, logistics, cleaning, etc."></textarea>
+              </div>
+              <ul class="hint-list">
+                <li>Think "work a robot will not bother to do".</li>
+                <li>Something useful in any country or city.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="field">
+                <div class="field-label">
+                  <span>Content / AI OS Track</span>
+                  <span class="tip">How do they turn life into systems?</span>
+                </div>
+                <textarea class="textarea" id="contentOs" placeholder="e.g. talking to AI while working, turning shifts into scripts, using GitHub or Tistory as a logbook, building one-page PWAs, etc."></textarea>
+              </div>
+              <ul class="hint-list">
+                <li>How do they capture experience as text, drawings, or code?</li>
+                <li>How will AI help compress and structure their story?</li>
+              </ul>
+            </div>
+          </div>
+          <div class="pill-row">
+            <div class="pill"><strong>Real Skill</strong> = income + body + field.</div>
+            <div class="pill"><strong>Content OS</strong> = memory + structure + export.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 3: FINGER MODULES -->
+      <section class="section" id="sec-fingers">
+        <div class="card">
+          <div class="sec-label">
+            <span class="sec-badge">03</span>
+            <span>Humanity Modules · Five Fingers</span>
+          </div>
+          <div class="sec-title">Your Version of THE INDEPENDENT FINGER</div>
+          <div class="sec-sub">
+            Customize the five finger drivers for this person. Keep them short and emotional.
+          </div>
+          <div class="grid-two">
+            <div>
+              <div class="field">
+                <div class="field-label"><span>Thumb · Independence</span></div>
+                <input class="input" id="thumb" placeholder="e.g. I stand on my own and choose my orbit." />
+              </div>
+              <div class="field">
+                <div class="field-label"><span>Index · Self-Pointing</span></div>
+                <input class="input" id="index" placeholder="e.g. I point at myself first before blaming the world." />
+              </div>
+              <div class="field">
+                <div class="field-label"><span>Middle · Self-Overcoming</span></div>
+                <input class="input" id="middle" placeholder="e.g. I fight my fear, laziness, and excuses." />
+              </div>
+            </div>
+            <div>
+              <div class="field">
+                <div class="field-label"><span>Ring · Compassion</span></div>
+                <input class="input" id="ring" placeholder="e.g. I protect and respect weaker or broken people." />
+              </div>
+              <div class="field">
+                <div class="field-label"><span>Pinky · Fantasy & Hope</span></div>
+                <input class="input" id="pinky" placeholder="e.g. I keep one irrational dream that keeps me alive." />
+              </div>
+              <ul class="hint-list">
+                <li>Each line should feel like a small oath.</li>
+                <li>Use "I" statements &mdash; it is their creed.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 4: TARGET + DESTINATION -->
+      <section class="section" id="sec-target">
+        <div class="card">
+          <div class="sec-label">
+            <span class="sec-badge">04</span>
+            <span>Audience & Exit</span>
+          </div>
+          <div class="sec-title">Who is This Episode For?</div>
+          <div class="sec-sub">
+            Define who should watch this episode and where the Independent wants to go next.
+          </div>
+          <div class="grid-two">
+            <div>
+              <div class="field">
+                <div class="field-label"><span>Target Audience</span></div>
+                <textarea class="textarea" id="audience" placeholder="e.g. teenagers without money, disabled students, ex-prisoners, burnt-out salary workers, single parents, etc."></textarea>
+              </div>
+            </div>
+            <div>
+              <div class="field">
+                <div class="field-label"><span>Desired Exit / Next Stage</span></div>
+                <textarea class="textarea" id="exit" placeholder="e.g. move to another country, start a tiny workshop, run an online studio, become a mentor, etc."></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 5: OUTPUT PROMPT -->
+      <section class="section" id="sec-output">
+        <div class="card">
+          <div class="sec-label">
+            <span class="sec-badge">05</span>
+            <span>Prompt · Copy & Paste</span>
+          </div>
+          <div class="sec-title">Generated Storyboard Prompt</div>
+          <div class="sec-sub">
+            Tap <strong>Generate Prompt</strong>, then copy everything below into ChatGPT or any LLM. The model will answer in Korean.
+          </div>
+          <div class="btn-row">
+            <button class="btn" id="btnGenerate">
+              <span class="key">▶</span>
+              <span>Generate Prompt</span>
+            </button>
+            <button class="btn secondary" id="btnCopy">
+              <span class="key">⧉</span>
+              <span>Copy to Clipboard</span>
+            </button>
+          </div>
+          <div style="margin-top:0.5rem;">
+            <div class="output-header">
+              <span class="badge-soft">LLM Instruction · Paste as Single Prompt</span>
+              <span class="badge-soft">Output language: Korean (한국어)</span>
+            </div>
+            <textarea id="output" class="textarea output-area" spellcheck="false" placeholder="Your full prompt will appear here."></textarea>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      THE INDEPENDENT FINGER · Prompt Engine v1 · Designed for mobile, Tistory, and one-page PWAs.
+    </footer>
+  </div>
+
+  <script>
+    (function() {
+      const $ = id => document.getElementById(id);
+
+      function value(id) {
+        return ($(id)?.value || '').trim();
+      }
+
+      function buildPrompt() {
+        const name = value('name') || 'the protagonist';
+        const age = value('age');
+        const job = value('job');
+        const pain = value('pain');
+        const past = value('past');
+
+        const realSkill = value('realSkill');
+        const contentOs = value('contentOs');
+
+        const thumb = value('thumb');
+        const index = value('index');
+        const middle = value('middle');
+        const ring = value('ring');
+        const pinky = value('pinky');
+
+        const audience = value('audience');
+        const exitPlan = value('exit');
+
+        const lines = [];
+
+        lines.push('You are a storyboard writer and OS designer.');
+        lines.push('Your task is to write a complete episode outline in the style of "THE INDEPENDENT FINGER".');
+        lines.push('The output must be in Korean (한국어). Use a direct, honest, slightly witty tone, never academic.');
+        lines.push('');
+        lines.push('---');
+        lines.push('1) PROTAGONIST (THE INDEPENDENT)');
+        lines.push('');
+        lines.push('- Name / Nickname: ' + (name || '(user will fill)'));
+        if (age) lines.push('- Age / Life stage: ' + age);
+        if (job) lines.push('- Current physical job / situation: ' + job);
+        if (pain) lines.push('- Main pain / frustration: ' + pain);
+        if (past) lines.push('- Survival history / strong experience: ' + past);
+        lines.push('');
+        lines.push('Describe this person as someone who is not a victim, but an Independent &mdash;');
+        lines.push('a person who chooses their own orbit outside the usual social rails.');
+        lines.push('');
+        lines.push('---');
+        lines.push('2) TWO TRACKS · REAL SKILL + CONTENT OS');
+        lines.push('');
+        if (realSkill) {
+          lines.push('- Real Skill Track (hunting skill, 3D, hands-on): ' + realSkill);
+        } else {
+          lines.push('- Real Skill Track: (user did not specify &mdash; suggest a realistic 3D/field skill).');
+        }
+        if (contentOs) {
+          lines.push('- Content / AI OS Track (how life is turned into systems): ' + contentOs);
+        } else {
+          lines.push('- Content / AI OS Track: (user did not specify &mdash; suggest a simple loop using speech + AI + simple publishing).');
+        }
+        lines.push('');
+        lines.push('Show clearly that the Independent walks on two legs:');
+        lines.push('(1) a physical survival skill that robots will not bother to do,');
+        lines.push('(2) a content/AI operating system that turns experience into exportable structure.');
+        lines.push('');
+        lines.push('---');
+        lines.push('3) THE FIVE FINGERS · HUMANITY MODULES');
+        lines.push('');
+        lines.push('Use the following as a short creed for the protagonist. Each line should feel like a vow.');
+        if (thumb) lines.push('- Thumb · Independence: ' + thumb);
+        if (index) lines.push('- Index · Self-pointing: ' + index);
+        if (middle) lines.push('- Middle · Self-overcoming: ' + middle);
+        if (ring) lines.push('- Ring · Compassion: ' + ring);
+        if (pinky) lines.push('- Pinky · Fantasy & hope: ' + pinky);
+        lines.push('');
+        lines.push('Weave these five lines into the story as a visual and emotional motif.');
+        lines.push('');
+        lines.push('---');
+        lines.push('4) TARGET AUDIENCE & EXIT PLAN');
+        lines.push('');
+        if (audience) lines.push('- Target audience for this episode: ' + audience);
+        if (exitPlan) lines.push('- Desired exit / next stage: ' + exitPlan);
+        lines.push('');
+        lines.push('Show that the episode is secretly a message to this audience,');
+        lines.push('and that the Independent is walking toward this next stage.');
+        lines.push('');
+        lines.push('---');
+        lines.push('5) OUTPUT FORMAT (SCENES)');
+        lines.push('');
+        lines.push('Write the episode as 10–11 short scenes. For example:');
+        lines.push('');
+        lines.push('Scene 1: Workplace as studio (current job, hands, rhythm).');
+        lines.push('Scene 2: Moving brain (work as walk, neuroscience feeling).');
+        lines.push('Scene 3: Real Skill Track (3D jobs as human-only frontier).');
+        lines.push('Scene 4: Content OS Track (speech → structure → export).');
+        lines.push('Scene 5: Not outsider, but Independent (identity frame).');
+        lines.push('Scene 6: The five fingers explained in this person\'s own words.');
+        lines.push('Scene 7: Why the hand matters (tools, instruments, devices).');
+        lines.push('Scene 8: Flip from learner to producer (no more binge-watching, now shipping).');
+        lines.push('Scene 9: Life studio & counseling (designing other lives).');
+        lines.push('Scene 10: No dead ends, only new continents (global or local exit).');
+        lines.push('Scene 11: Loop back to work, but OS is now visible (optional, if it fits).');
+        lines.push('');
+        lines.push('For each scene:');
+        lines.push('- Give a short English scene title (you may keep it simple).');
+        lines.push('- Then describe the scene in Korean, 3–6 lines each, including visual, emotion, and narration.');
+        lines.push('- Maintain a calm, honest, slightly playful tone.');
+        lines.push('');
+        lines.push('---');
+        lines.push('6) STYLE & TONE');
+        lines.push('');
+        lines.push('- Language: Korean only.');
+        lines.push('- Tone: street-level, adult, never academic, never motivational-speech style.');
+        lines.push('- Voice: like a friend who survived something and is now quietly explaining the system.');
+        lines.push('- Keep it practical enough that a teenager with no money could understand and imitate.');
+        lines.push('');
+        lines.push('Now write the full episode outline according to the structure above.');
+
+        return lines.join('\n');
+      }
+
+      const output = $('output');
+      const btnGenerate = $('btnGenerate');
+      const btnCopy = $('btnCopy');
+
+      if (btnGenerate) {
+        btnGenerate.addEventListener('click', function() {
+          output.value = buildPrompt();
+          output.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+      }
+
+      if (btnCopy) {
+        btnCopy.addEventListener('click', function() {
+          if (!output.value.trim()) {
+            output.value = buildPrompt();
+          }
+          output.select();
+          try {
+            const ok = document.execCommand('copy');
+            if (ok) {
+              btnCopy.textContent = 'Copied!';
+              setTimeout(() => {
+                btnCopy.innerHTML = '<span class="key">⧉</span><span>Copy to Clipboard</span>';
+              }, 1200);
+            }
+          } catch (e) {
+            console.log('Copy failed', e);
+          }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
