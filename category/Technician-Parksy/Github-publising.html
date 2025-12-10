@@ -133,27 +133,61 @@ html, body {
   overflow-x:auto;
 }
 
-/* Spotify */
-.spotify-wrap {
+/* Project Instruction (hook icon) */
+.hook-wrap {
   text-align:center;
-  margin-top:60px;
+  margin:60px auto 40px;
 }
 
-.spotify-btn {
-  padding:14px 28px;
-  background:var(--emerald-neon);
-  border-radius:30px;
-  color:#000;
+.hook-link {
+  display:inline-flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
   text-decoration:none;
-  font-weight:bold;
-  font-size:18px;
-  box-shadow:0 0 20px var(--emerald-neon);
-  transition:0.25s;
+  color:#d6ffd6;
 }
 
-.spotify-btn:hover {
-  background:#fff;
-  box-shadow:0 0 25px #fff;
+.hook-icon {
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  border:2px solid var(--emerald-neon);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 0 20px rgba(0,255,160,0.4);
+  background:radial-gradient(circle at 30% 20%, rgba(0,255,160,0.4), #020603);
+  position:relative;
+}
+
+.hook-icon::after {
+  content:"";
+  position:absolute;
+  bottom:-18px;
+  width:2px;
+  height:18px;
+  background:var(--emerald-neon);
+  border-radius:2px;
+  box-shadow:0 0 10px rgba(0,255,160,0.7);
+  transform:translateX(12px);
+}
+
+.hook-emoji {
+  font-size:34px;
+  filter:drop-shadow(0 0 6px rgba(0,0,0,0.8));
+}
+
+.hook-text-main {
+  font-size:15px;
+  font-weight:600;
+  color:var(--emerald-neon);
+  text-shadow:0 0 10px rgba(0,255,160,0.6);
+}
+
+.hook-text-sub {
+  font-size:12px;
+  color:#9dffcf;
 }
 
 /* Parallax Glow */
@@ -395,10 +429,14 @@ E --> A
 
 </div>
 
-<!-- SPOTIFY -->
-<div class="spotify-wrap scroll">
-  <a class="spotify-btn" href="https://open.spotify.com/track/XXXXX" target="_blank">
-    🎧 Listen on Spotify
+<!-- PROJECT INSTRUCTION HOOK -->
+<div class="hook-wrap scroll">
+  <a class="hook-link" href="https://dtslib1979.github.io/OrbitPrompt/prompts/Gitgub-publishing.html" target="_blank">
+    <div class="hook-icon">
+      <span class="hook-emoji">🎣</span>
+    </div>
+    <div class="hook-text-main">Project Instruction Hub</div>
+    <div class="hook-text-sub">Cast a line → load the instruction → start building.</div>
   </a>
 </div>
 
@@ -408,13 +446,16 @@ E --> A
 
 <script>
 /* Shorts → Embed */
+/* 여기에 실제 유튜브 주소 넣어서 쓸 수 있게 위치만 잡아둠 */
 function loadYT(shortURL) {
   const id = shortURL.split("/").pop().split("?")[0];
   document.getElementById("ytPlayer").src =
     `https://youtube.com/embed/${id}?mute=1&autoplay=1&loop=1&playlist=${id}`+
     `&controls=0&playsinline=1&rel=0&modestbranding=1&fs=0&disablekb=1&speed=0.0001`;
 }
-loadYT("https://youtube.com/shorts/XXXXXX");
+
+/* 여기다가 박씨가 쓰고 싶은 실제 유튜브 / shorts URL 넣으면 됨 */
+loadYT("https://youtube.com/shorts/REPLACE_WITH_YOUR_SHORT");
 
 /* Accordion */
 document.querySelectorAll(".section-header").forEach(h => {
