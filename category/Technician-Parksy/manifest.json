@@ -156,6 +156,16 @@
       ]
     },
     {
+      "title": "Github publising",
+      "path": "./Github-publising.html",
+      "section": "Devices",
+      "type": "HTML",
+      "date": null,
+      "tags": [
+        "github"
+      ]
+    },
+    {
       "title": "AutomationEngineWF2",
       "path": "./AutomationEngineWF2.html",
       "section": "Devices",
