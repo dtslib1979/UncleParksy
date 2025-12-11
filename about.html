@@ -76,7 +76,7 @@
     }
 
     main{
-      max-width:1100px;
+      max-width:1200px;
       margin:0 auto;
       padding:clamp(1.2rem,5vw,2.4rem);
     }
@@ -125,9 +125,131 @@
       margin:0 auto;
     }
 
+    /* Main content grid */
+    .content-grid{
+      display:grid;
+      grid-template-columns:280px 1fr;
+      gap:24px;
+      align-items:start;
+    }
+    @media(max-width:900px){
+      .content-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    /* ===== SUBWAY STYLE LINE A ===== */
+    .subway-panel{
+      background:linear-gradient(135deg, rgba(255,255,255,.98), rgba(240,248,255,.95));
+      border-radius:20px;
+      border:3px solid var(--blue);
+      box-shadow:0 12px 40px rgba(59,130,246,.15), inset 0 1px 0 rgba(255,255,255,.8);
+      padding:20px 16px;
+      position:relative;
+    }
+    .subway-panel::before{
+      content:"LINE A";
+      position:absolute;
+      top:-12px; left:20px;
+      background:linear-gradient(135deg,var(--blue),#0ea5e9);
+      color:#fff;
+      font-size:.7rem;
+      font-weight:700;
+      padding:4px 12px;
+      border-radius:999px;
+      letter-spacing:1px;
+    }
+    .subway-title{
+      font-family:'Caveat',cursive;
+      font-size:1.3rem;
+      color:var(--blue);
+      margin:8px 0 16px;
+      text-align:center;
+    }
+    .subway-line{
+      position:relative;
+      padding-left:40px;
+    }
+    .subway-line::before{
+      content:"";
+      position:absolute;
+      left:14px; top:0; bottom:0;
+      width:6px;
+      background:linear-gradient(180deg,var(--blue),#0ea5e9);
+      border-radius:3px;
+    }
+    .subway-station{
+      position:relative;
+      margin-bottom:20px;
+      cursor:pointer;
+      transition:transform .2s ease;
+    }
+    .subway-station:last-child{margin-bottom:0}
+    .subway-station:hover{
+      transform:translateX(6px);
+    }
+    .subway-station::before{
+      content:"";
+      position:absolute;
+      left:-32px; top:50%;
+      transform:translateY(-50%);
+      width:20px; height:20px;
+      background:#fff;
+      border:4px solid var(--blue);
+      border-radius:50%;
+      box-shadow:0 2px 8px rgba(59,130,246,.3);
+      z-index:2;
+    }
+    .subway-station.pulse::before{
+      animation:stationPulse 1.8s ease-in-out infinite;
+    }
+    @keyframes stationPulse{
+      0%,100%{transform:translateY(-50%) scale(1);box-shadow:0 2px 8px rgba(59,130,246,.3)}
+      50%{transform:translateY(-50%) scale(1.15);box-shadow:0 4px 16px rgba(59,130,246,.5)}
+    }
+    .station-card{
+      background:#fff;
+      border:2px solid rgba(59,130,246,.3);
+      border-radius:14px;
+      padding:14px 16px;
+      box-shadow:0 4px 12px rgba(0,0,0,.06);
+      transition:all .2s ease;
+    }
+    .subway-station:hover .station-card{
+      border-color:var(--blue);
+      box-shadow:0 8px 24px rgba(59,130,246,.2);
+    }
+    .station-name{
+      font-family:'Caveat',cursive;
+      font-size:1.2rem;
+      font-weight:700;
+      color:var(--ink);
+      margin:0 0 4px;
+    }
+    .station-desc{
+      font-size:.8rem;
+      color:var(--ink-2);
+      margin:0;
+    }
+    .station-link{
+      display:inline-block;
+      margin-top:8px;
+      font-size:.75rem;
+      color:var(--blue);
+      text-decoration:none;
+      font-weight:600;
+      padding:4px 10px;
+      background:rgba(59,130,246,.1);
+      border-radius:999px;
+      transition:all .2s ease;
+    }
+    .station-link:hover{
+      background:var(--blue);
+      color:#fff;
+    }
+
     /* diagram wrapper */
     .diagram-shell{
-      margin-top:1.8rem;
       border-radius:22px;
       padding:clamp(1rem,3vw,1.5rem);
       background:linear-gradient(135deg, rgba(255,255,255,.97), rgba(248,239,214,.97));
@@ -158,7 +280,7 @@
     
     svg.diagram-svg{
       display:block;
-      min-width:900px;
+      min-width:750px;
       height:auto;
     }
 
@@ -193,10 +315,10 @@
       opacity:.7;
     }
 
-    /* node styling */
+    /* node styling - HEARTBEAT PULSE */
     .node{
       cursor:pointer;
-      transition:transform .22s cubic-bezier(.34,1.56,.64,1), filter .22s ease;
+      transition:filter .22s ease;
       transform-origin:center center;
       outline:none;
     }
@@ -217,17 +339,29 @@
       stroke:#fef3c7;
       stroke-width:1.4;
     }
+
+    /* Heartbeat pulse animation - stays in place */
+    @keyframes heartbeat{
+      0%,100%{transform:scale(1)}
+      15%{transform:scale(1.04)}
+      30%{transform:scale(1)}
+      45%{transform:scale(1.02)}
+      60%{transform:scale(1)}
+    }
+    .node.pulse{
+      animation:heartbeat 2s ease-in-out infinite;
+    }
+
     .node:hover,
     .node:focus-visible{
-      transform:translateY(-6px) scale(1.04) rotate(-0.8deg);
       filter:drop-shadow(0 12px 20px rgba(0,0,0,.28));
     }
-    .node:active{
-      transform:translateY(-2px) scale(1.01);
+    .node:hover{
+      animation-play-state:paused;
+      transform:scale(1.06);
     }
-    .node.lane-a:hover .node-plate,
-    .node.lane-a:focus-visible .node-plate{
-      filter:drop-shadow(0 0 12px var(--blue-glow));
+    .node:active{
+      transform:scale(1.02);
     }
     .node.lane-b:hover .node-plate,
     .node.lane-b:focus-visible .node-plate{
@@ -270,29 +404,6 @@
       font-style:italic;
     }
 
-    /* floating animation with stagger */
-    @keyframes floaty{
-      0%{transform:translateY(0) rotate(-0.5deg)}
-      50%{transform:translateY(-4px) rotate(0.3deg)}
-      100%{transform:translateY(0) rotate(-0.5deg)}
-    }
-    .node.float{
-      animation:floaty 4.5s ease-in-out infinite;
-    }
-
-    /* ripple effect */
-    .ripple{
-      position:absolute;
-      border-radius:50%;
-      background:rgba(212,175,55,.4);
-      transform:scale(0);
-      animation:rippleAnim .6s ease-out forwards;
-      pointer-events:none;
-    }
-    @keyframes rippleAnim{
-      to{transform:scale(4);opacity:0}
-    }
-
     /* Mobile optimizations */
     @media(max-width:768px){
       .diagram-wrap{
@@ -300,17 +411,18 @@
         padding-bottom:8px;
       }
       svg.diagram-svg{
-        min-width:800px;
+        min-width:680px;
       }
       .node-label-main{font-size:14px}
       .node-label-sub{font-size:9px}
     }
     @media(max-width:480px){
       svg.diagram-svg{
-        min-width:700px;
+        min-width:600px;
       }
       .hero{padding:1.2rem}
       .hero-title{font-size:1.8rem}
+      .subway-panel{padding:16px 12px}
     }
 
     /* Touch device hint */
@@ -328,12 +440,13 @@
 
     /* Accessibility */
     @media(prefers-reduced-motion:reduce){
-      .node.float{animation:none}
+      .node.pulse{animation:none}
+      .subway-station.pulse::before{animation:none}
       .lane-path.animated{animation:none}
-      .ripple{animation:none}
     }
   </style>
 </head>
+
 <body>
 <header class="site-header">
   <a class="brand" href="/" aria-label="UncleParksy home">
@@ -354,181 +467,173 @@
     <h1 class="hero-title">EduArt Excalimap</h1>
     <p class="hero-sub">
       Hand-drawn route map for Parksy Series:<br>
-      Prompt Engines → Personas → Media & Domains
+      Prompt Engines → Personas → Media &amp; Domains
     </p>
   </section>
 
-  <section class="diagram-shell">
-    <h2>✏️ Lines & Nodes</h2>
-    <p>
-      <strong style="color:var(--blue)">Blue</strong> = Prompt engines · 
-      <strong style="color:var(--dark-gold)">Gold</strong> = Parksy personas · 
-      <strong style="color:var(--red)">Red</strong> = Media & domains
-    </p>
+  <div class="content-grid">
+    <!-- ===== LEFT: SUBWAY STYLE LINE A ===== -->
+    <aside class="subway-panel">
+      <h3 class="subway-title">🚇 Prompt Engines</h3>
+      <div class="subway-line">
+        <div class="subway-station pulse" onclick="location.href='#'">
+          <div class="station-card">
+            <h4 class="station-name">L1 Prompt Engine</h4>
+            <p class="station-desc">Tistory · Single-shot templates</p>
+            <a href="#" class="station-link">View Templates →</a>
+          </div>
+        </div>
+        <div class="subway-station pulse" onclick="location.href='#'">
+          <div class="station-card">
+            <h4 class="station-name">L2 Project Engine</h4>
+            <p class="station-desc">Multi-LLM project specs</p>
+            <a href="#" class="station-link">View Specs →</a>
+          </div>
+        </div>
+        <div class="subway-station pulse" onclick="location.href='#'">
+          <div class="station-card">
+            <h4 class="station-name">Meta-Tools</h4>
+            <p class="station-desc">Season &amp; KR-Merit extras</p>
+            <a href="#" class="station-link">Coming Soon</a>
+          </div>
+        </div>
+      </div>
+    </aside>
 
-    <div class="diagram-wrap">
-      <svg class="diagram-svg" viewBox="0 0 1100 580" role="img"
-           aria-label="Excalidraw-style map of Parksy lanes">
-        <defs>
-          <linearGradient id="laneA" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#3b82f6"/>
-            <stop offset="100%" stop-color="#0ea5e9"/>
-          </linearGradient>
-          <linearGradient id="laneB" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#facc15"/>
-            <stop offset="100%" stop-color="#b45309"/>
-          </linearGradient>
-          <linearGradient id="laneC" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#ef4444"/>
-            <stop offset="100%" stop-color="#fb7185"/>
-          </linearGradient>
+    <!-- ===== RIGHT: SVG DIAGRAM (LINE B + C) ===== -->
+    <section class="diagram-shell">
+      <h2>✏️ Personas &amp; Media</h2>
+      <p>
+        <strong style="color:var(--dark-gold)">Gold</strong> = Parksy personas · 
+        <strong style="color:var(--red)">Red</strong> = Media &amp; domains
+      </p>
 
-          <filter id="paperNoise">
-            <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="3" result="noise"/>
-            <feColorMatrix in="noise" type="matrix"
-                           values="0 0 0 0 0.85
-                                   0 0 0 0 0.8
-                                   0 0 0 0 0.65
-                                   0 0 0 0.07 0"/>
-            <feBlend in="SourceGraphic" in2="noise" mode="multiply"/>
-          </filter>
-        </defs>
+      <div class="diagram-wrap">
+        <svg class="diagram-svg" viewBox="0 0 850 520" role="img"
+             aria-label="Excalidraw-style map of Parksy lanes">
+          <defs>
+            <linearGradient id="laneB" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#facc15"/>
+              <stop offset="100%" stop-color="#b45309"/>
+            </linearGradient>
+            <linearGradient id="laneC" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#ef4444"/>
+              <stop offset="100%" stop-color="#fb7185"/>
+            </linearGradient>
 
-        <!-- Outer sketch frame -->
-        <path class="sketch-border"
-              d="M35 55 Q75 35 165 45 T355 35 T600 50 T860 40 T1060 52
-                 Q1085 120 1070 200 T1075 360 T1065 520
-                 Q970 560 820 565 T580 575 T320 560 T75 550
-                 Q45 460 50 360 T45 210 T35 55 Z"/>
+            <filter id="paperNoise">
+              <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="3" result="noise"/>
+              <feColorMatrix in="noise" type="matrix"
+                             values="0 0 0 0 0.85
+                                     0 0 0 0 0.8
+                                     0 0 0 0 0.65
+                                     0 0 0 0.07 0"/>
+              <feBlend in="SourceGraphic" in2="noise" mode="multiply"/>
+            </filter>
+          </defs>
 
-        <!-- Animated lane paths -->
-        <path class="lane-path animated" stroke="url(#laneA)"
-              d="M140 140 Q150 200 140 260 T150 360"/>
-        <path class="lane-path animated" stroke="url(#laneB)"
-              d="M420 120 Q510 130 540 200 T530 340 Q515 400 510 460"/>
-        <path class="lane-path animated" stroke="url(#laneC)"
-              d="M830 140 Q880 195 885 260 T880 360 Q870 430 865 480"/>
+          <!-- Outer sketch frame -->
+          <path class="sketch-border"
+                d="M30 45 Q70 28 150 38 T340 30 T520 42 T700 35 T820 48
+                   Q840 100 830 180 T832 320 T825 470
+                   Q740 500 620 505 T420 510 T220 500 T60 490
+                   Q38 410 42 320 T40 180 T30 45 Z"/>
 
-        <!-- Connectors -->
-        <path class="connector" d="M185 170 Q300 135 420 145"/>
-        <path class="connector" d="M195 260 Q310 245 420 225"/>
-        <path class="connector" d="M210 340 Q320 350 420 365"/>
-        <path class="connector" d="M600 220 Q710 205 810 185"/>
-        <path class="connector" d="M600 280 Q720 268 820 265"/>
-        <path class="connector" d="M600 365 Q715 355 820 345"/>
-        <path class="connector" d="M590 445 Q710 465 825 460"/>
+          <!-- Animated lane paths -->
+          <path class="lane-path animated" stroke="url(#laneB)"
+                d="M200 90 Q280 100 310 160 T300 290 Q290 360 285 420"/>
+          <path class="lane-path animated" stroke="url(#laneC)"
+                d="M600 100 Q650 155 652 220 T648 320 Q642 390 638 440"/>
 
-        <!-- ===== LINE A: Prompt Engines (Blue) ===== -->
-        <g class="node float lane-a" tabindex="0" data-url="#" transform="translate(140,140)">
-          <rect class="node-plate shadow" x="-85" y="-35" rx="18" ry="18" width="170" height="70"/>
-          <rect class="node-plate" x="-87" y="-37" rx="18" ry="18" width="170" height="70" filter="url(#paperNoise)"/>
-          <circle class="node-badge" cx="-65" cy="-18" r="10" fill="url(#laneA)"/>
-          <text class="node-label-main" x="-45" y="-12">L1 Prompt Engine</text>
-          <text class="node-label-sub" x="-45" y="8">Tistory · Single-shot</text>
-          <title>L1 Prompt Engine — Tistory templates</title>
-        </g>
+          <!-- Connectors -->
+          <path class="connector" d="M380 175 Q480 165 580 150"/>
+          <path class="connector" d="M380 235 Q490 228 590 222"/>
+          <path class="connector" d="M380 310 Q485 305 588 298"/>
+          <path class="connector" d="M365 395 Q480 408 595 405"/>
 
-        <g class="node float lane-a" tabindex="0" data-url="#" transform="translate(145,250)">
-          <rect class="node-plate shadow" x="-95" y="-35" rx="18" ry="18" width="190" height="72"/>
-          <rect class="node-plate" x="-97" y="-37" rx="18" ry="18" width="190" height="72" filter="url(#paperNoise)"/>
-          <circle class="node-badge" cx="-75" cy="-18" r="10" fill="url(#laneA)"/>
-          <text class="node-label-main" x="-55" y="-12">L2 Project Engine</text>
-          <text class="node-label-sub" x="-55" y="8">Multi-LLM specs</text>
-          <title>L2 Project Instruction Engine</title>
-        </g>
+          <!-- ===== LINE B: Personas (Gold) ===== -->
+          <g class="node pulse lane-b" tabindex="0" data-url="/category/Technician-Parksy/" transform="translate(280,110)">
+            <rect class="node-plate shadow" x="-100" y="-32" rx="18" ry="18" width="200" height="64"/>
+            <rect class="node-plate" x="-102" y="-34" rx="18" ry="18" width="200" height="64" filter="url(#paperNoise)"/>
+            <circle class="node-badge" cx="-82" cy="-16" r="9" fill="url(#laneB)"/>
+            <text class="node-label-main" x="-62" y="-10">Technician-Parksy</text>
+            <text class="node-label-sub" x="-62" y="8">Devices · Tool hacks</text>
+          </g>
 
-        <g class="node float lane-a" tabindex="0" data-url="#" transform="translate(155,355)">
-          <rect class="node-plate shadow" x="-90" y="-32" rx="18" ry="18" width="180" height="66"/>
-          <rect class="node-plate" x="-92" y="-34" rx="18" ry="18" width="180" height="66" filter="url(#paperNoise)"/>
-          <circle class="node-badge" cx="-70" cy="-16" r="10" fill="url(#laneA)"/>
-          <text class="node-label-main" x="-50" y="-10">Meta-Tools</text>
-          <text class="node-label-sub" x="-50" y="10">Season & KR-Merit</text>
-          <title>Future meta-loop tools</title>
-        </g>
+          <g class="node pulse lane-b" tabindex="0" data-url="/category/Blogger-Parksy/" transform="translate(280,180)">
+            <rect class="node-plate shadow" x="-100" y="-32" rx="18" ry="18" width="200" height="64"/>
+            <rect class="node-plate" x="-102" y="-34" rx="18" ry="18" width="200" height="64" filter="url(#paperNoise)"/>
+            <circle class="node-badge" cx="-82" cy="-16" r="9" fill="url(#laneB)"/>
+            <text class="node-label-main" x="-62" y="-10">Blogger-Parksy</text>
+            <text class="node-label-sub" x="-62" y="8">KR TextStory · Logs</text>
+          </g>
 
-        <!-- ===== LINE B: Personas (Gold) ===== -->
-        <g class="node float lane-b" tabindex="0" data-url="/category/Technician-Parksy/" transform="translate(510,145)">
-          <rect class="node-plate shadow" x="-110" y="-36" rx="20" ry="20" width="220" height="72"/>
-          <rect class="node-plate" x="-112" y="-38" rx="20" ry="20" width="220" height="72" filter="url(#paperNoise)"/>
-          <circle class="node-badge" cx="-90" cy="-20" r="10" fill="url(#laneB)"/>
-          <text class="node-label-main" x="-70" y="-14">Technician-Parksy</text>
-          <text class="node-label-sub" x="-70" y="6">Devices · Tool hacks</text>
-        </g>
+          <g class="node pulse lane-b" tabindex="0" data-url="/category/Philosopher-Parksy/" transform="translate(280,255)">
+            <rect class="node-plate shadow" x="-100" y="-32" rx="18" ry="18" width="200" height="64"/>
+            <rect class="node-plate" x="-102" y="-34" rx="18" ry="18" width="200" height="64" filter="url(#paperNoise)"/>
+            <circle class="node-badge" cx="-82" cy="-16" r="9" fill="url(#laneB)"/>
+            <text class="node-label-main" x="-62" y="-10">Philosopher-Parksy</text>
+            <text class="node-label-sub" x="-62" y="8">Essays · KR Merit</text>
+          </g>
 
-        <g class="node float lane-b" tabindex="0" data-url="/category/Blogger-Parksy/" transform="translate(510,225)">
-          <rect class="node-plate shadow" x="-110" y="-36" rx="20" ry="20" width="220" height="72"/>
-          <rect class="node-plate" x="-112" y="-38" rx="20" ry="20" width="220" height="72" filter="url(#paperNoise)"/>
-          <circle class="node-badge" cx="-90" cy="-20" r="10" fill="url(#laneB)"/>
-          <text class="node-label-main" x="-70" y="-14">Blogger-Parksy</text>
-          <text class="node-label-sub" x="-70" y="6">KR TextStory · Logs</text>
-        </g>
+          <g class="node pulse lane-b" tabindex="0" data-url="/category/Visualizer-Parksy/" transform="translate(280,330)">
+            <rect class="node-plate shadow" x="-100" y="-32" rx="18" ry="18" width="200" height="64"/>
+            <rect class="node-plate" x="-102" y="-34" rx="18" ry="18" width="200" height="64" filter="url(#paperNoise)"/>
+            <circle class="node-badge" cx="-82" cy="-16" r="9" fill="url(#laneB)"/>
+            <text class="node-label-main" x="-62" y="-10">Visualizer-Parksy</text>
+            <text class="node-label-sub" x="-62" y="8">Diagrams · Excalidraw</text>
+          </g>
 
-        <g class="node float lane-b" tabindex="0" data-url="/category/Philosopher-Parksy/" transform="translate(510,305)">
-          <rect class="node-plate shadow" x="-110" y="-36" rx="20" ry="20" width="220" height="72"/>
-          <rect class="node-plate" x="-112" y="-38" rx="20" ry="20" width="220" height="72" filter="url(#paperNoise)"/>
-          <circle class="node-badge" cx="-90" cy="-20" r="10" fill="url(#laneB)"/>
-          <text class="node-label-main" x="-70" y="-14">Philosopher-Parksy</text>
-          <text class="node-label-sub" x="-70" y="6">Essays · KR Merit</text>
-        </g>
+          <g class="node pulse lane-b" tabindex="0" data-url="/category/Musician-Parksy/" transform="translate(280,405)">
+            <rect class="node-plate shadow" x="-100" y="-32" rx="18" ry="18" width="200" height="64"/>
+            <rect class="node-plate" x="-102" y="-34" rx="18" ry="18" width="200" height="64" filter="url(#paperNoise)"/>
+            <circle class="node-badge" cx="-82" cy="-16" r="9" fill="url(#laneB)"/>
+            <text class="node-label-main" x="-62" y="-10">Musician-Parksy</text>
+            <text class="node-label-sub" x="-62" y="8">WebAppsBook · OST</text>
+          </g>
 
-        <g class="node float lane-b" tabindex="0" data-url="/category/Visualizer-Parksy/" transform="translate(510,385)">
-          <rect class="node-plate shadow" x="-110" y="-36" rx="20" ry="20" width="220" height="72"/>
-          <rect class="node-plate" x="-112" y="-38" rx="20" ry="20" width="220" height="72" filter="url(#paperNoise)"/>
-          <circle class="node-badge" cx="-90" cy="-20" r="10" fill="url(#laneB)"/>
-          <text class="node-label-main" x="-70" y="-14">Visualizer-Parksy</text>
-          <text class="node-label-sub" x="-70" y="6">Diagrams · Excalidraw</text>
-        </g>
+          <!-- ===== LINE C: Media & Domains (Red) ===== -->
+          <g class="node pulse lane-c" tabindex="0" data-url="https://www.youtube.com/@parksy_world" transform="translate(650,125)">
+            <rect class="node-plate shadow" x="-105" y="-32" rx="18" ry="18" width="210" height="64"/>
+            <rect class="node-plate" x="-107" y="-34" rx="18" ry="18" width="210" height="64" filter="url(#paperNoise)"/>
+            <circle class="node-badge" cx="-87" cy="-16" r="9" fill="url(#laneC)"/>
+            <text class="node-label-main" x="-67" y="-10">YouTube · Parksy World</text>
+            <text class="node-label-sub" x="-67" y="8">Main EduArt channel</text>
+          </g>
 
-        <g class="node float lane-b" tabindex="0" data-url="/category/Musician-Parksy/" transform="translate(510,465)">
-          <rect class="node-plate shadow" x="-110" y="-36" rx="20" ry="20" width="220" height="72"/>
-          <rect class="node-plate" x="-112" y="-38" rx="20" ry="20" width="220" height="72" filter="url(#paperNoise)"/>
-          <circle class="node-badge" cx="-90" cy="-20" r="10" fill="url(#laneB)"/>
-          <text class="node-label-main" x="-70" y="-14">Musician-Parksy</text>
-          <text class="node-label-sub" x="-70" y="6">WebAppsBook · OST</text>
-        </g>
+          <g class="node pulse lane-c" tabindex="0" data-url="https://www.youtube.com/@webappsbook" transform="translate(650,200)">
+            <rect class="node-plate shadow" x="-105" y="-32" rx="18" ry="18" width="210" height="64"/>
+            <rect class="node-plate" x="-107" y="-34" rx="18" ry="18" width="210" height="64" filter="url(#paperNoise)"/>
+            <circle class="node-badge" cx="-87" cy="-16" r="9" fill="url(#laneC)"/>
+            <text class="node-label-main" x="-67" y="-10">YouTube · WebAppsBook</text>
+            <text class="node-label-sub" x="-67" y="8">Audio &amp; live sessions</text>
+          </g>
 
-        <!-- ===== LINE C: Media & Domains (Red) ===== -->
-        <g class="node float lane-c" tabindex="0" data-url="https://www.youtube.com/@parksy_world" transform="translate(880,165)">
-          <rect class="node-plate shadow" x="-115" y="-36" rx="20" ry="20" width="230" height="72"/>
-          <rect class="node-plate" x="-117" y="-38" rx="20" ry="20" width="230" height="72" filter="url(#paperNoise)"/>
-          <circle class="node-badge" cx="-95" cy="-20" r="10" fill="url(#laneC)"/>
-          <text class="node-label-main" x="-75" y="-14">YouTube · Parksy World</text>
-          <text class="node-label-sub" x="-75" y="6">Main EduArt channel</text>
-        </g>
+          <g class="node pulse lane-c" tabindex="0" data-url="https://blog.naver.com/dtslib1979" transform="translate(650,280)">
+            <rect class="node-plate shadow" x="-105" y="-32" rx="18" ry="18" width="210" height="64"/>
+            <rect class="node-plate" x="-107" y="-34" rx="18" ry="18" width="210" height="64" filter="url(#paperNoise)"/>
+            <circle class="node-badge" cx="-87" cy="-16" r="9" fill="url(#laneC)"/>
+            <text class="node-label-main" x="-67" y="-10">Naver Meta Blog</text>
+            <text class="node-label-sub" x="-67" y="8">All lanes collected</text>
+          </g>
 
-        <g class="node float lane-c" tabindex="0" data-url="https://www.youtube.com/@webappsbook" transform="translate(880,245)">
-          <rect class="node-plate shadow" x="-115" y="-36" rx="20" ry="20" width="230" height="72"/>
-          <rect class="node-plate" x="-117" y="-38" rx="20" ry="20" width="230" height="72" filter="url(#paperNoise)"/>
-          <circle class="node-badge" cx="-95" cy="-20" r="10" fill="url(#laneC)"/>
-          <text class="node-label-main" x="-75" y="-14">YouTube · WebAppsBook</text>
-          <text class="node-label-sub" x="-75" y="6">Audio & live sessions</text>
-        </g>
+          <g class="node pulse lane-c" tabindex="0" data-url="https://dtslib.com" transform="translate(650,360)">
+            <rect class="node-plate shadow" x="-105" y="-32" rx="18" ry="18" width="210" height="64"/>
+            <rect class="node-plate" x="-107" y="-34" rx="18" ry="18" width="210" height="64" filter="url(#paperNoise)"/>
+            <circle class="node-badge" cx="-87" cy="-16" r="9" fill="url(#laneC)"/>
+            <text class="node-label-main" x="-67" y="-10">dtslib.com · Company</text>
+            <text class="node-label-sub" x="-67" y="8">WordPress · Products</text>
+          </g>
 
-        <g class="node float lane-c" tabindex="0" data-url="https://blog.naver.com/dtslib1979" transform="translate(880,325)">
-          <rect class="node-plate shadow" x="-115" y="-36" rx="20" ry="20" width="230" height="72"/>
-          <rect class="node-plate" x="-117" y="-38" rx="20" ry="20" width="230" height="72" filter="url(#paperNoise)"/>
-          <circle class="node-badge" cx="-95" cy="-20" r="10" fill="url(#laneC)"/>
-          <text class="node-label-main" x="-75" y="-14">Naver Meta Blog</text>
-          <text class="node-label-sub" x="-75" y="6">All lanes collected</text>
-        </g>
+        </svg>
+      </div>
 
-        <g class="node float lane-c" tabindex="0" data-url="https://dtslib.com" transform="translate(880,410)">
-          <rect class="node-plate shadow" x="-115" y="-36" rx="20" ry="20" width="230" height="72"/>
-          <rect class="node-plate" x="-117" y="-38" rx="20" ry="20" width="230" height="72" filter="url(#paperNoise)"/>
-          <circle class="node-badge" cx="-95" cy="-20" r="10" fill="url(#laneC)"/>
-          <text class="node-label-main" x="-75" y="-14">dtslib.com · Company</text>
-          <text class="node-label-sub" x="-75" y="6">WordPress · Products</text>
-        </g>
-
-      </svg>
-    </div>
-
-    <div class="legend">
-      <span><span class="legend-pill" style="background:linear-gradient(90deg,#3b82f6,#0ea5e9)"></span>Line A · Prompt Engines</span>
-      <span><span class="legend-pill" style="background:linear-gradient(90deg,#facc15,#b45309)"></span>Line B · Personas</span>
-      <span><span class="legend-pill" style="background:linear-gradient(90deg,#ef4444,#fb7185)"></span>Line C · Media & Domains</span>
-    </div>
-  </section>
+      <div class="legend">
+        <span><span class="legend-pill" style="background:linear-gradient(90deg,#facc15,#b45309)"></span>Line B · Personas</span>
+        <span><span class="legend-pill" style="background:linear-gradient(90deg,#ef4444,#fb7185)"></span>Line C · Media &amp; Domains</span>
+      </div>
+    </section>
+  </div>
 
   <p class="foot-note">
     Tap any node to visit · Excalidraw-inspired design
@@ -538,29 +643,15 @@
 <script>
 (function(){
   const nodes = document.querySelectorAll('.node');
-  const isTouchDevice = 'ontouchstart' in window;
 
   nodes.forEach((node, idx) => {
     const url = node.getAttribute('data-url');
     
-    // Staggered float animation
-    node.style.animationDelay = (idx * 0.35) + 's';
+    // Staggered pulse animation
+    node.style.animationDelay = (idx * 0.25) + 's';
 
     function openUrl(e){
       if(!url || url === '#') return;
-      
-      // Ripple effect
-      if(isTouchDevice){
-        const rect = node.getBoundingClientRect();
-        const ripple = document.createElement('div');
-        ripple.className = 'ripple';
-        ripple.style.left = (e.clientX - rect.left) + 'px';
-        ripple.style.top = (e.clientY - rect.top) + 'px';
-        ripple.style.width = ripple.style.height = '20px';
-        node.style.position = 'relative';
-        node.appendChild(ripple);
-        setTimeout(()=> ripple.remove(), 600);
-      }
       
       // Navigate
       if(url.startsWith('http')){
@@ -577,6 +668,13 @@
         openUrl(e);
       }
     });
+  });
+
+  // Stagger subway station pulses
+  const stations = document.querySelectorAll('.subway-station');
+  stations.forEach((station, idx) => {
+    const dot = station.querySelector('::before') || station;
+    station.style.setProperty('--pulse-delay', (idx * 0.4) + 's');
   });
 })();
 </script>
