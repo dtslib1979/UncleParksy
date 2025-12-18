@@ -1,0 +1,124 @@
+name: Repo Guard (Single-File Codex)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check root whitelist
+        run: |
+          echo "=== Root Whitelist Check ==="
+          
+          # 허용되는 파일/폴더
+          ALLOWED="index.html README.md CNAME .nojekyll .gitignore favicon.ico favicon.svg robots.txt sitemap.xml feed.xml assets archive category docs backup .github"
+          
+          # 루트 파일/폴더 목록
+          VIOLATIONS=""
+          for item in *; do
+            if [ -e "$item" ]; then
+              FOUND=0
+              for allowed in $ALLOWED; do
+                if [ "$item" = "$allowed" ]; then
+                  FOUND=1
+                  break
+                fi
+              done
+              if [ $FOUND -eq 0 ]; then
+                VIOLATIONS="$VIOLATIONS\n  ❌ $item"
+              fi
+            fi
+          done
+          
+          if [ -n "$VIOLATIONS" ]; then
+            echo -e "루트 화이트리스트 위반:$VIOLATIONS"
+            echo ""
+            echo "허용 목록: $ALLOWED"
+            exit 1
+          fi
+          
+          echo "✅ 루트 화이트리스트 통과"
+
+      - name: Check PWA prohibition
+        run: |
+          echo "=== PWA Prohibition Check ==="
+          
+          PWA_FILES="sw.js service-worker.js manifest.json manifest.webmanifest"
+          FOUND_PWA=""
+          
+          for file in $PWA_FILES; do
+            if [ -f "$file" ]; then
+              FOUND_PWA="$FOUND_PWA $file"
+            fi
+          done
+          
+          # workbox 패턴 검사
+          if ls workbox-*.js 1> /dev/null 2>&1; then
+            FOUND_PWA="$FOUND_PWA workbox-*.js"
+          fi
+          
+          if [ -n "$FOUND_PWA" ]; then
+            echo "❌ PWA 금지 위반:$FOUND_PWA"
+            echo "이 레포는 PWA를 사용하지 않습니다."
+            exit 1
+          fi
+          
+          echo "✅ PWA 금지 준수"
+
+      - name: Check forbidden patterns
+        run: |
+          echo "=== Forbidden Patterns Check ==="
+          
+          ERRORS=""
+          
+          # __pycache__ 검사
+          if find . -type d -name "__pycache__" | grep -q .; then
+            ERRORS="$ERRORS\n  ❌ __pycache__ 디렉토리 발견"
+          fi
+          
+          # node_modules 검사
+          if [ -d "node_modules" ]; then
+            ERRORS="$ERRORS\n  ❌ node_modules 디렉토리 발견"
+          fi
+          
+          # build/dist 검사
+          if [ -d "build" ] || [ -d "dist" ]; then
+            ERRORS="$ERRORS\n  ❌ build 또는 dist 디렉토리 발견"
+          fi
+          
+          # .pyc 파일 검사
+          if find . -name "*.pyc" | grep -q .; then
+            ERRORS="$ERRORS\n  ❌ .pyc 파일 발견"
+          fi
+          
+          # 공백 포함 파일명 검사 (루트만)
+          for f in *; do
+            case "$f" in
+              *\ *)
+                ERRORS="$ERRORS\n  ❌ 공백 포함 파일명: $f"
+                ;;
+            esac
+          done
+          
+          if [ -n "$ERRORS" ]; then
+            echo -e "금지 패턴 발견:$ERRORS"
+            exit 1
+          fi
+          
+          echo "✅ 금지 패턴 없음"
+
+      - name: Summary
+        if: success()
+        run: |
+          echo ""
+          echo "=============================="
+          echo "✅ All guards passed!"
+          echo "=============================="
+          echo ""
+          echo "parksy.kr Single-File Codex 규칙 준수 확인"
