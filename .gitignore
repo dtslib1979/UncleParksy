@@ -1,0 +1,48 @@
+# parksy.kr - Single-File Codex
+# BASE SPEC: No build, no framework, no PWA
+
+# Python (금지)
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.eggs/
+*.egg
+
+# Node (금지)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs (금지)
+dist/
+build/
+.cache/
+.parcel-cache/
+
+# PWA (금지)
+sw.js
+service-worker.js
+workbox-*.js
+manifest.json
+manifest.webmanifest
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Obsidian (로컬만)
+.obsidian/
+
+# Temp
+*.tmp
+*.temp
+*.log
