@@ -1,7 +1,7 @@
 {
   "title": "EduArt Engineer's Grimoire - Digital Knowledge Archive",
   "description": "완전 자동화 시스템으로 관리되는 디지털 지식 아카이브",
-  "lastUpdate": "2025-12-18T03:33:40.869860Z",
+  "lastUpdate": "2025-12-18T06:11:12.320829Z",
   "count": 29,
   "automationInfo": {
     "system": "EduArt Engineer CI v2.0",
@@ -15,203 +15,203 @@
       "date": null,
       "path": "/archive/artremix.html",
       "description": "Art Remix w/ Grok · 영상 사전 OS 백서 v3.1 - 자동화 시스템으로 처리됨",
-      "processed": "2025-12-18T03:33:40.867115"
+      "processed": "2025-12-18T06:11:12.318019"
     },
     {
       "title": "The Independent Finger · Storyboard Prompt Engine",
       "date": null,
       "path": "/archive/Independent.finger.html",
       "description": "The Independent Finger · Storyboard Prompt Engine - 자동화 시스템으로 처리됨",
-      "processed": "2025-12-18T03:33:40.867183"
+      "processed": "2025-12-18T06:11:12.318097"
     },
     {
       "title": "봄길",
       "date": "2025-12-12",
       "path": "/archive/2025-12-12-봄길.html",
       "description": "봄길 - 자동화 시스템으로 처리됨",
-      "processed": "2025-12-18T03:33:40.867231"
+      "processed": "2025-12-18T06:11:12.318146"
     },
     {
       "title": "≡ GitHub Management Route ≡ — UncleParksy v1",
       "date": "2025-11-24",
       "path": "/archive/2025-11-24- 깃허브 매니지먼트 라우트.html",
       "description": "≡ GitHub Management Route ≡ — UncleParksy v1 - 자동화 시스템으로 처리됨",
-      "processed": "2025-12-18T03:33:40.867362"
+      "processed": "2025-12-18T06:11:12.318276"
     },
     {
       "title": "The Independent Finger · Storyboard Prompt Engine",
       "date": "2025-11-24",
       "path": "/archive/2025-11-24- independent-finger.html",
       "description": "The Independent Finger · Storyboard Prompt Engine - 자동화 시스템으로 처리됨",
-      "processed": "2025-12-18T03:33:40.867418"
+      "processed": "2025-12-18T06:11:12.318332"
     },
     {
       "title": "그록 맞춤지침",
       "date": "2025-11-22",
       "path": "/archive/2025-11-22-그록 맞춤지침.html",
       "description": "그록 맞춤지침 - 자동화 시스템으로 처리됨",
-      "processed": "2025-12-18T03:33:40.867464"
+      "processed": "2025-12-18T06:11:12.318380"
     },
     {
       "title": "엑스칼리드로 머메이드 생성엔진",
       "date": "2025-11-16",
       "path": "/archive/2025-11-16-엑스칼리드로 머메이드 생성엔진.html",
       "description": "엑스칼리드로 머메이드 생성엔진 - 자동화 시스템으로 처리됨",
-      "processed": "2025-12-18T03:33:40.867529"
+      "processed": "2025-12-18T06:11:12.318446"
     },
     {
       "title": "머메이드 엔진",
       "date": "2025-11-16",
       "path": "/archive/2025-11-16-머메이드 엔진.html",
       "description": "머메이드 엔진 - 자동화 시스템으로 처리됨",
-      "processed": "2025-12-18T03:33:40.867600"
+      "processed": "2025-12-18T06:11:12.318517"
     },
     {
       "title": "테스트",
       "date": "2025-10-08",
       "path": "/archive/2025-10-08-테스트.html",
       "description": "테스트 - 자동화 시스템으로 처리됨",
-      "processed": "2025-12-18T03:33:40.867659"
+      "processed": "2025-12-18T06:11:12.318593"
     },
     {
       "title": "블로그 체인",
       "date": "2025-10-01",
       "path": "/archive/2025-10-01-블로그 체인.html",
       "description": "블로그 체인 - 자동화 시스템으로 처리됨",
-      "processed": "2025-12-18T03:33:40.868708"
+      "processed": "2025-12-18T06:11:12.319691"
     },
     {
       "title": "티스토리 공략법",
       "date": "2025-09-22",
       "path": "/archive/2025-09-22-티스토리 공략법.html",
       "description": "티스토리 공략법 - 자동화 시스템으로 처리됨",
-      "processed": "2025-12-18T03:33:40.868797"
+      "processed": "2025-12-18T06:11:12.319767"
     },
     {
       "title": "핸드폰 생산자전환",
       "date": "2025-09-16",
       "path": "/archive/2025-09-16-핸드폰 생산자전환.html",
       "description": "핸드폰 생산자전환 - 자동화 시스템으로 처리됨",
-      "processed": "2025-12-18T03:33:40.868876"
+      "processed": "2025-12-18T06:11:12.319846"
     },
     {
       "title": "코딩 프로그래밍에 대한 자세",
       "date": "2025-09-16",
       "path": "/archive/2025-09-16-코딩 프로그래밍에 대한 자세.html",
       "description": "코딩 프로그래밍에 대한 자세 - 자동화 시스템으로 처리됨",
-      "processed": "2025-12-18T03:33:40.868942"
+      "processed": "2025-12-18T06:11:12.319913"
     },
     {
       "title": "AI 프로그래밍 독학법",
       "date": "2025-09-16",
       "path": "/archive/2025-09-16-AI 프로그래밍 독학법.html",
       "description": "AI 프로그래밍 독학법 - 자동화 시스템으로 처리됨",
-      "processed": "2025-12-18T03:33:40.869008"
+      "processed": "2025-12-18T06:11:12.319979"
     },
     {
       "title": "네이버블로그메뉴",
       "date": "2025-09-05",
       "path": "/archive/2025-09-05-네이버블로그메뉴.html",
       "description": "네이버블로그메뉴 - 자동화 시스템으로 처리됨",
-      "processed": "2025-12-18T03:33:40.869053"
+      "processed": "2025-12-18T06:11:12.320024"
     },
     {
       "title": "ChatGPT 성우 설정",
       "date": "2025-09-03",
       "path": "/archive/2025-09-03-ChatGPT 성우 설정.html",
       "description": "ChatGPT 성우 설정 - 자동화 시스템으로 처리됨",
-      "processed": "2025-12-18T03:33:40.869108"
+      "processed": "2025-12-18T06:11:12.320081"
     },
     {
       "title": "챗gpt 사용후기",
       "date": "2025-09-01",
       "path": "/archive/2025-09-01-챗gpt 사용후기.html",
       "description": "챗gpt 사용후기 - 자동화 시스템으로 처리됨",
-      "processed": "2025-12-18T03:33:40.869158"
+      "processed": "2025-12-18T06:11:12.320137"
     },
     {
       "title": "국내 AI 프로그래밍 유튜버3",
       "date": "2025-09-01",
       "path": "/archive/2025-09-01-국내 AI 프로그래밍 유튜버3.html",
       "description": "국내 AI 프로그래밍 유튜버3 - 자동화 시스템으로 처리됨",
-      "processed": "2025-12-18T03:33:40.869238"
+      "processed": "2025-12-18T06:11:12.320219"
     },
     {
       "title": "바이럴코딩 입버릇",
       "date": "2025-08-29",
       "path": "/archive/2025-08-29-바이럴코딩 입버릇.html",
       "description": "바이럴코딩 입버릇 - 자동화 시스템으로 처리됨",
-      "processed": "2025-12-18T03:33:40.869328"
+      "processed": "2025-12-18T06:11:12.320310"
     },
     {
       "title": "티스토리 활용?",
       "date": "2025-08-25",
       "path": "/archive/2025-08-25-티스토리 활용.html",
       "description": "티스토리 활용? - 자동화 시스템으로 처리됨",
-      "processed": "2025-12-18T03:33:40.869371"
+      "processed": "2025-12-18T06:11:12.320354"
     },
     {
       "title": "티스토리 업로드 자동화?",
       "date": "2025-08-25",
       "path": "/archive/2025-08-25-티스토리 업로드 자동화.html",
       "description": "티스토리 업로드 자동화? - 자동화 시스템으로 처리됨",
-      "processed": "2025-12-18T03:33:40.869414"
+      "processed": "2025-12-18T06:11:12.320398"
     },
     {
       "title": "티스토리 솔루션",
       "date": "2025-08-25",
       "path": "/archive/2025-08-25-티스토리 솔루션.html",
       "description": "티스토리 솔루션 - 자동화 시스템으로 처리됨",
-      "processed": "2025-12-18T03:33:40.869455"
+      "processed": "2025-12-18T06:11:12.320439"
     },
     {
       "title": "티스토리 가치",
       "date": "2025-08-25",
       "path": "/archive/2025-08-25-티스토리 가치.html",
       "description": "티스토리 가치 - 자동화 시스템으로 처리됨",
-      "processed": "2025-12-18T03:33:40.869494"
+      "processed": "2025-12-18T06:11:12.320480"
     },
     {
       "title": "티스토리 어쩌지",
       "date": "2025-08-23",
       "path": "/archive/2025-08-23-티스토리 어쩌지.html",
       "description": "티스토리 어쩌지 - 자동화 시스템으로 처리됨",
-      "processed": "2025-12-18T03:33:40.869538"
+      "processed": "2025-12-18T06:11:12.320526"
     },
     {
       "title": "클라우드 컴 쇼핑모델",
       "date": "2025-08-22",
       "path": "/archive/2025-08-22-클라우드 컴 쇼핑모델.html",
       "description": "클라우드 컴 쇼핑모델 - 자동화 시스템으로 처리됨",
-      "processed": "2025-12-18T03:33:40.869570"
+      "processed": "2025-12-18T06:11:12.320577"
     },
     {
       "title": "사진저장법",
       "date": "2025-08-19",
       "path": "/archive/2025-08-19-사진저장법.html",
       "description": "사진저장법 - 자동화 시스템으로 처리됨",
-      "processed": "2025-12-18T03:33:40.869609"
+      "processed": "2025-12-18T06:11:12.320623"
     },
     {
       "title": "깃허브란",
       "date": "2025-08-19",
       "path": "/archive/2025-08-19-깃허브란.html",
       "description": "깃허브란 - 자동화 시스템으로 처리됨",
-      "processed": "2025-12-18T03:33:40.869690"
+      "processed": "2025-12-18T06:11:12.320701"
     },
     {
       "title": "디바이스기반 콘텐츠 워크플로우",
       "date": "2025-08-17",
       "path": "/archive/2025-08-17-디바이스기반 콘텐츠 워크플로우.html",
       "description": "디바이스기반 콘텐츠 워크플로우 - 자동화 시스템으로 처리됨",
-      "processed": "2025-12-18T03:33:40.869791"
+      "processed": "2025-12-18T06:11:12.320770"
     },
     {
       "title": "설치 가이드 AI 파트너 클로드",
       "date": "2025-08-16",
       "path": "/archive/2025-08-16-설치 가이드 AI 파트너 클로드.html",
       "description": "설치 가이드 AI 파트너 클로드 - 자동화 시스템으로 처리됨",
-      "processed": "2025-12-18T03:33:40.869858"
+      "processed": "2025-12-18T06:11:12.320826"
     }
   ]
 }
