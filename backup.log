@@ -1,0 +1,137 @@
+2025-09-18 04:22:43,426 - INFO - 🚀 Starting comprehensive Obsidian backup...
+2025-09-18 04:22:43,426 - INFO - 🗂️ Creating backup directory structure...
+2025-09-18 04:22:43,426 - INFO - ✅ Created raw: /home/runner/work/UncleParksy/UncleParksy/backup/raw
+2025-09-18 04:22:43,426 - INFO - ✅ Created md: /home/runner/work/UncleParksy/UncleParksy/_obsidian/_imports/html_md
+2025-09-18 04:22:43,427 - INFO - ✅ Created html: /home/runner/work/UncleParksy/UncleParksy/_obsidian/_imports/html_raw
+2025-09-18 04:22:43,427 - INFO - ✅ Created json: /home/runner/work/UncleParksy/UncleParksy/backup/json
+2025-09-18 04:22:43,427 - INFO - ✅ Created snapshots: /home/runner/work/UncleParksy/UncleParksy/backup/snapshots
+2025-09-18 04:22:43,427 - INFO - 📰 Running Tistory backup...
+2025-09-18 04:22:43,524 - INFO - 📦 Mirroring backup to archive...
+2025-09-18 04:22:43,526 - INFO - 📱 Cleaning and mobilizing content...
+2025-09-18 04:22:43,585 - INFO - 🧹📱 Starting clean and mobilize pipeline...
+2025-09-18 04:22:43,586 - INFO - 📂 Using backup/raw/ as input directory
+2025-09-18 04:22:43,586 - INFO - ⏭️ Already clean: 2025-09-01-국내 AI 프로그래밍 유튜버3.html
+2025-09-18 04:22:43,586 - INFO - ⏭️ Already clean: 2025-08-25-티스토리 가치.html
+2025-09-18 04:22:43,586 - INFO - ⏭️ Already clean: 2025-08-23-티스토리 어쩌지.html
+2025-09-18 04:22:43,587 - INFO - ⏭️ Already clean: 2025-09-16-코딩 프로그래밍에 대한 자세.html
+2025-09-18 04:22:43,587 - INFO - ⏭️ Already clean: 2025-08-19-사진저장법.html
+2025-09-18 04:22:43,587 - INFO - ⏭️ Already clean: 2025-08-29-바이럴코딩 입버릇.html
+2025-09-18 04:22:43,587 - INFO - ⏭️ Already clean: 2025-08-25-티스토리 솔루션.html
+2025-09-18 04:22:43,587 - INFO - ⏭️ Already clean: 2025-09-16-핸드폰 생산자전환.html
+2025-09-18 04:22:43,587 - INFO - ⏭️ Already clean: 2025-09-16-AI 프로그래밍 독학법.html
+2025-09-18 04:22:43,587 - INFO - ⏭️ Already clean: 2025-09-03-ChatGPT 성우 설정.html
+2025-09-18 04:22:43,588 - INFO - ⏭️ Already clean: 2025-08-19-깃허브란.html
+2025-09-18 04:22:43,588 - INFO - ⏭️ Already clean: 2025-09-01-챗gpt 사용후기.html
+2025-09-18 04:22:43,588 - INFO - ⏭️ Already clean: 2025-08-16-설치 가이드 AI 파트너 클로드.html
+2025-09-18 04:22:43,588 - INFO - ⏭️ Already clean: 2025-08-22-클라우드 컴 쇼핑모델.html
+2025-09-18 04:22:43,588 - INFO - ⏭️ Already clean: 2025-09-05-네이버블로그메뉴.html
+2025-09-18 04:22:43,588 - INFO - ⏭️ Already clean: 2025-08-25-티스토리 활용.html
+2025-09-18 04:22:43,588 - INFO - ⏭️ Already clean: 2025-08-17-디바이스기반 콘텐츠 워크플로우.html
+2025-09-18 04:22:43,589 - INFO - ⏭️ Already clean: 2025-08-25-티스토리 업로드 자동화.html
+2025-09-18 04:22:43,589 - INFO - 🎉 Pipeline complete!
+2025-09-18 04:22:43,589 - INFO - 📊 Results: 0 processed, 18 skipped, 0 errors
+2025-09-18 04:22:43,589 - INFO - ⚙️ Backing up Obsidian configuration...
+2025-09-18 04:22:43,589 - INFO - ✅ Config backup simulated at /home/runner/work/UncleParksy/UncleParksy/backup/json/obsidian_config/2025-09-18_04-22-43
+2025-09-18 04:22:43,589 - INFO - 📸 Creating vault structure snapshot...
+2025-09-18 04:22:43,603 - INFO - ✅ Vault snapshot created: 175 files, 23.6 MB
+2025-09-18 04:22:43,603 - INFO - 🔍 Verifying backup integrity...
+2025-09-18 04:22:43,604 - INFO - ✅ raw: 18 files verified
+2025-09-18 04:22:43,604 - INFO - ✅ md: 20 files verified
+2025-09-18 04:22:43,605 - INFO - ✅ html: 20 files verified
+2025-09-18 04:22:43,605 - INFO - ✅ json: 1 files verified
+2025-09-18 04:22:43,605 - INFO - ✅ snapshots: 1 files verified
+2025-09-18 04:22:43,606 - ERROR - ❌ Critical error during backup: Circular reference detected
+2025-09-18 04:22:58,209 - INFO - 🚀 Starting comprehensive Obsidian backup...
+2025-09-18 04:22:58,210 - INFO - 🗂️ Creating backup directory structure...
+2025-09-18 04:22:58,210 - INFO - ✅ Created raw: /home/runner/work/UncleParksy/UncleParksy/backup/raw
+2025-09-18 04:22:58,210 - INFO - ✅ Created md: /home/runner/work/UncleParksy/UncleParksy/_obsidian/_imports/html_md
+2025-09-18 04:22:58,210 - INFO - ✅ Created html: /home/runner/work/UncleParksy/UncleParksy/_obsidian/_imports/html_raw
+2025-09-18 04:22:58,210 - INFO - ✅ Created json: /home/runner/work/UncleParksy/UncleParksy/backup/json
+2025-09-18 04:22:58,210 - INFO - ✅ Created snapshots: /home/runner/work/UncleParksy/UncleParksy/backup/snapshots
+2025-09-18 04:22:58,210 - INFO - 📰 Running Tistory backup...
+2025-09-18 04:22:58,308 - INFO - 📦 Mirroring backup to archive...
+2025-09-18 04:22:58,308 - INFO - 📱 Cleaning and mobilizing content...
+2025-09-18 04:22:58,365 - INFO - 🧹📱 Starting clean and mobilize pipeline...
+2025-09-18 04:22:58,365 - INFO - 📂 Using backup/raw/ as input directory
+2025-09-18 04:22:58,365 - INFO - ⏭️ Already clean: 2025-09-01-국내 AI 프로그래밍 유튜버3.html
+2025-09-18 04:22:58,365 - INFO - ⏭️ Already clean: 2025-08-25-티스토리 가치.html
+2025-09-18 04:22:58,365 - INFO - ⏭️ Already clean: 2025-08-23-티스토리 어쩌지.html
+2025-09-18 04:22:58,366 - INFO - ⏭️ Already clean: 2025-09-16-코딩 프로그래밍에 대한 자세.html
+2025-09-18 04:22:58,366 - INFO - ⏭️ Already clean: 2025-08-19-사진저장법.html
+2025-09-18 04:22:58,366 - INFO - ⏭️ Already clean: 2025-08-29-바이럴코딩 입버릇.html
+2025-09-18 04:22:58,366 - INFO - ⏭️ Already clean: 2025-08-25-티스토리 솔루션.html
+2025-09-18 04:22:58,366 - INFO - ⏭️ Already clean: 2025-09-16-핸드폰 생산자전환.html
+2025-09-18 04:22:58,366 - INFO - ⏭️ Already clean: 2025-09-16-AI 프로그래밍 독학법.html
+2025-09-18 04:22:58,366 - INFO - ⏭️ Already clean: 2025-09-03-ChatGPT 성우 설정.html
+2025-09-18 04:22:58,366 - INFO - ⏭️ Already clean: 2025-08-19-깃허브란.html
+2025-09-18 04:22:58,367 - INFO - ⏭️ Already clean: 2025-09-01-챗gpt 사용후기.html
+2025-09-18 04:22:58,367 - INFO - ⏭️ Already clean: 2025-08-16-설치 가이드 AI 파트너 클로드.html
+2025-09-18 04:22:58,367 - INFO - ⏭️ Already clean: 2025-08-22-클라우드 컴 쇼핑모델.html
+2025-09-18 04:22:58,367 - INFO - ⏭️ Already clean: 2025-09-05-네이버블로그메뉴.html
+2025-09-18 04:22:58,367 - INFO - ⏭️ Already clean: 2025-08-25-티스토리 활용.html
+2025-09-18 04:22:58,367 - INFO - ⏭️ Already clean: 2025-08-17-디바이스기반 콘텐츠 워크플로우.html
+2025-09-18 04:22:58,367 - INFO - ⏭️ Already clean: 2025-08-25-티스토리 업로드 자동화.html
+2025-09-18 04:22:58,367 - INFO - 🎉 Pipeline complete!
+2025-09-18 04:22:58,367 - INFO - 📊 Results: 0 processed, 18 skipped, 0 errors
+2025-09-18 04:22:58,367 - INFO - ⚙️ Backing up Obsidian configuration...
+2025-09-18 04:22:58,368 - INFO - ✅ Config backup simulated at /home/runner/work/UncleParksy/UncleParksy/backup/json/obsidian_config/2025-09-18_04-22-58
+2025-09-18 04:22:58,368 - INFO - 📸 Creating vault structure snapshot...
+2025-09-18 04:22:58,382 - INFO - ✅ Vault snapshot created: 178 files, 23.64 MB
+2025-09-18 04:22:58,382 - INFO - 🔍 Verifying backup integrity...
+2025-09-18 04:22:58,382 - INFO - ✅ raw: 18 files verified
+2025-09-18 04:22:58,383 - INFO - ✅ md: 20 files verified
+2025-09-18 04:22:58,383 - INFO - ✅ html: 20 files verified
+2025-09-18 04:22:58,384 - INFO - ✅ json: 3 files verified
+2025-09-18 04:22:58,384 - INFO - ✅ snapshots: 2 files verified
+2025-09-18 04:22:58,384 - INFO - 📊 Generating backup report...
+2025-09-18 04:22:58,385 - INFO - 📊 Backup report saved: /home/runner/work/UncleParksy/UncleParksy/backup/backup_report_2025-09-18_04-22-58.md
+2025-09-18 04:22:58,385 - INFO - 🎉 Comprehensive backup completed!
+2025-09-18 04:22:58,385 - INFO - 📄 Report: /home/runner/work/UncleParksy/UncleParksy/backup/backup_report_2025-09-18_04-22-58.md
+2025-09-18 04:22:58,385 - INFO - 📋 Manifest: /home/runner/work/UncleParksy/UncleParksy/backup/json/backup_manifest_2025-09-18_04-22-58.json
+2025-09-18 04:26:47,740 - INFO - 🚀 Starting comprehensive Obsidian backup...
+2025-09-18 04:26:47,740 - INFO - 🗂️ Creating backup directory structure...
+2025-09-18 04:26:47,740 - INFO - ✅ Created raw: /home/runner/work/UncleParksy/UncleParksy/backup/raw
+2025-09-18 04:26:47,741 - INFO - ✅ Created md: /home/runner/work/UncleParksy/UncleParksy/_obsidian/_imports/html_md
+2025-09-18 04:26:47,741 - INFO - ✅ Created html: /home/runner/work/UncleParksy/UncleParksy/_obsidian/_imports/html_raw
+2025-09-18 04:26:47,741 - INFO - ✅ Created json: /home/runner/work/UncleParksy/UncleParksy/backup/json
+2025-09-18 04:26:47,741 - INFO - ✅ Created snapshots: /home/runner/work/UncleParksy/UncleParksy/backup/snapshots
+2025-09-18 04:26:47,741 - INFO - 📰 Running Tistory backup...
+2025-09-18 04:26:47,842 - INFO - 📦 Mirroring backup to archive...
+2025-09-18 04:26:47,843 - INFO - 📱 Cleaning and mobilizing content...
+2025-09-18 04:26:47,904 - INFO - 🧹📱 Starting clean and mobilize pipeline...
+2025-09-18 04:26:47,904 - INFO - 📂 Using backup/raw/ as input directory
+2025-09-18 04:26:47,905 - INFO - ⏭️ Already clean: 2025-09-01-국내 AI 프로그래밍 유튜버3.html
+2025-09-18 04:26:47,905 - INFO - ⏭️ Already clean: 2025-08-25-티스토리 가치.html
+2025-09-18 04:26:47,905 - INFO - ⏭️ Already clean: 2025-08-23-티스토리 어쩌지.html
+2025-09-18 04:26:47,905 - INFO - ⏭️ Already clean: 2025-09-16-코딩 프로그래밍에 대한 자세.html
+2025-09-18 04:26:47,905 - INFO - ⏭️ Already clean: 2025-08-19-사진저장법.html
+2025-09-18 04:26:47,906 - INFO - ⏭️ Already clean: 2025-08-29-바이럴코딩 입버릇.html
+2025-09-18 04:26:47,906 - INFO - ⏭️ Already clean: 2025-08-25-티스토리 솔루션.html
+2025-09-18 04:26:47,906 - INFO - ⏭️ Already clean: 2025-09-16-핸드폰 생산자전환.html
+2025-09-18 04:26:47,906 - INFO - ⏭️ Already clean: 2025-09-16-AI 프로그래밍 독학법.html
+2025-09-18 04:26:47,906 - INFO - ⏭️ Already clean: 2025-09-03-ChatGPT 성우 설정.html
+2025-09-18 04:26:47,906 - INFO - ⏭️ Already clean: 2025-08-19-깃허브란.html
+2025-09-18 04:26:47,906 - INFO - ⏭️ Already clean: 2025-09-01-챗gpt 사용후기.html
+2025-09-18 04:26:47,907 - INFO - ⏭️ Already clean: 2025-08-16-설치 가이드 AI 파트너 클로드.html
+2025-09-18 04:26:47,907 - INFO - ⏭️ Already clean: 2025-08-22-클라우드 컴 쇼핑모델.html
+2025-09-18 04:26:47,907 - INFO - ⏭️ Already clean: 2025-09-05-네이버블로그메뉴.html
+2025-09-18 04:26:47,907 - INFO - ⏭️ Already clean: 2025-08-25-티스토리 활용.html
+2025-09-18 04:26:47,907 - INFO - ⏭️ Already clean: 2025-08-17-디바이스기반 콘텐츠 워크플로우.html
+2025-09-18 04:26:47,907 - INFO - ⏭️ Already clean: 2025-08-25-티스토리 업로드 자동화.html
+2025-09-18 04:26:47,907 - INFO - 🎉 Pipeline complete!
+2025-09-18 04:26:47,907 - INFO - 📊 Results: 0 processed, 18 skipped, 0 errors
+2025-09-18 04:26:47,907 - INFO - ⚙️ Backing up Obsidian configuration...
+2025-09-18 04:26:47,908 - INFO - ✅ Config backup simulated at /home/runner/work/UncleParksy/UncleParksy/backup/json/obsidian_config/2025-09-18_04-26-47
+2025-09-18 04:26:47,908 - INFO - 📸 Creating vault structure snapshot...
+2025-09-18 04:26:47,924 - INFO - ✅ Vault snapshot created: 192 files, 23.78 MB
+2025-09-18 04:26:47,924 - INFO - 🔍 Verifying backup integrity...
+2025-09-18 04:26:47,924 - INFO - ✅ raw: 18 files verified
+2025-09-18 04:26:47,925 - INFO - ✅ md: 20 files verified
+2025-09-18 04:26:47,926 - INFO - ✅ html: 20 files verified
+2025-09-18 04:26:47,926 - INFO - ✅ json: 7 files verified
+2025-09-18 04:26:47,926 - INFO - ✅ snapshots: 3 files verified
+2025-09-18 04:26:47,927 - INFO - 📊 Generating backup report...
+2025-09-18 04:26:47,928 - INFO - 📊 Backup report saved: /home/runner/work/UncleParksy/UncleParksy/backup/backup_report_2025-09-18_04-26-47.md
+2025-09-18 04:26:47,928 - INFO - 🎉 Comprehensive backup completed!
+2025-09-18 04:26:47,928 - INFO - 📄 Report: /home/runner/work/UncleParksy/UncleParksy/backup/backup_report_2025-09-18_04-26-47.md
+2025-09-18 04:26:47,928 - INFO - 📋 Manifest: /home/runner/work/UncleParksy/UncleParksy/backup/json/backup_manifest_2025-09-18_04-26-47.json

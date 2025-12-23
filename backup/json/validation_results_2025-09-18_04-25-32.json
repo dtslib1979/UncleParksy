@@ -1,0 +1,467 @@
+{
+  "timestamp": "2025-09-18T04:25:32.682441",
+  "directory_validation": {
+    "raw": {
+      "name": "raw",
+      "path": "/home/runner/work/UncleParksy/UncleParksy/backup/raw",
+      "exists": true,
+      "file_count": 18,
+      "total_size_bytes": 1156244,
+      "file_types": {
+        ".html": 18
+      },
+      "recent_files": [
+        {
+          "name": "2025-09-16-코딩 프로그래밍에 대한 자세.html",
+          "size": 66327,
+          "modified": "2025-09-18T04:19:09.654837",
+          "relative_path": "2025-09-16-코딩 프로그래밍에 대한 자세.html"
+        },
+        {
+          "name": "2025-09-16-핸드폰 생산자전환.html",
+          "size": 62303,
+          "modified": "2025-09-18T04:19:09.654837",
+          "relative_path": "2025-09-16-핸드폰 생산자전환.html"
+        },
+        {
+          "name": "2025-09-16-AI 프로그래밍 독학법.html",
+          "size": 63240,
+          "modified": "2025-09-18T04:19:09.654837",
+          "relative_path": "2025-09-16-AI 프로그래밍 독학법.html"
+        },
+        {
+          "name": "2025-09-03-ChatGPT 성우 설정.html",
+          "size": 58825,
+          "modified": "2025-09-18T04:19:09.654837",
+          "relative_path": "2025-09-03-ChatGPT 성우 설정.html"
+        },
+        {
+          "name": "2025-09-01-챗gpt 사용후기.html",
+          "size": 58769,
+          "modified": "2025-09-18T04:19:09.654837",
+          "relative_path": "2025-09-01-챗gpt 사용후기.html"
+        },
+        {
+          "name": "2025-09-05-네이버블로그메뉴.html",
+          "size": 63200,
+          "modified": "2025-09-18T04:19:09.654837",
+          "relative_path": "2025-09-05-네이버블로그메뉴.html"
+        },
+        {
+          "name": "2025-09-01-국내 AI 프로그래밍 유튜버3.html",
+          "size": 72765,
+          "modified": "2025-09-18T04:19:09.653837",
+          "relative_path": "2025-09-01-국내 AI 프로그래밍 유튜버3.html"
+        },
+        {
+          "name": "2025-08-25-티스토리 가치.html",
+          "size": 62276,
+          "modified": "2025-09-18T04:19:09.653837",
+          "relative_path": "2025-08-25-티스토리 가치.html"
+        },
+        {
+          "name": "2025-08-23-티스토리 어쩌지.html",
+          "size": 62862,
+          "modified": "2025-09-18T04:19:09.653837",
+          "relative_path": "2025-08-23-티스토리 어쩌지.html"
+        },
+        {
+          "name": "2025-08-19-사진저장법.html",
+          "size": 53755,
+          "modified": "2025-09-18T04:19:09.653837",
+          "relative_path": "2025-08-19-사진저장법.html"
+        }
+      ],
+      "oldest_file": {
+        "name": "2025-08-16-설치 가이드 AI 파트너 클로드.html",
+        "size": 66639,
+        "modified": "2025-09-18T04:19:09.652837",
+        "relative_path": "2025-08-16-설치 가이드 AI 파트너 클로드.html"
+      },
+      "newest_file": {
+        "name": "2025-09-16-코딩 프로그래밍에 대한 자세.html",
+        "size": 66327,
+        "modified": "2025-09-18T04:19:09.654837",
+        "relative_path": "2025-09-16-코딩 프로그래밍에 대한 자세.html"
+      },
+      "checksums": {
+        "2025-09-01-국내 AI 프로그래밍 유튜버3.html": "893b98183d7b2ae12da18e9a44161a392891252c01aada89f544cff0da257a18",
+        "2025-08-25-티스토리 가치.html": "1ad06cada959ee861d3d75f5e55a9d52a96226566f603e35c97e0a8851d4accb",
+        "2025-08-23-티스토리 어쩌지.html": "54e390e047edbe8bcb03067a3d62f1e8394d37882f0aa31e615f15ba11083abe",
+        "2025-09-16-코딩 프로그래밍에 대한 자세.html": "2a7b5c765dc78dc299bc15052e2a25e8d52587e37d9dbdafa825262af534dfed",
+        "2025-08-19-사진저장법.html": "929b70e13ad0f59ea0e857dce24064072b4107ee3651c3f9e2df3d568eb55a70"
+      },
+      "status": "healthy",
+      "total_size_mb": 1.1
+    },
+    "md": {
+      "name": "md",
+      "path": "/home/runner/work/UncleParksy/UncleParksy/_obsidian/_imports/html_md",
+      "exists": true,
+      "file_count": 20,
+      "total_size_bytes": 115856,
+      "file_types": {
+        ".md": 20
+      },
+      "recent_files": [
+        {
+          "name": "README.md",
+          "size": 270,
+          "modified": "2025-09-18T04:19:09.622837",
+          "relative_path": "system-configuration/README.md"
+        },
+        {
+          "name": "2025-09-03-immediate-sync-test.md",
+          "size": 1659,
+          "modified": "2025-09-18T04:19:09.622837",
+          "relative_path": "system-configuration/2025-09-03-immediate-sync-test.md"
+        },
+        {
+          "name": "index.md",
+          "size": 128,
+          "modified": "2025-09-18T04:19:09.622837",
+          "relative_path": "system-configuration/index.md"
+        },
+        {
+          "name": "index.md",
+          "size": 180,
+          "modified": "2025-09-18T04:19:09.622837",
+          "relative_path": "device-chronicles/index.md"
+        },
+        {
+          "name": "2025-08-29 샘플.md",
+          "size": 16257,
+          "modified": "2025-09-18T04:19:09.622837",
+          "relative_path": "device-chronicles/2025-08-29 샘플.md"
+        },
+        {
+          "name": "README.md",
+          "size": 304,
+          "modified": "2025-09-18T04:19:09.622837",
+          "relative_path": "webappsbookcast/README.md"
+        },
+        {
+          "name": "index.md",
+          "size": 94,
+          "modified": "2025-09-18T04:19:09.622837",
+          "relative_path": "webappsbookcast/index.md"
+        },
+        {
+          "name": "2025-09-03 check2.md",
+          "size": 16453,
+          "modified": "2025-09-18T04:19:09.622837",
+          "relative_path": "webappsbookcast/2025-09-03 check2.md"
+        },
+        {
+          "name": "index.md",
+          "size": 88,
+          "modified": "2025-09-18T04:19:09.622837",
+          "relative_path": "writers-path/index.md"
+        },
+        {
+          "name": "2025-09-03 CHECK1.md",
+          "size": 15929,
+          "modified": "2025-09-18T04:19:09.622837",
+          "relative_path": "writers-path/2025-09-03 CHECK1.md"
+        }
+      ],
+      "oldest_file": {
+        "name": "2025-08-27-uncleparksy-site-launch.md",
+        "size": 1152,
+        "modified": "2025-09-18T04:19:09.621837",
+        "relative_path": "device-chronicles/2025-08-27-uncleparksy-site-launch.md"
+      },
+      "newest_file": {
+        "name": "README.md",
+        "size": 270,
+        "modified": "2025-09-18T04:19:09.622837",
+        "relative_path": "system-configuration/README.md"
+      },
+      "checksums": {
+        "system-configuration/README.md": "857b1bf2b616966b70742efcd8bf237d5f192da96c08e8b7a5a28ae0ec922977",
+        "system-configuration/2025-09-03-immediate-sync-test.md": "1ec9be7c3cd0c0b39989a00e2349228406758747de3dce5838ebe88f4d1b8e2c",
+        "system-configuration/index.md": "bb263282e7ca598bd723e39ea338bf0dda6541907d3c44de75d063c2f4453be4",
+        "device-chronicles/index.md": "2dc0c55cdd85ef360ed706df9d3ef4792c9576b3bfd0434d4ef047e89a4da3ac",
+        "device-chronicles/2025-08-29 샘플.md": "e88fc653776a91d73cd35cc3a02be4057f62fc67aa080a931a21dd7b04cdabf4"
+      },
+      "status": "healthy",
+      "total_size_mb": 0.11
+    },
+    "html": {
+      "name": "html",
+      "path": "/home/runner/work/UncleParksy/UncleParksy/_obsidian/_imports/html_raw",
+      "exists": true,
+      "file_count": 20,
+      "total_size_bytes": 200387,
+      "file_types": {
+        ".md": 2,
+        ".html": 18
+      },
+      "recent_files": [
+        {
+          "name": "README.md",
+          "size": 304,
+          "modified": "2025-09-18T04:19:09.624837",
+          "relative_path": "webappsbookcast/README.md"
+        },
+        {
+          "name": "2025-09-03 check2.html",
+          "size": 28179,
+          "modified": "2025-09-18T04:19:09.624837",
+          "relative_path": "webappsbookcast/2025-09-03 check2.html"
+        },
+        {
+          "name": "index.html",
+          "size": 200,
+          "modified": "2025-09-18T04:19:09.624837",
+          "relative_path": "webappsbookcast/index.html"
+        },
+        {
+          "name": "2025-09-03 CHECK1.html",
+          "size": 28168,
+          "modified": "2025-09-18T04:19:09.624837",
+          "relative_path": "writers-path/2025-09-03 CHECK1.html"
+        },
+        {
+          "name": "index.html",
+          "size": 194,
+          "modified": "2025-09-18T04:19:09.624837",
+          "relative_path": "writers-path/index.html"
+        },
+        {
+          "name": "index.html",
+          "size": 138,
+          "modified": "2025-09-18T04:19:09.624837",
+          "relative_path": "webappsbook-codex/index.html"
+        },
+        {
+          "name": "2025-09-02 VAMEW.html",
+          "size": 22190,
+          "modified": "2025-09-18T04:19:09.624837",
+          "relative_path": "thought-archaeology/2025-09-02 VAMEW.html"
+        },
+        {
+          "name": "2025-08-30 Verbal coding wordmaster.html",
+          "size": 8294,
+          "modified": "2025-09-18T04:19:09.624837",
+          "relative_path": "thought-archaeology/2025-08-30 Verbal coding wordmaster.html"
+        },
+        {
+          "name": "2025년 8월 27일 기독교모델.html",
+          "size": 17745,
+          "modified": "2025-09-18T04:19:09.624837",
+          "relative_path": "thought-archaeology/2025년 8월 27일 기독교모델.html"
+        },
+        {
+          "name": "index.html",
+          "size": 480,
+          "modified": "2025-09-18T04:19:09.624837",
+          "relative_path": "thought-archaeology/index.html"
+        }
+      ],
+      "oldest_file": {
+        "name": "README.md",
+        "size": 270,
+        "modified": "2025-09-18T04:19:09.623837",
+        "relative_path": "system-configuration/README.md"
+      },
+      "newest_file": {
+        "name": "README.md",
+        "size": 304,
+        "modified": "2025-09-18T04:19:09.624837",
+        "relative_path": "webappsbookcast/README.md"
+      },
+      "checksums": {
+        "system-configuration/README.md": "857b1bf2b616966b70742efcd8bf237d5f192da96c08e8b7a5a28ae0ec922977",
+        "system-configuration/2025-09-03-immediate-sync-test.html": "aeee4a40417ab2607f322b4aff189b5a0cae56e9bc833d391402e77267e9c1de",
+        "system-configuration/index.html": "4feb1521144dacd81579c66aad96bc5feec052382fdcceab1c5978d4bacc2133",
+        "device-chronicles/2025-08-27-uncleparksy-site-launch.html": "2aa2ef0188146813dbcd9f2900baade63ea2877f82c58d430a1133e59e338df3",
+        "device-chronicles/2025-08-29 샘플.html": "f0dccbfd6cefccd8104a48ad4e261188c92f8f3089c3b0efa72c81931a8c1ba5"
+      },
+      "status": "healthy",
+      "total_size_mb": 0.19
+    },
+    "json": {
+      "name": "json",
+      "path": "/home/runner/work/UncleParksy/UncleParksy/backup/json",
+      "exists": true,
+      "file_count": 5,
+      "total_size_bytes": 19079,
+      "file_types": {
+        ".json": 5
+      },
+      "recent_files": [
+        {
+          "name": "validation_results_2025-09-18_04-24-26.json",
+          "size": 16642,
+          "modified": "2025-09-18T04:24:26.517852",
+          "relative_path": "validation_results_2025-09-18_04-24-26.json"
+        },
+        {
+          "name": "backup_manifest_2025-09-18_04-22-58.json",
+          "size": 863,
+          "modified": "2025-09-18T04:22:58.383041",
+          "relative_path": "backup_manifest_2025-09-18_04-22-58.json"
+        },
+        {
+          "name": "config_manifest.json",
+          "size": 462,
+          "modified": "2025-09-18T04:22:58.367041",
+          "relative_path": "obsidian_config/2025-09-18_04-22-58/config_manifest.json"
+        },
+        {
+          "name": "backup_manifest_2025-09-18_04-22-43.json",
+          "size": 650,
+          "modified": "2025-09-18T04:22:43.605086",
+          "relative_path": "backup_manifest_2025-09-18_04-22-43.json"
+        },
+        {
+          "name": "config_manifest.json",
+          "size": 462,
+          "modified": "2025-09-18T04:22:43.588086",
+          "relative_path": "obsidian_config/2025-09-18_04-22-43/config_manifest.json"
+        }
+      ],
+      "oldest_file": {
+        "name": "config_manifest.json",
+        "size": 462,
+        "modified": "2025-09-18T04:22:43.588086",
+        "relative_path": "obsidian_config/2025-09-18_04-22-43/config_manifest.json"
+      },
+      "newest_file": {
+        "name": "validation_results_2025-09-18_04-24-26.json",
+        "size": 16642,
+        "modified": "2025-09-18T04:24:26.517852",
+        "relative_path": "validation_results_2025-09-18_04-24-26.json"
+      },
+      "checksums": {
+        "backup_manifest_2025-09-18_04-22-43.json": "f59c61f19e8fac29e42a49fbd1a22cb5b6c1d809fbf580d5f56e1045be99f91c",
+        "backup_manifest_2025-09-18_04-22-58.json": "2e33be05548fa319ffa667ab020af910fe77f4c34d4765c37e96f325f1951afb",
+        "validation_results_2025-09-18_04-24-26.json": "f1f289e8f3a5dee192ee9ed937c82a0a365117ffe32f80f8a38f0125f40b21c7",
+        "obsidian_config/2025-09-18_04-22-43/config_manifest.json": "429796c0515ba3d43519c97df51998b9317e0c4180a23bc913f5d23483b1c962",
+        "obsidian_config/2025-09-18_04-22-58/config_manifest.json": "33f79fa6887e157a0518d5b64a1ff0574cf5f0c7b2c66f1347f9ee699e126870"
+      },
+      "status": "healthy",
+      "total_size_mb": 0.02
+    },
+    "snapshots": {
+      "name": "snapshots",
+      "path": "/home/runner/work/UncleParksy/UncleParksy/backup/snapshots",
+      "exists": true,
+      "file_count": 2,
+      "total_size_bytes": 57497,
+      "file_types": {
+        ".json": 2
+      },
+      "recent_files": [
+        {
+          "name": "vault_snapshot.json",
+          "size": 29012,
+          "modified": "2025-09-18T04:22:58.381041",
+          "relative_path": "2025-09-18_04-22-58/vault_snapshot.json"
+        },
+        {
+          "name": "vault_snapshot.json",
+          "size": 28485,
+          "modified": "2025-09-18T04:22:43.603086",
+          "relative_path": "2025-09-18_04-22-43/vault_snapshot.json"
+        }
+      ],
+      "oldest_file": {
+        "name": "vault_snapshot.json",
+        "size": 28485,
+        "modified": "2025-09-18T04:22:43.603086",
+        "relative_path": "2025-09-18_04-22-43/vault_snapshot.json"
+      },
+      "newest_file": {
+        "name": "vault_snapshot.json",
+        "size": 29012,
+        "modified": "2025-09-18T04:22:58.381041",
+        "relative_path": "2025-09-18_04-22-58/vault_snapshot.json"
+      },
+      "checksums": {
+        "2025-09-18_04-22-43/vault_snapshot.json": "4d6fd3f1cbe84b213c376c1caa3588781dd1978854d0b4af10c43f8852d77517",
+        "2025-09-18_04-22-58/vault_snapshot.json": "86e7f1f18f2e10a103bb6f2f96c3e4d8d7d5b1adae0d5e7f3994955cec2a2659"
+      },
+      "status": "low_files",
+      "total_size_mb": 0.05
+    }
+  },
+  "manifest_validation": {
+    "total_manifests": 2,
+    "manifests": [
+      {
+        "filename": "backup_manifest_2025-09-18_04-22-58.json",
+        "timestamp": "2025-09-18_04-22-58",
+        "status": "completed",
+        "operations": {
+          "tistory_backup": "success",
+          "mirror_to_archive": "success",
+          "clean_and_mobilize": "success",
+          "obsidian_config": "success",
+          "vault_snapshot": "success",
+          "integrity_verification": "success"
+        },
+        "file_size": 863
+      }
+    ],
+    "latest_manifest": {
+      "filename": "backup_manifest_2025-09-18_04-22-58.json",
+      "timestamp": "2025-09-18_04-22-58",
+      "status": "completed",
+      "operations": {
+        "tistory_backup": "success",
+        "mirror_to_archive": "success",
+        "clean_and_mobilize": "success",
+        "obsidian_config": "success",
+        "vault_snapshot": "success",
+        "integrity_verification": "success"
+      },
+      "file_size": 863
+    },
+    "status": "healthy"
+  },
+  "freshness_check": {
+    "overall_status": "fresh",
+    "directories": {
+      "raw": {
+        "status": "fresh",
+        "last_update": "2025-09-18T04:19:09.654837",
+        "newest_file": "2025-09-16-코딩 프로그래밍에 대한 자세.html",
+        "hours_since_update": 0.1
+      },
+      "md": {
+        "status": "fresh",
+        "last_update": "2025-09-18T04:19:09.622837",
+        "newest_file": "README.md",
+        "hours_since_update": 0.1
+      },
+      "html": {
+        "status": "fresh",
+        "last_update": "2025-09-18T04:19:09.624837",
+        "newest_file": "README.md",
+        "hours_since_update": 0.1
+      },
+      "json": {
+        "status": "fresh",
+        "last_update": "2025-09-18T04:24:26.517852",
+        "newest_file": "validation_results_2025-09-18_04-24-26.json",
+        "hours_since_update": 0.0
+      },
+      "snapshots": {
+        "status": "fresh",
+        "last_update": "2025-09-18T04:22:58.381041",
+        "newest_file": "vault_snapshot.json",
+        "hours_since_update": 0.0
+      }
+    },
+    "stale_threshold_hours": 24,
+    "oldest_backup": {
+      "status": "fresh",
+      "last_update": "2025-09-18T04:19:09.622837",
+      "newest_file": "README.md",
+      "hours_since_update": 0.1
+    }
+  },
+  "overall_status": "warning"
+}
