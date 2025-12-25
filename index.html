@@ -200,8 +200,47 @@ body::before{
 .brand img{height:40px; width:auto; display:block}  
 .brand-title{font-family:'Pirata One',cursive; font-size:1.4rem; letter-spacing:1px}  
 .nav a{margin-left:12px; font-weight:700; text-decoration:none; color:inherit}  
-.nav a:hover{text-decoration:underline}  
-  
+.nav a:hover{text-decoration:underline}
+
+/* translate button */
+.translate-btn{
+  display:inline-flex; align-items:center; gap:6px; margin-left:12px;
+  padding:6px 12px; border:1px solid var(--primary-gold); border-radius:6px;
+  background:transparent; color:var(--ink); font-weight:700; font-size:.9rem;
+  cursor:pointer; transition:all .2s ease;
+}
+.translate-btn:hover{background:var(--primary-gold); color:#fff}
+.translate-btn svg{flex-shrink:0}
+.translate-label{white-space:nowrap}
+
+/* Google Translate dropdown container */
+#google_translate_element{
+  position:fixed; top:60px; right:16px; z-index:10001;
+  background:#fff; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,.15);
+  padding:8px; display:none;
+}
+#google_translate_element.show{display:block}
+.goog-te-gadget{font-family:inherit !important}
+/* Translation menu dropdown */
+.translate-menu{
+  position:fixed; z-index:10001;
+  background:#fff; border-radius:12px; box-shadow:0 8px 32px rgba(0,0,0,.2);
+  padding:12px; min-width:160px;
+  display:none; flex-direction:column; gap:4px;
+}
+.translate-menu.show{display:flex}
+.translate-menu-title{
+  font-size:.85rem; font-weight:700; color:var(--ink-2); padding:8px 12px;
+  border-bottom:1px solid rgba(0,0,0,.1); margin-bottom:4px;
+}
+.translate-menu button{
+  display:block; width:100%; text-align:left; padding:10px 14px;
+  border:none; background:transparent; border-radius:8px;
+  font-size:.95rem; color:var(--ink); cursor:pointer; transition:all .15s ease;
+}
+.translate-menu button:hover{background:var(--light-gold); color:var(--ink)}
+.translate-menu button:active{background:var(--primary-gold); color:#fff}
+
 /* footer */  
 .footer{padding:20px 16px; text-align:center; color:#6b6b6b; font-size:.92rem; line-height:1.7}  
 .footer .links{margin-bottom:10px}  
@@ -284,8 +323,14 @@ body::before{
     outline:none; border-color:#caa24b;  
     box-shadow:0 3px 14px rgba(202,162,75,.25);  
   }  
-  .nav form[role="search"] input::placeholder{color:#666; opacity:.85;}  
-}  
+  .nav form[role="search"] input::placeholder{color:#666; opacity:.85;}
+  /* translate button mobile */
+  .translate-btn{margin-left:0; padding:8px 14px; font-size:.85rem;}
+  .translate-label{display:none;}
+  #google_translate_element{top:auto; bottom:16px; right:16px; left:16px; text-align:center;}
+  .translate-menu{max-height:70vh; overflow-y:auto;}
+  .translate-menu button{padding:14px 16px; font-size:1rem;}
+}
 </style>  
 </head>  
 <body>  
@@ -306,11 +351,15 @@ body::before{
     <a href="/">Home</a>  
     <a href="/archive/index.html">Archive</a>  
     <a href="/about.html">About</a>  
-    <a href="/contact.html">Contact</a>  
-    <form action="/search/" role="search" aria-label="Site search" style="display:inline-block;margin-left:8px">  
-      <input name="q" placeholder="Search…" aria-label="Search this site">  
-    </form>  
-  </nav>  
+    <a href="/contact.html">Contact</a>
+    <button id="translate-btn" class="translate-btn" aria-label="Translate page" title="Translate page">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      <span class="translate-label">번역</span>
+    </button>
+    <form action="/search/" role="search" aria-label="Site search" style="display:inline-block;margin-left:8px">
+      <input name="q" placeholder="Search…" aria-label="Search this site">
+    </form>
+  </nav>
 </header>  
   
 <!-- Loading overlay -->  
@@ -540,8 +589,9 @@ function resetMain(){
   
 /* init */  
 document.addEventListener('DOMContentLoaded', () => {  
-  initLoading();  
-  initAccessibility();  
+  initLoading();
+  initAccessibility();
+  initTranslate();
   loadHomeJsonCounts().finally(loadChapterCounts);  
   
   if(!reduced){  
@@ -556,8 +606,69 @@ window.addEventListener('pageshow', (e) => {
   if (e.persisted) resetMain();  
 });  
   
-/* Load counts from each category's manifest.json */  
-async function loadHomeJsonCounts(){  
+/* Translation button - opens Google Translate with language selection */
+function initTranslate(){
+  const btn = document.getElementById('translate-btn');
+  if(!btn) return;
+
+  // Create language menu
+  const menu = document.createElement('div');
+  menu.id = 'translate-menu';
+  menu.className = 'translate-menu';
+  menu.innerHTML = `
+    <div class="translate-menu-title">Select Language</div>
+    <button data-lang="en">English</button>
+    <button data-lang="ko">한국어</button>
+    <button data-lang="ja">日本語</button>
+    <button data-lang="zh-CN">中文(简体)</button>
+    <button data-lang="zh-TW">中文(繁體)</button>
+    <button data-lang="es">Español</button>
+    <button data-lang="fr">Français</button>
+    <button data-lang="de">Deutsch</button>
+    <button data-lang="vi">Tiếng Việt</button>
+    <button data-lang="th">ไทย</button>
+  `;
+  document.body.appendChild(menu);
+
+  // Toggle menu on button click
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    menu.classList.toggle('show');
+    // Position menu near button
+    const rect = btn.getBoundingClientRect();
+    if(window.innerWidth <= 480){
+      menu.style.top = 'auto';
+      menu.style.bottom = '16px';
+      menu.style.left = '16px';
+      menu.style.right = '16px';
+    } else {
+      menu.style.top = (rect.bottom + 8) + 'px';
+      menu.style.right = (window.innerWidth - rect.right) + 'px';
+      menu.style.left = 'auto';
+      menu.style.bottom = 'auto';
+    }
+  });
+
+  // Handle language selection
+  menu.addEventListener('click', (e) => {
+    const lang = e.target.getAttribute('data-lang');
+    if(lang){
+      const currentUrl = encodeURIComponent(window.location.href);
+      window.open(`https://translate.google.com/translate?sl=auto&tl=${lang}&u=${currentUrl}`, '_blank');
+      menu.classList.remove('show');
+    }
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if(!menu.contains(e.target) && e.target !== btn){
+      menu.classList.remove('show');
+    }
+  });
+}
+
+/* Load counts from each category's manifest.json */
+async function loadHomeJsonCounts(){
   const countElements = document.querySelectorAll('.chapter-count[data-path]');  
   const promises = Array.from(countElements).map(async el => {  
     const path = el.getAttribute('data-path');  
