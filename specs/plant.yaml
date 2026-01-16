@@ -1,0 +1,146 @@
+# ═══════════════════════════════════════════════════════════════
+#  DTSLIB PLANT - 로컬 생산 공장 스펙
+#  "PC = 정제 공장"
+# ═══════════════════════════════════════════════════════════════
+
+plant:
+  name: "DTSLIB Production Plant"
+  version: "1.0.0"
+  description: "로컬 PC에서 실행되는 콘텐츠 생산 공장"
+
+# 로컬 디렉토리 구조
+directories:
+  root: "D:\\DTSLIB"  # Windows 기준
+
+  inbox:
+    path: "D:\\DTSLIB\\INBOX"
+    description: "원석 투입구 - 음성, 메모, 로그"
+    subdirs:
+      voice: "음성 메모, 녹음 파일"
+      text: "텍스트 메모, 마크다운"
+      visual: "이미지, 스크린샷, 스케치"
+      mixed: "복합 콘텐츠"
+    file_patterns:
+      - "*.txt"
+      - "*.md"
+      - "*.m4a"
+      - "*.mp3"
+      - "*.wav"
+      - "*.png"
+      - "*.jpg"
+      - "*.pdf"
+
+  work:
+    path: "D:\\DTSLIB\\WORK"
+    description: "Claude Code 작업 공간"
+    subdirs:
+      queue: "처리 대기"
+      processing: "처리 중"
+      review: "검토 대기"
+      done: "처리 완료"
+
+  output:
+    path: "D:\\DTSLIB\\OUTPUT"
+    description: "도메인별 결과물"
+    subdirs:
+      parksy:
+        path: "D:\\DTSLIB\\OUTPUT\\parksy"
+        sync_to: "parksy.kr"
+      eae:
+        path: "D:\\DTSLIB\\OUTPUT\\eae"
+        sync_to: "eae.kr"
+      dtslib:
+        path: "D:\\DTSLIB\\OUTPUT\\dtslib"
+        sync_to: "dtslib.kr"
+
+  plant:
+    path: "D:\\DTSLIB\\PLANT"
+    description: "실행 스크립트 및 설정"
+    files:
+      - "run_all.ps1"
+      - "config.json"
+      - "status.json"
+
+# 워크플로우
+workflow:
+  steps:
+    1_scan:
+      name: "Scan Inbox"
+      action: "INBOX 폴더 스캔"
+      output: "새 원석 목록"
+
+    2_convert:
+      name: "Convert Media"
+      action: "음성→텍스트, 이미지→설명 변환"
+      tools:
+        voice: "whisper"
+        image: "vision-api"
+
+    3_analyze:
+      name: "Analyze Content"
+      action: "내용 분석 및 키워드 추출"
+      tool: "claude"
+
+    4_route:
+      name: "Route to Domain"
+      action: "specs 기반 도메인 결정"
+      reference: "specs/*.yaml"
+
+    5_transform:
+      name: "Transform Content"
+      action: "도메인 템플릿에 맞게 변환"
+      output: "OUTPUT/{domain}/"
+
+    6_commit:
+      name: "Commit to GitHub"
+      action: "자동 커밋 및 푸시"
+      target: "각 도메인 레포"
+
+    7_deploy:
+      name: "Deploy"
+      action: "GitHub Pages 자동 배포"
+      trigger: "push to main"
+
+# 파일 명명 규칙
+naming:
+  source:
+    pattern: "src-{YYYYMMDD}-{NNN}.{ext}"
+    example: "src-20250116-001.txt"
+
+  output:
+    parksy:
+      pattern: "{YYYY-MM-DD}-{slug}.md"
+      example: "2025-01-16-오늘-생각.md"
+    eae:
+      pattern: "{framework}-{concept}-v{N}.md"
+      example: "eduart-learning-module-v1.md"
+    dtslib:
+      pattern: "{product_type}-{id}-{chapter}.md"
+      example: "ebook-001-chapter-01.md"
+
+# 상태 추적
+status_tracking:
+  file: "D:\\DTSLIB\\PLANT\\status.json"
+  fields:
+    - last_scan: "마지막 스캔 시각"
+    - inbox_count: "인박스 대기 수"
+    - processed_today: "오늘 처리량"
+    - total_processed: "누적 처리량"
+    - by_domain: "도메인별 통계"
+
+# 알림
+notifications:
+  on_complete:
+    enabled: true
+    method: "toast"  # Windows 알림
+  daily_report:
+    enabled: true
+    time: "22:00"
+    content: "오늘 생산량 리포트"
+
+# 백업
+backup:
+  enabled: true
+  frequency: "daily"
+  location: "D:\\DTSLIB\\BACKUP"
+  retention_days: 30

@@ -1,0 +1,174 @@
+# ═══════════════════════════════════════════════════════════════
+#  DTSLIB.KR - Domain Specification
+#  "병에 담긴 물" - 상품, 완성품, 판매 가능
+# ═══════════════════════════════════════════════════════════════
+
+domain:
+  id: dtslib
+  name: dtslib.kr
+  layer: 회사 (Company)
+  keyword: "With Business"
+  metaphor: "병에 담긴 물 - 팔 수 있는 상품"
+  one_liner: "그래서 이것을 만들어 판다."
+
+character:
+  tone: 전문적이고 상업적
+  criterion: "돈 앞에 내놔도 부끄럽지 않은가?"
+  traits:
+    - 차갑고 객관적
+    - 규격화된
+    - 책임지는
+  rules:
+    - 중복 금지
+    - 완성도 필수
+    - 계약과 결제의 얼굴
+    - 법적 책임 인지
+  forbidden:
+    - 미완성
+    - 실험적 콘텐츠
+    - 개인적 감정
+
+business_info:
+  company: dtslib
+  registration: "475-01-03493"
+  publisher_declaration: "2024-000013"
+  address: "305, 16, Waryong-ro, Manan-gu, Anyang-si, Gyeonggi-do"
+  email: "dimas@dtslib.com"
+
+routing:
+  keywords:
+    high:
+      - 출판
+      - 책
+      - 전자책
+      - 강좌
+      - 판매
+      - 상품
+    medium:
+      - 웹툰
+      - 시리즈
+      - 강의
+      - 코스
+      - 교육
+    low:
+      - 완성
+      - 배포
+      - 릴리즈
+
+  format_hints:
+    ebook: ["책", "전자책", "챕터", "목차"]
+    webtoon: ["웹툰", "만화", "에피소드", "패널"]
+    course: ["강좌", "강의", "레슨", "모듈"]
+    audiobook: ["오디오북", "낭독", "음성"]
+
+output_formats:
+  primary:
+    - ebook_chapter    # 전자책 챕터
+    - course_lesson    # 강좌 레슨
+    - webtoon_episode  # 웹툰 에피소드
+  secondary:
+    - audiobook_script # 오디오북 대본
+    - product_page     # 상품 페이지
+    - landing_page     # 랜딩 페이지
+
+templates:
+  ebook_chapter:
+    frontmatter:
+      - domain: dtslib
+      - type: ebook_chapter
+      - book_id: "{{ book_id }}"
+      - chapter: "{{ chapter_number }}"
+      - status: draft|review|published
+    sections:
+      - 제목
+      - 본문
+      - 요약
+      - 다음 챕터 예고
+    footer: |
+      ---
+      © DTSLIB Publishing
+      사업자등록번호: 475-01-03493
+
+  course_lesson:
+    frontmatter:
+      - domain: dtslib
+      - type: course_lesson
+      - course_id: "{{ course_id }}"
+      - lesson: "{{ lesson_number }}"
+      - duration: "{{ estimated_minutes }}분"
+    sections:
+      - 학습 목표
+      - 본문
+      - 실습
+      - 퀴즈 (optional)
+      - 다음 레슨
+
+  product_page:
+    frontmatter:
+      - domain: dtslib
+      - type: product
+      - product_id: "{{ product_id }}"
+      - price_krw: "{{ price }}"
+    sections:
+      - 상품명
+      - 소개
+      - 목차/구성
+      - 저자 소개
+      - 구매 안내
+      - FAQ
+
+platforms:
+  youtube:
+    channel: "@DTSLIB"
+    content_types:
+      - 강좌
+      - 리뷰
+      - 튜토리얼
+      - 책 소개
+  amazon:
+    type: kdp
+    content: 전자책
+  ridi:
+    type: ebook_webtoon
+    content: 전자책, 웹툰
+  inflearn:
+    type: course
+    content: 영상 강좌
+  class101:
+    type: course
+    content: 클래스
+  web:
+    primary: true
+    path: /output/dtslib/
+
+publishing:
+  auto_publish: false
+  review_required: true
+  approval_required: true  # 최종 승인 필요
+  min_quality: production
+
+quality_gates:
+  - is_complete: true
+  - has_pricing: true
+  - legal_reviewed: true
+  - no_plagiarism: true
+  - formatting_correct: true
+
+pricing_tiers:
+  free:
+    condition: "promotional or sample"
+  basic:
+    krw: 9900
+    usd: 7.99
+  standard:
+    krw: 19900
+    usd: 14.99
+  premium:
+    krw: 49900
+    usd: 39.99
+
+visual_identity:
+  primary_color: "#1a5f7a"  # 파랑
+  secondary_color: "#2d3436"  # 어두운 회색
+  style: professional-clean
+  font: "Pretendard"
