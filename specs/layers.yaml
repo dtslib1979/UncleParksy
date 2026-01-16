@@ -40,12 +40,21 @@ layer_0:
     cta: "더 보려면 parksy.kr로"
 
   funnel_to_layer_1:
+    target: "일반 시청자"
     methods:
-      - 영상 설명란 링크
       - 엔드 스크린 CTA
-      - 고정 댓글
       - 채널 소개
-    message: "깊이 있는 이야기는 parksy.kr에서"
+    message: "더 보려면 parksy.kr"
+
+  funnel_to_layer_2_direct:
+    target: "진지한 구독자"
+    methods:
+      - 영상 설명란 링크 + 비밀번호
+      - 고정 댓글
+    format: |
+      🔗 Inner Portal: parksy.kr/inner
+      🔑 비밀번호: {monthly_password}
+    note: "0층에서 2층 직행 - Layer 1 스킵"
 
 # ═══════════════════════════════════════════════════════════════
 #  LAYER 1: Public Portal (parksy.kr)
