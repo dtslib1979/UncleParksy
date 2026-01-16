@@ -1,0 +1,40 @@
+{
+  "api": "parksy-publisher-platform",
+  "version": "1.0.0",
+  "baseUrl": "https://parksy.kr/api/v1",
+  "description": "PARKSY Publisher Platform Static API",
+  "note": "GitHub Pages 정적 JSON API - 서버리스",
+
+  "endpoints": {
+    "publications": {
+      "list": "/api/v1/publications.json",
+      "detail": "/api/v1/publications/{id}.json"
+    },
+    "youtube": {
+      "list": "/api/v1/youtube.json",
+      "detail": "/api/v1/youtube/{videoId}.json"
+    },
+    "spotify": {
+      "tracks": "/api/v1/spotify/tracks.json",
+      "playlists": "/api/v1/spotify/playlists.json",
+      "listeningRooms": "/api/v1/spotify/listening-rooms.json"
+    },
+    "series": {
+      "list": "/api/v1/series.json",
+      "detail": "/api/v1/series/{id}.json"
+    },
+    "config": {
+      "platform": "/api/v1/config/platform.json"
+    }
+  },
+
+  "cors": {
+    "note": "GitHub Pages에서 자동으로 CORS 허용",
+    "allowedOrigins": ["*"]
+  },
+
+  "rateLimit": {
+    "note": "제한 없음 - 정적 파일",
+    "limit": "unlimited"
+  }
+}
