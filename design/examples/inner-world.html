@@ -4,120 +4,375 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inner World</title>
-  <link rel="stylesheet" href="../cave-ui.css">
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <!-- Cave UI -->
+  <link rel="stylesheet" href="../cave-ui.css">
+  <link rel="stylesheet" href="../cave-effects.css">
+
   <style>
-    /* Inner World 추가 스타일 */
-    .zone-grid {
+    /* World Layout */
+    .world-container {
+      min-height: 100vh;
+      padding: var(--space-cavern) var(--space-room);
+    }
+
+    .world-header {
+      text-align: center;
+      padding: var(--space-abyss) 0;
+    }
+
+    .world-title {
+      font-family: var(--font-mono);
+      font-size: var(--text-whisper);
+      letter-spacing: 0.5em;
+      color: var(--cave-faint);
+      margin-bottom: var(--space-room);
+    }
+
+    .world-statement {
+      font-family: var(--font-accent);
+      font-size: var(--text-statement);
+      color: var(--cave-dim);
+    }
+
+    /* Zone Grid */
+    .zones {
       display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: var(--space-chamber);
-      margin-top: var(--space-cavern);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--space-chamber) 0;
     }
 
-    .zone-door {
+    .zone {
+      position: relative;
+      min-height: 400px;
       padding: var(--space-chamber);
-      border: 1px solid var(--cave-stone);
       background: var(--cave-deep);
-      text-decoration: none;
-      transition: var(--motion-emerge);
+      border: 1px solid var(--cave-stone);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .zone-door:hover {
+    .zone::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 120%, var(--zone-color), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .zone:hover {
       border-color: var(--zone-color);
-      background: var(--cave-wall);
+      transform: translateY(-10px);
+    }
+
+    .zone:hover::before {
+      opacity: 0.1;
+    }
+
+    .zone-marker {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--zone-color);
+      margin-bottom: var(--space-room);
+      transition: all 0.3s ease;
+    }
+
+    .zone:hover .zone-marker {
+      box-shadow: 0 0 20px var(--zone-color);
+      transform: scale(1.2);
+    }
+
+    .zone-label {
+      font-family: var(--font-mono);
+      font-size: var(--text-whisper);
+      letter-spacing: 0.3em;
+      color: var(--cave-faint);
+      margin-bottom: var(--space-step);
     }
 
     .zone-name {
       font-family: var(--font-accent);
-      font-size: var(--text-statement);
+      font-size: 1.75rem;
       color: var(--cave-glow);
       margin-bottom: var(--space-step);
     }
 
-    .zone-desc {
+    .zone-metaphor {
       color: var(--cave-dim);
-      font-size: var(--text-whisper);
-      letter-spacing: 0.1em;
+      font-style: italic;
+      margin-bottom: var(--space-room);
     }
 
-    .zone-metaphor {
-      margin-top: var(--space-step);
+    .zone-description {
       color: var(--cave-faint);
-      font-style: italic;
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+
+    .zone-enter {
+      position: absolute;
+      bottom: var(--space-room);
+      right: var(--space-room);
+      font-family: var(--font-mono);
+      font-size: var(--text-whisper);
+      color: var(--cave-faint);
+      text-decoration: none;
+      letter-spacing: 0.2em;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: all 0.3s ease;
+    }
+
+    .zone:hover .zone-enter {
+      opacity: 1;
+      transform: translateX(0);
+      color: var(--zone-color);
+    }
+
+    /* Dialectic */
+    .dialectic {
+      text-align: center;
+      padding: var(--space-abyss) 0;
+    }
+
+    .dialectic-title {
+      font-family: var(--font-accent);
+      font-size: 2.5rem;
+      color: var(--cave-glow);
+      letter-spacing: 0.3em;
+      margin-bottom: var(--space-chamber);
+    }
+
+    .dialectic-flow {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-room);
+      flex-wrap: wrap;
+    }
+
+    .dialectic-item {
+      padding: var(--space-step) var(--space-room);
+      border: 1px solid var(--cave-stone);
+      font-family: var(--font-mono);
+      font-size: var(--text-whisper);
+      color: var(--cave-dim);
+      letter-spacing: 0.2em;
+    }
+
+    .dialectic-arrow {
+      color: var(--cave-faint);
+    }
+
+    /* Footer */
+    .world-footer {
+      text-align: center;
+      padding: var(--space-cavern) 0;
+    }
+
+    .exit-link {
+      color: var(--cave-faint);
+      text-decoration: none;
+      font-size: var(--text-whisper);
+      letter-spacing: 0.2em;
+      transition: color 0.3s;
+    }
+
+    .exit-link:hover {
+      color: var(--cave-dim);
     }
   </style>
 </head>
-<body>
+<body data-cave-effects>
+
+  <!-- Page transition -->
+  <div class="page-transition"></div>
 
   <!-- ═══════════════════════════════════════════════════════════
-       INNER WORLD - 동굴 내부의 방들
-       정 · 반 · 합
+       INNER WORLD
        ═══════════════════════════════════════════════════════════ -->
+  <main class="world-container">
 
-  <main class="cave-chamber">
-
-    <!-- 도착 -->
-    <header class="center">
-      <p class="whisper emerge">you are inside</p>
+    <!-- Header -->
+    <header class="world-header">
+      <p class="world-title" id="header-label">YOU ARE INSIDE</p>
       <div class="cave-crack"></div>
-      <p class="statement emerge" style="animation-delay: 0.2s;">
-        세 개의 방이 있다.
-      </p>
+      <h1 class="world-statement" id="header-title">세 개의 방이 있다.</h1>
     </header>
 
-    <!-- 세 개의 방 -->
-    <nav class="zone-grid">
+    <!-- Zones -->
+    <section class="zones">
 
-      <!-- 벽화의 방 - PARKSY -->
-      <a href="#parksy" class="zone-door zone-parksy emerge" style="animation-delay: 0.3s;">
-        <div class="zone-name">
-          <span class="zone-marker"></span>
-          벽화의 방
-        </div>
-        <p class="zone-desc">PARKSY.ZONE</p>
+      <!-- PARKSY -->
+      <article class="zone zone-parksy" id="zone-parksy">
+        <div class="zone-marker"></div>
+        <p class="zone-label">THESIS · 正</p>
+        <h2 class="zone-name">벽화의 방</h2>
         <p class="zone-metaphor">"인간의 흔적이 남아 있다"</p>
-      </a>
+        <p class="zone-description">
+          날것의 감정.<br>
+          실패와 실험.<br>
+          오늘의 나.
+        </p>
+        <a href="#parksy" class="zone-enter hover-line">enter →</a>
+      </article>
 
-      <!-- 기호의 방 - EAE -->
-      <a href="#eae" class="zone-door zone-eae emerge" style="animation-delay: 0.4s;">
-        <div class="zone-name">
-          <span class="zone-marker"></span>
-          기호의 방
-        </div>
-        <p class="zone-desc">EAE.ZONE</p>
+      <!-- EAE -->
+      <article class="zone zone-eae" id="zone-eae">
+        <div class="zone-marker"></div>
+        <p class="zone-label">ANTITHESIS · 反</p>
+        <h2 class="zone-name">기호의 방</h2>
         <p class="zone-metaphor">"구조와 도식이 새겨져 있다"</p>
-      </a>
+        <p class="zone-description">
+          이론과 프레임워크.<br>
+          방법론.<br>
+          재사용 가능한 구조.
+        </p>
+        <a href="#eae" class="zone-enter hover-line">enter →</a>
+      </article>
 
-      <!-- 제단 - DTSLIB -->
-      <a href="#dtslib" class="zone-door zone-dtslib emerge" style="animation-delay: 0.5s;">
-        <div class="zone-name">
-          <span class="zone-marker"></span>
-          제단
-        </div>
-        <p class="zone-desc">DTSLIB.ZONE</p>
+      <!-- DTSLIB -->
+      <article class="zone zone-dtslib" id="zone-dtslib">
+        <div class="zone-marker"></div>
+        <p class="zone-label">SYNTHESIS · 合</p>
+        <h2 class="zone-name">제단</h2>
         <p class="zone-metaphor">"완성된 것들이 놓여 있다"</p>
-      </a>
+        <p class="zone-description">
+          팔 수 있는 상품.<br>
+          책임지는 결과물.<br>
+          계약과 결제의 얼굴.
+        </p>
+        <a href="#dtslib" class="zone-enter hover-line">enter →</a>
+      </article>
 
-    </nav>
+    </section>
 
-    <!-- 나가기 -->
-    <footer class="center mt-chamber">
+    <!-- Dialectic -->
+    <section class="dialectic">
       <div class="cave-crack"></div>
-      <a href="entrance.html" class="cave-path whisper">
-        ← return to entrance
-      </a>
+      <h2 class="dialectic-title scroll-reveal">正 · 反 · 合</h2>
+      <div class="dialectic-flow scroll-reveal">
+        <span class="dialectic-item" style="border-color: var(--zone-parksy);">샘</span>
+        <span class="dialectic-arrow">→</span>
+        <span class="dialectic-item" style="border-color: var(--zone-eae);">정수기</span>
+        <span class="dialectic-arrow">→</span>
+        <span class="dialectic-item" style="border-color: var(--zone-dtslib);">병에 담긴 물</span>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="world-footer">
+      <div class="cave-crack"></div>
+      <a href="entrance.html" class="exit-link">← return to entrance</a>
     </footer>
 
   </main>
 
+  <!-- ═══════════════════════════════════════════════════════════
+       SCRIPTS
+       ═══════════════════════════════════════════════════════════ -->
+  <script src="../cave-effects.js"></script>
   <script>
-    // 횃불 체크 (비밀번호 없이 직접 접근 방지)
-    if (sessionStorage.getItem('torch') !== 'lit') {
-      // 횃불 없음 - 통로로 돌려보냄
-      // window.location.href = 'inner-portal.html';
-      // (데모용으로 비활성화)
-    }
+    // Check torch
+    // if (sessionStorage.getItem('torch') !== 'lit') {
+    //   window.location.href = 'inner-portal.html';
+    // }
+
+    // Initialize
+    const cave = new CaveEffects({
+      cursor: true,
+      torchLight: true,
+      scrollReveal: true,
+      magnetic: true,
+      pageTransition: true
+    });
+
+    // GSAP
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Entrance animation
+    gsap.set(['#header-label', '#header-title', '.cave-crack', '.zone'], { opacity: 0 });
+    gsap.set('#header-label', { y: -20, letterSpacing: '1em' });
+    gsap.set('#header-title', { y: 30 });
+    gsap.set('.zone', { y: 50 });
+
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' }});
+
+    tl.to('#header-label', {
+      opacity: 1,
+      y: 0,
+      letterSpacing: '0.5em',
+      duration: 1
+    })
+    .to('.world-header .cave-crack', {
+      opacity: 1,
+      duration: 0.6
+    }, '-=0.5')
+    .to('#header-title', {
+      opacity: 1,
+      y: 0,
+      duration: 1
+    }, '-=0.3')
+    .to('.zone', {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      stagger: 0.15
+    }, '-=0.5');
+
+    // Zone hover parallax
+    document.querySelectorAll('.zone').forEach(zone => {
+      zone.addEventListener('mousemove', (e) => {
+        const rect = zone.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+        gsap.to(zone, {
+          rotateY: x * 5,
+          rotateX: -y * 5,
+          duration: 0.5,
+          ease: 'power2.out'
+        });
+      });
+
+      zone.addEventListener('mouseleave', () => {
+        gsap.to(zone, {
+          rotateY: 0,
+          rotateX: 0,
+          duration: 0.5
+        });
+      });
+    });
+
+    // Scroll animations
+    gsap.to('.dialectic-title', {
+      scrollTrigger: {
+        trigger: '.dialectic',
+        start: 'top 80%',
+        toggleActions: 'play none none reverse'
+      },
+      opacity: 1,
+      y: 0,
+      duration: 1
+    });
   </script>
 
 </body>

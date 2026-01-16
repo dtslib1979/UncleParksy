@@ -4,42 +4,286 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PARKSY</title>
-  <link rel="stylesheet" href="../cave-ui.css">
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400&family=Pretendard:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500&family=Pretendard:wght@300;400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+
+  <!-- GSAP for pro animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <!-- Cave UI -->
+  <link rel="stylesheet" href="../cave-ui.css">
+  <link rel="stylesheet" href="../cave-effects.css">
+
+  <style>
+    /* Page specific */
+    .entrance-section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, var(--cave-faint), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(1); }
+      50% { opacity: 0.6; transform: scaleY(1.2); }
+    }
+
+    /* Deeper section */
+    .deeper-section {
+      min-height: 100vh;
+      padding: var(--space-cavern);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .quote-block {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .quote-mark {
+      font-size: 4rem;
+      color: var(--cave-faint);
+      line-height: 1;
+      font-family: var(--font-accent);
+    }
+
+    .quote-text {
+      font-family: var(--font-accent);
+      font-size: 1.5rem;
+      color: var(--cave-dim);
+      line-height: 2;
+      margin: var(--space-room) 0;
+    }
+
+    /* Final CTA */
+    .final-cta {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .cta-question {
+      font-family: var(--font-accent);
+      font-size: 1.25rem;
+      color: var(--cave-faint);
+      margin-bottom: var(--space-chamber);
+    }
+  </style>
 </head>
-<body>
+<body data-cave-effects>
 
   <!-- ═══════════════════════════════════════════════════════════
-       PUBLIC PORTAL - 동굴 입구
-       "여긴 전시관이 아니다. 누군가의 머릿속이다."
+       SVG FILTERS
        ═══════════════════════════════════════════════════════════ -->
+  <svg style="position:absolute;width:0;height:0;">
+    <filter id="turbulence-filter">
+      <feTurbulence type="turbulence" baseFrequency="0.01" numOctaves="3" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" />
+    </filter>
+  </svg>
 
-  <main class="cave-entrance">
+  <!-- ═══════════════════════════════════════════════════════════
+       PAGE TRANSITION
+       ═══════════════════════════════════════════════════════════ -->
+  <div class="page-transition"></div>
 
-    <!-- 기념비 -->
-    <h1 class="monument emerge">朴</h1>
+  <!-- ═══════════════════════════════════════════════════════════
+       ENTRANCE - 동굴 입구
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="entrance-section">
 
-    <!-- 균열 -->
+    <!-- Monument -->
+    <h1 class="monument glitch glitch-hover" data-text="朴" id="main-title">朴</h1>
+
+    <!-- Crack -->
     <div class="cave-crack"></div>
 
-    <!-- 선언문 -->
-    <p class="statement emerge" style="animation-delay: 0.3s;">
+    <!-- Statement -->
+    <p class="statement" id="main-statement">
       여긴 전시관이 아니다.<br>
       누군가의 머릿속이다.
     </p>
 
-    <!-- 입구 -->
-    <a href="inner.html" class="cave-door emerge" style="animation-delay: 0.6s;">
+    <!-- Enter button -->
+    <a href="inner-portal.html" class="cave-door magnetic" id="enter-btn">
       enter the cave
     </a>
 
-    <!-- 속삭임 -->
-    <p class="whisper mt-chamber emerge" style="animation-delay: 0.9s;">
-      or wander outside
+    <!-- Scroll hint -->
+    <div class="scroll-hint" id="scroll-hint">
+      <span class="whisper">scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       DEEPER - 더 깊이
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="deeper-section">
+
+    <div class="quote-block scroll-reveal">
+      <span class="quote-mark">"</span>
+      <p class="quote-text">
+        아무나 들어오지 않는다.<br>
+        설명보다 느낌이 먼저 온다.<br>
+        한 번 들어오면<br>
+        "여기 뭐 있지?" 하고 파게 된다.
+      </p>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       DEEPER 2 - 벽화
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="deeper-section">
+
+    <div class="quote-block scroll-reveal">
+      <p class="quote-text" style="color: var(--zone-parksy);">
+        안쪽으로 갈수록<br>
+        더 깊고,<br>
+        더 진짜가 나온다.
+      </p>
+      <div class="cave-crack" style="margin-top: var(--space-chamber);"></div>
+      <p class="whisper" style="margin-top: var(--space-room);">
+        그건 놀이동산이 아니라 고대 동굴이다.
+      </p>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       FINAL CTA
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="final-cta">
+
+    <p class="cta-question scroll-reveal">
+      들어올 준비가 됐는가?
     </p>
 
-  </main>
+    <a href="inner-portal.html" class="cave-door magnetic scroll-reveal" style="font-size: 1rem; padding: 1.5rem 3rem;">
+      enter
+    </a>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SCRIPTS
+       ═══════════════════════════════════════════════════════════ -->
+  <script src="../cave-effects.js"></script>
+  <script>
+    // Initialize cave effects
+    const cave = new CaveEffects({
+      cursor: true,
+      torchLight: true,
+      smoothScroll: true,
+      textReveal: false, // Using GSAP instead
+      scrollReveal: true,
+      magnetic: true,
+      pageTransition: true
+    });
+
+    // GSAP Entrance Animation
+    gsap.registerPlugin(ScrollTrigger);
+
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' }});
+
+    // Initial state
+    gsap.set(['#main-title', '#main-statement', '#enter-btn', '.cave-crack', '#scroll-hint'], {
+      opacity: 0
+    });
+
+    gsap.set('#main-title', { scale: 0.8, filter: 'blur(20px)' });
+    gsap.set('#main-statement', { y: 40 });
+    gsap.set('#enter-btn', { y: 30 });
+    gsap.set('#scroll-hint', { y: 20 });
+
+    // Animate in
+    tl.to('#main-title', {
+      opacity: 1,
+      scale: 1,
+      filter: 'blur(0px)',
+      duration: 1.5
+    })
+    .to('.cave-crack', {
+      opacity: 1,
+      duration: 0.8,
+      scaleX: 0,
+      immediateRender: false
+    }, '-=0.8')
+    .to('.cave-crack', {
+      scaleX: 1,
+      duration: 0.8,
+      ease: 'power2.inOut'
+    })
+    .to('#main-statement', {
+      opacity: 1,
+      y: 0,
+      duration: 1
+    }, '-=0.5')
+    .to('#enter-btn', {
+      opacity: 1,
+      y: 0,
+      duration: 0.8
+    }, '-=0.5')
+    .to('#scroll-hint', {
+      opacity: 1,
+      y: 0,
+      duration: 0.6
+    }, '-=0.3');
+
+    // Scroll-triggered parallax for monument
+    gsap.to('#main-title', {
+      scrollTrigger: {
+        trigger: '.entrance-section',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1
+      },
+      y: -100,
+      opacity: 0,
+      scale: 0.9
+    });
+
+    // Hide scroll hint on scroll
+    ScrollTrigger.create({
+      trigger: '.deeper-section',
+      start: 'top 80%',
+      onEnter: () => {
+        gsap.to('#scroll-hint', { opacity: 0, duration: 0.3 });
+      }
+    });
+  </script>
 
 </body>
 </html>
