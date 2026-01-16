@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "dtslib-publisher-core",
+  "version": "2.0.0",
+
+  "identity": {
+    "name": "DTSLIB Publisher Core",
+    "tagline": "AI 시대 1인 출판사의 운영체제",
+    "type": "content-factory",
+    "NOT": "website"
+  },
+
+  "philosophy": {
+    "core": "콘텐츠가 흘러가는 공장",
+    "humanRole": "던지기만 한다 (말하기, 메모, 생각)",
+    "systemRole": "분류 → 변환 → 배포",
+    "result": "창작자가 아니라 '콘텐츠를 흘려보내는 존재'가 된다"
+  },
+
+  "trilogy": {
+    "parksy.kr": {
+      "layer": "개체 (Entity)",
+      "keyword": "KR Merit / With AI",
+      "essence": "한국 중년 '박씨'가 AI와 함께 살아가는 개체의 기록",
+      "character": ["날것", "감정", "실패", "실험", "오늘의 나"],
+      "allowed": ["미완성", "중복", "욕", "흔들림"],
+      "metaphor": "샘 (생각이 태어나는 곳)",
+      "oneLiner": "나는 이렇게 산다."
+    },
+    "eae.kr": {
+      "layer": "정체성 (Identity)",
+      "keyword": "EduArt Engineer / Beyond AI",
+      "essence": "박씨라는 인간이 어떤 타입의 존재인지 설명하는 정체성 레이어",
+      "structure": {
+        "Edu": "학습을 모듈로 체화",
+        "Art": "인간의 실수와 감각을 남김",
+        "Engineer": "도구와 시스템을 조작"
+      },
+      "rules": ["감정 최소", "구조 필수", "재사용 가능"],
+      "metaphor": "정수기 (원석을 구조로 승격)",
+      "oneLiner": "나는 이런 방식의 인간이다."
+    },
+    "dtslib.kr": {
+      "layer": "회사 (Company)",
+      "keyword": "With Business",
+      "essence": "결과를 만들어 파는 회사",
+      "criterion": "돈 앞에 내놔도 부끄럽지 않은가?",
+      "character": ["차갑고", "규격화되고", "책임지는"],
+      "rules": ["중복 금지", "완성도 필수", "계약과 결제의 얼굴"],
+      "metaphor": "병에 담긴 물 (팔 수 있는 상품)",
+      "oneLiner": "그래서 이것을 만들어 판다."
+    }
+  },
+
+  "contentFlow": {
+    "description": "같은 생각이 세 번 태어난다",
+    "stages": [
+      {
+        "stage": 1,
+        "location": "parksy.kr",
+        "form": "살아 있는 형태",
+        "state": "raw"
+      },
+      {
+        "stage": 2,
+        "location": "eae.kr",
+        "form": "설명 가능한 형태",
+        "state": "structured"
+      },
+      {
+        "stage": 3,
+        "location": "dtslib.kr",
+        "form": "팔 수 있는 형태",
+        "state": "published"
+      }
+    ]
+  },
+
+  "factoryStructure": {
+    "inbox": {
+      "description": "네가 그냥 던지는 원석",
+      "subdirs": ["voice", "text", "visual", "mixed"],
+      "action": "그냥 던지기"
+    },
+    "process": {
+      "description": "AI가 만지는 공간",
+      "subdirs": ["queue", "working", "done"],
+      "action": "분류 → 변환"
+    },
+    "output": {
+      "description": "도메인별 결과물",
+      "subdirs": ["parksy", "eae", "dtslib"],
+      "action": "배포"
+    },
+    "pipelines": {
+      "description": "변환 규칙",
+      "types": ["text-to-text", "text-to-video", "text-to-webtoon", "text-to-ebook"]
+    }
+  },
+
+  "conclusion": {
+    "statement": "이 트릴로지는 플랫폼이 아니다. 한 인간의 생존 구조다.",
+    "uniqueness": "그 물은 박씨만 만들 수 있다."
+  }
+}
