@@ -347,11 +347,11 @@ body::before{
     <img src="/assets/img/logo.png" alt="UncleParksy logo" />  
     <span class="brand-title">UncleParksy</span>  
   </a>  
-  <nav class="nav" aria-label="Primary">  
-    <a href="/">Home</a>  
-    <a href="/archive/index.html">Archive</a>  
-    <a href="/about.html">About</a>  
-    <a href="/contact.html">Contact</a>
+  <nav class="nav" aria-label="Primary">
+    <a href="/">Home</a>
+    <a href="/platform/frontend/listening-room.html">Listening Room</a>
+    <a href="/archive/index.html">Archive</a>
+    <a href="/platform/console/" style="color:var(--primary-gold)">Console</a>
     <button id="translate-btn" class="translate-btn" aria-label="Translate page" title="Translate page">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
       <span class="translate-label">번역</span>
@@ -509,19 +509,34 @@ body::before{
         </div>  
       </div>  
   
-      <!-- 8: All Archives -->  
-      <div class="chapter-card" tabindex="0" role="button" aria-label="Open All Archives" onclick="openChapter('all')" onkeypress="handleKeyPress(event,'all')">  
-        <div class="chapter-content">  
-          <div>  
-            <span class="chapter-icon" aria-hidden="true">📚</span>  
-            <h3 class="chapter-title">All Archives · KR TextStory</h3>  
-            <p class="chapter-description">Full KR Merit TextStory — every Parksy category in one place with logs, essays, and experiments collected chronologically.</p>  
-          </div>  
-          <div class="chapter-meta">  
-            <span class="chapter-count loading" data-path="archive" aria-live="polite">…</span>  
-            <span class="badge legendary">LEGENDARY</span>  
-          </div>  
-        </div>  
+      <!-- 8: Listening Room (NEW - Platform Feature) -->
+      <div class="chapter-card" tabindex="0" role="button" aria-label="Open Listening Room" onclick="window.location.href='/platform/frontend/listening-room.html'" onkeypress="if(event.key==='Enter')window.location.href='/platform/frontend/listening-room.html'" style="background:linear-gradient(135deg, rgba(29,185,84,.08) 0%, rgba(247,243,232,.92) 30%, rgba(232,220,192,.88) 100%);">
+        <div class="chapter-content">
+          <div>
+            <span class="chapter-icon" aria-hidden="true">🎧</span>
+            <h3 class="chapter-title">Listening Room · Music Experience</h3>
+            <p class="chapter-description">웹에서만 가능한 음악 감상 경험. Spotify + YouTube의 조화로운 큐레이션. 저작권 걱정 없는 합법적 음악 감상실.</p>
+          </div>
+          <div class="chapter-meta">
+            <span class="chapter-count" style="background:linear-gradient(135deg,#1db954,#1ed760);">NEW</span>
+            <span class="badge" style="background:linear-gradient(135deg, #1db954, #191414); color:#fff">SPOTIFY</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9: All Archives -->
+      <div class="chapter-card" tabindex="0" role="button" aria-label="Open All Archives" onclick="openChapter('all')" onkeypress="handleKeyPress(event,'all')">
+        <div class="chapter-content">
+          <div>
+            <span class="chapter-icon" aria-hidden="true">📚</span>
+            <h3 class="chapter-title">All Archives · KR TextStory</h3>
+            <p class="chapter-description">Full KR Merit TextStory — every Parksy category in one place with logs, essays, and experiments collected chronologically.</p>
+          </div>
+          <div class="chapter-meta">
+            <span class="chapter-count loading" data-path="archive" aria-live="polite">…</span>
+            <span class="badge legendary">LEGENDARY</span>
+          </div>
+        </div>
       </div>  
   
     </div>  

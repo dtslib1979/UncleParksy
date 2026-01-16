@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listening Room - PARKSY</title>
+    <meta name="description" content="웹에서만 가능한 음악 감상 경험 - PARKSY Listening Room">
+    <meta property="og:title" content="Listening Room - PARKSY">
+    <meta property="og:description" content="웹에서만 가능한 음악 감상 경험">
+    <meta property="og:type" content="music.playlist">
+
+    <!-- Preconnect to Spotify -->
+    <link rel="preconnect" href="https://open.spotify.com">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap');
+
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: #12121a;
+            --bg-hover: #1a1a25;
+            --text-primary: #f0ede8;
+            --text-secondary: #8a8a8a;
+            --accent-gold: #d4af37;
+            --accent-green: #1db954;
+            --accent-warm: #e8c39e;
+            --border-subtle: rgba(255,255,255,0.08);
+            --gradient-warm: linear-gradient(135deg, #1a1510 0%, #0a0a0f 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Ambient Background */
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .ambient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.3;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: #d4af37;
+            top: -100px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: #1db954;
+            bottom: -50px;
+            left: -50px;
+            animation-delay: -7s;
+        }
+
+        .orb-3 {
+            width: 200px;
+            height: 200px;
+            background: #8b5a2b;
+            top: 50%;
+            left: 50%;
+            animation-delay: -14s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.05); }
+            66% { transform: translate(-20px, 20px) scale(0.95); }
+        }
+
+        /* Main Layout */
+        .listening-room {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .room-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .room-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+        }
+
+        .room-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 500;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-warm) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .room-description {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Room Selector */
+        .room-selector {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+
+        .room-tab {
+            padding: 12px 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .room-tab:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+
+        .room-tab.active {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        /* Main Player Section */
+        .player-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+
+        .player-grid {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 32px;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .player-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Album Art */
+        .album-art-container {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .album-art {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .album-art-placeholder {
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-warm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            color: var(--accent-gold);
+        }
+
+        .now-playing-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            font-size: 11px;
+            color: var(--accent-green);
+        }
+
+        .pulse-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        /* Player Info */
+        .player-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .track-info h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .track-artist {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+
+        .curator-note {
+            padding: 16px;
+            background: rgba(212, 175, 55, 0.05);
+            border-left: 3px solid var(--accent-gold);
+            border-radius: 0 8px 8px 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .curator-note strong {
+            color: var(--accent-gold);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        /* Spotify Embed */
+        .spotify-embed-container {
+            margin-top: 20px;
+        }
+
+        .spotify-embed {
+            border-radius: 12px;
+            width: 100%;
+        }
+
+        /* Playlist Section */
+        .playlist-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+
+        .playlist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .playlist-title {
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .playlist-count {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .playlist-tracks {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .track-item {
+            display: grid;
+            grid-template-columns: 48px 1fr auto;
+            gap: 16px;
+            align-items: center;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .track-item:hover {
+            background: var(--bg-hover);
+        }
+
+        .track-item.playing {
+            background: rgba(29, 185, 84, 0.1);
+        }
+
+        .track-thumb {
+            width: 48px;
+            height: 48px;
+            border-radius: 4px;
+            object-fit: cover;
+            background: var(--bg-hover);
+        }
+
+        .track-details {
+            overflow: hidden;
+        }
+
+        .track-name {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .track-item.playing .track-name {
+            color: var(--accent-green);
+        }
+
+        .track-meta {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .track-duration {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* YouTube Companion Section */
+        .youtube-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .youtube-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .youtube-icon {
+            width: 32px;
+            height: 32px;
+            background: #ff0000;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .youtube-title {
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .youtube-subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .youtube-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .youtube-card {
+            background: var(--bg-hover);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .youtube-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+        }
+
+        .youtube-thumb {
+            aspect-ratio: 16/9;
+            background: var(--bg-dark);
+            position: relative;
+        }
+
+        .youtube-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .youtube-play {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 48px;
+            height: 48px;
+            background: rgba(255,0,0,0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .youtube-card:hover .youtube-play {
+            opacity: 1;
+        }
+
+        .youtube-info {
+            padding: 16px;
+        }
+
+        .youtube-video-title {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 4px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .youtube-channel {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        .room-footer {
+            text-align: center;
+            padding: 48px 24px;
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .room-footer a {
+            color: var(--accent-gold);
+            text-decoration: none;
+        }
+
+        .universe-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 16px;
+        }
+
+        .universe-link {
+            padding: 8px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .universe-link:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 64px 24px;
+            color: var(--text-secondary);
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .empty-title {
+            font-size: 20px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Ambient Background -->
+    <div class="ambient-bg">
+        <div class="ambient-orb orb-1"></div>
+        <div class="ambient-orb orb-2"></div>
+        <div class="ambient-orb orb-3"></div>
+    </div>
+
+    <div class="listening-room">
+        <!-- Header -->
+        <header class="room-header">
+            <div class="room-badge">
+                <span>&#9836;</span>
+                <span>Listening Room</span>
+            </div>
+            <h1 class="room-title">PARKSY Listening Room</h1>
+            <p class="room-description">
+                웹에서만 가능한 음악 감상 경험. Spotify와 YouTube의 조화로운 큐레이션.
+            </p>
+        </header>
+
+        <!-- Room Selector -->
+        <nav class="room-selector" id="room-selector">
+            <button class="room-tab active" data-room="focus">Focus</button>
+            <button class="room-tab" data-room="relax">Relax</button>
+            <button class="room-tab" data-room="energize">Energize</button>
+            <button class="room-tab" data-room="ambient">Ambient</button>
+            <button class="room-tab" data-room="discovery">Discovery</button>
+        </nav>
+
+        <!-- Main Player -->
+        <section class="player-section" id="player-section">
+            <div class="player-grid">
+                <div class="album-art-container">
+                    <div class="album-art-placeholder" id="album-art">
+                        &#9836;
+                    </div>
+                    <div class="now-playing-badge">
+                        <span class="pulse-dot"></span>
+                        <span>Listening Room</span>
+                    </div>
+                </div>
+                <div class="player-info">
+                    <div class="track-info">
+                        <h2 id="track-title">Welcome to the Room</h2>
+                        <p class="track-artist" id="track-artist">Select a playlist to begin</p>
+                    </div>
+                    <div class="curator-note">
+                        <strong>Curator's Note</strong>
+                        <p id="curator-note">
+                            이 공간은 웹에서만 경험할 수 있는 특별한 음악 감상실입니다.
+                            YouTube는 소개 영상을, Spotify는 실제 음원을 제공합니다.
+                            저작권 걱정 없이 합법적으로 음악을 즐기세요.
+                        </p>
+                    </div>
+                    <div class="spotify-embed-container">
+                        <iframe
+                            id="spotify-embed"
+                            class="spotify-embed"
+                            style="border-radius:12px"
+                            src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator&theme=0"
+                            width="100%"
+                            height="152"
+                            frameBorder="0"
+                            allowfullscreen=""
+                            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                            loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- YouTube Companion -->
+        <section class="youtube-section" id="youtube-section">
+            <div class="youtube-header">
+                <div class="youtube-icon">&#9654;</div>
+                <div>
+                    <h3 class="youtube-title">Companion Videos</h3>
+                    <p class="youtube-subtitle">이 룸과 연결된 소개 영상들</p>
+                </div>
+            </div>
+            <div class="youtube-grid" id="youtube-grid">
+                <div class="empty-state">
+                    <div class="empty-icon">&#9654;</div>
+                    <div class="empty-title">YouTube 연결 대기 중</div>
+                    <p>채널을 연결하면 관련 영상이 표시됩니다</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="room-footer">
+            <p>PARKSY Listening Room &mdash; Part of <a href="/">DTSLIB Publishing Universe</a></p>
+            <div class="universe-links">
+                <a href="https://parksy.kr" class="universe-link">parksy.kr</a>
+                <a href="#" class="universe-link">eae.kr</a>
+                <a href="#" class="universe-link">dtslib.kr</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Room data (will be loaded from API)
+        const rooms = {
+            focus: {
+                title: "Focus Room",
+                description: "집중력을 높이는 음악",
+                spotifyPlaylist: "37i9dQZF1DX8NTLI2TtZa6", // Focus Flow
+                curator: "딥 워크와 몰입을 위한 공간입니다. 가사 없는 음악으로 구성되어 있습니다."
+            },
+            relax: {
+                title: "Relax Room",
+                description: "편안한 휴식을 위한 음악",
+                spotifyPlaylist: "37i9dQZF1DWZqd5JICZI0u", // Peaceful Piano
+                curator: "하루의 피로를 풀어주는 평화로운 선율입니다."
+            },
+            energize: {
+                title: "Energize Room",
+                description: "활력을 주는 음악",
+                spotifyPlaylist: "37i9dQZF1DX76Wlfdnj7AP", // Beast Mode
+                curator: "운동이나 작업 시작 전, 에너지를 충전하세요."
+            },
+            ambient: {
+                title: "Ambient Room",
+                description: "배경 음악",
+                spotifyPlaylist: "37i9dQZF1DX3Ogo9pFvBkY", // Ambient Chill
+                curator: "공간을 채우는 섬세한 사운드스케이프입니다."
+            },
+            discovery: {
+                title: "Discovery Room",
+                description: "새로운 음악 발견",
+                spotifyPlaylist: "37i9dQZF1DXcBWIGoYBM5M", // Today's Top Hits
+                curator: "새로운 아티스트와 트렌드를 만나보세요."
+            }
+        };
+
+        // Current state
+        let currentRoom = 'focus';
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadRoom(currentRoom);
+            setupRoomTabs();
+            loadYouTubeVideos();
+        });
+
+        function setupRoomTabs() {
+            document.querySelectorAll('.room-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const room = tab.dataset.room;
+                    if (room !== currentRoom) {
+                        document.querySelectorAll('.room-tab').forEach(t => t.classList.remove('active'));
+                        tab.classList.add('active');
+                        currentRoom = room;
+                        loadRoom(room);
+                    }
+                });
+            });
+        }
+
+        function loadRoom(roomId) {
+            const room = rooms[roomId];
+            if (!room) return;
+
+            // Update title
+            document.getElementById('track-title').textContent = room.title;
+            document.getElementById('track-artist').textContent = room.description;
+            document.getElementById('curator-note').textContent = room.curator;
+
+            // Update Spotify embed
+            const embedUrl = `https://open.spotify.com/embed/playlist/${room.spotifyPlaylist}?utm_source=generator&theme=0`;
+            document.getElementById('spotify-embed').src = embedUrl;
+        }
+
+        async function loadYouTubeVideos() {
+            try {
+                const response = await fetch('/api/v1/youtube.json');
+                const data = await response.json();
+
+                if (data.data?.videos?.length > 0) {
+                    renderYouTubeVideos(data.data.videos);
+                }
+            } catch (e) {
+                console.log('YouTube API not available yet');
+            }
+        }
+
+        function renderYouTubeVideos(videos) {
+            const grid = document.getElementById('youtube-grid');
+            grid.innerHTML = videos.map(video => `
+                <div class="youtube-card" onclick="openYouTube('${video.videoId}')">
+                    <div class="youtube-thumb">
+                        <img src="${video.thumbnails?.medium || `https://img.youtube.com/vi/${video.videoId}/mqdefault.jpg`}" alt="${video.title}">
+                        <div class="youtube-play">&#9654;</div>
+                    </div>
+                    <div class="youtube-info">
+                        <div class="youtube-video-title">${video.title}</div>
+                        <div class="youtube-channel">${video.channelTitle || 'PARKSY'}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openYouTube(videoId) {
+            window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+        }
+    </script>
+</body>
+</html>

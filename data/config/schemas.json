@@ -1,0 +1,271 @@
+{
+  "$id": "parksy-schemas",
+  "version": "1.0.0",
+  "description": "PARKSY Publisher Platform JSON Schemas",
+
+  "schemas": {
+    "publication": {
+      "type": "object",
+      "required": ["id", "title", "type", "status", "createdAt"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^pub-[a-z0-9-]+$",
+          "description": "고유 ID (pub-YYYY-MM-DD-slug)"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "subtitle": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "type": {
+          "type": "string",
+          "enum": ["article", "essay", "tutorial", "review", "series-chapter", "listening-guide"]
+        },
+        "status": {
+          "type": "string",
+          "enum": ["draft", "published", "archived", "scheduled"]
+        },
+        "persona": {
+          "type": "string",
+          "enum": [
+            "Philosopher-Parksy",
+            "Technician-Parksy",
+            "Visualizer-Parksy",
+            "Musician-Parksy",
+            "Protocol-Parksy",
+            "Blogger-Parksy",
+            "Orbit-Log",
+            "Tester-Parksy"
+          ]
+        },
+        "content": {
+          "type": "object",
+          "properties": {
+            "body": { "type": "string" },
+            "format": {
+              "type": "string",
+              "enum": ["markdown", "html", "plain"]
+            },
+            "excerpt": { "type": "string", "maxLength": 500 }
+          }
+        },
+        "media": {
+          "type": "object",
+          "properties": {
+            "youtube": {
+              "type": "array",
+              "items": { "$ref": "#/schemas/youtubeRef" }
+            },
+            "spotify": {
+              "type": "array",
+              "items": { "$ref": "#/schemas/spotifyRef" }
+            },
+            "images": {
+              "type": "array",
+              "items": { "type": "string", "format": "uri" }
+            }
+          }
+        },
+        "series": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string" },
+            "chapter": { "type": "integer", "minimum": 1 },
+            "title": { "type": "string" }
+          }
+        },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "publishedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "scheduledAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+
+    "youtubeVideo": {
+      "type": "object",
+      "required": ["videoId", "title", "channelId"],
+      "properties": {
+        "videoId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{11}$"
+        },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "channelId": { "type": "string" },
+        "channelTitle": { "type": "string" },
+        "thumbnails": {
+          "type": "object",
+          "properties": {
+            "default": { "type": "string", "format": "uri" },
+            "medium": { "type": "string", "format": "uri" },
+            "high": { "type": "string", "format": "uri" }
+          }
+        },
+        "publishedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "duration": { "type": "string" },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "linkedPublications": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "syncedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+
+    "youtubeRef": {
+      "type": "object",
+      "required": ["videoId"],
+      "properties": {
+        "videoId": { "type": "string" },
+        "title": { "type": "string" },
+        "role": {
+          "type": "string",
+          "enum": ["main", "supplement", "intro", "teaser"],
+          "description": "영상의 역할"
+        },
+        "startTime": { "type": "integer", "minimum": 0 },
+        "endTime": { "type": "integer", "minimum": 0 }
+      }
+    },
+
+    "spotifyTrack": {
+      "type": "object",
+      "required": ["spotifyId", "type"],
+      "properties": {
+        "spotifyId": {
+          "type": "string",
+          "description": "Spotify URI 또는 ID"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["track", "album", "playlist", "artist", "episode", "show"]
+        },
+        "title": { "type": "string" },
+        "artist": { "type": "string" },
+        "albumArt": { "type": "string", "format": "uri" },
+        "duration": { "type": "integer" },
+        "linkedPublications": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+
+    "spotifyRef": {
+      "type": "object",
+      "required": ["spotifyId", "type"],
+      "properties": {
+        "spotifyId": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": ["track", "album", "playlist", "artist", "episode", "show"]
+        },
+        "role": {
+          "type": "string",
+          "enum": ["main", "background", "recommendation", "reference"]
+        },
+        "note": { "type": "string" }
+      }
+    },
+
+    "series": {
+      "type": "object",
+      "required": ["id", "title", "type"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^series-[a-z0-9-]+$"
+        },
+        "title": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "description": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": ["book", "course", "collection", "playlist", "documentary"]
+        },
+        "coverImage": { "type": "string", "format": "uri" },
+        "persona": { "type": "string" },
+        "chapters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "number": { "type": "integer" },
+              "title": { "type": "string" },
+              "publicationId": { "type": "string" },
+              "status": {
+                "type": "string",
+                "enum": ["planned", "draft", "published"]
+              }
+            }
+          }
+        },
+        "status": {
+          "type": "string",
+          "enum": ["ongoing", "completed", "paused", "planned"]
+        },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+
+    "listeningRoom": {
+      "type": "object",
+      "required": ["id", "title", "theme"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^room-[a-z0-9-]+$"
+        },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "theme": {
+          "type": "string",
+          "enum": ["focus", "relax", "energize", "ambient", "discovery", "nostalgic"]
+        },
+        "coverImage": { "type": "string", "format": "uri" },
+        "spotifyPlaylist": { "type": "string" },
+        "tracks": {
+          "type": "array",
+          "items": { "$ref": "#/schemas/spotifyRef" }
+        },
+        "youtubeVideos": {
+          "type": "array",
+          "items": { "$ref": "#/schemas/youtubeRef" }
+        },
+        "curatorNote": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    }
+  }
+}

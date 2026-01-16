@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "data": {
+    "publications": [],
+    "total": 0,
+    "page": 1,
+    "perPage": 20
+  },
+  "meta": {
+    "generatedAt": "2025-01-16T00:00:00Z",
+    "source": "/data/publications/index.json"
+  }
+}

@@ -1,0 +1,56 @@
+name: YouTube Auto-Sync
+
+on:
+  # 수동 실행
+  workflow_dispatch:
+    inputs:
+      max_results:
+        description: 'Maximum videos to fetch'
+        required: false
+        default: '50'
+
+  # 6시간마다 자동 실행
+  schedule:
+    - cron: '0 */6 * * *'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    # YouTube API 키가 설정된 경우에만 실행
+    if: ${{ vars.YOUTUBE_CHANNEL_ID != '' }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run YouTube Sync
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          YOUTUBE_CHANNEL_ID: ${{ vars.YOUTUBE_CHANNEL_ID }}
+        run: |
+          python scripts/youtube_sync.py \
+            --max-results ${{ github.event.inputs.max_results || '50' }}
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if [[ -n $(git status --porcelain) ]]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push changes
+        if: steps.changes.outputs.has_changes == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "PARKSY Auto-Sync"
+          git add data/ api/
+          git commit -m "sync: YouTube auto-sync $(date +'%Y-%m-%d %H:%M')"
+          git push

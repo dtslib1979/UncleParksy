@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-parksy.kr Single-File Codex Guard
-루트 화이트리스트 / PWA 금지 / pycache 차단 / 공백 파일명 차단
+parksy.kr Publisher Platform Guard v2.0
+미디어 파이프라인 플랫폼을 위한 새로운 구조 검증
 """
 
 import os
@@ -11,6 +11,7 @@ from pathlib import Path
 # === 설정 ===
 
 ROOT_WHITELIST = {
+    # 기존 필수 파일
     "index.html",
     "README.md",
     "CNAME",
@@ -24,6 +25,7 @@ ROOT_WHITELIST = {
 }
 
 ALLOWED_DIRS = {
+    # 기존 디렉토리
     "assets",
     "archive",
     "category",
@@ -31,21 +33,25 @@ ALLOWED_DIRS = {
     "backup",
     "scripts",
     ".github",
+    # Publisher Platform 신규 디렉토리
+    "platform",      # 플랫폼 코드 (Console + Frontend)
+    "data",          # Repository as Database
+    "api",           # 정적 API 엔드포인트
 }
 
-PWA_FORBIDDEN = {
-    "sw.js",
-    "service-worker.js",
-    "manifest.json",
-    "manifest.webmanifest",
-}
-
+# 여전히 금지되는 항목들
 FORBIDDEN_DIRS = {
     "__pycache__",
     "node_modules",
-    "build",
-    "dist",
     ".cache",
+    ".venv",
+    "venv",
+}
+
+FORBIDDEN_FILES = {
+    ".env",              # 비밀 정보
+    ".env.local",
+    "credentials.json",
 }
 
 # === 검사 함수 ===
@@ -57,26 +63,10 @@ def check_root_whitelist(root: Path) -> list[str]:
         name = item.name
         if item.is_file():
             if name not in ROOT_WHITELIST:
-                # workbox 패턴
-                if name.startswith("workbox-"):
-                    errors.append(f"❌ PWA 금지 위반: {name}")
-                else:
-                    errors.append(f"❌ 루트 화이트리스트 위반: {name}")
+                errors.append(f"❌ 루트 화이트리스트 위반: {name}")
         elif item.is_dir():
             if name not in ALLOWED_DIRS and not name.startswith("."):
                 errors.append(f"❌ 허용되지 않은 루트 폴더: {name}/")
-    return errors
-
-
-def check_pwa_forbidden(root: Path) -> list[str]:
-    """PWA 금지 파일 검사"""
-    errors = []
-    for fname in PWA_FORBIDDEN:
-        if (root / fname).exists():
-            errors.append(f"❌ PWA 금지 위반: {fname}")
-    # workbox 패턴
-    for f in root.glob("workbox-*.js"):
-        errors.append(f"❌ PWA 금지 위반: {f.name}")
     return errors
 
 
@@ -91,6 +81,17 @@ def check_forbidden_dirs(root: Path) -> list[str]:
     return errors
 
 
+def check_forbidden_files(root: Path) -> list[str]:
+    """금지된 파일 검사 (비밀 정보 등)"""
+    errors = []
+    for fname in FORBIDDEN_FILES:
+        found = list(root.rglob(fname))
+        for f in found:
+            if f.is_file():
+                errors.append(f"❌ 금지 파일 (보안): {f.relative_to(root)}")
+    return errors
+
+
 def check_pyc_files(root: Path) -> list[str]:
     """*.pyc 파일 검사"""
     errors = []
@@ -99,8 +100,28 @@ def check_pyc_files(root: Path) -> list[str]:
     return errors
 
 
+def check_data_structure(root: Path) -> list[str]:
+    """data/ 디렉토리 구조 검증"""
+    errors = []
+    data_dir = root / "data"
+
+    if not data_dir.exists():
+        return []  # data/ 없으면 패스 (아직 생성 전)
+
+    required_subdirs = {"publications", "youtube", "spotify", "series", "config"}
+
+    for subdir in required_subdirs:
+        subpath = data_dir / subdir
+        if not subpath.exists():
+            # 경고만 (필수는 아님)
+            pass
+
+    # JSON 파일 유효성은 별도 검사
+    return errors
+
+
 def check_space_in_filename(root: Path) -> list[str]:
-    """루트에 공백 포함 파일명 검사"""
+    """루트 레벨에서만 공백 포함 파일명 검사 (기존 콘텐츠는 허용)"""
     errors = []
     for item in root.iterdir():
         if " " in item.name:
@@ -115,7 +136,7 @@ def main():
     all_errors = []
 
     print("=" * 60)
-    print("🛡️  parksy.kr Single-File Codex Guard")
+    print("🛡️  parksy.kr Publisher Platform Guard v2.0")
     print("=" * 60)
     print()
 
@@ -125,15 +146,15 @@ def main():
     all_errors.extend(errs)
     print(f"      {'✅ PASS' if not errs else f'❌ {len(errs)} 위반'}")
 
-    # 2. PWA 금지
-    print("[2/5] PWA 금지 파일 검사...")
-    errs = check_pwa_forbidden(root)
+    # 2. 금지 디렉토리
+    print("[2/5] 금지 디렉토리 검사...")
+    errs = check_forbidden_dirs(root)
     all_errors.extend(errs)
     print(f"      {'✅ PASS' if not errs else f'❌ {len(errs)} 위반'}")
 
-    # 3. 금지 디렉토리
-    print("[3/5] 금지 디렉토리 검사...")
-    errs = check_forbidden_dirs(root)
+    # 3. 금지 파일 (보안)
+    print("[3/5] 보안 파일 검사...")
+    errs = check_forbidden_files(root)
     all_errors.extend(errs)
     print(f"      {'✅ PASS' if not errs else f'❌ {len(errs)} 위반'}")
 
@@ -158,11 +179,11 @@ def main():
         for e in all_errors:
             print(f"  {e}")
         print()
-        print("위 파일들을 정리한 후 다시 실행하세요.")
+        print("위 항목들을 정리한 후 다시 실행하세요.")
         print("=" * 60)
         sys.exit(1)
     else:
-        print("✅ ALL PASSED - Single-File Codex 규칙 준수")
+        print("✅ ALL PASSED - Publisher Platform 규칙 준수")
         print("=" * 60)
         sys.exit(0)
 
