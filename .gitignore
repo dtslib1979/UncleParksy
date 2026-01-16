@@ -23,12 +23,13 @@ build/
 .cache/
 .parcel-cache/
 
-# PWA (금지)
+# Service Worker (금지 - 캐시/번역 충돌 방지)
 sw.js
 service-worker.js
 workbox-*.js
-manifest.json
-manifest.webmanifest
+
+# Note: manifest.webmanifest는 Chrome 바로가기 아이콘용으로 허용
+# (서비스 워커 없이 아이콘만 사용)
 
 # IDE
 .idea/

@@ -728,10 +728,7 @@ Reflection (자기 수정)<br>
             }
         });
 
-        // Service Worker (optional)
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('data:text/javascript,console.log("SW")');
-        }
+        // Service Worker disabled (캐시/번역 충돌 방지)
 
         // Initialize
         const savedProgress = localStorage.getItem('philosophicProgrammingProgress');

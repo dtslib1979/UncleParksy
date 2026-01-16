@@ -906,18 +906,10 @@ function maybeNotify(msg){
   });  
 })();  
   
-/* === Service Worker Registration === */  
-if ('serviceWorker' in navigator) {  
-  window.addEventListener('load', () => {  
-    navigator.serviceWorker.register('/sw.js')  
-      .then((registration) => {  
-        console.log('ServiceWorker registered:', registration.scope);  
-      })  
-      .catch((err) => {  
-        console.error('ServiceWorker registration failed:', err);  
-      });  
-  });  
-}  
+/* === Service Worker DISABLED ===
+   PWA 캐시 문제 및 브라우저 번역 기능 충돌 방지를 위해 비활성화.
+   manifest.webmanifest만 사용하여 Chrome 바로가기 아이콘 지원.
+*/  
 
 /* ============================================================
    🧠 PARKSY CATEGORY COPY · SINGLE SOURCE OF TRUTH

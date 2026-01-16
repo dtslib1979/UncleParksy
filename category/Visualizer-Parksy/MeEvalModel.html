@@ -726,14 +726,7 @@ V5 -- "×" --> Output
 </section>
 
   </div>  <script>
-    // PWA: 서비스 워커 등록 (sw.js는 별도 작성 필요)
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", function () {
-        navigator.serviceWorker.register("sw.js").catch(function () {
-          // 조용히 실패 무시 (로컬 미구현 시)
-        });
-      });
-    }
+    // Service Worker disabled (캐시/번역 충돌 방지)
 
     // 자기평가 엔진 계산 로직
     document.addEventListener("DOMContentLoaded", function () {

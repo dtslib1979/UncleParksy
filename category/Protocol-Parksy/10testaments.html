@@ -765,10 +765,7 @@
             });
         });
 
-        // Service Worker Registration (simplified for artifact)
-        if ('serviceWorker' in navigator) {
-            console.log('Service Worker supported - for full PWA functionality, deploy to server');
-        }
+        // Service Worker disabled (캐시/번역 충돌 방지)
 
         // Interactive Features
         document.addEventListener('DOMContentLoaded', function() {
