@@ -98,6 +98,42 @@
     }
   },
 
+  "architecture": {
+    "name": "4-Layer Showroom System",
+    "spec": "specs/layers.yaml",
+    "layers": [
+      {
+        "level": 0,
+        "name": "External World",
+        "type": "showroom_public",
+        "platform": "YouTube, Social",
+        "purpose": "발견 & 첫 접촉"
+      },
+      {
+        "level": 1,
+        "name": "Public Portal",
+        "type": "showroom_curated",
+        "platform": "parksy.kr",
+        "purpose": "브랜드 경험 & 깊은 탐색"
+      },
+      {
+        "level": 2,
+        "name": "Inner Portal",
+        "type": "gateway",
+        "platform": "parksy.kr/inner",
+        "purpose": "게이트키핑 & 커뮤니티"
+      },
+      {
+        "level": 3,
+        "name": "Inner World",
+        "type": "core",
+        "zones": ["parksy.zone", "eae.zone", "dtslib.zone"],
+        "purpose": "진짜 창작 & 비즈니스"
+      }
+    ],
+    "funnel": "넓은 입구 → 좁은 출구 (진지한 사람만 안으로)"
+  },
+
   "conclusion": {
     "statement": "이 트릴로지는 플랫폼이 아니다. 한 인간의 생존 구조다.",
     "uniqueness": "그 물은 박씨만 만들 수 있다."

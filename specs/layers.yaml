@@ -1,0 +1,209 @@
+# ═══════════════════════════════════════════════════════════════
+#  DTSLIB UNIVERSE - 4-Layer Architecture
+#  "관객 깔때기 + 이중 쇼룸 시스템"
+# ═══════════════════════════════════════════════════════════════
+
+architecture:
+  name: "4-Layer Showroom System"
+  version: "1.0.0"
+  philosophy: "넓은 입구, 좁은 출구 - 진지한 사람만 안으로"
+
+# ═══════════════════════════════════════════════════════════════
+#  LAYER 0: YouTube / External World
+# ═══════════════════════════════════════════════════════════════
+layer_0:
+  name: "External World"
+  type: "showroom_public"
+  showroom_number: 1
+
+  description: "대중을 위한 전시장 - 발견의 공간"
+
+  platforms:
+    youtube:
+      channel: "@DTSLIB"
+      purpose: "콘텐츠 발견 & 첫 접촉"
+      reach: "global"
+      audience: "anyone"
+
+    social:
+      - twitter
+      - instagram
+      - threads
+
+  content_strategy:
+    tone: "접근 가능하고 흥미로운"
+    format:
+      - 짧은 영상 (Shorts)
+      - 튜토리얼
+      - 책 소개
+      - 티저
+    cta: "더 보려면 parksy.kr로"
+
+  funnel_to_layer_1:
+    methods:
+      - 영상 설명란 링크
+      - 엔드 스크린 CTA
+      - 고정 댓글
+      - 채널 소개
+    message: "깊이 있는 이야기는 parksy.kr에서"
+
+# ═══════════════════════════════════════════════════════════════
+#  LAYER 1: Public Portal (parksy.kr)
+# ═══════════════════════════════════════════════════════════════
+layer_1:
+  name: "Public Portal"
+  type: "showroom_curated"
+  showroom_number: 2
+
+  description: "선별된 관객을 위한 갤러리 - 브랜드 경험의 공간"
+
+  url: "https://parksy.kr"
+
+  sections:
+    visible:
+      - home: "환영 & 소개"
+      - blog: "공개 글 (parksy 원석 중 선별)"
+      - portfolio: "작품 전시"
+      - about: "누구인가"
+      - listening_room: "음악 경험"
+
+    hidden_link:
+      - inner_portal: "숨겨진 입구 (찾는 자만 발견)"
+
+  content_strategy:
+    tone: "개인적이면서 전문적"
+    quality: "높음 (정제된 콘텐츠만)"
+    update_frequency: "주 1-2회"
+
+  funnel_to_layer_2:
+    method: "이스터에그 / 초대"
+    trigger:
+      - 특정 페이지 방문 횟수
+      - 뉴스레터 구독
+      - 숨겨진 링크 발견
+    message: "더 깊은 세계로 들어오시겠습니까?"
+
+# ═══════════════════════════════════════════════════════════════
+#  LAYER 2: Inner Portal
+# ═══════════════════════════════════════════════════════════════
+layer_2:
+  name: "Inner Portal"
+  type: "gateway"
+
+  description: "비밀번호로 잠긴 문 - 게이트키핑의 공간"
+
+  url: "https://parksy.kr/inner"  # or subdomain
+
+  access:
+    method: "password"
+    distribution:
+      - 뉴스레터 구독자에게 발송
+      - YouTube 멤버십
+      - 직접 초대
+    rotation: "monthly"  # 비밀번호 변경 주기
+
+  purpose:
+    - 진지한 팔로워 필터링
+    - 커뮤니티 소속감 형성
+    - 프리미엄 콘텐츠 티저
+
+  content:
+    - 비하인드 스토리
+    - 작업 과정
+    - 미공개 에세이
+    - Inner World 미리보기
+
+  funnel_to_layer_3:
+    method: "멤버십 / 구매"
+    options:
+      - free_tier: "기본 Inner Portal 접근"
+      - paid_tier: "Inner World 전체 접근"
+
+# ═══════════════════════════════════════════════════════════════
+#  LAYER 3: Inner World (정·반·합)
+# ═══════════════════════════════════════════════════════════════
+layer_3:
+  name: "Inner World"
+  type: "core"
+
+  description: "진짜 창작과 비즈니스의 공간"
+
+  zones:
+    parksy_zone:
+      metaphor: "정 (Thesis) - 샘"
+      url: "parksy.kr/zone 또는 별도 서브도메인"
+      content:
+        - 원시적 감정
+        - 실험적 글
+        - 미완성 아이디어
+        - 일기/로그
+      access: "Inner Portal 통과자"
+
+    eae_zone:
+      metaphor: "반 (Antithesis) - 정수기"
+      url: "eae.kr 또는 parksy.kr/eae"
+      content:
+        - 이론/프레임워크
+        - 방법론
+        - 구조화된 지식
+        - 교육 콘텐츠
+      access: "Inner Portal 통과자"
+
+    dtslib_zone:
+      metaphor: "합 (Synthesis) - 병에 담긴 물"
+      url: "dtslib.kr"
+      content:
+        - 완성된 제품
+        - 전자책
+        - 강좌
+        - 상품 페이지
+      access: "구매자"
+
+  dialectic:
+    thesis: "parksy (감정, 원석)"
+    antithesis: "eae (구조, 정제)"
+    synthesis: "dtslib (상품, 완성)"
+
+# ═══════════════════════════════════════════════════════════════
+#  AUDIENCE FUNNEL METRICS
+# ═══════════════════════════════════════════════════════════════
+funnel_metrics:
+  layer_0_to_1:
+    target_conversion: "1-3%"
+    tracking: "UTM 파라미터"
+
+  layer_1_to_2:
+    target_conversion: "5-10%"
+    tracking: "비밀번호 입력 수"
+
+  layer_2_to_3:
+    target_conversion: "10-20%"
+    tracking: "멤버십/구매"
+
+# ═══════════════════════════════════════════════════════════════
+#  IMPLEMENTATION NOTES
+# ═══════════════════════════════════════════════════════════════
+implementation:
+  layer_0:
+    status: "active"
+    platform: "YouTube, Social Media"
+    automation: "youtube_sync.py"
+
+  layer_1:
+    status: "active"
+    platform: "GitHub Pages (parksy.kr)"
+    automation: "factory.py → output/parksy"
+
+  layer_2:
+    status: "to_build"
+    options:
+      - simple: "JavaScript 비밀번호 (클라이언트사이드)"
+      - medium: "Netlify Identity / Cloudflare Access"
+      - advanced: "별도 서버 인증"
+    recommended: "simple (시작점)"
+
+  layer_3:
+    status: "partial"
+    parksy_zone: "to_build"
+    eae_zone: "to_build (eae.kr 필요)"
+    dtslib_zone: "to_build (dtslib.kr 필요)"
