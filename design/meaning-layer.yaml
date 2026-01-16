@@ -1,0 +1,313 @@
+# ═══════════════════════════════════════════════════════════════
+#  CAVE UI - MEANING LAYER
+#  의미는 고정, 표현은 Claude가 그때그때 생성
+# ═══════════════════════════════════════════════════════════════
+
+version: "1.0.0"
+philosophy: |
+  컨셉은 박씨가 만든다.
+  감각은 전 세계에서 훔친다.
+
+# ─────────────────────────────────────────────────────────────
+#  SEMANTIC ELEMENTS - 의미 정의
+#  이건 절대 안 바뀜. "이게 뭐다"를 정의함.
+# ─────────────────────────────────────────────────────────────
+
+elements:
+
+  cave-door:
+    meaning: "문 - 다른 공간으로 가는 입구"
+    metaphor: "동굴의 문, 바위틈"
+    behavior:
+      - 클릭하면 "들어간다"
+      - 호버하면 "열릴 것 같다"
+    mood_keywords:
+      - mysterious
+      - inviting
+      - threshold
+      - portal
+    effect_suggestions:
+      - "magnetic button"
+      - "border glow on hover"
+      - "scale + shadow depth"
+      - "reveal animation"
+
+  torch-input:
+    meaning: "횃불 - 어둠을 밝히는 도구"
+    metaphor: "비밀번호 = 횃불을 드는 것"
+    behavior:
+      - 입력하면 "빛이 켜진다"
+      - 틀리면 "꺼진다/흔들린다"
+    mood_keywords:
+      - fire
+      - glow
+      - warmth
+      - illumination
+    effect_suggestions:
+      - "input glow on focus"
+      - "cursor light following"
+      - "flicker on error"
+      - "success = bright flash"
+
+  cave-path:
+    meaning: "길 - 이동의 흔적"
+    metaphor: "동굴 안의 길, 발자국"
+    behavior:
+      - 클릭하면 "따라간다"
+      - 호버하면 "길이 보인다"
+    mood_keywords:
+      - trace
+      - journey
+      - subtle
+      - direction
+    effect_suggestions:
+      - "underline reveal"
+      - "arrow slide"
+      - "color fade"
+
+  cave-crack:
+    meaning: "균열 - 공간의 분리"
+    metaphor: "바위의 틈, 경계"
+    behavior:
+      - 시각적 구분
+      - 미세한 생동감
+    mood_keywords:
+      - fracture
+      - ancient
+      - texture
+      - divide
+    effect_suggestions:
+      - "noise texture"
+      - "subtle vibration"
+      - "gradient fade"
+
+  cave-wall:
+    meaning: "벽 - 배경, 공간 자체"
+    metaphor: "동굴 내벽, 질감"
+    behavior:
+      - 항상 존재
+      - 미세한 질감
+    mood_keywords:
+      - depth
+      - texture
+      - dark
+      - ancient
+    effect_suggestions:
+      - "noise overlay"
+      - "gradient depth"
+      - "subtle parallax"
+
+  torch-light:
+    meaning: "횃불 빛 - 마우스를 따라다니는 조명"
+    metaphor: "들고 다니는 횃불"
+    behavior:
+      - 마우스를 따라다님
+      - 주변을 밝힘
+    mood_keywords:
+      - warm
+      - flickering
+      - following
+      - ambient
+    effect_suggestions:
+      - "radial gradient cursor"
+      - "blend mode screen"
+      - "flicker animation"
+
+  zone-marker:
+    meaning: "영역 표시 - 어떤 방인지 표시"
+    metaphor: "벽화의 색, 방의 기운"
+    behavior:
+      - 색으로 구분
+      - 호버하면 강조
+    mood_keywords:
+      - identity
+      - color
+      - subtle
+      - presence
+    effect_suggestions:
+      - "glow pulse"
+      - "color spread on hover"
+
+  monument:
+    meaning: "기념비 - 크고 중요한 텍스트"
+    metaphor: "동굴 입구의 큰 글자"
+    behavior:
+      - 첫 눈에 들어옴
+      - 무겁고 중요함
+    mood_keywords:
+      - grand
+      - ancient
+      - singular
+      - weight
+    effect_suggestions:
+      - "blur to sharp reveal"
+      - "scale entrance"
+      - "glitch on hover"
+      - "parallax on scroll"
+
+  statement:
+    meaning: "선언문 - 핵심 메시지"
+    metaphor: "벽에 새겨진 문장"
+    behavior:
+      - 천천히 읽게 됨
+      - 기억에 남음
+    mood_keywords:
+      - poetic
+      - weight
+      - pause
+      - memory
+    effect_suggestions:
+      - "line by line reveal"
+      - "char by char animation"
+      - "fade in sequence"
+
+  whisper:
+    meaning: "속삭임 - 힌트, 부가 정보"
+    metaphor: "동굴의 메아리"
+    behavior:
+      - 거의 안 보임
+      - 찾는 자만 봄
+    mood_keywords:
+      - faint
+      - hidden
+      - subtle
+      - secret
+    effect_suggestions:
+      - "very low opacity"
+      - "reveal on hover"
+      - "letter spacing animation"
+
+# ─────────────────────────────────────────────────────────────
+#  MOOD PRESETS - 분위기 프리셋
+#  Claude가 이 중에서 선택하거나 조합
+# ─────────────────────────────────────────────────────────────
+
+moods:
+
+  ancient:
+    description: "고대, 오래된, 시간의 무게"
+    color_tone: "warm earth, sepia, desaturated"
+    motion: "slow, heavy, deliberate"
+    texture: "noise, grain, weathered"
+    reference_sites:
+      - "museum websites"
+      - "archaeological archives"
+      - "historical documentaries"
+
+  mystical:
+    description: "신비로운, 마법적, 초자연적"
+    color_tone: "deep purples, glowing accents"
+    motion: "floating, ethereal, pulsing"
+    texture: "smoke, particles, blur"
+    reference_sites:
+      - "fantasy game sites"
+      - "tarot/astrology sites"
+
+  minimal-dark:
+    description: "미니멀, 어둡고 깨끗한"
+    color_tone: "pure blacks, white text, single accent"
+    motion: "precise, clean, fast"
+    texture: "none or very subtle"
+    reference_sites:
+      - "luxury brand sites"
+      - "architecture portfolios"
+      - "Awwwards dark sites"
+
+  organic:
+    description: "유기적, 자연스러운, 살아있는"
+    color_tone: "earth tones, natural gradients"
+    motion: "morphing, breathing, flowing"
+    texture: "organic shapes, blob"
+    reference_sites:
+      - "nature documentaries"
+      - "wellness brands"
+
+  glitch:
+    description: "글리치, 디지털 노이즈, 불안정"
+    color_tone: "RGB split, neon accents"
+    motion: "jerky, unpredictable, flicker"
+    texture: "scan lines, pixel noise"
+    reference_sites:
+      - "cyberpunk games"
+      - "experimental art sites"
+
+# ─────────────────────────────────────────────────────────────
+#  CLAUDE INSTRUCTIONS - Claude가 읽는 지침
+# ─────────────────────────────────────────────────────────────
+
+claude_instructions:
+
+  when_user_requests_effect_update:
+    steps:
+      - "1. 사용자가 어떤 element의 효과를 바꾸고 싶은지 파악"
+      - "2. 해당 element의 meaning과 mood_keywords 확인"
+      - "3. 웹서치로 최신 트렌드 효과 찾기 (Awwwards, Codepen, Dribbble)"
+      - "4. mood_keywords와 매칭되는 효과 선별"
+      - "5. CSS/JS 코드 생성하여 cave-effects.css/js에 적용"
+
+    search_queries:
+      - "best {mood_keyword} button effect 2024"
+      - "awwwards {element_type} animation"
+      - "codepen {mood_keyword} hover effect"
+      - "gsap {element_type} animation tutorial"
+      - "three.js {mood_keyword} effect"
+
+  when_user_requests_mood_change:
+    steps:
+      - "1. 사용자가 원하는 mood 파악"
+      - "2. 해당 mood의 특성 확인"
+      - "3. 모든 elements에 mood 일괄 적용"
+      - "4. reference_sites 참고하여 전체 톤 조정"
+
+  quality_checklist:
+    - "Awwwards에 올라와도 부끄럽지 않은가?"
+    - "의미(meaning)가 표현에서 느껴지는가?"
+    - "기술적으로 최신인가? (2024+ 기준)"
+    - "성능에 문제없는가? (60fps 유지)"
+    - "모바일에서도 작동하는가?"
+
+# ─────────────────────────────────────────────────────────────
+#  EFFECT SOURCES - 효과 출처
+# ─────────────────────────────────────────────────────────────
+
+effect_sources:
+
+  primary:
+    - name: "Awwwards"
+      url: "https://www.awwwards.com"
+      use_for: "overall inspiration, cutting edge"
+
+    - name: "Codepen"
+      url: "https://codepen.io"
+      use_for: "specific effects, code snippets"
+
+    - name: "Codrops"
+      url: "https://tympanus.net/codrops"
+      use_for: "tutorials, advanced techniques"
+
+  libraries:
+    - name: "GSAP"
+      url: "https://greensock.com/gsap"
+      use_for: "timeline animations, scroll effects"
+
+    - name: "Three.js"
+      url: "https://threejs.org"
+      use_for: "3D effects, WebGL"
+
+    - name: "Lenis"
+      url: "https://lenis.studiofreight.com"
+      use_for: "smooth scroll"
+
+    - name: "Framer Motion"
+      url: "https://www.framer.com/motion"
+      use_for: "React animations"
+
+  techniques:
+    - "CSS clip-path animations"
+    - "SVG morphing"
+    - "WebGL shaders"
+    - "Canvas particles"
+    - "CSS blend modes"
+    - "Intersection Observer reveals"
+    - "FLIP animations"
+    - "Magnetic cursor effects"
