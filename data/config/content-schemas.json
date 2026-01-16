@@ -1,0 +1,459 @@
+{
+  "$id": "dtslib-content-schemas",
+  "version": "1.0.0",
+  "description": "DTSLIB Media Empire - 통합 콘텐츠 스키마",
+
+  "schemas": {
+    "contentSource": {
+      "description": "모든 콘텐츠의 원본 소스",
+      "type": "object",
+      "required": ["id", "type", "createdAt"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^src-[a-z0-9-]+$"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["text", "voice", "visual", "mixed"]
+        },
+        "origin": {
+          "type": "string",
+          "enum": ["manual", "voice-memo", "ocr", "import", "ai-generated"]
+        },
+        "rawContent": {
+          "type": "string",
+          "description": "원본 텍스트 또는 파일 경로"
+        },
+        "metadata": {
+          "type": "object",
+          "properties": {
+            "duration": { "type": "number" },
+            "wordCount": { "type": "integer" },
+            "language": { "type": "string" },
+            "tags": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "aiProcessing": {
+          "type": "object",
+          "properties": {
+            "transcribed": { "type": "boolean" },
+            "summarized": { "type": "boolean" },
+            "categorized": { "type": "boolean" },
+            "processedAt": { "type": "string", "format": "date-time" },
+            "model": { "type": "string" }
+          }
+        },
+        "routing": {
+          "type": "object",
+          "properties": {
+            "suggestedDomain": {
+              "type": "string",
+              "enum": ["parksy.kr", "eae.kr", "dtslib.kr", "dtslib.com"]
+            },
+            "suggestedFormat": { "type": "string" },
+            "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+
+    "ebook": {
+      "description": "전자책 출판물",
+      "type": "object",
+      "required": ["id", "title", "status"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^book-[a-z0-9-]+$"
+        },
+        "title": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "author": { "type": "string", "default": "UncleParksy" },
+        "penName": { "type": "string" },
+        "description": { "type": "string" },
+        "category": {
+          "type": "string",
+          "enum": ["self-help", "tech", "essay", "fiction", "education", "art"]
+        },
+        "chapters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "number": { "type": "integer" },
+              "title": { "type": "string" },
+              "content": { "type": "string" },
+              "wordCount": { "type": "integer" }
+            }
+          }
+        },
+        "cover": {
+          "type": "object",
+          "properties": {
+            "imagePath": { "type": "string" },
+            "aiGenerated": { "type": "boolean" },
+            "prompt": { "type": "string" }
+          }
+        },
+        "formats": {
+          "type": "object",
+          "properties": {
+            "epub": { "type": "string" },
+            "pdf": { "type": "string" },
+            "mobi": { "type": "string" }
+          }
+        },
+        "publishing": {
+          "type": "object",
+          "properties": {
+            "amazon": {
+              "type": "object",
+              "properties": {
+                "asin": { "type": "string" },
+                "url": { "type": "string" },
+                "status": { "type": "string" }
+              }
+            },
+            "ridi": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "url": { "type": "string" },
+                "status": { "type": "string" }
+              }
+            }
+          }
+        },
+        "pricing": {
+          "type": "object",
+          "properties": {
+            "krw": { "type": "number" },
+            "usd": { "type": "number" },
+            "free": { "type": "boolean" }
+          }
+        },
+        "status": {
+          "type": "string",
+          "enum": ["draft", "editing", "cover-design", "formatting", "review", "published"]
+        },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "publishedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+
+    "webtoon": {
+      "description": "웹툰 시리즈",
+      "type": "object",
+      "required": ["id", "title", "status"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^webtoon-[a-z0-9-]+$"
+        },
+        "title": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "genre": {
+          "type": "string",
+          "enum": ["fantasy", "romance", "action", "comedy", "drama", "slice-of-life", "educational"]
+        },
+        "synopsis": { "type": "string" },
+        "targetAudience": {
+          "type": "string",
+          "enum": ["all-ages", "teen", "adult"]
+        },
+        "characters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" },
+              "description": { "type": "string" },
+              "visualPrompt": { "type": "string" },
+              "referenceImages": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            }
+          }
+        },
+        "episodes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "number": { "type": "integer" },
+              "title": { "type": "string" },
+              "script": { "type": "string" },
+              "panels": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "order": { "type": "integer" },
+                    "description": { "type": "string" },
+                    "dialogue": { "type": "array", "items": { "type": "string" } },
+                    "imagePath": { "type": "string" },
+                    "aiPrompt": { "type": "string" },
+                    "generated": { "type": "boolean" }
+                  }
+                }
+              },
+              "status": {
+                "type": "string",
+                "enum": ["script", "generating", "editing", "complete", "published"]
+              },
+              "publishedAt": { "type": "string", "format": "date-time" }
+            }
+          }
+        },
+        "style": {
+          "type": "object",
+          "properties": {
+            "artStyle": { "type": "string" },
+            "colorPalette": { "type": "array", "items": { "type": "string" } },
+            "aiModel": { "type": "string" },
+            "basePrompt": { "type": "string" }
+          }
+        },
+        "publishing": {
+          "type": "object",
+          "properties": {
+            "platforms": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["ridi", "kakao-page", "naver-series", "self-hosted"]
+              }
+            },
+            "schedule": {
+              "type": "string",
+              "description": "업로드 주기 (weekly, biweekly, etc.)"
+            }
+          }
+        },
+        "status": {
+          "type": "string",
+          "enum": ["planning", "scripting", "production", "publishing", "completed", "hiatus"]
+        },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+
+    "audiobook": {
+      "description": "오디오북",
+      "type": "object",
+      "required": ["id", "title", "sourceBook"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^audio-[a-z0-9-]+$"
+        },
+        "title": { "type": "string" },
+        "sourceBook": { "type": "string", "description": "원본 ebook ID" },
+        "narrator": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "enum": ["human", "ai-tts"] },
+            "name": { "type": "string" },
+            "voice": { "type": "string" }
+          }
+        },
+        "chapters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "number": { "type": "integer" },
+              "title": { "type": "string" },
+              "audioPath": { "type": "string" },
+              "duration": { "type": "number" }
+            }
+          }
+        },
+        "totalDuration": { "type": "number" },
+        "format": {
+          "type": "string",
+          "enum": ["mp3", "m4b", "wav"]
+        },
+        "publishing": {
+          "type": "object",
+          "properties": {
+            "audible": { "type": "object" },
+            "willa": { "type": "object" },
+            "millie": { "type": "object" }
+          }
+        },
+        "status": {
+          "type": "string",
+          "enum": ["recording", "editing", "mastering", "review", "published"]
+        }
+      }
+    },
+
+    "videoCourse": {
+      "description": "영상 강좌",
+      "type": "object",
+      "required": ["id", "title", "status"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^course-[a-z0-9-]+$"
+        },
+        "title": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "description": { "type": "string" },
+        "category": {
+          "type": "string",
+          "enum": ["programming", "design", "writing", "productivity", "ai", "business"]
+        },
+        "level": {
+          "type": "string",
+          "enum": ["beginner", "intermediate", "advanced"]
+        },
+        "lessons": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "number": { "type": "integer" },
+              "title": { "type": "string" },
+              "description": { "type": "string" },
+              "script": { "type": "string" },
+              "videoPath": { "type": "string" },
+              "youtubeId": { "type": "string" },
+              "duration": { "type": "number" },
+              "resources": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            }
+          }
+        },
+        "totalDuration": { "type": "number" },
+        "publishing": {
+          "type": "object",
+          "properties": {
+            "youtube": {
+              "type": "object",
+              "properties": {
+                "playlistId": { "type": "string" },
+                "visibility": { "type": "string" }
+              }
+            },
+            "inflearn": { "type": "object" },
+            "class101": { "type": "object" }
+          }
+        },
+        "pricing": {
+          "type": "object",
+          "properties": {
+            "free": { "type": "boolean" },
+            "krw": { "type": "number" }
+          }
+        },
+        "status": {
+          "type": "string",
+          "enum": ["planning", "scripting", "recording", "editing", "review", "published"]
+        }
+      }
+    },
+
+    "webNovel": {
+      "description": "웹소설",
+      "type": "object",
+      "required": ["id", "title", "status"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^novel-[a-z0-9-]+$"
+        },
+        "title": { "type": "string" },
+        "penName": { "type": "string" },
+        "genre": {
+          "type": "string",
+          "enum": ["fantasy", "romance", "martial-arts", "modern-fantasy", "sf", "mystery"]
+        },
+        "synopsis": { "type": "string" },
+        "chapters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "number": { "type": "integer" },
+              "title": { "type": "string" },
+              "content": { "type": "string" },
+              "wordCount": { "type": "integer" },
+              "publishedAt": { "type": "string", "format": "date-time" }
+            }
+          }
+        },
+        "schedule": {
+          "type": "string",
+          "description": "연재 주기"
+        },
+        "publishing": {
+          "type": "object",
+          "properties": {
+            "kakaoPage": { "type": "object" },
+            "munpia": { "type": "object" },
+            "joara": { "type": "object" }
+          }
+        },
+        "status": {
+          "type": "string",
+          "enum": ["planning", "serializing", "completed", "hiatus"]
+        }
+      }
+    },
+
+    "youtubeContent": {
+      "description": "YouTube 콘텐츠 (확장)",
+      "type": "object",
+      "required": ["id", "videoId", "channel"],
+      "properties": {
+        "id": { "type": "string" },
+        "videoId": { "type": "string" },
+        "channel": {
+          "type": "string",
+          "enum": ["parksy-vlog", "dtslib-edu", "dtslib-review"]
+        },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "category": {
+          "type": "string",
+          "enum": ["vlog", "tutorial", "review", "behind-scenes", "live", "short"]
+        },
+        "linkedContent": {
+          "type": "object",
+          "properties": {
+            "ebook": { "type": "string" },
+            "course": { "type": "string" },
+            "webtoon": { "type": "string" },
+            "publication": { "type": "string" }
+          }
+        },
+        "monetization": {
+          "type": "object",
+          "properties": {
+            "adsEnabled": { "type": "boolean" },
+            "sponsorship": { "type": "string" },
+            "affiliate": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "analytics": {
+          "type": "object",
+          "properties": {
+            "views": { "type": "integer" },
+            "likes": { "type": "integer" },
+            "comments": { "type": "integer" },
+            "watchTime": { "type": "number" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "$schema": "../config/schemas.json#/schemas/listeningRoom",
+  "collection": "listening-rooms",
+  "version": "1.0.0",
+  "description": "웹에서만 가능한 음악 감상 경험 - 감상실",
+  "count": 0,
+  "rooms": []
+}

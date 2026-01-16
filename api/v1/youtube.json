@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "data": {
+    "videos": [],
+    "total": 0,
+    "channelId": null,
+    "lastSynced": null
+  },
+  "meta": {
+    "generatedAt": "2025-01-16T00:00:00Z",
+    "source": "/data/youtube/index.json"
+  }
+}

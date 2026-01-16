@@ -1,0 +1,114 @@
+# ═══════════════════════════════════════════════════════════════
+#  PARKSY.KR - Domain Specification
+#  "샘" - 날것, 감정, 실험, 오늘의 나
+# ═══════════════════════════════════════════════════════════════
+
+domain:
+  id: parksy
+  name: parksy.kr
+  layer: 개체 (Entity)
+  keyword: "KR Merit / With AI"
+  metaphor: "샘 - 생각이 태어나는 곳"
+  one_liner: "나는 이렇게 산다."
+
+character:
+  tone: 자유롭고 실험적
+  allowed:
+    - 미완성
+    - 중복
+    - 감정적 표현
+    - 흔들림
+    - 욕설 (적절히)
+  forbidden:
+    - 완벽주의
+    - 과도한 편집
+    - 상업적 톤
+
+routing:
+  keywords:
+    high:
+      - 일상
+      - 오늘
+      - 생각
+      - 느낌
+      - 힘들
+      - 좋아
+      - 싫어
+      - 나는
+    medium:
+      - 실험
+      - 로그
+      - 기록
+      - 메모
+      - 감정
+    low:
+      - 브이로그
+      - 일기
+      - 회고
+
+  emotions:
+    - frustrated
+    - excited
+    - reflective
+    - curious
+
+output_formats:
+  primary:
+    - log          # 일상 로그
+    - thought      # 생각 조각
+    - essay        # 개인 에세이
+  secondary:
+    - vlog_script  # 브이로그 대본
+    - listening_room_note  # 감상실 큐레이터 노트
+
+templates:
+  log:
+    frontmatter:
+      - domain: parksy
+      - type: log
+      - mood: "{{ emotion.mood }}"
+      - tags: "{{ keywords[:5] }}"
+    sections:
+      - title
+      - content
+      - reflection (optional)
+    footer: |
+      ---
+      > 이 글은 parksy.kr에서 태어났습니다.
+      > 날것 그대로, 오늘의 나.
+
+  thought:
+    frontmatter:
+      - domain: parksy
+      - type: thought
+      - spark: "{{ trigger }}"
+    sections:
+      - title
+      - content
+    max_length: 500
+
+platforms:
+  youtube:
+    channel: "@UncleParksy"
+    content_types:
+      - 브이로그
+      - 비하인드
+      - 일상
+      - 실험
+  spotify:
+    type: listening_room
+    content: 큐레이션 플레이리스트
+  web:
+    primary: true
+    path: /output/parksy/
+
+publishing:
+  auto_publish: true
+  review_required: false
+  min_quality: low  # 날것도 OK
+
+visual_identity:
+  primary_color: "#d4af37"  # 금색
+  secondary_color: "#6a4c93"  # 보라
+  style: grimoire-mystical
+  font: "Pirata One"

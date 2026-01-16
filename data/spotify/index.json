@@ -1,0 +1,9 @@
+{
+  "$schema": "../config/schemas.json#/schemas/spotifyTrack",
+  "collection": "spotify",
+  "version": "1.0.0",
+  "count": 0,
+  "playlists": [],
+  "tracks": [],
+  "albums": []
+}

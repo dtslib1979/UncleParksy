@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Inner Portal - 횃불이 필요하다.">
+  <meta name="theme-color" content="#0a0a0a">
+  <title>Inner Portal</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <!-- Cave UI -->
+  <link rel="stylesheet" href="../cave-ui.css">
+  <link rel="stylesheet" href="../cave-effects.css">
+
+  <style>
+    .portal-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .passage-text {
+      font-family: var(--font-mono);
+      font-size: var(--text-whisper);
+      letter-spacing: 0.5em;
+      color: var(--cave-faint);
+      margin-bottom: var(--space-cavern);
+    }
+
+    .torch-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-room);
+    }
+
+    .torch-input {
+      width: 280px;
+      text-align: center;
+      letter-spacing: 0.5em;
+      font-size: 1.25rem;
+      padding: 1rem;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--cave-stone);
+      color: var(--cave-glow);
+      font-family: var(--font-mono);
+      transition: all 0.3s ease;
+    }
+
+    .torch-input:focus {
+      outline: none;
+      border-bottom-color: var(--flame-core);
+      box-shadow: 0 10px 40px rgba(255, 107, 53, 0.1);
+    }
+
+    .torch-input::placeholder {
+      color: var(--cave-faint);
+      letter-spacing: 0.3em;
+    }
+
+    .enter-btn {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.5s ease;
+    }
+
+    .enter-btn.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hint {
+      position: absolute;
+      bottom: 3rem;
+      color: var(--cave-faint);
+      font-size: var(--text-whisper);
+      opacity: 0.3;
+      transition: opacity 0.3s;
+    }
+
+    .hint:hover {
+      opacity: 0.6;
+    }
+
+    /* Error shake */
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+    }
+
+    .shake {
+      animation: shake 0.3s ease;
+    }
+
+    /* Success glow */
+    @keyframes successGlow {
+      0% { box-shadow: 0 0 0 rgba(255, 107, 53, 0); }
+      50% { box-shadow: 0 0 60px rgba(255, 107, 53, 0.4); }
+      100% { box-shadow: 0 0 0 rgba(255, 107, 53, 0); }
+    }
+
+    .success {
+      animation: successGlow 1s ease;
+      border-bottom-color: var(--flame-core) !important;
+    }
+
+    /* Ambient particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: var(--flame-edge);
+      border-radius: 50%;
+      opacity: 0;
+      animation: float 8s infinite;
+    }
+
+    @keyframes float {
+      0% {
+        opacity: 0;
+        transform: translateY(100vh) scale(0);
+      }
+      10% {
+        opacity: 0.6;
+      }
+      90% {
+        opacity: 0.6;
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-100px) scale(1);
+      }
+    }
+  </style>
+</head>
+<body data-cave-effects>
+
+  <!-- Particles -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Page transition -->
+  <div class="page-transition"></div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       INNER PORTAL - 좁은 통로
+       ═══════════════════════════════════════════════════════════ -->
+  <main class="portal-container">
+
+    <!-- Passage marker -->
+    <p class="passage-text" id="passage">PASSAGE</p>
+
+    <div class="cave-crack" id="crack"></div>
+
+    <!-- Statement -->
+    <p class="statement" id="statement" style="margin-bottom: var(--space-chamber);">
+      횃불이 필요하다.
+    </p>
+
+    <!-- Input -->
+    <form class="torch-form" id="form" onsubmit="return checkTorch()">
+      <input
+        type="password"
+        class="torch-input"
+        id="torch"
+        placeholder="······"
+        autocomplete="off"
+        autofocus
+      >
+      <button type="submit" class="cave-door magnetic enter-btn" id="enter-btn">
+        light the torch
+      </button>
+    </form>
+
+    <!-- Hint -->
+    <p class="hint">
+      youtube 설명란을 확인하세요
+    </p>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SCRIPTS
+       ═══════════════════════════════════════════════════════════ -->
+  <script src="../cave-effects.js"></script>
+  <script>
+    // Initialize
+    const cave = new CaveEffects({
+      cursor: true,
+      torchLight: true,
+      magnetic: true,
+      pageTransition: true
+    });
+
+    // Create particles
+    const particlesContainer = document.getElementById('particles');
+    for (let i = 0; i < 20; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.animationDelay = Math.random() * 8 + 's';
+      particle.style.animationDuration = (6 + Math.random() * 4) + 's';
+      particlesContainer.appendChild(particle);
+    }
+
+    // Entrance animation
+    gsap.set(['#passage', '#crack', '#statement', '#form'], { opacity: 0 });
+    gsap.set('#passage', { y: -20, letterSpacing: '1em' });
+    gsap.set('#statement', { y: 20 });
+    gsap.set('#form', { y: 30 });
+
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' }});
+
+    tl.to('#passage', {
+      opacity: 1,
+      y: 0,
+      letterSpacing: '0.5em',
+      duration: 1
+    })
+    .to('#crack', {
+      opacity: 1,
+      scaleX: 1,
+      duration: 0.6
+    }, '-=0.5')
+    .to('#statement', {
+      opacity: 1,
+      y: 0,
+      duration: 0.8
+    }, '-=0.3')
+    .to('#form', {
+      opacity: 1,
+      y: 0,
+      duration: 0.8
+    }, '-=0.4');
+
+    // Show button when typing
+    const input = document.getElementById('torch');
+    const enterBtn = document.getElementById('enter-btn');
+
+    input.addEventListener('input', () => {
+      if (input.value.length > 0) {
+        enterBtn.classList.add('visible');
+      } else {
+        enterBtn.classList.remove('visible');
+      }
+    });
+
+    // Check password
+    function checkTorch() {
+      const torch = input.value.toLowerCase().trim();
+      const validPasswords = ['cave2024', 'inner', 'parksy', 'torch'];
+
+      if (validPasswords.includes(torch)) {
+        // Success
+        input.classList.add('success');
+        sessionStorage.setItem('torch', 'lit');
+
+        // Dramatic exit
+        gsap.to('main', {
+          opacity: 0,
+          scale: 1.1,
+          filter: 'blur(10px)',
+          duration: 0.8,
+          ease: 'power2.in',
+          onComplete: () => {
+            window.location.href = 'inner-world.html';
+          }
+        });
+
+      } else {
+        // Fail
+        input.classList.add('shake');
+        input.value = '';
+
+        // Flicker torch light
+        if (cave.torchLight) {
+          gsap.to(cave.torchLight, {
+            opacity: 0.3,
+            duration: 0.1,
+            yoyo: true,
+            repeat: 5
+          });
+        }
+
+        setTimeout(() => {
+          input.classList.remove('shake');
+        }, 300);
+      }
+
+      return false;
+    }
+  </script>
+
+</body>
+</html>

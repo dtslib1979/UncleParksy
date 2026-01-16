@@ -1,0 +1,326 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "dtslib-universe",
+  "version": "1.0.0",
+  "name": "DTSLIB Media Empire",
+  "tagline": "1인 AI 미디어 출판 제국",
+  "philosophy": "Beyond AI - 영성·지성·감성의 라이브러리",
+
+  "centralHub": {
+    "location": "parksy.kr",
+    "role": "데이터 허브 + AI 처리 중심",
+    "databases": [
+      "content-source",
+      "media-assets",
+      "publications",
+      "analytics"
+    ]
+  },
+
+  "domains": {
+    "parksy.kr": {
+      "id": "parksy",
+      "role": "persona",
+      "title": "Creator Identity",
+      "tagline": "8 페르소나의 실험실",
+      "character": "자유롭고 실험적, 개인적",
+      "contentTypes": [
+        "daily-log",
+        "experiment",
+        "vlog",
+        "listening-room",
+        "personal-essay"
+      ],
+      "platforms": {
+        "youtube": {
+          "type": "vlog",
+          "channelName": "UncleParksy",
+          "content": ["일상", "실험", "비하인드"]
+        },
+        "spotify": {
+          "type": "listening-room",
+          "content": ["큐레이션", "감상실"]
+        }
+      },
+      "visualIdentity": {
+        "primaryColor": "#d4af37",
+        "style": "grimoire-mystical",
+        "font": "Pirata One"
+      }
+    },
+
+    "eae.kr": {
+      "id": "eae",
+      "role": "philosophy",
+      "title": "EduArt Engineer - Beyond AI",
+      "tagline": "철학과 이론의 선언문",
+      "character": "깊이있고 철학적, 선언적",
+      "contentTypes": [
+        "manifesto",
+        "theory",
+        "worldbuilding",
+        "kr-merit-model",
+        "educational-framework"
+      ],
+      "platforms": {
+        "notion": {
+          "type": "knowledge-base",
+          "content": ["이론 정리", "체계 문서"]
+        }
+      },
+      "visualIdentity": {
+        "primaryColor": "#6a4c93",
+        "style": "academic-elegant",
+        "font": "Philosopher"
+      }
+    },
+
+    "dtslib.kr": {
+      "id": "dtslib-library",
+      "role": "publisher",
+      "title": "종합 출판사 - Library HQ",
+      "tagline": "모든 콘텐츠의 출판 및 배포",
+      "character": "전문적이고 체계적, 상업적",
+      "contentTypes": [
+        "ebook",
+        "webtoon",
+        "audiobook",
+        "video-course",
+        "web-novel",
+        "merchandise"
+      ],
+      "platforms": {
+        "youtube": {
+          "type": "educational",
+          "channelName": "DTSLIB",
+          "content": ["강좌", "리뷰", "튜토리얼"]
+        },
+        "amazon": {
+          "type": "ebook",
+          "content": ["전자책 출판"]
+        },
+        "ridi": {
+          "type": "webtoon",
+          "content": ["웹툰 시리즈"]
+        }
+      },
+      "visualIdentity": {
+        "primaryColor": "#1a5f7a",
+        "style": "professional-clean",
+        "font": "Inter"
+      }
+    },
+
+    "dtslib.com": {
+      "id": "dtslib-business",
+      "role": "business",
+      "title": "비즈니스 쇼케이스",
+      "tagline": "포트폴리오와 비즈니스 창구",
+      "character": "비즈니스 친화적, 깔끔한",
+      "contentTypes": [
+        "portfolio",
+        "service-showcase",
+        "client-work",
+        "contact",
+        "pricing"
+      ],
+      "platforms": {
+        "payment": ["토스페이먼츠", "카카오페이"],
+        "crm": ["노션", "슬랙"]
+      },
+      "visualIdentity": {
+        "primaryColor": "#2d3436",
+        "style": "corporate-minimal",
+        "font": "Pretendard"
+      }
+    }
+  },
+
+  "contentFlow": {
+    "input": {
+      "sources": [
+        {
+          "type": "text",
+          "methods": ["메모", "대화", "음성인식", "OCR"],
+          "storage": "/data/inbox/text/"
+        },
+        {
+          "type": "voice",
+          "methods": ["음성메모", "녹음", "팟캐스트 원본"],
+          "storage": "/data/inbox/voice/"
+        },
+        {
+          "type": "visual",
+          "methods": ["스케치", "사진", "스크린샷", "AI생성"],
+          "storage": "/data/inbox/visual/"
+        }
+      ]
+    },
+
+    "processing": {
+      "aiModels": {
+        "text": ["claude", "gpt-4", "gemini"],
+        "voice": ["whisper", "clova-speech"],
+        "image": ["midjourney", "dall-e-3", "stable-diffusion"],
+        "video": ["runway", "pika"]
+      },
+      "operations": [
+        "transcription",
+        "translation",
+        "summarization",
+        "categorization",
+        "format-conversion",
+        "image-generation",
+        "voice-synthesis"
+      ]
+    },
+
+    "routing": {
+      "rules": [
+        {
+          "condition": "content.type === 'personal' || content.type === 'experiment'",
+          "destination": "parksy.kr"
+        },
+        {
+          "condition": "content.type === 'theory' || content.type === 'manifesto'",
+          "destination": "eae.kr"
+        },
+        {
+          "condition": "content.type === 'publication' || content.type === 'course'",
+          "destination": "dtslib.kr"
+        },
+        {
+          "condition": "content.type === 'portfolio' || content.type === 'service'",
+          "destination": "dtslib.com"
+        }
+      ]
+    }
+  },
+
+  "publicationFormats": {
+    "ebook": {
+      "formats": ["EPUB", "PDF", "MOBI"],
+      "platforms": ["Amazon KDP", "Ridibooks", "교보문고"],
+      "pipeline": "markdown → format → cover → publish"
+    },
+    "webtoon": {
+      "formats": ["vertical-scroll", "page-based"],
+      "platforms": ["Ridibooks", "카카오페이지", "네이버시리즈"],
+      "pipeline": "script → AI-panels → layout → publish"
+    },
+    "audiobook": {
+      "formats": ["MP3", "M4B"],
+      "platforms": ["Audible", "윌라", "밀리의서재"],
+      "pipeline": "text → TTS/recording → edit → publish"
+    },
+    "videoCourse": {
+      "formats": ["MP4", "streaming"],
+      "platforms": ["YouTube", "인프런", "클래스101"],
+      "pipeline": "script → record → edit → publish"
+    },
+    "webNovel": {
+      "formats": ["web", "epub"],
+      "platforms": ["카카오페이지", "문피아", "조아라"],
+      "pipeline": "draft → edit → serialize → publish"
+    }
+  },
+
+  "webtoonPipeline": {
+    "enabled": true,
+    "aiGeneration": {
+      "provider": "midjourney",
+      "fallback": ["dall-e-3", "stable-diffusion-xl"],
+      "style": "consistent-character",
+      "workflow": [
+        {
+          "step": 1,
+          "name": "script-to-panels",
+          "description": "스크립트를 패널 단위로 분해"
+        },
+        {
+          "step": 2,
+          "name": "character-sheet",
+          "description": "캐릭터 일관성을 위한 시트 생성"
+        },
+        {
+          "step": 3,
+          "name": "background-generation",
+          "description": "배경 이미지 AI 생성"
+        },
+        {
+          "step": 4,
+          "name": "panel-generation",
+          "description": "각 패널 이미지 생성"
+        },
+        {
+          "step": 5,
+          "name": "text-overlay",
+          "description": "대사 및 효과음 배치"
+        },
+        {
+          "step": 6,
+          "name": "layout-assembly",
+          "description": "최종 레이아웃 조립"
+        }
+      ]
+    },
+    "templates": {
+      "characterPrompt": "consistent character, {name}, {description}, {style}, high quality, detailed",
+      "backgroundPrompt": "{setting}, {mood}, webtoon style, detailed background, no characters",
+      "panelPrompt": "{scene}, {characters}, {action}, {emotion}, webtoon panel, {style}"
+    }
+  },
+
+  "automation": {
+    "triggers": [
+      {
+        "event": "new-content-in-inbox",
+        "action": "ai-process-and-categorize"
+      },
+      {
+        "event": "content-ready-for-publish",
+        "action": "route-to-domain"
+      },
+      {
+        "event": "youtube-video-uploaded",
+        "action": "sync-metadata-and-create-post"
+      },
+      {
+        "event": "webtoon-script-completed",
+        "action": "start-ai-generation-pipeline"
+      }
+    ],
+    "schedules": [
+      {
+        "cron": "0 */6 * * *",
+        "action": "youtube-sync-all-channels"
+      },
+      {
+        "cron": "0 0 * * *",
+        "action": "daily-analytics-report"
+      },
+      {
+        "cron": "0 9 * * 1",
+        "action": "weekly-content-digest"
+      }
+    ]
+  },
+
+  "analytics": {
+    "unified": true,
+    "sources": [
+      "github-pages-analytics",
+      "youtube-studio",
+      "spotify-for-artists",
+      "amazon-kdp-reports",
+      "google-analytics"
+    ],
+    "dashboardLocation": "/platform/console/analytics.html"
+  },
+
+  "meta": {
+    "createdAt": "2025-01-16T00:00:00Z",
+    "updatedAt": "2025-01-16T00:00:00Z",
+    "version": "1.0.0"
+  }
+}

@@ -1,0 +1,122 @@
+# ═══════════════════════════════════════════════════════════════
+#  EAE.KR - Domain Specification
+#  "정수기" - 구조, 방법론, 재사용 가능
+# ═══════════════════════════════════════════════════════════════
+
+domain:
+  id: eae
+  name: eae.kr
+  layer: 정체성 (Identity)
+  keyword: "EduArt Engineer / Beyond AI"
+  metaphor: "정수기 - 원석을 구조로 승격"
+  one_liner: "나는 이런 방식의 인간이다."
+
+character:
+  tone: 깊이있고 학술적
+  structure:
+    Edu: 학습을 모듈로 체화
+    Art: 인간의 실수와 감각을 남김
+    Engineer: 도구와 시스템을 조작
+  rules:
+    - 감정 최소화
+    - 구조 필수
+    - 재사용 가능해야 함
+    - 남이 따라할 수 있어야 함
+  forbidden:
+    - 감정적 표현
+    - 개인적 일화 (예시 제외)
+    - 미완성 공개
+
+routing:
+  keywords:
+    high:
+      - 이론
+      - 방법
+      - 체계
+      - 구조
+      - 프레임워크
+      - 모델
+    medium:
+      - 설계
+      - 시스템
+      - 원칙
+      - 정의
+      - 개념
+    low:
+      - 교육
+      - 학습
+      - 모듈
+
+  content_signals:
+    - "~란 무엇인가"
+    - "~의 구조"
+    - "~하는 방법"
+    - "~체계"
+    - "정의:"
+
+output_formats:
+  primary:
+    - theory       # 이론 문서
+    - framework    # 프레임워크 정의
+    - methodology  # 방법론
+  secondary:
+    - definition   # 개념 정의
+    - diagram      # 다이어그램 설명
+    - module       # 학습 모듈
+
+templates:
+  theory:
+    frontmatter:
+      - domain: eae
+      - type: theory
+      - framework: "{{ framework_name }}"
+      - version: "{{ version }}"
+      - reusable: true
+    sections:
+      - 개요 (Overview)
+      - 정의 (Definition)
+      - 구조 (Structure)
+      - 적용 (Application)
+      - 참고 (References)
+    footer: |
+      ---
+      > EduArt Engineer Framework
+      > Beyond AI — 설명 가능한 형태로.
+
+  framework:
+    frontmatter:
+      - domain: eae
+      - type: framework
+      - components: "{{ components }}"
+    sections:
+      - 목적 (Purpose)
+      - 구성 요소 (Components)
+      - 작동 방식 (How it works)
+      - 사용법 (Usage)
+      - 확장 (Extensions)
+
+platforms:
+  youtube: null  # 텍스트 중심, 영상 없음
+  notion:
+    type: knowledge_base
+    content: 이론 정리, 체계 문서
+  web:
+    primary: true
+    path: /output/eae/
+
+publishing:
+  auto_publish: false
+  review_required: true  # 구조 검토 필수
+  min_quality: high
+
+quality_gates:
+  - has_structure: true
+  - has_definition: true
+  - is_reusable: true
+  - no_emotion: true
+
+visual_identity:
+  primary_color: "#6a4c93"  # 보라
+  secondary_color: "#4a90e2"  # 파랑
+  style: academic-elegant
+  font: "Philosopher"

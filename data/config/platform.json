@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "parksy-publisher-platform",
+  "version": "2.0.0",
+  "name": "PARKSY Publisher Platform",
+  "tagline": "Media Pipeline for the Web-First Experience",
+  "domain": "parksy.kr",
+
+  "universe": {
+    "name": "DTSLIB Publishing Universe",
+    "fullName": "Dimas Thomas Sancho's Library",
+    "meaning": "영성(Spirituality) · 지성(Intellect) · 감성(Emotion)의 라이브러리",
+    "trilogy": {
+      "parksy.kr": {
+        "role": "persona",
+        "title": "개체/개인 - Creator Identity",
+        "description": "8 페르소나를 통한 콘텐츠 창작",
+        "status": "active"
+      },
+      "eae.kr": {
+        "role": "philosophy",
+        "title": "EduArt Engineer - Beyond AI",
+        "description": "모토와 철학, 매니페스토",
+        "status": "planned"
+      },
+      "dtslib.kr": {
+        "role": "publisher",
+        "title": "종합 출판사 - Library HQ",
+        "description": "모든 콘텐츠의 아카이브 및 출판",
+        "status": "planned"
+      },
+      "dtslib.com": {
+        "role": "business",
+        "title": "비즈니스 쇼케이스",
+        "description": "포트폴리오 및 비즈니스 명함",
+        "status": "planned"
+      }
+    }
+  },
+
+  "owner": {
+    "name": "UncleParksy",
+    "title": "EduArt Engineer",
+    "motto": "Beyond AI",
+    "personas": [
+      "Philosopher-Parksy",
+      "Technician-Parksy",
+      "Visualizer-Parksy",
+      "Musician-Parksy",
+      "Protocol-Parksy",
+      "Blogger-Parksy",
+      "Orbit-Log",
+      "Tester-Parksy"
+    ]
+  },
+
+  "layers": {
+    "frontend": {
+      "path": "/platform/frontend",
+      "description": "Publishing Frontend - 감상실 + 콘텐츠 뷰어",
+      "features": [
+        "publication-viewer",
+        "listening-room",
+        "youtube-embed",
+        "spotify-embed",
+        "series-navigation"
+      ]
+    },
+    "console": {
+      "path": "/platform/console",
+      "description": "Publisher Console - 관리 시스템",
+      "features": [
+        "content-management",
+        "youtube-sync",
+        "spotify-linker",
+        "analytics-dashboard",
+        "series-builder"
+      ]
+    },
+    "database": {
+      "path": "/data",
+      "description": "Repository as Database - JSON 기반 데이터 저장소",
+      "collections": [
+        "publications",
+        "youtube",
+        "spotify",
+        "series",
+        "analytics"
+      ]
+    }
+  },
+
+  "integrations": {
+    "youtube": {
+      "enabled": true,
+      "mode": "auto-sync",
+      "channelId": null,
+      "syncInterval": "6h"
+    },
+    "spotify": {
+      "enabled": true,
+      "mode": "embed",
+      "playlistIds": []
+    }
+  },
+
+  "features": {
+    "listeningRoom": {
+      "enabled": true,
+      "description": "웹에서만 가능한 음악 감상 경험"
+    },
+    "mediaPipeline": {
+      "enabled": true,
+      "description": "텍스트 → 글 → 영상 → 스토리 자동화"
+    }
+  },
+
+  "meta": {
+    "createdAt": "2025-01-16T00:00:00Z",
+    "updatedAt": "2025-01-16T00:00:00Z",
+    "migratedFrom": "single-file-codex"
+  }
+}
