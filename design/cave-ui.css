@@ -1,0 +1,327 @@
+/* ═══════════════════════════════════════════════════════════════
+   CAVE UI - Design System for DTSLIB Universe
+   "여긴 전시관이 아니다. 누군가의 머릿속이다."
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ─────────────────────────────────────────────────────────────
+     COLOR: 동굴의 색
+     밝은 UI ❌ → 어둡고 깊은 톤
+     ───────────────────────────────────────────────────────────── */
+
+  /* 배경: 동굴 벽면 */
+  --cave-void: #0a0a0a;           /* 가장 깊은 어둠 */
+  --cave-deep: #111111;           /* 깊은 곳 */
+  --cave-wall: #1a1a1a;           /* 동굴 벽 */
+  --cave-stone: #252525;          /* 돌 표면 */
+
+  /* 텍스트: 벽화의 빛 */
+  --cave-glow: #e8e8e8;           /* 주 텍스트 (횃불에 비친) */
+  --cave-dim: #888888;            /* 보조 텍스트 (그림자 속) */
+  --cave-faint: #444444;          /* 힌트 (거의 안 보임) */
+
+  /* 강조: 불꽃 */
+  --flame-core: #ff6b35;          /* 횃불 중심 */
+  --flame-edge: #f7931e;          /* 횃불 가장자리 */
+  --ember: #cc4400;               /* 잔불 */
+
+  /* Zone 색상 */
+  --zone-parksy: #6b8e9f;         /* 벽화 - 차가운 청회색 */
+  --zone-eae: #8b7355;            /* 기호 - 따뜻한 갈색 */
+  --zone-dtslib: #9a8c7a;         /* 제단 - 중성 베이지 */
+
+  /* ─────────────────────────────────────────────────────────────
+     TYPOGRAPHY: 최소한의 문자
+     텍스트 적고 → 한 마디가 무겁게
+     ───────────────────────────────────────────────────────────── */
+
+  --font-body: 'Pretendard', -apple-system, sans-serif;
+  --font-accent: 'Noto Serif KR', Georgia, serif;  /* 중요한 문장 */
+  --font-mono: 'JetBrains Mono', monospace;        /* 코드/기호 */
+
+  /* 크기: 극단적 대비 */
+  --text-whisper: 0.75rem;        /* 거의 안 보이는 */
+  --text-normal: 1rem;            /* 기본 */
+  --text-statement: 1.5rem;       /* 선언문 */
+  --text-monument: 3rem;          /* 기념비적 */
+  --text-void: 6rem;              /* 입구의 한 글자 */
+
+  /* 행간: 숨 쉴 공간 */
+  --leading-tight: 1.2;
+  --leading-normal: 1.6;
+  --leading-loose: 2.0;
+
+  /* ─────────────────────────────────────────────────────────────
+     SPACING: 여백이 곧 깊이
+     여백 많고 → 비어있음이 의미
+     ───────────────────────────────────────────────────────────── */
+
+  --space-breath: 0.5rem;         /* 숨 */
+  --space-step: 1rem;             /* 한 걸음 */
+  --space-room: 2rem;             /* 방 하나 */
+  --space-chamber: 4rem;          /* 큰 방 */
+  --space-cavern: 8rem;           /* 동굴 홀 */
+  --space-abyss: 16rem;           /* 심연 */
+
+  /* ─────────────────────────────────────────────────────────────
+     MOTION: 이동의 감각
+     클릭 = "이동", 스크롤 = "더 깊이"
+     ───────────────────────────────────────────────────────────── */
+
+  --motion-emerge: 0.3s ease-out;       /* 나타남 */
+  --motion-descend: 0.5s ease-in-out;   /* 내려감 */
+  --motion-fade: 0.8s ease;             /* 서서히 */
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BASE: 동굴 진입
+   ═══════════════════════════════════════════════════════════════ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--cave-void);
+  color: var(--cave-glow);
+  font-family: var(--font-body);
+  font-size: var(--text-normal);
+  line-height: var(--leading-normal);
+  min-height: 100vh;
+
+  /* 동굴 질감 */
+  background-image:
+    radial-gradient(ellipse at top, var(--cave-deep) 0%, var(--cave-void) 70%);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LAYOUT: 공간의 구조
+   ═══════════════════════════════════════════════════════════════ */
+
+.cave-entrance {
+  /* Public Portal 입구 */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-cavern);
+  text-align: center;
+}
+
+.cave-passage {
+  /* Inner Portal 통로 */
+  max-width: 600px;
+  margin: 0 auto;
+  padding: var(--space-chamber);
+}
+
+.cave-chamber {
+  /* 내부 방 */
+  padding: var(--space-chamber) var(--space-room);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TYPOGRAPHY: 벽화의 문자
+   ═══════════════════════════════════════════════════════════════ */
+
+.monument {
+  /* 기념비적 텍스트 - 입구에 하나 */
+  font-family: var(--font-accent);
+  font-size: var(--text-monument);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: var(--cave-glow);
+  margin-bottom: var(--space-chamber);
+}
+
+.statement {
+  /* 선언문 */
+  font-family: var(--font-accent);
+  font-size: var(--text-statement);
+  font-weight: 300;
+  line-height: var(--leading-loose);
+  color: var(--cave-dim);
+  max-width: 20ch;  /* 짧게 */
+}
+
+.whisper {
+  /* 속삭임 - 힌트 */
+  font-size: var(--text-whisper);
+  color: var(--cave-faint);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   COMPONENTS: 동굴의 요소들
+   ═══════════════════════════════════════════════════════════════ */
+
+/* 입장 버튼 - "문" */
+.cave-door {
+  display: inline-block;
+  padding: var(--space-step) var(--space-room);
+  margin-top: var(--space-chamber);
+
+  background: transparent;
+  border: 1px solid var(--cave-faint);
+  color: var(--cave-dim);
+
+  font-family: var(--font-mono);
+  font-size: var(--text-whisper);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  text-decoration: none;
+
+  cursor: pointer;
+  transition: var(--motion-emerge);
+}
+
+.cave-door:hover {
+  border-color: var(--flame-edge);
+  color: var(--cave-glow);
+  box-shadow: 0 0 30px rgba(247, 147, 30, 0.1);
+}
+
+/* 비밀번호 입력 - "횃불을 들다" */
+.torch-input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--cave-faint);
+
+  color: var(--cave-glow);
+  font-family: var(--font-mono);
+  font-size: var(--text-normal);
+  letter-spacing: 0.2em;
+
+  padding: var(--space-step);
+  width: 100%;
+  max-width: 300px;
+  text-align: center;
+
+  transition: var(--motion-emerge);
+}
+
+.torch-input:focus {
+  outline: none;
+  border-bottom-color: var(--flame-core);
+}
+
+.torch-input::placeholder {
+  color: var(--cave-faint);
+}
+
+/* 링크 - "길" */
+.cave-path {
+  color: var(--cave-dim);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: var(--motion-emerge);
+}
+
+.cave-path:hover {
+  color: var(--cave-glow);
+  border-bottom-color: var(--cave-faint);
+}
+
+/* 구분선 - "균열" */
+.cave-crack {
+  width: 60px;
+  height: 1px;
+  background: var(--cave-faint);
+  margin: var(--space-chamber) auto;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ZONES: 내부 세계의 방들
+   ═══════════════════════════════════════════════════════════════ */
+
+.zone-parksy {
+  /* 벽화가 있는 방 */
+  --zone-color: var(--zone-parksy);
+}
+
+.zone-eae {
+  /* 기호와 도식의 방 */
+  --zone-color: var(--zone-eae);
+}
+
+.zone-dtslib {
+  /* 작업실 / 제단 */
+  --zone-color: var(--zone-dtslib);
+}
+
+.zone-marker {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--zone-color);
+  display: inline-block;
+  margin-right: var(--space-breath);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   EFFECTS: 동굴의 분위기
+   ═══════════════════════════════════════════════════════════════ */
+
+/* 페이드인 - 어둠에서 나타남 */
+.emerge {
+  animation: emerge var(--motion-fade) forwards;
+}
+
+@keyframes emerge {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 깊이감 - 스크롤에 따라 */
+.depth-1 { opacity: 1.0; }
+.depth-2 { opacity: 0.8; }
+.depth-3 { opacity: 0.6; }
+.depth-4 { opacity: 0.4; }
+
+/* 횃불 효과 */
+.torch-glow {
+  text-shadow: 0 0 10px rgba(255, 107, 53, 0.3);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE: 모든 동굴은 좁다
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  :root {
+    --text-monument: 2rem;
+    --text-statement: 1.25rem;
+    --space-chamber: 2rem;
+    --space-cavern: 4rem;
+  }
+
+  .cave-entrance {
+    padding: var(--space-chamber);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   UTILITY: 도구들
+   ═══════════════════════════════════════════════════════════════ */
+
+.hidden { display: none; }
+.center { text-align: center; }
+.mt-chamber { margin-top: var(--space-chamber); }
+.mb-chamber { margin-bottom: var(--space-chamber); }

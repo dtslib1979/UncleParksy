@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inner World</title>
+  <link rel="stylesheet" href="../cave-ui.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    /* Inner World 추가 스타일 */
+    .zone-grid {
+      display: grid;
+      gap: var(--space-chamber);
+      margin-top: var(--space-cavern);
+    }
+
+    .zone-door {
+      padding: var(--space-chamber);
+      border: 1px solid var(--cave-stone);
+      background: var(--cave-deep);
+      text-decoration: none;
+      transition: var(--motion-emerge);
+    }
+
+    .zone-door:hover {
+      border-color: var(--zone-color);
+      background: var(--cave-wall);
+    }
+
+    .zone-name {
+      font-family: var(--font-accent);
+      font-size: var(--text-statement);
+      color: var(--cave-glow);
+      margin-bottom: var(--space-step);
+    }
+
+    .zone-desc {
+      color: var(--cave-dim);
+      font-size: var(--text-whisper);
+      letter-spacing: 0.1em;
+    }
+
+    .zone-metaphor {
+      margin-top: var(--space-step);
+      color: var(--cave-faint);
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       INNER WORLD - 동굴 내부의 방들
+       정 · 반 · 합
+       ═══════════════════════════════════════════════════════════ -->
+
+  <main class="cave-chamber">
+
+    <!-- 도착 -->
+    <header class="center">
+      <p class="whisper emerge">you are inside</p>
+      <div class="cave-crack"></div>
+      <p class="statement emerge" style="animation-delay: 0.2s;">
+        세 개의 방이 있다.
+      </p>
+    </header>
+
+    <!-- 세 개의 방 -->
+    <nav class="zone-grid">
+
+      <!-- 벽화의 방 - PARKSY -->
+      <a href="#parksy" class="zone-door zone-parksy emerge" style="animation-delay: 0.3s;">
+        <div class="zone-name">
+          <span class="zone-marker"></span>
+          벽화의 방
+        </div>
+        <p class="zone-desc">PARKSY.ZONE</p>
+        <p class="zone-metaphor">"인간의 흔적이 남아 있다"</p>
+      </a>
+
+      <!-- 기호의 방 - EAE -->
+      <a href="#eae" class="zone-door zone-eae emerge" style="animation-delay: 0.4s;">
+        <div class="zone-name">
+          <span class="zone-marker"></span>
+          기호의 방
+        </div>
+        <p class="zone-desc">EAE.ZONE</p>
+        <p class="zone-metaphor">"구조와 도식이 새겨져 있다"</p>
+      </a>
+
+      <!-- 제단 - DTSLIB -->
+      <a href="#dtslib" class="zone-door zone-dtslib emerge" style="animation-delay: 0.5s;">
+        <div class="zone-name">
+          <span class="zone-marker"></span>
+          제단
+        </div>
+        <p class="zone-desc">DTSLIB.ZONE</p>
+        <p class="zone-metaphor">"완성된 것들이 놓여 있다"</p>
+      </a>
+
+    </nav>
+
+    <!-- 나가기 -->
+    <footer class="center mt-chamber">
+      <div class="cave-crack"></div>
+      <a href="entrance.html" class="cave-path whisper">
+        ← return to entrance
+      </a>
+    </footer>
+
+  </main>
+
+  <script>
+    // 횃불 체크 (비밀번호 없이 직접 접근 방지)
+    if (sessionStorage.getItem('torch') !== 'lit') {
+      // 횃불 없음 - 통로로 돌려보냄
+      // window.location.href = 'inner-portal.html';
+      // (데모용으로 비활성화)
+    }
+  </script>
+
+</body>
+</html>

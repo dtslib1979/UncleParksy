@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inner Portal</title>
+  <link rel="stylesheet" href="../cave-ui.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       INNER PORTAL - 좁은 통로
+       비밀번호 = 횃불을 드는 것
+       ═══════════════════════════════════════════════════════════ -->
+
+  <main class="cave-entrance">
+
+    <!-- 통로의 어둠 -->
+    <p class="whisper emerge">passage</p>
+
+    <div class="cave-crack"></div>
+
+    <!-- 안내 -->
+    <p class="statement emerge" style="animation-delay: 0.2s;">
+      횃불이 필요하다.
+    </p>
+
+    <!-- 비밀번호 입력 -->
+    <form class="mt-chamber emerge" style="animation-delay: 0.4s;" onsubmit="return checkTorch()">
+      <input
+        type="password"
+        class="torch-input"
+        id="torch"
+        placeholder="· · · · · ·"
+        autocomplete="off"
+      >
+    </form>
+
+    <!-- 힌트 -->
+    <p class="whisper mt-chamber emerge" style="animation-delay: 0.6s; opacity: 0.3;">
+      youtube 설명란
+    </p>
+
+    <!-- 에러 메시지 (숨김) -->
+    <p id="error" class="whisper mt-chamber hidden" style="color: var(--ember);">
+      어둠 속에서 길을 잃었다
+    </p>
+
+  </main>
+
+  <script>
+    // 비밀번호 체크 (실제로는 해시 비교 권장)
+    function checkTorch() {
+      const torch = document.getElementById('torch').value;
+      const error = document.getElementById('error');
+
+      // 월별 비밀번호 (예시)
+      const validPasswords = ['cave2024', 'inner', 'parksy'];
+
+      if (validPasswords.includes(torch.toLowerCase())) {
+        // 통과 - Inner World로
+        sessionStorage.setItem('torch', 'lit');
+        window.location.href = 'inner-world.html';
+      } else {
+        // 실패
+        error.classList.remove('hidden');
+        error.classList.add('emerge');
+        document.getElementById('torch').value = '';
+      }
+
+      return false;
+    }
+  </script>
+
+</body>
+</html>
