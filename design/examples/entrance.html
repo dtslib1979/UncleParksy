@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PARKSY - 여긴 전시관이 아니다. 누군가의 머릿속이다.">
+  <meta name="theme-color" content="#0a0a0a">
   <title>PARKSY</title>
 
   <!-- Fonts -->
@@ -101,24 +103,26 @@
 </head>
 <body data-cave-effects>
 
+  <!-- Skip link for accessibility -->
+  <a href="#main-content" class="skip-link" style="position:absolute;top:-100px;left:0;background:var(--cave-void);color:var(--cave-glow);padding:1rem;z-index:10002;transition:top 0.3s;">Skip to content</a>
+  <style>.skip-link:focus{top:0;}</style>
+
   <!-- ═══════════════════════════════════════════════════════════
        SVG FILTERS
        ═══════════════════════════════════════════════════════════ -->
-  <svg style="position:absolute;width:0;height:0;">
+  <svg style="position:absolute;width:0;height:0;" aria-hidden="true">
     <filter id="turbulence-filter">
       <feTurbulence type="turbulence" baseFrequency="0.01" numOctaves="3" result="noise"/>
       <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" />
     </filter>
   </svg>
 
-  <!-- ═══════════════════════════════════════════════════════════
-       PAGE TRANSITION
-       ═══════════════════════════════════════════════════════════ -->
-  <div class="page-transition"></div>
+  <!-- Page transition is created by JS -->
 
   <!-- ═══════════════════════════════════════════════════════════
        ENTRANCE - 동굴 입구
        ═══════════════════════════════════════════════════════════ -->
+  <main id="main-content">
   <section class="entrance-section">
 
     <!-- Monument -->
@@ -196,6 +200,7 @@
     </a>
 
   </section>
+  </main>
 
   <!-- ═══════════════════════════════════════════════════════════
        SCRIPTS

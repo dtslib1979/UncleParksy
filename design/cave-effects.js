@@ -24,6 +24,8 @@ class CaveEffects {
     this.smoothMouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
     this.isRunning = false;
     this.rafId = null;
+    this.flickerTimeoutId = null;  // flicker cleanup용
+    this.cursorScale = 1;  // cursor hover scale
 
     // Scroll state (for real smooth scroll)
     this.scroll = {
@@ -96,7 +98,7 @@ class CaveEffects {
 
     // Update cursor position with transform (GPU accelerated)
     if (this.cursor) {
-      this.cursor.style.transform = `translate3d(${this.mouse.x}px, ${this.mouse.y}px, 0) translate(-50%, -50%)`;
+      this.cursor.style.transform = `translate3d(${this.mouse.x}px, ${this.mouse.y}px, 0) translate(-50%, -50%) scale(${this.cursorScale})`;
     }
 
     if (this.cursorGlow) {
@@ -179,12 +181,13 @@ class CaveEffects {
       el.style.cursor = 'none';
 
       el.addEventListener('mouseenter', () => {
-        this.cursor.style.transform += ' scale(3)';
+        this.cursorScale = 3;
         this.cursor.style.mixBlendMode = 'normal';
         this.cursor.style.background = 'rgba(255,107,53,0.3)';
       });
 
       el.addEventListener('mouseleave', () => {
+        this.cursorScale = 1;
         this.cursor.style.mixBlendMode = 'difference';
         this.cursor.style.background = '#e8e8e8';
       });
@@ -237,11 +240,13 @@ class CaveEffects {
     if (!this.torchLight) return;
 
     const flicker = () => {
+      if (!this.isRunning || !this.torchLight) return;
+
       const intensity = 0.9 + Math.random() * 0.2;
       this.torchLight.style.opacity = intensity;
 
       // Random interval for natural feel
-      setTimeout(flicker, 50 + Math.random() * 100);
+      this.flickerTimeoutId = setTimeout(flicker, 50 + Math.random() * 100);
     };
 
     flicker();
@@ -417,9 +422,6 @@ class CaveEffects {
      ───────────────────────────────────────────────────────────── */
   initMagnetic() {
     document.querySelectorAll('.magnetic').forEach(el => {
-      // Store original position
-      const rect = el.getBoundingClientRect();
-
       el.style.cssText += `
         transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       `;
@@ -524,15 +526,40 @@ class CaveEffects {
      ───────────────────────────────────────────────────────────── */
   destroy() {
     this.stop();
+
+    // Clear flicker timeout
+    if (this.flickerTimeoutId) {
+      clearTimeout(this.flickerTimeoutId);
+      this.flickerTimeoutId = null;
+    }
+
+    // Remove event listeners
     window.removeEventListener('mousemove', this._onMouseMove);
     window.removeEventListener('resize', this._onResize);
 
     // Remove created elements
-    if (this.cursor) this.cursor.remove();
-    if (this.cursorGlow) this.cursorGlow.remove();
-    if (this.torchLight) this.torchLight.remove();
+    if (this.cursor) {
+      this.cursor.remove();
+      this.cursor = null;
+    }
+    if (this.cursorGlow) {
+      this.cursorGlow.remove();
+      this.cursorGlow = null;
+    }
+    if (this.torchLight) {
+      this.torchLight.remove();
+      this.torchLight = null;
+    }
 
+    // Restore cursor
     document.body.style.cursor = '';
+
+    // Remove injected styles
+    const textRevealStyles = document.querySelector('#cave-text-reveal-styles');
+    if (textRevealStyles) textRevealStyles.remove();
+
+    const scrollRevealStyles = document.querySelector('#cave-scroll-reveal-styles');
+    if (scrollRevealStyles) scrollRevealStyles.remove();
   }
 }
 

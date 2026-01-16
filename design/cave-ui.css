@@ -85,7 +85,7 @@
 
 html {
   font-size: 16px;
-  scroll-behavior: smooth;
+  /* scroll-behavior는 JS에서 처리 (Lenis/custom smooth scroll) */
 }
 
 body {
@@ -325,3 +325,48 @@ body {
 .center { text-align: center; }
 .mt-chamber { margin-top: var(--space-chamber); }
 .mb-chamber { margin-bottom: var(--space-chamber); }
+
+/* ═══════════════════════════════════════════════════════════════
+   ACCESSIBILITY: 접근성
+   ═══════════════════════════════════════════════════════════════ */
+
+/* 키보드 포커스 - 명확하게 보여야 함 */
+:focus-visible {
+  outline: 2px solid var(--flame-edge);
+  outline-offset: 4px;
+}
+
+/* 버튼/링크 포커스 */
+.cave-door:focus-visible,
+.cave-path:focus-visible,
+.torch-input:focus-visible {
+  outline: 2px solid var(--flame-edge);
+  outline-offset: 4px;
+}
+
+/* 텍스트 선택 */
+::selection {
+  background: var(--flame-core);
+  color: var(--cave-void);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   REDUCED MOTION: 모션 감소 설정 존중
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .emerge {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
