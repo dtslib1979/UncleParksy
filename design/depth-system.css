@@ -1,7 +1,40 @@
 /* ═══════════════════════════════════════════════════════════════
-   DEPTH SYSTEM - 수직 지층 구조
+   DEPTH SYSTEM - 수직 지층 구조 v2.0
    "웹페이지가 아니라 사고를 탐험하는 지형"
+   Apple Design Award 급 구현
    ═══════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────────────
+   NOISE TEXTURE - 동굴 벽 질감
+   ───────────────────────────────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 9998;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* 추가 암벽 텍스처 레이어 */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.02;
+  pointer-events: none;
+  z-index: 9997;
+  background:
+    radial-gradient(ellipse 800px 600px at 20% 30%, rgba(107, 142, 159, 0.05), transparent),
+    radial-gradient(ellipse 600px 800px at 80% 70%, rgba(139, 115, 85, 0.05), transparent);
+}
 
 /* ─────────────────────────────────────────────────────────────
    SCROLL SNAP: 층 단위 이동
@@ -12,9 +45,13 @@ html {
   scroll-behavior: smooth;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 .depth {
   min-height: 100vh;
-  min-height: 100dvh; /* 모바일 주소창 대응 */
+  min-height: 100dvh;
   scroll-snap-align: start;
   scroll-snap-stop: always;
 
@@ -24,11 +61,56 @@ html {
   align-items: center;
 
   padding: var(--space-room);
-  padding-top: 60px; /* HUD 공간 */
+  padding-top: 70px;
   padding-bottom: env(safe-area-inset-bottom, 20px);
 
   position: relative;
   overflow: hidden;
+
+  /* 층 전환 효과 */
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.depth.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   DEPTH GRADIENTS: 층별 깊이감
+   점점 더 깊은 어둠으로
+   ───────────────────────────────────────────────────────────── */
+
+/* Depth 0: 입구 - 가장 밝은 어둠 */
+.depth[data-depth="0"] {
+  background:
+    radial-gradient(ellipse 100% 100% at 50% 0%, rgba(30, 30, 30, 0.8) 0%, transparent 60%),
+    linear-gradient(180deg, #0f0f0f 0%, #0a0a0a 100%);
+}
+
+/* Depth 1: 선택 - 조금 더 깊게 */
+.depth[data-depth="1"] {
+  background:
+    radial-gradient(ellipse 80% 80% at 50% 30%, rgba(25, 25, 25, 0.6) 0%, transparent 50%),
+    linear-gradient(180deg, #0c0c0c 0%, #080808 100%);
+}
+
+/* Depth 2: 실험실 - 깊은 곳 */
+.depth[data-depth="2"] {
+  background:
+    radial-gradient(ellipse 60% 60% at 50% 50%, rgba(20, 20, 20, 0.4) 0%, transparent 40%),
+    linear-gradient(180deg, #090909 0%, #050505 100%);
+}
+
+/* Depth 3: 출력 - 가장 깊은 곳 */
+.depth[data-depth="3"] {
+  background:
+    radial-gradient(ellipse 40% 40% at 50% 70%, rgba(15, 15, 15, 0.3) 0%, transparent 30%),
+    linear-gradient(180deg, #060606 0%, #030303 100%);
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -47,13 +129,16 @@ html {
   align-items: center;
 
   padding: var(--space-step) var(--space-room);
+  height: 50px;
 
   background: linear-gradient(
     to bottom,
-    rgba(10, 10, 10, 0.95) 0%,
-    rgba(10, 10, 10, 0.8) 70%,
+    rgba(10, 10, 10, 0.98) 0%,
+    rgba(10, 10, 10, 0.9) 60%,
     transparent 100%
   );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 
   font-family: var(--font-mono);
   font-size: var(--text-whisper);
@@ -70,6 +155,9 @@ html {
 .depth-indicator {
   color: var(--cave-dim);
   transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
 }
 
 .depth-indicator .current-depth {
@@ -79,7 +167,6 @@ html {
 
 .depth-indicator .depth-name {
   color: var(--cave-glow);
-  margin-left: 0.5em;
 }
 
 .surface-btn {
@@ -87,7 +174,7 @@ html {
   border: 1px solid var(--cave-faint);
   color: var(--cave-dim);
 
-  padding: 0.4rem 0.8rem;
+  padding: 0.5rem 1rem;
   border-radius: 2px;
 
   font-family: var(--font-mono);
@@ -95,7 +182,7 @@ html {
   letter-spacing: 0.1em;
 
   cursor: pointer;
-  transition: var(--motion-emerge);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   opacity: 0;
   transform: translateY(-10px);
@@ -109,6 +196,50 @@ html {
 .surface-btn:hover {
   border-color: var(--flame-edge);
   color: var(--cave-glow);
+  box-shadow: 0 0 20px rgba(255, 107, 53, 0.2);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   DEPTH GAUGE: 깊이 인디케이터 (우측)
+   ───────────────────────────────────────────────────────────── */
+
+.depth-gauge {
+  position: fixed;
+  right: var(--space-step);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 999;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.depth-gauge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cave-faint);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.depth-gauge-dot:hover {
+  background: var(--cave-dim);
+  transform: scale(1.3);
+}
+
+.depth-gauge-dot.active {
+  background: var(--flame-edge);
+  box-shadow: 0 0 12px rgba(255, 107, 53, 0.6);
+  transform: scale(1.2);
+}
+
+.depth-gauge-line {
+  width: 1px;
+  height: 20px;
+  background: linear-gradient(to bottom, var(--cave-faint), transparent);
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -116,26 +247,60 @@ html {
    ───────────────────────────────────────────────────────────── */
 
 .depth-entrance {
-  background: var(--cave-void);
   text-align: center;
+  position: relative;
+}
+
+/* 입구 뒤 은은한 빛 */
+.depth-entrance::before {
+  content: '';
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 107, 53, 0.08) 0%,
+    rgba(247, 147, 30, 0.04) 40%,
+    transparent 70%
+  );
+  filter: blur(60px);
+  animation: pulse-glow 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
 }
 
 .entrance-monument {
   font-family: var(--font-accent);
-  font-size: clamp(1.8rem, 6vw, 3rem);
+  font-size: clamp(2rem, 8vw, 4rem);
   font-weight: 300;
   color: var(--cave-glow);
-  line-height: 1.4;
-  max-width: 20ch;
+  line-height: 1.3;
+  max-width: 15ch;
   margin-bottom: var(--space-chamber);
+  position: relative;
+  z-index: 1;
+
+  /* 텍스트 그림자로 깊이감 */
+  text-shadow:
+    0 0 40px rgba(255, 107, 53, 0.15),
+    0 0 80px rgba(255, 107, 53, 0.05);
 }
 
 .entrance-statement {
-  font-size: var(--text-normal);
+  font-size: clamp(1rem, 3vw, 1.25rem);
   color: var(--cave-dim);
-  max-width: 30ch;
+  max-width: 25ch;
   line-height: var(--leading-loose);
-  margin-bottom: var(--space-chamber);
+  margin-bottom: var(--space-room);
+  position: relative;
+  z-index: 1;
 }
 
 .scroll-hint {
@@ -150,20 +315,30 @@ html {
   gap: 0.5rem;
 
   color: var(--cave-faint);
+  font-family: var(--font-mono);
   font-size: var(--text-whisper);
   letter-spacing: 0.2em;
 
-  animation: pulse-down 2s ease-in-out infinite;
+  animation: float-down 2.5s ease-in-out infinite;
 }
 
-.scroll-hint::after {
-  content: '↓';
-  font-size: 1.2rem;
+.scroll-hint-arrow {
+  width: 20px;
+  height: 20px;
+  border-left: 1px solid var(--cave-faint);
+  border-bottom: 1px solid var(--cave-faint);
+  transform: rotate(-45deg);
+  animation: arrow-pulse 2.5s ease-in-out infinite;
 }
 
-@keyframes pulse-down {
+@keyframes float-down {
   0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
-  50% { opacity: 0.8; transform: translateX(-50%) translateY(5px); }
+  50% { opacity: 0.8; transform: translateX(-50%) translateY(8px); }
+}
+
+@keyframes arrow-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -171,13 +346,24 @@ html {
    ───────────────────────────────────────────────────────────── */
 
 .depth-selector {
-  background: var(--cave-deep);
+  /* 약간의 안개 효과 */
+}
+
+.depth-selector::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: linear-gradient(to top, rgba(8, 8, 8, 0.8), transparent);
+  pointer-events: none;
 }
 
 .selector-section {
   width: 100%;
-  max-width: 400px;
-  margin-bottom: var(--space-chamber);
+  max-width: 420px;
+  margin-bottom: var(--space-room);
 }
 
 .selector-label {
@@ -192,7 +378,7 @@ html {
 
 .selector-grid {
   display: grid;
-  gap: var(--space-breath);
+  gap: 10px;
 }
 
 .selector-grid.personas {
@@ -204,34 +390,82 @@ html {
 }
 
 .selector-btn {
-  background: transparent;
+  background: rgba(20, 20, 20, 0.6);
   border: 1px solid var(--cave-faint);
   color: var(--cave-dim);
 
-  padding: var(--space-step);
-  border-radius: 2px;
+  padding: var(--space-step) var(--space-room);
+  border-radius: 4px;
 
   font-family: var(--font-body);
   font-size: var(--text-normal);
   text-align: left;
 
   cursor: pointer;
-  transition: var(--motion-emerge);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 버튼 호버 효과 - 빛 스윕 */
+.selector-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 107, 53, 0.1),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.selector-btn:hover::before {
+  left: 100%;
 }
 
 .selector-btn:hover {
   border-color: var(--cave-dim);
   color: var(--cave-glow);
+  background: rgba(30, 30, 30, 0.8);
+  transform: translateX(5px);
 }
 
 .selector-btn.selected {
   border-color: var(--flame-edge);
   color: var(--cave-glow);
-  background: rgba(247, 147, 30, 0.1);
+  background: rgba(255, 107, 53, 0.1);
+  box-shadow:
+    0 0 30px rgba(255, 107, 53, 0.15),
+    inset 0 0 20px rgba(255, 107, 53, 0.05);
+}
+
+.selector-btn.selected::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: var(--space-step);
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  background: var(--flame-edge);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--flame-edge);
+  animation: selected-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes selected-pulse {
+  0%, 100% { opacity: 1; transform: translateY(-50%) scale(1); }
+  50% { opacity: 0.7; transform: translateY(-50%) scale(0.8); }
 }
 
 .selector-btn .btn-icon {
-  margin-right: 0.5em;
+  margin-right: 0.75em;
+  font-size: 1.2em;
 }
 
 .selector-btn .btn-sub {
@@ -239,6 +473,12 @@ html {
   font-size: var(--text-whisper);
   color: var(--cave-faint);
   margin-top: 0.3em;
+  transition: color 0.3s ease;
+}
+
+.selector-btn:hover .btn-sub,
+.selector-btn.selected .btn-sub {
+  color: var(--cave-dim);
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -246,12 +486,30 @@ html {
    ───────────────────────────────────────────────────────────── */
 
 .depth-laboratory {
-  background: var(--cave-wall);
+  position: relative;
+}
+
+/* 실험실 분위기 - 미묘한 그리드 */
+.depth-laboratory::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    linear-gradient(rgba(255, 107, 53, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 107, 53, 0.02) 1px, transparent 1px);
+  background-size: 50px 50px;
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 .lab-container {
   width: 100%;
   max-width: 500px;
+  position: relative;
+  z-index: 1;
 }
 
 .lab-title {
@@ -273,9 +531,9 @@ html {
   min-height: 150px;
   padding: var(--space-step);
 
-  background: var(--cave-deep);
+  background: rgba(10, 10, 10, 0.8);
   border: 1px solid var(--cave-faint);
-  border-radius: 2px;
+  border-radius: 4px;
 
   color: var(--cave-glow);
   font-family: var(--font-body);
@@ -283,12 +541,15 @@ html {
   line-height: var(--leading-normal);
 
   resize: vertical;
-  transition: var(--motion-emerge);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .lab-textarea:focus {
   outline: none;
   border-color: var(--flame-edge);
+  box-shadow:
+    0 0 30px rgba(255, 107, 53, 0.1),
+    inset 0 0 20px rgba(255, 107, 53, 0.02);
 }
 
 .lab-textarea::placeholder {
@@ -305,11 +566,11 @@ html {
 .lab-process-btn {
   display: block;
   width: 100%;
-  padding: var(--space-step);
+  padding: var(--space-step) var(--space-room);
 
   background: transparent;
   border: 1px solid var(--flame-edge);
-  border-radius: 2px;
+  border-radius: 4px;
 
   color: var(--flame-edge);
   font-family: var(--font-mono);
@@ -317,34 +578,58 @@ html {
   letter-spacing: 0.1em;
 
   cursor: pointer;
-  transition: var(--motion-emerge);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
 }
 
-.lab-process-btn:hover {
+.lab-process-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
   background: var(--flame-edge);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+}
+
+.lab-process-btn:hover:not(:disabled)::before {
+  width: 100%;
+}
+
+.lab-process-btn:hover:not(:disabled) {
   color: var(--cave-void);
 }
 
 .lab-process-btn:disabled {
   opacity: 0.3;
   cursor: not-allowed;
+  border-color: var(--cave-faint);
+  color: var(--cave-faint);
 }
 
 .lab-output-area {
   margin-top: var(--space-room);
   padding: var(--space-step);
 
-  background: var(--cave-deep);
+  background: rgba(10, 10, 10, 0.9);
   border: 1px solid var(--cave-stone);
-  border-radius: 2px;
+  border-radius: 4px;
 
   min-height: 100px;
+  max-height: 200px;
+  overflow-y: auto;
 
-  display: none;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .lab-output-area.has-content {
-  display: block;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .lab-output {
@@ -360,7 +645,8 @@ html {
   border-top: 1px solid var(--cave-faint);
 
   font-size: var(--text-whisper);
-  color: var(--cave-faint);
+  color: var(--flame-edge);
+  font-family: var(--font-mono);
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -368,26 +654,47 @@ html {
    ───────────────────────────────────────────────────────────── */
 
 .depth-output {
-  background: var(--cave-stone);
+  position: relative;
+}
+
+/* 가장 깊은 곳 - 미묘한 빛 */
+.depth-output::before {
+  content: '';
+  position: absolute;
+  bottom: 30%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(
+    circle,
+    rgba(154, 140, 122, 0.05) 0%,
+    transparent 60%
+  );
+  filter: blur(40px);
+  pointer-events: none;
 }
 
 .output-container {
   width: 100%;
   max-width: 400px;
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 .output-title {
   font-family: var(--font-accent);
-  font-size: var(--text-statement);
+  font-size: clamp(1.5rem, 5vw, 2rem);
   color: var(--cave-glow);
   margin-bottom: var(--space-room);
+  letter-spacing: 0.1em;
 }
 
 .output-actions {
   display: flex;
   flex-direction: column;
-  gap: var(--space-step);
+  gap: 12px;
 }
 
 .output-btn {
@@ -397,9 +704,9 @@ html {
 
   padding: var(--space-step) var(--space-room);
 
-  background: transparent;
+  background: rgba(20, 20, 20, 0.6);
   border: 1px solid var(--cave-faint);
-  border-radius: 2px;
+  border-radius: 4px;
 
   color: var(--cave-dim);
   font-family: var(--font-body);
@@ -408,20 +715,22 @@ html {
   text-decoration: none;
 
   cursor: pointer;
-  transition: var(--motion-emerge);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.output-btn:hover {
+.output-btn:hover:not(:disabled) {
   border-color: var(--cave-glow);
   color: var(--cave-glow);
+  background: rgba(30, 30, 30, 0.8);
+  transform: translateX(5px);
 }
 
 .output-btn .btn-arrow {
   color: var(--cave-faint);
-  transition: var(--motion-emerge);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.output-btn:hover .btn-arrow {
+.output-btn:hover:not(:disabled) .btn-arrow {
   color: var(--flame-edge);
   transform: translateX(5px);
 }
@@ -435,15 +744,31 @@ html {
   margin: var(--space-room) 0;
   text-align: center;
   color: var(--cave-faint);
+  font-family: var(--font-mono);
   font-size: var(--text-whisper);
-  letter-spacing: 0.2em;
+  letter-spacing: 0.3em;
+  position: relative;
 }
+
+.output-divider::before,
+.output-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 30%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--cave-faint), transparent);
+}
+
+.output-divider::before { left: 0; }
+.output-divider::after { right: 0; }
 
 .output-youtube-hint {
   font-size: var(--text-whisper);
   color: var(--cave-faint);
-  line-height: var(--leading-normal);
+  line-height: var(--leading-loose);
   margin-top: var(--space-room);
+  letter-spacing: 0.05em;
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -457,24 +782,79 @@ html {
 [data-persona="musician"] { --persona-color: #8b6b7a; }
 [data-persona="technician"] { --persona-color: #6b6b8b; }
 
-/* 메리트별 텍스처 */
+[data-persona] .lab-output-meta {
+  color: var(--persona-color);
+}
+
+[data-persona] .lab-process-btn {
+  border-color: var(--persona-color);
+  color: var(--persona-color);
+}
+
+[data-persona] .lab-process-btn::before {
+  background: var(--persona-color);
+}
+
+/* 메리트별 스타일 */
 [data-merit="bluff"] .lab-output {
   font-style: italic;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
 }
 
 [data-merit="halfblood"] .lab-output {
-  /* 한영 혼용 느낌 */
+  font-family: var(--font-body);
 }
 
 [data-merit="aggro"] .lab-output {
   font-weight: 600;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 
 [data-merit="shaman"] .lab-output {
   font-family: var(--font-accent);
   line-height: var(--leading-loose);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   PARTICLES: 먼지/불씨
+   ───────────────────────────────────────────────────────────── */
+
+.depth-particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--flame-edge);
+  border-radius: 50%;
+  opacity: 0;
+  animation: particle-rise 8s ease-out infinite;
+}
+
+@keyframes particle-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0.5);
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100vh) scale(1);
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -484,15 +864,25 @@ html {
 @media (max-width: 430px) {
   .depth {
     padding: var(--space-step);
-    padding-top: 50px;
+    padding-top: 60px;
   }
 
   .depth-hud {
     padding: var(--space-breath) var(--space-step);
+    height: 45px;
+  }
+
+  .depth-gauge {
+    right: 8px;
+  }
+
+  .depth-gauge-dot {
+    width: 6px;
+    height: 6px;
   }
 
   .entrance-monument {
-    font-size: clamp(1.5rem, 8vw, 2rem);
+    font-size: clamp(1.6rem, 10vw, 2.5rem);
   }
 
   .selector-grid.merits {
@@ -501,6 +891,17 @@ html {
 
   .lab-textarea {
     min-height: 120px;
+  }
+
+  .output-youtube-hint {
+    font-size: 0.7rem;
+  }
+}
+
+/* 태블릿 */
+@media (min-width: 431px) and (max-width: 768px) {
+  .entrance-monument {
+    font-size: clamp(2rem, 6vw, 3rem);
   }
 }
 
@@ -514,8 +915,21 @@ html {
     scroll-snap-type: none;
   }
 
-  .scroll-hint {
+  .depth {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .scroll-hint,
+  .particle,
+  .depth-entrance::before {
     animation: none;
+  }
+
+  .selector-btn::before,
+  .lab-process-btn::before {
+    display: none;
   }
 }
 
@@ -524,7 +938,40 @@ html {
   .selector-btn,
   .lab-process-btn,
   .output-btn,
-  .surface-btn {
+  .surface-btn,
+  .depth-gauge-dot {
     min-height: 48px;
   }
+
+  .depth-gauge-dot {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   CUSTOM SCROLLBAR (webkit)
+   ───────────────────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cave-void);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--cave-faint);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--cave-dim);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--cave-faint) var(--cave-void);
 }

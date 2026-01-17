@@ -43,6 +43,16 @@
       src: local('Pretendard'), local('Apple SD Gothic Neo'), local('Malgun Gothic');
       font-display: swap;
     }
+
+    /* 초기 로딩 시 깜빡임 방지 */
+    .depth {
+      opacity: 0;
+    }
+
+    /* 로딩 완료 후 첫 번째 층 표시 */
+    .depth.visible {
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
@@ -60,45 +70,50 @@
 
   <!-- ═══════════════════════════════════════════════════════════════
        DEPTH 0: ENTRANCE — 입구
+       선언문: 핵심 메시지
        ═══════════════════════════════════════════════════════════════ -->
   <section class="depth depth-entrance" data-depth="0" id="entrance">
-    <h1 class="entrance-monument emerge">
-      생각을<br>실행 파일로<br>배포한다
+    <h1 class="entrance-monument">
+      생각을<br>
+      실행 파일로<br>
+      배포한다
     </h1>
 
-    <p class="entrance-statement emerge" style="animation-delay: 0.3s;">
+    <p class="entrance-statement">
       YouTube는 입구,<br>
       GitHub는 세계,<br>
       프로그램은 생각의 서식이다.
     </p>
 
-    <div class="cave-crack emerge" style="animation-delay: 0.6s;"></div>
+    <div class="cave-crack"></div>
 
-    <p class="whisper emerge" style="animation-delay: 0.9s;">
+    <p class="whisper" style="text-align: center; max-width: 30ch;">
       LLM으로 만든 재료를 복붙해서<br>
       자기 세계를 체험하고,<br>
       저장/배포/제작까지 이어간다.
     </p>
 
     <div class="scroll-hint" aria-hidden="true">
-      scroll to descend
+      <span>scroll to descend</span>
+      <div class="scroll-hint-arrow"></div>
     </div>
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════
        DEPTH 1: SELECTOR — 페르소나 & 메리트 선택
+       가드레일 시스템
        ═══════════════════════════════════════════════════════════════ -->
   <section class="depth depth-selector" data-depth="1" id="selector">
     <div class="selector-section">
       <p class="selector-label">Persona — 누구로 변환할 것인가</p>
-      <div class="selector-grid personas">
+      <div class="selector-grid personas" role="group" aria-label="Select persona">
         <!-- JS에서 동적 생성 -->
       </div>
     </div>
 
     <div class="selector-section">
       <p class="selector-label">Merit — 어떤 색을 입힐 것인가</p>
-      <div class="selector-grid merits">
+      <div class="selector-grid merits" role="group" aria-label="Select merit">
         <!-- JS에서 동적 생성 -->
       </div>
     </div>
@@ -106,6 +121,7 @@
 
   <!-- ═══════════════════════════════════════════════════════════════
        DEPTH 2: LABORATORY — 실험실 (복붙 → 변환)
+       핵심 인터랙션
        ═══════════════════════════════════════════════════════════════ -->
   <section class="depth depth-laboratory" data-depth="2" id="laboratory">
     <div class="lab-container">
@@ -114,11 +130,15 @@
       <div class="lab-input-area">
         <textarea
           class="lab-textarea"
-          placeholder="LLM 답변, 메모, 아이디어를 붙여넣으세요..."
+          placeholder="LLM 답변, 메모, 아이디어를 붙여넣으세요...
+
+ChatGPT, Claude, Gemini...
+어디서든 복사해서 여기에 붙여넣기"
           aria-label="Input text for transformation"
+          spellcheck="false"
         ></textarea>
         <p class="lab-hint">
-          ChatGPT, Claude, Gemini... 어디서든 복사해서 붙여넣기
+          모든 사람은 이미 손 안에 LLM이 있다.
         </p>
       </div>
 
@@ -135,6 +155,7 @@
 
   <!-- ═══════════════════════════════════════════════════════════════
        DEPTH 3: OUTPUT — 출력/배포
+       가져가라
        ═══════════════════════════════════════════════════════════════ -->
   <section class="depth depth-output" data-depth="3" id="output">
     <div class="output-container">
@@ -164,6 +185,12 @@
         YouTube에 올려라.<br><br>
         그게 네 콘텐츠가 된다.
       </p>
+
+      <div style="margin-top: var(--space-chamber); text-align: center;">
+        <a href="/archive/" class="cave-path" style="font-size: var(--text-whisper);">
+          → 아카이브 보기
+        </a>
+      </div>
     </div>
   </section>
 
@@ -175,14 +202,48 @@
   <!-- noscript fallback -->
   <noscript>
     <style>
-      .depth { scroll-snap-align: none; }
+      .depth {
+        opacity: 1 !important;
+        transform: none !important;
+        scroll-snap-align: none;
+      }
       .scroll-hint { display: none; }
       .surface-btn { display: none; }
+      .depth-gauge { display: none; }
+      .selector-grid.personas::before {
+        content: '철학자 박씨 | 블로거 박씨 | 시각화사 박씨 | 뮤지션 박씨 | 기능인 박씨';
+        display: block;
+        color: var(--cave-dim);
+        padding: 1rem;
+      }
+      .selector-grid.merits::before {
+        content: 'Bluff | Halfblood | Aggro | Shaman';
+        display: block;
+        color: var(--cave-dim);
+        padding: 1rem;
+      }
     </style>
-    <div style="position:fixed;bottom:0;left:0;right:0;padding:1rem;background:#1a1a1a;color:#888;text-align:center;font-size:0.9rem;">
-      JavaScript가 비활성화되어 있습니다. 일부 기능이 제한됩니다.
+    <div style="position:fixed;bottom:0;left:0;right:0;padding:1rem;background:#1a1a1a;color:#888;text-align:center;font-size:0.9rem;z-index:9999;">
+      JavaScript가 비활성화되어 있습니다. 전체 기능을 사용하려면 JavaScript를 활성화하세요.
     </div>
   </noscript>
+
+  <!-- 구조화된 데이터 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Parksy Engine",
+    "description": "사고를 실행 파일로 배포하는 1인 출판 시스템",
+    "url": "https://parksy.kr",
+    "applicationCategory": "Productivity",
+    "operatingSystem": "Web Browser",
+    "author": {
+      "@type": "Person",
+      "name": "UncleParksy"
+    }
+  }
+  </script>
 
 </body>
 </html>
