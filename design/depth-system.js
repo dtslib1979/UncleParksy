@@ -702,7 +702,7 @@
   }
 
   /* ─────────────────────────────────────────────────────────────
-     TORCH LIGHT: 마우스 따라다니는 횃불 조명
+     TORCH LIGHT: 마우스/터치 따라다니는 횃불 조명
      ───────────────────────────────────────────────────────────── */
 
   let torchLight = null;
@@ -712,10 +712,19 @@
   let currentY = mouseY;
 
   function setupTorchLight() {
-    if (state.isMobile) return; // 모바일에서는 비활성화
-
     torchLight = document.createElement('div');
     torchLight.className = 'torch-light-effect';
+
+    if (state.isMobile) {
+      // 모바일: 터치 포인트에 반짝이는 효과
+      setupMobileTorchLight();
+    } else {
+      // 데스크탑: 마우스 따라다니는 효과
+      setupDesktopTorchLight();
+    }
+  }
+
+  function setupDesktopTorchLight() {
     torchLight.style.cssText = `
       position: fixed;
       top: 0;
@@ -759,6 +768,53 @@
     }
 
     animateTorch();
+  }
+
+  function setupMobileTorchLight() {
+    // 모바일: 터치 시 해당 위치에 일시적 조명 효과
+    document.addEventListener('touchstart', (e) => {
+      const touch = e.touches[0];
+      createTouchGlow(touch.clientX, touch.clientY);
+    }, { passive: true });
+
+    document.addEventListener('touchmove', (e) => {
+      const touch = e.touches[0];
+      createTouchGlow(touch.clientX, touch.clientY, true);
+    }, { passive: true });
+  }
+
+  function createTouchGlow(x, y, isMove = false) {
+    const glow = document.createElement('div');
+    glow.style.cssText = `
+      position: fixed;
+      left: ${x}px;
+      top: ${y}px;
+      width: ${isMove ? 150 : 250}px;
+      height: ${isMove ? 150 : 250}px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 1;
+      background: radial-gradient(
+        circle,
+        rgba(255, 107, 53, ${isMove ? 0.06 : 0.12}) 0%,
+        rgba(247, 147, 30, 0.04) 40%,
+        transparent 70%
+      );
+      filter: blur(30px);
+      mix-blend-mode: screen;
+      transform: translate(-50%, -50%);
+      opacity: 1;
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    `;
+    document.body.appendChild(glow);
+
+    // 페이드 아웃
+    requestAnimationFrame(() => {
+      glow.style.opacity = '0';
+      glow.style.transform = 'translate(-50%, -50%) scale(1.5)';
+    });
+
+    setTimeout(() => glow.remove(), 800);
   }
 
   /* ─────────────────────────────────────────────────────────────
@@ -812,74 +868,196 @@
     // entrance-monument 텍스트 애니메이션
     const monument = document.querySelector('.entrance-monument');
     if (monument) {
-      const text = monument.innerHTML;
-      const chars = text.split('');
+      const html = monument.innerHTML;
 
-      monument.innerHTML = chars.map((char, i) => {
-        if (char === '<') {
-          // HTML 태그 처리 (br 등)
-          const tagEnd = text.indexOf('>', text.indexOf(char));
-          return text.substring(text.indexOf(char), tagEnd + 1);
+      // HTML 태그와 텍스트를 분리
+      const tokens = html.split(/(<[^>]+>)/g).filter(Boolean);
+      let charIndex = 0;
+
+      const animated = tokens.map(token => {
+        // HTML 태그는 그대로 유지
+        if (token.startsWith('<')) {
+          return token;
         }
-        if (char === '>') return '';
 
-        const delay = i * 0.05;
-        if (char === ' ') return ' ';
-        return `<span style="
-          display: inline-block;
-          opacity: 0;
-          transform: translateY(30px);
-          animation: charReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-          animation-delay: ${delay}s;
-        ">${char}</span>`;
+        // 텍스트는 글자별로 애니메이션
+        return token.split('').map(char => {
+          if (char === ' ' || char === '\n') {
+            return char;
+          }
+
+          const delay = charIndex * 0.08;
+          charIndex++;
+
+          return `<span class="char-animate" style="animation-delay:${delay}s">${char}</span>`;
+        }).join('');
       }).join('');
+
+      monument.innerHTML = animated;
 
       // 스타일 주입
       if (!document.querySelector('#char-reveal-style')) {
         const style = document.createElement('style');
         style.id = 'char-reveal-style';
         style.textContent = `
+          .char-animate {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(30px) rotate(-5deg);
+            animation: charReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          }
           @keyframes charReveal {
             to {
               opacity: 1;
-              transform: translateY(0);
+              transform: translateY(0) rotate(0deg);
             }
           }
         `;
         document.head.appendChild(style);
       }
     }
+
+    // entrance-statement도 애니메이션 적용
+    const statement = document.querySelector('.entrance-statement');
+    if (statement) {
+      statement.style.opacity = '0';
+      statement.style.transform = 'translateY(20px)';
+      statement.style.transition = 'opacity 1s ease 1.5s, transform 1s ease 1.5s';
+
+      setTimeout(() => {
+        statement.style.opacity = '1';
+        statement.style.transform = 'translateY(0)';
+      }, 100);
+    }
   }
 
   /* ─────────────────────────────────────────────────────────────
-     AMBIENT AUDIO: 깊이에 따른 앰비언트 사운드
+     AMBIENT AUDIO: Web Audio API 프로시저럴 동굴 사운드
      ───────────────────────────────────────────────────────────── */
 
-  let ambientAudio = null;
+  let audioContext = null;
+  let ambientNodes = {
+    drone: null,
+    noise: null,
+    masterGain: null
+  };
+  let audioInitialized = false;
 
   function setupAmbientAudio() {
     // 사용자 인터랙션 후 시작
-    document.addEventListener('click', initAudio, { once: true });
-    document.addEventListener('scroll', initAudio, { once: true });
+    const initOnInteraction = () => {
+      if (!audioInitialized) {
+        initAudio();
+        audioInitialized = true;
+      }
+    };
+    document.addEventListener('click', initOnInteraction, { once: true });
+    document.addEventListener('touchstart', initOnInteraction, { once: true });
   }
 
   function initAudio() {
-    // 실제 오디오 파일이 없으므로 주석 처리
-    // 필요시 오디오 파일 경로 지정
-    /*
-    ambientAudio = new Audio('/assets/audio/cave-ambient.mp3');
-    ambientAudio.loop = true;
-    ambientAudio.volume = 0.1;
-    ambientAudio.play().catch(() => {});
-    */
+    try {
+      audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+      // 마스터 게인
+      ambientNodes.masterGain = audioContext.createGain();
+      ambientNodes.masterGain.gain.value = 0.08;
+      ambientNodes.masterGain.connect(audioContext.destination);
+
+      // 1. 저주파 드론 (동굴 울림)
+      const droneOsc = audioContext.createOscillator();
+      droneOsc.type = 'sine';
+      droneOsc.frequency.value = 55; // 저주파
+
+      const droneGain = audioContext.createGain();
+      droneGain.gain.value = 0.3;
+
+      const droneFilter = audioContext.createBiquadFilter();
+      droneFilter.type = 'lowpass';
+      droneFilter.frequency.value = 100;
+
+      droneOsc.connect(droneFilter);
+      droneFilter.connect(droneGain);
+      droneGain.connect(ambientNodes.masterGain);
+      droneOsc.start();
+      ambientNodes.drone = { osc: droneOsc, gain: droneGain };
+
+      // 2. 필터드 노이즈 (바람/공기)
+      const bufferSize = 2 * audioContext.sampleRate;
+      const noiseBuffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+      const output = noiseBuffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        output[i] = Math.random() * 2 - 1;
+      }
+
+      const noise = audioContext.createBufferSource();
+      noise.buffer = noiseBuffer;
+      noise.loop = true;
+
+      const noiseFilter = audioContext.createBiquadFilter();
+      noiseFilter.type = 'bandpass';
+      noiseFilter.frequency.value = 400;
+      noiseFilter.Q.value = 0.5;
+
+      const noiseGain = audioContext.createGain();
+      noiseGain.gain.value = 0.15;
+
+      noise.connect(noiseFilter);
+      noiseFilter.connect(noiseGain);
+      noiseGain.connect(ambientNodes.masterGain);
+      noise.start();
+      ambientNodes.noise = { source: noise, gain: noiseGain, filter: noiseFilter };
+
+      // 3. LFO로 미묘한 변화 (숨쉬는 느낌)
+      const lfo = audioContext.createOscillator();
+      lfo.type = 'sine';
+      lfo.frequency.value = 0.1; // 아주 느리게
+
+      const lfoGain = audioContext.createGain();
+      lfoGain.gain.value = 0.02;
+
+      lfo.connect(lfoGain);
+      lfoGain.connect(ambientNodes.masterGain.gain);
+      lfo.start();
+
+      // 페이드 인
+      ambientNodes.masterGain.gain.setValueAtTime(0, audioContext.currentTime);
+      ambientNodes.masterGain.gain.linearRampToValueAtTime(0.08, audioContext.currentTime + 2);
+
+    } catch (e) {
+      console.log('Audio not supported');
+    }
   }
 
   function updateAmbientVolume(depthIndex) {
-    if (!ambientAudio) return;
+    if (!ambientNodes.masterGain || !audioContext) return;
 
-    // 깊이에 따라 볼륨 증가
-    const targetVolume = 0.05 + (depthIndex * 0.05);
-    ambientAudio.volume = Math.min(targetVolume, 0.3);
+    // 깊이에 따라 특성 변화
+    const baseVolume = 0.05 + (depthIndex * 0.03);
+    const targetVolume = Math.min(baseVolume, 0.15);
+
+    ambientNodes.masterGain.gain.linearRampToValueAtTime(
+      targetVolume,
+      audioContext.currentTime + 0.5
+    );
+
+    // 깊을수록 드론 주파수 낮아짐
+    if (ambientNodes.drone) {
+      const droneFreq = 55 - (depthIndex * 10);
+      ambientNodes.drone.osc.frequency.linearRampToValueAtTime(
+        droneFreq,
+        audioContext.currentTime + 0.5
+      );
+    }
+
+    // 깊을수록 노이즈 필터 좁아짐 (더 먹먹해짐)
+    if (ambientNodes.noise) {
+      const noiseFreq = 400 - (depthIndex * 50);
+      ambientNodes.noise.filter.frequency.linearRampToValueAtTime(
+        noiseFreq,
+        audioContext.currentTime + 0.5
+      );
+    }
   }
 
   /* ─────────────────────────────────────────────────────────────
