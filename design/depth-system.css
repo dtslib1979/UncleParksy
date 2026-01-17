@@ -975,3 +975,186 @@ body {
   scrollbar-width: thin;
   scrollbar-color: var(--cave-faint) var(--cave-void);
 }
+
+/* ─────────────────────────────────────────────────────────────
+   ENTRANCE FEATURED: 최근 작업물 프리뷰
+   ───────────────────────────────────────────────────────────── */
+
+.entrance-featured {
+  margin-top: var(--space-chamber);
+  width: 100%;
+  max-width: 600px;
+}
+
+.featured-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-whisper);
+  color: var(--cave-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  text-align: center;
+  margin-bottom: var(--space-step);
+}
+
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.featured-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: var(--space-step);
+
+  background: rgba(20, 20, 20, 0.4);
+  border: 1px solid var(--cave-stone);
+  border-radius: 8px;
+
+  text-decoration: none;
+  color: var(--cave-dim);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.featured-item:hover {
+  background: rgba(30, 30, 30, 0.6);
+  border-color: var(--cave-dim);
+  transform: translateY(-4px);
+}
+
+.featured-icon {
+  font-size: 1.5rem;
+  opacity: 0.8;
+}
+
+.featured-title {
+  font-size: 0.7rem;
+  text-align: center;
+  line-height: 1.3;
+  opacity: 0.7;
+}
+
+@media (max-width: 480px) {
+  .featured-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   SELECTOR ARCHIVES: 페르소나별 아카이브 링크
+   ───────────────────────────────────────────────────────────── */
+
+.selector-hint {
+  font-size: 0.7rem;
+  color: var(--cave-faint);
+  text-align: center;
+  margin-top: var(--space-breath);
+  opacity: 0.6;
+}
+
+.selector-archives {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: var(--space-room);
+  padding-top: var(--space-step);
+  border-top: 1px solid var(--cave-stone);
+}
+
+.archive-link {
+  padding: 6px 14px;
+  background: rgba(20, 20, 20, 0.4);
+  border: 1px solid var(--cave-stone);
+  border-radius: 20px;
+
+  font-size: 0.75rem;
+  color: var(--cave-dim);
+  text-decoration: none;
+
+  transition: all 0.3s ease;
+}
+
+.archive-link:hover {
+  background: rgba(40, 40, 40, 0.6);
+  border-color: var(--cave-dim);
+  color: var(--cave-glow);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   OUTPUT NAV: 사이트 네비게이션
+   ───────────────────────────────────────────────────────────── */
+
+.output-nav {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-room);
+  margin-top: var(--space-chamber);
+  padding-top: var(--space-room);
+  border-top: 1px solid var(--cave-stone);
+  width: 100%;
+  max-width: 500px;
+}
+
+.nav-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav-title {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--flame-edge);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+
+.nav-link {
+  font-size: 0.8rem;
+  color: var(--cave-dim);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  line-height: 1.5;
+}
+
+.nav-link:hover {
+  color: var(--cave-glow);
+}
+
+.nav-link.nav-active {
+  color: var(--flame-edge);
+}
+
+@media (max-width: 480px) {
+  .output-nav {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   OUTPUT FOOTER: 사이트 푸터
+   ───────────────────────────────────────────────────────────── */
+
+.output-footer {
+  margin-top: var(--space-chamber);
+  padding-top: var(--space-step);
+  text-align: center;
+}
+
+.output-footer p {
+  font-size: 0.75rem;
+  color: var(--cave-faint);
+  margin: 0;
+  line-height: 1.8;
+}
+
+.footer-philosophy {
+  margin-top: 4px !important;
+  font-style: italic;
+  opacity: 0.7;
+}

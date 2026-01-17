@@ -97,6 +97,29 @@
       <span>scroll to descend</span>
       <div class="scroll-hint-arrow"></div>
     </div>
+
+    <!-- Featured Articles Preview -->
+    <div class="entrance-featured">
+      <p class="featured-label">최근 작업물</p>
+      <div class="featured-grid">
+        <a href="/archive/2025-12-12-봄길.html" class="featured-item">
+          <span class="featured-icon">🎵</span>
+          <span class="featured-title">봄길</span>
+        </a>
+        <a href="/category/Philosopher-Parksy/Independent-finger.html" class="featured-item">
+          <span class="featured-icon">🤔</span>
+          <span class="featured-title">Independent Finger</span>
+        </a>
+        <a href="/category/Visualizer-Parksy/MeEvalModel.html" class="featured-item">
+          <span class="featured-icon">🎨</span>
+          <span class="featured-title">MeEval Model</span>
+        </a>
+        <a href="/category/Technician-Parksy/Github-publising.html" class="featured-item">
+          <span class="featured-icon">🔧</span>
+          <span class="featured-title">GitHub Publishing</span>
+        </a>
+      </div>
+    </div>
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════
@@ -109,6 +132,7 @@
       <div class="selector-grid personas" role="group" aria-label="Select persona">
         <!-- JS에서 동적 생성 -->
       </div>
+      <p class="selector-hint">각 페르소나를 더블클릭하면 해당 아카이브로 이동</p>
     </div>
 
     <div class="selector-section">
@@ -116,6 +140,15 @@
       <div class="selector-grid merits" role="group" aria-label="Select merit">
         <!-- JS에서 동적 생성 -->
       </div>
+    </div>
+
+    <!-- Persona Archives Quick Links -->
+    <div class="selector-archives">
+      <a href="/category/Philosopher-Parksy/" class="archive-link">철학자 아카이브</a>
+      <a href="/category/Blogger-Parksy/" class="archive-link">블로거 아카이브</a>
+      <a href="/category/Visualizer-Parksy/" class="archive-link">시각화사 아카이브</a>
+      <a href="/category/Musician-Parksy/" class="archive-link">뮤지션 아카이브</a>
+      <a href="/category/Technician-Parksy/" class="archive-link">기능인 아카이브</a>
     </div>
   </section>
 
@@ -186,11 +219,32 @@ ChatGPT, Claude, Gemini...
         그게 네 콘텐츠가 된다.
       </p>
 
-      <div style="margin-top: var(--space-chamber); text-align: center;">
-        <a href="/archive/" class="cave-path" style="font-size: var(--text-whisper);">
-          → 아카이브 보기
-        </a>
-      </div>
+      <!-- Site Navigation -->
+      <nav class="output-nav" aria-label="Site navigation">
+        <div class="nav-section">
+          <h3 class="nav-title">Archive</h3>
+          <a href="/archive/" class="nav-link">전체 아카이브</a>
+          <a href="/archive/about.html" class="nav-link">About</a>
+          <a href="/archive/contact.html" class="nav-link">Contact</a>
+        </div>
+        <div class="nav-section">
+          <h3 class="nav-title">Trilogy</h3>
+          <a href="https://parksy.kr" class="nav-link nav-active">parksy.kr — 실험실</a>
+          <a href="https://eae.kr" class="nav-link" target="_blank" rel="noopener">eae.kr — 철학</a>
+          <a href="https://dtslib.kr" class="nav-link" target="_blank" rel="noopener">dtslib.kr — 출판</a>
+        </div>
+        <div class="nav-section">
+          <h3 class="nav-title">External</h3>
+          <a href="https://www.youtube.com/@parksy_world" class="nav-link" target="_blank" rel="noopener">YouTube ↗</a>
+          <a href="https://blog.naver.com/dtslib1979" class="nav-link" target="_blank" rel="noopener">Naver Blog ↗</a>
+          <a href="https://github.com/dtslib1979" class="nav-link" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </nav>
+
+      <footer class="output-footer">
+        <p>© 2025 UncleParksy · DTSLIB Media Empire</p>
+        <p class="footer-philosophy">Beyond AI — 영성·지성·감성의 라이브러리</p>
+      </footer>
     </div>
   </section>
 

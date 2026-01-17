@@ -34,6 +34,7 @@
       icon: '🤔',
       desc: '사고 실험, 반론, 구조화',
       color: '#6b8e9f',
+      archiveUrl: '/category/Philosopher-Parksy/',
       transform: (text) => `[사유]\n\n${text}\n\n→ 이것이 의미하는 바는...\n→ 그러나 반론하자면...\n→ 결국 핵심은...`
     },
     blogger: {
@@ -41,6 +42,7 @@
       icon: '📱',
       desc: 'PWA, 웹앱, 실험',
       color: '#8b7355',
+      archiveUrl: '/category/Blogger-Parksy/',
       transform: (text) => `## 오늘의 발견\n\n${text}\n\n---\n\n### 다음 단계\n- [ ] 프로토타입 만들기\n- [ ] GitHub에 올리기\n- [ ] 피드백 받기`
     },
     visualizer: {
@@ -48,6 +50,7 @@
       icon: '🎨',
       desc: '다이어그램, 프레임',
       color: '#7a8b6b',
+      archiveUrl: '/category/Visualizer-Parksy/',
       transform: (text) => {
         const lines = text.split('\n').filter(l => l.trim());
         const boxed = lines.map(l => `│ ${l.substring(0, 40).padEnd(40)} │`).join('\n');
@@ -59,6 +62,7 @@
       icon: '🎵',
       desc: '소리, 리듬, 캐스트',
       color: '#8b6b7a',
+      archiveUrl: '/category/Musician-Parksy/',
       transform: (text) => `♪ ♫ ♪\n\n${text}\n\n♪ ♫ ♪\n\n[tempo: rubato]\n[mood: 실험적]\n[key: 자유조]`
     },
     technician: {
@@ -66,6 +70,7 @@
       icon: '🔧',
       desc: '디바이스, 세팅, 해킹',
       color: '#6b6b8b',
+      archiveUrl: '/category/Technician-Parksy/',
       transform: (text) => `[SYSTEM LOG]\n\n> 입력 감지됨\n> 분석 중...\n\n${text}\n\n> 처리 완료\n> 적용: 즉시\n> 상태: READY`
     }
   };
@@ -315,6 +320,7 @@
         const btn = document.createElement('button');
         btn.className = 'selector-btn';
         btn.dataset.persona = key;
+        btn.dataset.archiveUrl = persona.archiveUrl;
         btn.style.animationDelay = `${index * 0.1}s`;
         btn.innerHTML = `
           <span class="btn-icon">${persona.icon}</span>
@@ -322,6 +328,12 @@
           <span class="btn-sub">${persona.desc}</span>
         `;
         btn.addEventListener('click', () => selectPersona(key, btn));
+        // 더블클릭으로 아카이브 이동
+        btn.addEventListener('dblclick', () => {
+          if (persona.archiveUrl) {
+            window.location.href = persona.archiveUrl;
+          }
+        });
         elements.personaGrid.appendChild(btn);
       });
     }
