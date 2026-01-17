@@ -18,14 +18,17 @@
     labOutput: null,
     isAnimating: false,
     isMobile: window.innerWidth <= 768,
-    reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    unlockedDepths: [0], // 잠금 해제된 층 (0은 기본 열림)
+    gateVisible: false
   };
 
   const DEPTHS = [
-    { id: 'entrance', name: 'Entrance', label: '입구' },
-    { id: 'selector', name: 'Selector', label: '선택' },
-    { id: 'laboratory', name: 'Laboratory', label: '실험실' },
-    { id: 'output', name: 'Output', label: '출력' }
+    { id: 'entrance', name: 'Entrance', label: '입구', gate: null },
+    { id: 'selector', name: 'Selector', label: '선택', gate: { code: '1', hint: '첫 번째' } },
+    { id: 'laboratory', name: 'Laboratory', label: '실험실', gate: { code: '2', hint: '두 번째' } },
+    { id: 'output', name: 'Output', label: '출력', gate: { code: '3', hint: '세 번째' } },
+    { id: 'console', name: 'Console', label: '콘솔', gate: { code: 'parksy', hint: '주인장 이름' } }
   ];
 
   const PERSONAS = {
@@ -118,6 +121,7 @@
 
   function init() {
     cacheElements();
+    setupGates();
     setupDepthGauge();
     setupIntersectionObserver();
     setupSelectors();
@@ -136,6 +140,7 @@
     // 초기 상태
     updateHUD();
     showInitialDepth();
+    loadUnlockedDepths();
 
     // 리사이즈 대응
     window.addEventListener('resize', debounce(handleResize, 200));
@@ -206,6 +211,7 @@
     const dots = document.querySelectorAll('.depth-gauge-dot');
     dots.forEach((dot, index) => {
       dot.classList.toggle('active', index === state.currentDepth);
+      dot.classList.toggle('locked', !isDepthUnlocked(index));
     });
   }
 
@@ -280,10 +286,152 @@
   }
 
   function scrollToDepth(index) {
+    // 잠금 체크
+    if (!isDepthUnlocked(index)) {
+      showGate(index);
+      return;
+    }
+
     const depth = document.querySelector(`[data-depth="${index}"]`);
     if (depth) {
       depth.scrollIntoView({ behavior: state.reducedMotion ? 'auto' : 'smooth' });
     }
+  }
+
+  function isDepthUnlocked(index) {
+    return state.unlockedDepths.includes(index);
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     GATE SYSTEM: 층별 비밀번호 게이트
+     ───────────────────────────────────────────────────────────── */
+
+  let gateOverlay = null;
+
+  function setupGates() {
+    // 게이트 오버레이 생성
+    gateOverlay = document.createElement('div');
+    gateOverlay.className = 'gate-overlay';
+    gateOverlay.innerHTML = `
+      <div class="gate-modal">
+        <div class="gate-icon">🔒</div>
+        <h2 class="gate-title">Gate <span class="gate-depth-num">1</span></h2>
+        <p class="gate-hint"></p>
+        <input type="password" class="gate-input" placeholder="암호 입력" autocomplete="off">
+        <div class="gate-buttons">
+          <button class="gate-btn gate-submit">입장</button>
+          <button class="gate-btn gate-cancel">돌아가기</button>
+        </div>
+        <p class="gate-error"></p>
+      </div>
+    `;
+    gateOverlay.style.display = 'none';
+    document.body.appendChild(gateOverlay);
+
+    // 이벤트
+    const input = gateOverlay.querySelector('.gate-input');
+    const submitBtn = gateOverlay.querySelector('.gate-submit');
+    const cancelBtn = gateOverlay.querySelector('.gate-cancel');
+
+    submitBtn.addEventListener('click', attemptUnlock);
+    cancelBtn.addEventListener('click', hideGate);
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') attemptUnlock();
+      if (e.key === 'Escape') hideGate();
+    });
+
+    gateOverlay.addEventListener('click', (e) => {
+      if (e.target === gateOverlay) hideGate();
+    });
+  }
+
+  function showGate(depthIndex) {
+    const depth = DEPTHS[depthIndex];
+    if (!depth || !depth.gate) return;
+
+    state.gateVisible = true;
+    gateOverlay.dataset.targetDepth = depthIndex;
+
+    const depthNum = gateOverlay.querySelector('.gate-depth-num');
+    const hint = gateOverlay.querySelector('.gate-hint');
+    const input = gateOverlay.querySelector('.gate-input');
+    const error = gateOverlay.querySelector('.gate-error');
+
+    depthNum.textContent = depthIndex;
+    hint.textContent = `힌트: ${depth.gate.hint}`;
+    input.value = '';
+    error.textContent = '';
+
+    gateOverlay.style.display = 'flex';
+    setTimeout(() => {
+      gateOverlay.classList.add('visible');
+      input.focus();
+    }, 10);
+  }
+
+  function hideGate() {
+    state.gateVisible = false;
+    gateOverlay.classList.remove('visible');
+    setTimeout(() => {
+      gateOverlay.style.display = 'none';
+    }, 300);
+  }
+
+  function attemptUnlock() {
+    const targetDepth = parseInt(gateOverlay.dataset.targetDepth, 10);
+    const depth = DEPTHS[targetDepth];
+    const input = gateOverlay.querySelector('.gate-input');
+    const error = gateOverlay.querySelector('.gate-error');
+
+    if (!depth || !depth.gate) return;
+
+    if (input.value.toLowerCase() === depth.gate.code.toLowerCase()) {
+      // 성공
+      unlockDepth(targetDepth);
+      hideGate();
+      showToast(`Depth ${targetDepth} 잠금 해제`);
+
+      // 이동
+      setTimeout(() => {
+        const depthEl = document.querySelector(`[data-depth="${targetDepth}"]`);
+        if (depthEl) {
+          depthEl.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 300);
+    } else {
+      // 실패
+      error.textContent = '틀렸다. 다시 시도해라.';
+      input.value = '';
+      input.classList.add('shake');
+      setTimeout(() => input.classList.remove('shake'), 500);
+    }
+  }
+
+  function unlockDepth(index) {
+    if (!state.unlockedDepths.includes(index)) {
+      state.unlockedDepths.push(index);
+      saveUnlockedDepths();
+      updateDepthGauge();
+    }
+  }
+
+  function loadUnlockedDepths() {
+    try {
+      const saved = localStorage.getItem('parksy_unlocked_depths');
+      if (saved) {
+        state.unlockedDepths = JSON.parse(saved);
+      }
+    } catch (e) {
+      state.unlockedDepths = [0];
+    }
+    updateDepthGauge();
+  }
+
+  function saveUnlockedDepths() {
+    try {
+      localStorage.setItem('parksy_unlocked_depths', JSON.stringify(state.unlockedDepths));
+    } catch (e) {}
   }
 
   /* ─────────────────────────────────────────────────────────────

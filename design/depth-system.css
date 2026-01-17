@@ -217,10 +217,12 @@ body {
 }
 
 .depth-gauge-dot {
+  position: relative;
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background: var(--cave-faint);
+  border: 1px solid transparent;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
 }
@@ -1157,4 +1159,246 @@ body {
   margin-top: 4px !important;
   font-style: italic;
   opacity: 0.7;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   GATE SYSTEM: 층별 비밀번호 게이트
+   ───────────────────────────────────────────────────────────── */
+
+.gate-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gate-overlay.visible {
+  opacity: 1;
+}
+
+.gate-modal {
+  background: var(--cave-deep);
+  border: 1px solid var(--cave-stone);
+  border-radius: 8px;
+  padding: var(--space-room);
+  max-width: 320px;
+  width: 90%;
+  text-align: center;
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+
+.gate-overlay.visible .gate-modal {
+  transform: translateY(0);
+}
+
+.gate-icon {
+  font-size: 3rem;
+  margin-bottom: var(--space-step);
+  opacity: 0.8;
+}
+
+.gate-title {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  color: var(--cave-glow);
+  margin-bottom: var(--space-breath);
+  letter-spacing: 0.1em;
+}
+
+.gate-depth-num {
+  color: var(--flame-edge);
+}
+
+.gate-hint {
+  font-size: 0.85rem;
+  color: var(--cave-dim);
+  margin-bottom: var(--space-room);
+}
+
+.gate-input {
+  width: 100%;
+  padding: var(--space-step);
+  background: var(--cave-void);
+  border: 1px solid var(--cave-stone);
+  border-radius: 4px;
+  color: var(--cave-glow);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  text-align: center;
+  letter-spacing: 0.2em;
+  margin-bottom: var(--space-step);
+  transition: border-color 0.3s ease;
+}
+
+.gate-input:focus {
+  outline: none;
+  border-color: var(--flame-edge);
+}
+
+.gate-input.shake {
+  animation: gateShake 0.5s ease;
+}
+
+@keyframes gateShake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-10px); }
+  40%, 80% { transform: translateX(10px); }
+}
+
+.gate-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: var(--space-step);
+}
+
+.gate-btn {
+  flex: 1;
+  padding: var(--space-breath) var(--space-step);
+  border: 1px solid var(--cave-stone);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.gate-submit {
+  background: var(--flame-edge);
+  border-color: var(--flame-edge);
+  color: var(--cave-void);
+}
+
+.gate-submit:hover {
+  background: var(--flame-core);
+}
+
+.gate-cancel {
+  background: transparent;
+  color: var(--cave-dim);
+}
+
+.gate-cancel:hover {
+  background: var(--cave-stone);
+  color: var(--cave-glow);
+}
+
+.gate-error {
+  font-size: 0.8rem;
+  color: var(--flame-core);
+  margin-top: var(--space-breath);
+  min-height: 1.2em;
+}
+
+/* 잠긴 층 표시 (Depth Gauge) */
+.depth-gauge-dot.locked {
+  opacity: 0.3;
+  border-style: dashed;
+}
+
+.depth-gauge-dot.locked::after {
+  content: '🔒';
+  position: absolute;
+  font-size: 0.5rem;
+  right: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   DEPTH 4: CONSOLE - 미디어 방송 콘솔
+   ───────────────────────────────────────────────────────────── */
+
+.depth-console {
+  background:
+    radial-gradient(ellipse 60% 60% at 50% 50%, rgba(20, 20, 30, 0.4) 0%, transparent 50%),
+    linear-gradient(180deg, #050508 0%, #020204 100%);
+}
+
+.console-container {
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.console-title {
+  font-family: var(--font-mono);
+  font-size: 2rem;
+  color: var(--cave-glow);
+  letter-spacing: 0.2em;
+  margin-bottom: var(--space-breath);
+}
+
+.console-subtitle {
+  font-size: 0.9rem;
+  color: var(--cave-dim);
+  margin-bottom: var(--space-room);
+}
+
+.console-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: var(--space-room);
+}
+
+.console-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: var(--space-step);
+
+  background: rgba(15, 15, 20, 0.8);
+  border: 1px solid var(--cave-stone);
+  border-radius: 8px;
+
+  text-decoration: none;
+  color: var(--cave-dim);
+  transition: all 0.3s ease;
+}
+
+.console-card:hover {
+  background: rgba(25, 25, 35, 0.9);
+  border-color: var(--flame-edge);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(255, 107, 53, 0.1);
+}
+
+.console-icon {
+  font-size: 2rem;
+  opacity: 0.9;
+}
+
+.console-name {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--cave-glow);
+}
+
+.console-desc {
+  font-size: 0.7rem;
+  color: var(--cave-faint);
+}
+
+.console-warning {
+  font-size: 0.75rem;
+  color: var(--cave-faint);
+  margin-top: var(--space-room);
+  padding-top: var(--space-step);
+  border-top: 1px solid var(--cave-stone);
+}
+
+@media (max-width: 480px) {
+  .console-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
