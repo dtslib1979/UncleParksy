@@ -36,7 +36,7 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="/design/cave-ui.css">
-  <link rel="stylesheet" href="/design/depth-system.css">
+  <link rel="stylesheet" href="/design/floor-system.css">
 
   <style>
     /* Pretendard 로컬 폴백 */
@@ -45,124 +45,172 @@
       src: local('Pretendard'), local('Apple SD Gothic Neo'), local('Malgun Gothic');
       font-display: swap;
     }
-
-    /* 초기 로딩 시 깜빡임 방지 */
-    .depth {
-      opacity: 0;
-    }
-
-    /* 로딩 완료 후 첫 번째 층 표시 */
-    .depth.visible {
-      opacity: 1;
-    }
   </style>
 </head>
 <body>
 
   <!-- ═══════════════════════════════════════════════════════════════
-       HUD: 상단 위치 표시
+       ENTRANCE: 지하실 입구 - 층 선택 게이트
        ═══════════════════════════════════════════════════════════════ -->
-  <nav class="depth-hud" aria-label="Depth indicator">
-    <div class="depth-indicator">
-      <span class="current-depth">Depth 0</span>
-      <span class="depth-name">/ Entrance</span>
+  <main class="entrance" id="entrance">
+    <div class="entrance-inner">
+      <!-- 타이틀 -->
+      <h1 class="entrance-monument">
+        생각을<br>
+        실행 파일로<br>
+        배포한다
+      </h1>
+
+      <p class="entrance-statement">
+        YouTube는 입구,<br>
+        GitHub는 세계,<br>
+        프로그램은 생각의 서식이다.
+      </p>
+
+      <div class="cave-crack"></div>
+
+      <!-- 층 선택 게이트 -->
+      <div class="floor-gates">
+        <p class="gates-label">지하로 내려가기</p>
+
+        <button class="floor-gate" data-floor="1" data-code="1" data-hint="첫 번째">
+          <span class="gate-floor-num">B1</span>
+          <span class="gate-floor-name">쇼룸 · Gallery</span>
+          <span class="gate-floor-desc">작업물 전시</span>
+          <span class="gate-lock">🔒</span>
+        </button>
+
+        <button class="floor-gate" data-floor="2" data-code="2" data-hint="두 번째">
+          <span class="gate-floor-num">B2</span>
+          <span class="gate-floor-name">실험실 · Laboratory</span>
+          <span class="gate-floor-desc">페르소나 × 메리트 변환</span>
+          <span class="gate-lock">🔒</span>
+        </button>
+
+        <button class="floor-gate" data-floor="3" data-code="parksy" data-hint="주인장 이름">
+          <span class="gate-floor-num">B3</span>
+          <span class="gate-floor-name">콘솔 · Console</span>
+          <span class="gate-floor-desc">미디어 작업실</span>
+          <span class="gate-lock">🔒</span>
+        </button>
+      </div>
+
+      <!-- Quick Links -->
+      <nav class="entrance-links">
+        <a href="/archive/" class="quick-link">Archive</a>
+        <a href="/archive/about.html" class="quick-link">About</a>
+        <a href="https://www.youtube.com/@parksy_world" class="quick-link" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://github.com/dtslib1979" class="quick-link" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+
+      <footer class="entrance-footer">
+        <p>© 2025 UncleParksy · DTSLIB Media Empire</p>
+        <p class="footer-philosophy">Beyond AI — 영성·지성·감성의 라이브러리</p>
+      </footer>
     </div>
-    <button class="surface-btn" aria-label="Return to surface">↑ Surface</button>
-  </nav>
+
+    <!-- Particles -->
+    <div class="particles" aria-hidden="true"></div>
+  </main>
 
   <!-- ═══════════════════════════════════════════════════════════════
-       DEPTH 0: ENTRANCE — 입구
-       선언문: 핵심 메시지
+       FLOOR B1: 쇼룸 - 작업물 전시
        ═══════════════════════════════════════════════════════════════ -->
-  <section class="depth depth-entrance" data-depth="0" id="entrance">
-    <h1 class="entrance-monument">
-      생각을<br>
-      실행 파일로<br>
-      배포한다
-    </h1>
-
-    <p class="entrance-statement">
-      YouTube는 입구,<br>
-      GitHub는 세계,<br>
-      프로그램은 생각의 서식이다.
-    </p>
-
-    <div class="cave-crack"></div>
-
-    <p class="whisper" style="text-align: center; max-width: 30ch;">
-      LLM으로 만든 재료를 복붙해서<br>
-      자기 세계를 체험하고,<br>
-      저장/배포/제작까지 이어간다.
-    </p>
-
-    <div class="scroll-hint" aria-hidden="true">
-      <span>scroll to descend</span>
-      <div class="scroll-hint-arrow"></div>
+  <section class="floor floor-hidden" data-floor="1" id="floor-1">
+    <div class="floor-header">
+      <button class="back-to-entrance" aria-label="입구로 돌아가기">↑ 입구</button>
+      <h2 class="floor-title">B1 · 쇼룸</h2>
     </div>
 
-    <!-- Featured Articles Preview -->
-    <div class="entrance-featured">
-      <p class="featured-label">최근 작업물</p>
-      <div class="featured-grid">
-        <a href="/archive/2025-12-12-봄길.html" class="featured-item">
-          <span class="featured-icon">🎵</span>
-          <span class="featured-title">봄길</span>
-        </a>
-        <a href="/category/Philosopher-Parksy/Independent-finger.html" class="featured-item">
-          <span class="featured-icon">🤔</span>
-          <span class="featured-title">Independent Finger</span>
-        </a>
-        <a href="/category/Visualizer-Parksy/MeEvalModel.html" class="featured-item">
-          <span class="featured-icon">🎨</span>
-          <span class="featured-title">MeEval Model</span>
-        </a>
-        <a href="/category/Technician-Parksy/Github-publising.html" class="featured-item">
-          <span class="featured-icon">🔧</span>
-          <span class="featured-title">GitHub Publishing</span>
-        </a>
+    <div class="floor-content showroom">
+      <p class="showroom-intro">Parksy의 작업물들</p>
+
+      <!-- 페르소나별 섹션 -->
+      <div class="showroom-section">
+        <h3 class="section-title">🤔 철학자 Parksy</h3>
+        <div class="showroom-grid">
+          <a href="/category/Philosopher-Parksy/Independent-finger.html" class="showroom-item">
+            <span class="item-title">Independent Finger</span>
+            <span class="item-desc">독립된 손가락의 철학</span>
+          </a>
+        </div>
+        <a href="/category/Philosopher-Parksy/" class="section-more">더 보기 →</a>
+      </div>
+
+      <div class="showroom-section">
+        <h3 class="section-title">📝 블로거 Parksy</h3>
+        <div class="showroom-grid">
+          <a href="/archive/2025-12-12-봄길.html" class="showroom-item">
+            <span class="item-title">봄길</span>
+            <span class="item-desc">새로운 시작</span>
+          </a>
+        </div>
+        <a href="/category/Blogger-Parksy/" class="section-more">더 보기 →</a>
+      </div>
+
+      <div class="showroom-section">
+        <h3 class="section-title">🎨 시각화사 Parksy</h3>
+        <div class="showroom-grid">
+          <a href="/category/Visualizer-Parksy/MeEvalModel.html" class="showroom-item">
+            <span class="item-title">MeEval Model</span>
+            <span class="item-desc">자기 평가 시스템</span>
+          </a>
+        </div>
+        <a href="/category/Visualizer-Parksy/" class="section-more">더 보기 →</a>
+      </div>
+
+      <div class="showroom-section">
+        <h3 class="section-title">🎵 뮤지션 Parksy</h3>
+        <div class="showroom-grid">
+          <a href="/archive/" class="showroom-item">
+            <span class="item-title">Listening Room</span>
+            <span class="item-desc">음악 감상실</span>
+          </a>
+        </div>
+        <a href="/category/Musician-Parksy/" class="section-more">더 보기 →</a>
+      </div>
+
+      <div class="showroom-section">
+        <h3 class="section-title">🔧 기능인 Parksy</h3>
+        <div class="showroom-grid">
+          <a href="/category/Technician-Parksy/Github-publising.html" class="showroom-item">
+            <span class="item-title">GitHub Publishing</span>
+            <span class="item-desc">배포 가이드</span>
+          </a>
+        </div>
+        <a href="/category/Technician-Parksy/" class="section-more">더 보기 →</a>
       </div>
     </div>
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════
-       DEPTH 1: SELECTOR — 페르소나 & 메리트 선택
-       가드레일 시스템
+       FLOOR B2: 실험실 - 변환 시스템
        ═══════════════════════════════════════════════════════════════ -->
-  <section class="depth depth-selector" data-depth="1" id="selector">
-    <div class="selector-section">
-      <p class="selector-label">Persona — 누구로 변환할 것인가</p>
-      <div class="selector-grid personas" role="group" aria-label="Select persona">
-        <!-- JS에서 동적 생성 -->
+  <section class="floor floor-hidden" data-floor="2" id="floor-2">
+    <div class="floor-header">
+      <button class="back-to-entrance" aria-label="입구로 돌아가기">↑ 입구</button>
+      <h2 class="floor-title">B2 · 실험실</h2>
+    </div>
+
+    <div class="floor-content laboratory">
+      <!-- Persona Selector -->
+      <div class="lab-section">
+        <p class="lab-label">Persona — 누구로 변환할 것인가</p>
+        <div class="selector-grid personas" role="group" aria-label="Select persona">
+          <!-- JS에서 동적 생성 -->
+        </div>
       </div>
-      <p class="selector-hint">각 페르소나를 더블클릭하면 해당 아카이브로 이동</p>
-    </div>
 
-    <div class="selector-section">
-      <p class="selector-label">Merit — 어떤 색을 입힐 것인가</p>
-      <div class="selector-grid merits" role="group" aria-label="Select merit">
-        <!-- JS에서 동적 생성 -->
+      <!-- Merit Selector -->
+      <div class="lab-section">
+        <p class="lab-label">Merit — 어떤 색을 입힐 것인가</p>
+        <div class="selector-grid merits" role="group" aria-label="Select merit">
+          <!-- JS에서 동적 생성 -->
+        </div>
       </div>
-    </div>
 
-    <!-- Persona Archives Quick Links -->
-    <div class="selector-archives">
-      <a href="/category/Philosopher-Parksy/" class="archive-link">철학자 아카이브</a>
-      <a href="/category/Blogger-Parksy/" class="archive-link">블로거 아카이브</a>
-      <a href="/category/Visualizer-Parksy/" class="archive-link">시각화사 아카이브</a>
-      <a href="/category/Musician-Parksy/" class="archive-link">뮤지션 아카이브</a>
-      <a href="/category/Technician-Parksy/" class="archive-link">기능인 아카이브</a>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════════════
-       DEPTH 2: LABORATORY — 실험실 (복붙 → 변환)
-       핵심 인터랙션
-       ═══════════════════════════════════════════════════════════════ -->
-  <section class="depth depth-laboratory" data-depth="2" id="laboratory">
-    <div class="lab-container">
-      <p class="lab-title">Laboratory — 변환 실험실</p>
-
-      <div class="lab-input-area">
+      <!-- Transformation Area -->
+      <div class="lab-transform">
         <textarea
           class="lab-textarea"
           placeholder="LLM 답변, 메모, 아이디어를 붙여넣으세요...
@@ -172,91 +220,39 @@ ChatGPT, Claude, Gemini...
           aria-label="Input text for transformation"
           spellcheck="false"
         ></textarea>
-        <p class="lab-hint">
-          모든 사람은 이미 손 안에 LLM이 있다.
-        </p>
+
+        <button class="lab-process-btn" disabled>
+          ↑ 먼저 위에서 선택하세요
+        </button>
+
+        <div class="lab-output-area" aria-live="polite">
+          <div class="lab-output"></div>
+          <div class="lab-output-meta"></div>
+        </div>
       </div>
 
-      <button class="lab-process-btn" disabled>
-        ↑ 먼저 위에서 선택하세요
-      </button>
-
-      <div class="lab-output-area" aria-live="polite">
-        <div class="lab-output"></div>
-        <div class="lab-output-meta"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════════════
-       DEPTH 3: OUTPUT — 출력/배포
-       가져가라
-       ═══════════════════════════════════════════════════════════════ -->
-  <section class="depth depth-output" data-depth="3" id="output">
-    <div class="output-container">
-      <h2 class="output-title">가져가라</h2>
-
-      <div class="output-actions">
-        <button class="output-btn" data-action="copy" disabled>
+      <!-- Output Actions -->
+      <div class="lab-actions">
+        <button class="action-btn" data-action="copy" disabled>
           클립보드에 복사
-          <span class="btn-arrow">→</span>
         </button>
-
-        <button class="output-btn" data-action="download" disabled>
+        <button class="action-btn" data-action="download" disabled>
           HTML로 다운로드
-          <span class="btn-arrow">→</span>
         </button>
-
-        <a href="https://pages.github.com/" target="_blank" rel="noopener" class="output-btn">
-          GitHub Pages로 배포
-          <span class="btn-arrow">↗</span>
-        </a>
       </div>
-
-      <div class="output-divider">— or —</div>
-
-      <p class="output-youtube-hint">
-        이 화면 그대로 녹화해서<br>
-        YouTube에 올려라.<br><br>
-        그게 네 콘텐츠가 된다.
-      </p>
-
-      <!-- Site Navigation -->
-      <nav class="output-nav" aria-label="Site navigation">
-        <div class="nav-section">
-          <h3 class="nav-title">Archive</h3>
-          <a href="/archive/" class="nav-link">전체 아카이브</a>
-          <a href="/archive/about.html" class="nav-link">About</a>
-          <a href="/archive/contact.html" class="nav-link">Contact</a>
-        </div>
-        <div class="nav-section">
-          <h3 class="nav-title">Trilogy</h3>
-          <a href="https://parksy.kr" class="nav-link nav-active">parksy.kr — 실험실</a>
-          <a href="https://eae.kr" class="nav-link" target="_blank" rel="noopener">eae.kr — 철학</a>
-          <a href="https://dtslib.kr" class="nav-link" target="_blank" rel="noopener">dtslib.kr — 출판</a>
-        </div>
-        <div class="nav-section">
-          <h3 class="nav-title">External</h3>
-          <a href="https://www.youtube.com/@parksy_world" class="nav-link" target="_blank" rel="noopener">YouTube ↗</a>
-          <a href="https://blog.naver.com/dtslib1979" class="nav-link" target="_blank" rel="noopener">Naver Blog ↗</a>
-          <a href="https://github.com/dtslib1979" class="nav-link" target="_blank" rel="noopener">GitHub ↗</a>
-        </div>
-      </nav>
-
-      <footer class="output-footer">
-        <p>© 2025 UncleParksy · DTSLIB Media Empire</p>
-        <p class="footer-philosophy">Beyond AI — 영성·지성·감성의 라이브러리</p>
-      </footer>
     </div>
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════
-       DEPTH 4: CONSOLE — 미디어 콘솔 작업실
-       비밀번호로 보호됨
+       FLOOR B3: 콘솔 - 미디어 작업실
        ═══════════════════════════════════════════════════════════════ -->
-  <section class="depth depth-console" data-depth="4" id="console">
-    <div class="console-container">
-      <h2 class="console-title">Console</h2>
+  <section class="floor floor-hidden" data-floor="3" id="floor-3">
+    <div class="floor-header">
+      <button class="back-to-entrance" aria-label="입구로 돌아가기">↑ 입구</button>
+      <h2 class="floor-title">B3 · 콘솔</h2>
+    </div>
+
+    <div class="floor-content console">
       <p class="console-subtitle">미디어 방송 콘솔</p>
 
       <div class="console-grid">
@@ -301,6 +297,38 @@ ChatGPT, Claude, Gemini...
           <span class="console-name">Spotify</span>
           <span class="console-desc">팟캐스트 · 음악</span>
         </a>
+
+        <!-- Claude -->
+        <a href="https://claude.ai" target="_blank" rel="noopener" class="console-card">
+          <span class="console-icon">🤖</span>
+          <span class="console-name">Claude AI</span>
+          <span class="console-desc">AI 어시스턴트</span>
+        </a>
+
+        <!-- Midjourney -->
+        <a href="https://midjourney.com" target="_blank" rel="noopener" class="console-card">
+          <span class="console-icon">🖼️</span>
+          <span class="console-name">Midjourney</span>
+          <span class="console-desc">이미지 생성</span>
+        </a>
+
+        <!-- Canva -->
+        <a href="https://canva.com" target="_blank" rel="noopener" class="console-card">
+          <span class="console-icon">🎨</span>
+          <span class="console-name">Canva</span>
+          <span class="console-desc">디자인 · 썸네일</span>
+        </a>
+      </div>
+
+      <div class="console-divider"></div>
+
+      <div class="console-trilogy">
+        <p class="trilogy-label">Trilogy</p>
+        <div class="trilogy-links">
+          <a href="https://parksy.kr" class="trilogy-link active">parksy.kr — 실험실</a>
+          <a href="https://eae.kr" class="trilogy-link" target="_blank" rel="noopener">eae.kr — 철학</a>
+          <a href="https://dtslib.kr" class="trilogy-link" target="_blank" rel="noopener">dtslib.kr — 출판</a>
+        </div>
       </div>
 
       <p class="console-warning">
@@ -310,33 +338,33 @@ ChatGPT, Claude, Gemini...
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════
+       GATE MODAL: 비밀번호 입력
+       ═══════════════════════════════════════════════════════════════ -->
+  <div class="gate-overlay" id="gate-overlay" aria-hidden="true">
+    <div class="gate-modal">
+      <div class="gate-icon">🚪</div>
+      <h3 class="gate-title">Floor <span class="gate-floor-target">B1</span></h3>
+      <p class="gate-hint">힌트: <span class="gate-hint-text"></span></p>
+      <input type="text" class="gate-input" id="gate-input" placeholder="암호 입력" autocomplete="off">
+      <p class="gate-error" id="gate-error"></p>
+      <div class="gate-buttons">
+        <button class="gate-btn gate-cancel">취소</button>
+        <button class="gate-btn gate-submit">입장</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
        SCRIPTS
        ═══════════════════════════════════════════════════════════════ -->
-  <script src="/design/depth-system.js"></script>
+  <script src="/design/floor-system.js"></script>
 
   <!-- noscript fallback -->
   <noscript>
     <style>
-      .depth {
-        opacity: 1 !important;
-        transform: none !important;
-        scroll-snap-align: none;
-      }
-      .scroll-hint { display: none; }
-      .surface-btn { display: none; }
-      .depth-gauge { display: none; }
-      .selector-grid.personas::before {
-        content: '철학자 박씨 | 블로거 박씨 | 시각화사 박씨 | 뮤지션 박씨 | 기능인 박씨';
-        display: block;
-        color: var(--cave-dim);
-        padding: 1rem;
-      }
-      .selector-grid.merits::before {
-        content: 'Bluff | Halfblood | Aggro | Shaman';
-        display: block;
-        color: var(--cave-dim);
-        padding: 1rem;
-      }
+      .floor-hidden { display: block !important; opacity: 1 !important; }
+      .floor-gate .gate-lock { display: none; }
+      .gate-overlay { display: none; }
     </style>
     <div style="position:fixed;bottom:0;left:0;right:0;padding:1rem;background:#1a1a1a;color:#888;text-align:center;font-size:0.9rem;z-index:9999;">
       JavaScript가 비활성화되어 있습니다. 전체 기능을 사용하려면 JavaScript를 활성화하세요.
