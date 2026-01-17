@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — 길을 잃었다 | Parksy Engine</title>
+  <link rel="icon" href="/assets/parksy-logo.png" type="image/png">
+  <link rel="stylesheet" href="/design/cave-ui.css">
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 2rem;
+    }
+    .error-code {
+      font-size: 6rem;
+      font-family: var(--font-mono);
+      color: var(--cave-faint);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+    .error-message {
+      font-family: var(--font-accent);
+      font-size: 1.5rem;
+      color: var(--cave-dim);
+      margin-bottom: 3rem;
+    }
+    .error-hint {
+      font-size: 0.9rem;
+      color: var(--cave-faint);
+      margin-bottom: 2rem;
+      line-height: 1.8;
+    }
+    .back-link {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background: transparent;
+      border: 1px solid var(--flame-edge);
+      color: var(--flame-edge);
+      text-decoration: none;
+      font-family: var(--font-mono);
+      transition: all 0.3s ease;
+    }
+    .back-link:hover {
+      background: var(--flame-edge);
+      color: var(--cave-void);
+    }
+  </style>
+</head>
+<body>
+  <div class="error-code">404</div>
+  <p class="error-message">길을 잃었다</p>
+  <p class="error-hint">
+    이 경로는 존재하지 않거나,<br>
+    아직 탐험되지 않은 곳이다.
+  </p>
+  <a href="/" class="back-link">← 입구로 돌아가기</a>
+</body>
+</html>
