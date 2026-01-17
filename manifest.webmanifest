@@ -3,23 +3,13 @@
   "short_name": "Parksy",
   "description": "생각을 실행 파일로 배포하는 1인 AI 출판 시스템",
   "start_url": "/",
-  "display": "standalone",
+  "display": "browser",
   "background_color": "#0a0a0a",
   "theme_color": "#0a0a0a",
-  "orientation": "portrait-primary",
-  "scope": "/",
-  "lang": "ko",
-  "categories": ["productivity", "utilities", "entertainment"],
   "icons": [
     {
       "src": "/assets/parksy-logo.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/assets/icons/favicon.png",
-      "sizes": "256x256",
       "type": "image/png"
     },
     {
@@ -27,32 +17,5 @@
       "sizes": "180x180",
       "type": "image/png"
     }
-  ],
-  "screenshots": [
-    {
-      "src": "/assets/og/cover.png",
-      "sizes": "1200x630",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "Parksy Engine - Depth System"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "Laboratory",
-      "short_name": "Lab",
-      "description": "LLM 변환 실험실",
-      "url": "/#laboratory",
-      "icons": [{ "src": "/assets/parksy-logo.png", "sizes": "96x96" }]
-    },
-    {
-      "name": "Archive",
-      "short_name": "Archive",
-      "description": "전체 아카이브",
-      "url": "/archive/",
-      "icons": [{ "src": "/assets/parksy-logo.png", "sizes": "96x96" }]
-    }
-  ],
-  "related_applications": [],
-  "prefer_related_applications": false
+  ]
 }
