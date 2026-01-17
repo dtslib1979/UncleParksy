@@ -1,0 +1,21 @@
+{
+  "name": "Parksy with AI",
+  "short_name": "Parksy",
+  "description": "생각을 실행 파일로 배포하는 1인 AI 출판 시스템",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "icons": [
+    {
+      "src": "/assets/parksy-logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
