@@ -1,12 +1,17 @@
 {
-  "name": "Parksy with AI",
-  "short_name": "Parksy",
-  "description": "생각을 실행 파일로 배포하는 1인 AI 출판 시스템",
+  "name": "Parksy.kr",
+  "short_name": "Parksy.kr",
+  "description": "EduArt Engineer's Grimoire - Digital Knowledge Archive",
   "start_url": "/",
   "display": "browser",
-  "background_color": "#0a0a0a",
-  "theme_color": "#0a0a0a",
+  "background_color": "#1a1a1a",
+  "theme_color": "#b8860b",
   "icons": [
+    {
+      "src": "/assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
     {
       "src": "/assets/parksy-logo.png",
       "sizes": "512x512",
