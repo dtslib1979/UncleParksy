@@ -17,491 +17,561 @@
   <meta property="og:url" content="https://parksy.kr/">
   <meta property="og:image" content="https://parksy.kr/assets/og/cover.png">
 
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="PARKSY Broadcasting">
-  <meta name="twitter:description" content="AI-Powered Media Station — Be a panelist with AI">
-
-  <!-- Favicon & Shortcut Icon -->
+  <!-- Favicon -->
   <link rel="icon" href="/assets/parksy-logo.png" type="image/png">
   <link rel="apple-touch-icon" href="/assets/parksy-logo.png">
-  <link rel="manifest" href="/manifest.webmanifest">
   <meta name="theme-color" content="#0a0a0a">
-  <meta name="application-name" content="PARKSY Broadcasting">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <!-- Styles -->
   <link rel="stylesheet" href="/design/cave-ui.css">
-  <link rel="stylesheet" href="/design/floor-system.css">
   <link rel="stylesheet" href="/design/broadcast-ui.css">
-
-  <style>
-    /* Pretendard local fallback */
-    @font-face {
-      font-family: 'Pretendard';
-      src: local('Pretendard'), local('Apple SD Gothic Neo'), local('Malgun Gothic');
-      font-display: swap;
-    }
-  </style>
+  <link rel="stylesheet" href="/design/elevator-ui.css">
 </head>
 <body>
 
   <!-- ═══════════════════════════════════════════════════════════════
-       ENTRANCE: Broadcasting Station Lobby
+       ELEVATOR PANEL - Fixed Navigation
        ═══════════════════════════════════════════════════════════════ -->
-  <main class="entrance" id="entrance">
-    <div class="entrance-inner">
-      <!-- Station Header -->
-      <div class="station-header">
-        <span class="station-logo">PARKSY</span>
-        <span class="on-air-badge">
+  <nav class="elevator-panel" id="elevator">
+    <div class="elevator-shaft">
+      <div class="elevator-indicator">
+        <span class="current-floor">1F</span>
+      </div>
+
+      <div class="elevator-buttons">
+        <button class="elevator-btn active" data-floor="lobby" data-level="1F">
+          <span class="btn-level">1F</span>
+          <span class="btn-icon">🏛️</span>
+          <span class="btn-label">Lobby</span>
+        </button>
+
+        <button class="elevator-btn" data-floor="channels" data-level="B1">
+          <span class="btn-level">B1</span>
+          <span class="btn-icon">📺</span>
+          <span class="btn-label">Channels</span>
+        </button>
+
+        <button class="elevator-btn" data-floor="studio" data-level="B2">
+          <span class="btn-level">B2</span>
+          <span class="btn-icon">🎬</span>
+          <span class="btn-label">Studio</span>
+        </button>
+
+        <button class="elevator-btn" data-floor="console" data-level="B3">
+          <span class="btn-level">B3</span>
+          <span class="btn-icon">🖥️</span>
+          <span class="btn-label">Console</span>
+        </button>
+
+        <button class="elevator-btn locked" data-floor="office" data-level="B4" data-code="parksy">
+          <span class="btn-level">B4</span>
+          <span class="btn-icon">🔒</span>
+          <span class="btn-label">Office</span>
+        </button>
+      </div>
+
+      <div class="elevator-brand">
+        <span class="brand-logo">P</span>
+        <span class="brand-name">PARKSY</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       1F LOBBY - Broadcasting Station Entrance
+       ═══════════════════════════════════════════════════════════════ -->
+  <main class="floor-section active" id="floor-lobby">
+    <header class="lobby-header">
+      <div class="station-masthead">
+        <div class="on-air-badge">
           <span class="on-air-dot"></span>
           ON AIR
-        </span>
+        </div>
+        <h1 class="station-title">PARKSY<br>Broadcasting</h1>
+        <p class="station-tagline">Be a Panelist with AI</p>
+      </div>
+    </header>
+
+    <!-- News Carousel -->
+    <section class="news-carousel">
+      <div class="carousel-header">
+        <h2 class="carousel-title">Latest Updates</h2>
+        <div class="carousel-nav">
+          <button class="carousel-btn prev" aria-label="Previous">←</button>
+          <button class="carousel-btn next" aria-label="Next">→</button>
+        </div>
       </div>
 
-      <!-- Title -->
-      <h1 class="entrance-monument">
-        Be a Panelist<br>
-        with AI
-      </h1>
+      <div class="carousel-track">
+        <article class="news-card featured">
+          <span class="news-tag">Featured</span>
+          <h3 class="news-title">AI-Powered Content Curation Now Live</h3>
+          <p class="news-excerpt">Transform your thoughts into broadcast-ready content with our new Studio engine.</p>
+          <time class="news-date">2025.01</time>
+        </article>
 
-      <p class="entrance-statement">
-        What YouTube cannot offer —<br>
-        Your voice, curated by AI,<br>
-        broadcast to the world.
-      </p>
+        <article class="news-card">
+          <span class="news-tag">Channel</span>
+          <h3 class="news-title">Philosopher TV: New Series</h3>
+          <p class="news-excerpt">Exploring the intersection of AI and human consciousness.</p>
+          <time class="news-date">2025.01</time>
+        </article>
 
-      <div class="cave-crack"></div>
+        <article class="news-card">
+          <span class="news-tag">Update</span>
+          <h3 class="news-title">Platform Integration Expanded</h3>
+          <p class="news-excerpt">Now connected with YouTube, Spotify, and Notion ecosystems.</p>
+          <time class="news-date">2025.01</time>
+        </article>
 
-      <!-- Floor Selection Gates -->
-      <div class="floor-gates">
-        <p class="gates-label">Enter the Station</p>
-
-        <button class="floor-gate" data-floor="1" data-code="1" data-hint="first">
-          <span class="gate-floor-num">B1</span>
-          <span class="gate-floor-name">Channels</span>
-          <span class="gate-floor-desc">8 Broadcasting Channels</span>
-          <span class="gate-lock">🔒</span>
-        </button>
-
-        <button class="floor-gate" data-floor="2" data-code="2" data-hint="second">
-          <span class="gate-floor-num">B2</span>
-          <span class="gate-floor-name">Studio</span>
-          <span class="gate-floor-desc">AI Panel · Viewer Curation</span>
-          <span class="gate-lock">🔒</span>
-        </button>
-
-        <button class="floor-gate" data-floor="3" data-code="parksy" data-hint="host name">
-          <span class="gate-floor-num">B3</span>
-          <span class="gate-floor-name">Console</span>
-          <span class="gate-floor-desc">Broadcast Control Room</span>
-          <span class="gate-lock">🔒</span>
-        </button>
+        <article class="news-card">
+          <span class="news-tag">Tech</span>
+          <h3 class="news-title">Studio Engine v2.0</h3>
+          <p class="news-excerpt">Claude Code integration for automated content workflows.</p>
+          <time class="news-date">2025.01</time>
+        </article>
       </div>
+    </section>
 
-      <!-- Quick Links -->
-      <nav class="entrance-links">
-        <a href="/archive/" class="quick-link">Archive</a>
-        <a href="/archive/about.html" class="quick-link">About</a>
-        <a href="https://www.youtube.com/@parksy_world" class="quick-link" target="_blank" rel="noopener">YouTube ↗</a>
-        <a href="https://github.com/dtslib1979" class="quick-link" target="_blank" rel="noopener">GitHub ↗</a>
-      </nav>
+    <!-- Quick Access -->
+    <section class="quick-access">
+      <h2 class="section-label">Quick Access</h2>
+      <div class="quick-grid">
+        <a href="#floor-channels" class="quick-card" data-goto="channels">
+          <span class="quick-icon">📺</span>
+          <span class="quick-name">Channels</span>
+          <span class="quick-count">8 Active</span>
+        </a>
+        <a href="#floor-studio" class="quick-card" data-goto="studio">
+          <span class="quick-icon">🎬</span>
+          <span class="quick-name">Studio</span>
+          <span class="quick-count">Engines</span>
+        </a>
+        <a href="/archive/" class="quick-card">
+          <span class="quick-icon">📚</span>
+          <span class="quick-name">Archive</span>
+          <span class="quick-count">All Content</span>
+        </a>
+        <a href="https://www.youtube.com/@parksy_world" target="_blank" class="quick-card external">
+          <span class="quick-icon">▶️</span>
+          <span class="quick-name">YouTube</span>
+          <span class="quick-count">↗</span>
+        </a>
+      </div>
+    </section>
 
-      <footer class="entrance-footer">
-        <p>© 2025 PARKSY Broadcasting · DTSLIB Media Empire</p>
-        <p class="footer-philosophy">Beyond AI — Spirit · Intellect · Emotion</p>
-      </footer>
-    </div>
-
-    <!-- Particles -->
-    <div class="particles" aria-hidden="true"></div>
+    <!-- Station Info -->
+    <footer class="lobby-footer">
+      <p class="footer-philosophy">Beyond AI — Spirit · Intellect · Emotion</p>
+      <p class="footer-copy">© 2025 PARKSY Broadcasting · DTSLIB Media Empire</p>
+    </footer>
   </main>
 
   <!-- ═══════════════════════════════════════════════════════════════
-       FLOOR B1: Channels — 8 Broadcasting Channels
+       B1 CHANNELS - Persona TV Channels
        ═══════════════════════════════════════════════════════════════ -->
-  <section class="floor floor-hidden" data-floor="1" id="floor-1">
-    <div class="floor-header">
-      <button class="back-to-entrance" aria-label="Back to lobby">↑ Lobby</button>
-      <h2 class="floor-title">B1 · Channels</h2>
+  <section class="floor-section" id="floor-channels">
+    <header class="floor-header">
+      <span class="floor-badge">B1</span>
+      <h2 class="floor-title">Channels</h2>
+      <p class="floor-desc">8 Persona Broadcasting Channels</p>
+    </header>
+
+    <div class="channel-list">
+      <!-- CH.01 Philosopher -->
+      <a href="/category/Philosopher-Parksy/" class="channel-row" data-channel="1">
+        <div class="channel-indicator">
+          <span class="ch-num">01</span>
+          <span class="ch-status live"></span>
+        </div>
+        <div class="channel-info">
+          <h3 class="ch-name">Philosopher TV</h3>
+          <p class="ch-desc">Deep thinking & existential exploration</p>
+        </div>
+        <span class="ch-icon">🤔</span>
+      </a>
+
+      <!-- CH.02 Blogger -->
+      <a href="/category/Blogger-Parksy/" class="channel-row" data-channel="2">
+        <div class="channel-indicator">
+          <span class="ch-num">02</span>
+          <span class="ch-status"></span>
+        </div>
+        <div class="channel-info">
+          <h3 class="ch-name">Blogger TV</h3>
+          <p class="ch-desc">Daily essays & personal narratives</p>
+        </div>
+        <span class="ch-icon">📝</span>
+      </a>
+
+      <!-- CH.03 Visualizer -->
+      <a href="/category/Visualizer-Parksy/" class="channel-row" data-channel="3">
+        <div class="channel-indicator">
+          <span class="ch-num">03</span>
+          <span class="ch-status live"></span>
+        </div>
+        <div class="channel-info">
+          <h3 class="ch-name">Visualizer TV</h3>
+          <p class="ch-desc">Data visualization & infographics</p>
+        </div>
+        <span class="ch-icon">🎨</span>
+      </a>
+
+      <!-- CH.04 Musician -->
+      <a href="/category/Musician-Parksy/" class="channel-row" data-channel="4">
+        <div class="channel-indicator">
+          <span class="ch-num">04</span>
+          <span class="ch-status"></span>
+        </div>
+        <div class="channel-info">
+          <h3 class="ch-name">Musician TV</h3>
+          <p class="ch-desc">Music curation & audio experience</p>
+        </div>
+        <span class="ch-icon">🎵</span>
+      </a>
+
+      <!-- CH.05 Technician -->
+      <a href="/category/Technician-Parksy/" class="channel-row" data-channel="5">
+        <div class="channel-indicator">
+          <span class="ch-num">05</span>
+          <span class="ch-status"></span>
+        </div>
+        <div class="channel-info">
+          <h3 class="ch-name">Technician TV</h3>
+          <p class="ch-desc">Tech tutorials & tool guides</p>
+        </div>
+        <span class="ch-icon">🔧</span>
+      </a>
+
+      <!-- CH.06 Tester -->
+      <a href="/category/Tester-Parksy/" class="channel-row" data-channel="6">
+        <div class="channel-indicator">
+          <span class="ch-num">06</span>
+          <span class="ch-status"></span>
+        </div>
+        <div class="channel-info">
+          <h3 class="ch-name">Tester TV</h3>
+          <p class="ch-desc">Experiments & testing protocols</p>
+        </div>
+        <span class="ch-icon">🧪</span>
+      </a>
+
+      <!-- CH.07 Protocol -->
+      <a href="/category/Protocol-Parksy/" class="channel-row" data-channel="7">
+        <div class="channel-indicator">
+          <span class="ch-num">07</span>
+          <span class="ch-status"></span>
+        </div>
+        <div class="channel-info">
+          <h3 class="ch-name">Protocol TV</h3>
+          <p class="ch-desc">Systems & structured frameworks</p>
+        </div>
+        <span class="ch-icon">📋</span>
+      </a>
+
+      <!-- CH.08 Orbit-Log -->
+      <a href="/category/Orbit-Log/" class="channel-row" data-channel="8">
+        <div class="channel-indicator">
+          <span class="ch-num">08</span>
+          <span class="ch-status live"></span>
+        </div>
+        <div class="channel-info">
+          <h3 class="ch-name">Orbit-Log TV</h3>
+          <p class="ch-desc">Analytics & tracking insights</p>
+        </div>
+        <span class="ch-icon">🌌</span>
+      </a>
     </div>
 
-    <div class="floor-content showroom">
-      <p class="showroom-intro">Select a Channel</p>
+    <!-- Channel Index -->
+    <div class="channel-index">
+      <h3 class="index-title">Category Index</h3>
+      <div class="index-grid">
+        <a href="/category/Philosopher-Parksy/" class="index-item">Philosophy</a>
+        <a href="/category/Blogger-Parksy/" class="index-item">Essay</a>
+        <a href="/category/Visualizer-Parksy/" class="index-item">Data</a>
+        <a href="/category/Musician-Parksy/" class="index-item">Music</a>
+        <a href="/category/Technician-Parksy/" class="index-item">Tech</a>
+        <a href="/category/Tester-Parksy/" class="index-item">Lab</a>
+        <a href="/category/Protocol-Parksy/" class="index-item">System</a>
+        <a href="/category/Orbit-Log/" class="index-item">Log</a>
+      </div>
+    </div>
+  </section>
 
-      <!-- Channel Grid -->
-      <div class="channel-grid">
-        <a href="/category/Philosopher-Parksy/" class="channel-card" data-channel="1">
-          <span class="channel-number">CH.01</span>
-          <span class="channel-name">Philosopher TV</span>
-          <span class="channel-desc">Deep thinking & philosophical perspectives</span>
-          <span class="channel-status">
-            <span class="status-dot ready"></span>
-            <span>Ready</span>
-          </span>
-        </a>
+  <!-- ═══════════════════════════════════════════════════════════════
+       B2 STUDIO - Engine & Workspace
+       ═══════════════════════════════════════════════════════════════ -->
+  <section class="floor-section" id="floor-studio">
+    <header class="floor-header">
+      <span class="floor-badge">B2</span>
+      <h2 class="floor-title">Studio</h2>
+      <p class="floor-desc">Content Engines & Workspace</p>
+    </header>
 
-        <a href="/category/Blogger-Parksy/" class="channel-card" data-channel="2">
-          <span class="channel-number">CH.02</span>
-          <span class="channel-name">Blogger TV</span>
-          <span class="channel-desc">Daily essays & personal stories</span>
-          <span class="channel-status">
-            <span class="status-dot ready"></span>
-            <span>Ready</span>
-          </span>
-        </a>
-
-        <a href="/category/Visualizer-Parksy/" class="channel-card" data-channel="3">
-          <span class="channel-number">CH.03</span>
-          <span class="channel-name">Visualizer TV</span>
-          <span class="channel-desc">Data visualization & infographics</span>
-          <span class="channel-status">
-            <span class="status-dot live"></span>
-            <span>LIVE</span>
-          </span>
-        </a>
-
-        <a href="/category/Musician-Parksy/" class="channel-card" data-channel="4">
-          <span class="channel-number">CH.04</span>
-          <span class="channel-name">Musician TV</span>
-          <span class="channel-desc">Music curation & audio experience</span>
-          <span class="channel-status">
-            <span class="status-dot ready"></span>
-            <span>Ready</span>
-          </span>
-        </a>
-
-        <a href="/category/Technician-Parksy/" class="channel-card" data-channel="5">
-          <span class="channel-number">CH.05</span>
-          <span class="channel-name">Technician TV</span>
-          <span class="channel-desc">Technical tutorials & how-to guides</span>
-          <span class="channel-status">
-            <span class="status-dot ready"></span>
-            <span>Ready</span>
-          </span>
-        </a>
-
-        <a href="/category/Tester-Parksy/" class="channel-card" data-channel="6">
-          <span class="channel-number">CH.06</span>
-          <span class="channel-name">Tester TV</span>
-          <span class="channel-desc">Testing protocols & experiments</span>
-          <span class="channel-status">
-            <span class="status-dot"></span>
-            <span>Offline</span>
-          </span>
-        </a>
-
-        <a href="/category/Protocol-Parksy/" class="channel-card" data-channel="7">
-          <span class="channel-number">CH.07</span>
-          <span class="channel-name">Protocol TV</span>
-          <span class="channel-desc">Structured systems & frameworks</span>
-          <span class="channel-status">
-            <span class="status-dot ready"></span>
-            <span>Ready</span>
-          </span>
-        </a>
-
-        <a href="/category/Orbit-Log/" class="channel-card" data-channel="8">
-          <span class="channel-number">CH.08</span>
-          <span class="channel-name">Orbit-Log TV</span>
-          <span class="channel-desc">Analytics & tracking insights</span>
-          <span class="channel-status">
-            <span class="status-dot live"></span>
-            <span>LIVE</span>
-          </span>
-        </a>
+    <!-- Engine Grid -->
+    <div class="engine-grid">
+      <!-- Claude Code Engine -->
+      <div class="engine-card primary">
+        <div class="engine-header">
+          <span class="engine-icon">🤖</span>
+          <span class="engine-status online">Online</span>
+        </div>
+        <h3 class="engine-name">Claude Code Engine</h3>
+        <p class="engine-desc">AI-powered code generation and content automation. Connect with local Python workflows.</p>
+        <div class="engine-actions">
+          <a href="https://claude.ai" target="_blank" class="engine-btn">Open Claude</a>
+          <button class="engine-btn secondary" data-action="instructions">View Instructions</button>
+        </div>
       </div>
 
-      <!-- Today's Schedule -->
-      <div class="schedule-section">
-        <h3 class="schedule-title">Today's Schedule</h3>
-        <div class="schedule-item">
-          <span class="schedule-time">09:00</span>
-          <span class="schedule-program">Morning Philosophy</span>
-          <span class="schedule-channel">CH.01</span>
+      <!-- Content Transform Engine -->
+      <div class="engine-card">
+        <div class="engine-header">
+          <span class="engine-icon">⚡</span>
+          <span class="engine-status online">Ready</span>
         </div>
-        <div class="schedule-item">
-          <span class="schedule-time">12:00</span>
-          <span class="schedule-program">Daily Blog</span>
-          <span class="schedule-channel">CH.02</span>
+        <h3 class="engine-name">Transform Engine</h3>
+        <p class="engine-desc">Convert raw ideas into structured broadcast content with persona & merit styles.</p>
+        <div class="engine-actions">
+          <button class="engine-btn" data-action="open-transform">Launch</button>
         </div>
-        <div class="schedule-item">
-          <span class="schedule-time">15:00</span>
-          <span class="schedule-program">Data Dive</span>
-          <span class="schedule-channel">CH.03</span>
+      </div>
+
+      <!-- Python Pipeline -->
+      <div class="engine-card">
+        <div class="engine-header">
+          <span class="engine-icon">🐍</span>
+          <span class="engine-status standby">Local</span>
         </div>
-        <div class="schedule-item">
-          <span class="schedule-time">18:00</span>
-          <span class="schedule-program">Tech Talk</span>
-          <span class="schedule-channel">CH.05</span>
+        <h3 class="engine-name">Python Pipeline</h3>
+        <p class="engine-desc">Local automation scripts for content processing, YouTube sync, and media handling.</p>
+        <div class="engine-actions">
+          <a href="/scripts/" class="engine-btn">View Scripts</a>
         </div>
-        <div class="schedule-item">
-          <span class="schedule-time">21:00</span>
-          <span class="schedule-program">Night Session</span>
-          <span class="schedule-channel">CH.08</span>
+      </div>
+
+      <!-- Factory System -->
+      <div class="engine-card">
+        <div class="engine-header">
+          <span class="engine-icon">🏭</span>
+          <span class="engine-status standby">System</span>
+        </div>
+        <h3 class="engine-name">Content Factory</h3>
+        <p class="engine-desc">Inbox → Process → Output workflow for systematic content production.</p>
+        <div class="engine-actions">
+          <a href="/FACTORY.json" class="engine-btn">Config</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Transform Workspace -->
+    <div class="workspace" id="transform-workspace">
+      <div class="workspace-header">
+        <h3 class="workspace-title">Transform Workspace</h3>
+        <button class="workspace-close">×</button>
+      </div>
+
+      <div class="workspace-body">
+        <!-- Persona Selection -->
+        <div class="selector-section">
+          <label class="selector-label">Voice Persona</label>
+          <div class="selector-grid personas">
+            <!-- Generated by JS -->
+          </div>
+        </div>
+
+        <!-- Merit Selection -->
+        <div class="selector-section">
+          <label class="selector-label">Merit Style</label>
+          <div class="selector-grid merits">
+            <!-- Generated by JS -->
+          </div>
+        </div>
+
+        <!-- Input -->
+        <div class="input-section">
+          <label class="input-label">Raw Input</label>
+          <textarea class="transform-input" placeholder="Paste your raw content, LLM response, or ideas here..."></textarea>
+        </div>
+
+        <!-- Transform Button -->
+        <button class="transform-btn" disabled>Select persona & merit to transform</button>
+
+        <!-- Output -->
+        <div class="output-section">
+          <label class="output-label">Transformed Output</label>
+          <div class="transform-output">
+            <p class="output-placeholder">Your transformed content will appear here...</p>
+          </div>
+          <div class="output-actions">
+            <button class="action-btn" data-action="copy" disabled>Copy</button>
+            <button class="action-btn" data-action="download" disabled>Download HTML</button>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════
-       FLOOR B2: Studio — AI Panel & Viewer Curation
+       B3 CONSOLE - Platform Integration
        ═══════════════════════════════════════════════════════════════ -->
-  <section class="floor floor-hidden" data-floor="2" id="floor-2">
-    <div class="floor-header">
-      <button class="back-to-entrance" aria-label="Back to lobby">↑ Lobby</button>
-      <h2 class="floor-title">B2 · Studio</h2>
+  <section class="floor-section" id="floor-console">
+    <header class="floor-header">
+      <span class="floor-badge">B3</span>
+      <h2 class="floor-title">Console</h2>
+      <p class="floor-desc">Platform Integration Hub</p>
+    </header>
+
+    <!-- Platform Grid -->
+    <div class="platform-grid">
+      <a href="https://studio.youtube.com" target="_blank" class="platform-card">
+        <span class="platform-icon">📺</span>
+        <span class="platform-name">YouTube Studio</span>
+        <span class="platform-desc">Channel management</span>
+      </a>
+
+      <a href="https://github.com/dtslib1979/parksy.kr" target="_blank" class="platform-card">
+        <span class="platform-icon">🔧</span>
+        <span class="platform-name">GitHub</span>
+        <span class="platform-desc">Code repository</span>
+      </a>
+
+      <a href="https://analytics.google.com" target="_blank" class="platform-card">
+        <span class="platform-icon">📊</span>
+        <span class="platform-name">Analytics</span>
+        <span class="platform-desc">Traffic insights</span>
+      </a>
+
+      <a href="https://notion.so" target="_blank" class="platform-card">
+        <span class="platform-icon">📝</span>
+        <span class="platform-name">Notion</span>
+        <span class="platform-desc">Documentation</span>
+      </a>
+
+      <a href="https://podcasters.spotify.com" target="_blank" class="platform-card">
+        <span class="platform-icon">🎵</span>
+        <span class="platform-name">Spotify</span>
+        <span class="platform-desc">Podcast & Music</span>
+      </a>
+
+      <a href="https://midjourney.com" target="_blank" class="platform-card">
+        <span class="platform-icon">🖼️</span>
+        <span class="platform-name">Midjourney</span>
+        <span class="platform-desc">Image generation</span>
+      </a>
+
+      <a href="https://claude.ai" target="_blank" class="platform-card">
+        <span class="platform-icon">🤖</span>
+        <span class="platform-name">Claude</span>
+        <span class="platform-desc">AI assistant</span>
+      </a>
+
+      <a href="https://canva.com" target="_blank" class="platform-card">
+        <span class="platform-icon">🎨</span>
+        <span class="platform-name">Canva</span>
+        <span class="platform-desc">Design tools</span>
+      </a>
     </div>
 
-    <div class="floor-content laboratory">
-      <!-- Panel Stage -->
-      <div class="studio-section">
-        <p class="studio-label">Panel Stage</p>
-        <div class="panel-stage">
-          <div class="panelist active">
-            <div class="panelist-avatar">🎙️</div>
-            <span class="panelist-name">PARKSY</span>
-            <span class="panelist-role">HOST</span>
-          </div>
-          <div class="panelist ai">
-            <div class="panelist-avatar">🤖</div>
-            <span class="panelist-name">Claude AI</span>
-            <span class="panelist-role">ANALYST</span>
-          </div>
-          <div class="panelist ai">
-            <div class="panelist-avatar">🧠</div>
-            <span class="panelist-name">GPT</span>
-            <span class="panelist-role">DEBATER</span>
-          </div>
-          <div class="panelist">
-            <div class="panelist-avatar">👤</div>
-            <span class="panelist-name">YOU</span>
-            <span class="panelist-role">VIEWER</span>
-          </div>
-        </div>
+    <!-- Trilogy Links -->
+    <div class="trilogy-section">
+      <h3 class="trilogy-title">DTSLIB Trilogy</h3>
+      <div class="trilogy-grid">
+        <a href="https://parksy.kr" class="trilogy-card active">
+          <span class="trilogy-domain">parksy.kr</span>
+          <span class="trilogy-role">Broadcast</span>
+        </a>
+        <a href="https://eae.kr" target="_blank" class="trilogy-card">
+          <span class="trilogy-domain">eae.kr</span>
+          <span class="trilogy-role">Philosophy</span>
+        </a>
+        <a href="https://dtslib.kr" target="_blank" class="trilogy-card">
+          <span class="trilogy-domain">dtslib.kr</span>
+          <span class="trilogy-role">Publishing</span>
+        </a>
       </div>
+    </div>
+  </section>
 
-      <!-- Persona Selector -->
-      <div class="lab-section">
-        <p class="lab-label">Voice Persona — Who do you want to sound like?</p>
-        <div class="selector-grid personas" role="group" aria-label="Select persona">
-          <!-- Generated by JS -->
+  <!-- ═══════════════════════════════════════════════════════════════
+       B4 OFFICE - Strategy & Planning (Locked)
+       ═══════════════════════════════════════════════════════════════ -->
+  <section class="floor-section locked" id="floor-office">
+    <header class="floor-header">
+      <span class="floor-badge">B4</span>
+      <h2 class="floor-title">Office</h2>
+      <p class="floor-desc">Strategy & Planning Room</p>
+    </header>
+
+    <!-- Lock Screen -->
+    <div class="lock-screen" id="office-lock">
+      <div class="lock-icon">🔒</div>
+      <p class="lock-message">Authorized personnel only</p>
+      <input type="password" class="lock-input" placeholder="Enter access code" autocomplete="off">
+      <button class="lock-submit">Unlock</button>
+      <p class="lock-hint">Hint: host name</p>
+    </div>
+
+    <!-- Office Content (hidden until unlocked) -->
+    <div class="office-content" style="display: none;">
+      <div class="office-grid">
+        <!-- Strategy Board -->
+        <div class="office-card">
+          <h3 class="office-card-title">📋 Strategy Board</h3>
+          <ul class="strategy-list">
+            <li>Content calendar planning</li>
+            <li>Channel growth metrics</li>
+            <li>Audience analysis</li>
+            <li>Revenue streams</li>
+          </ul>
         </div>
-      </div>
 
-      <!-- Merit Selector -->
-      <div class="lab-section">
-        <p class="lab-label">Merit Style — What flavor to add?</p>
-        <div class="selector-grid merits" role="group" aria-label="Select merit">
-          <!-- Generated by JS -->
+        <!-- Meeting Notes -->
+        <div class="office-card">
+          <h3 class="office-card-title">📝 Meeting Notes</h3>
+          <p class="office-note">Weekly review and planning sessions documented here.</p>
+          <a href="/docs/meetings/" class="office-link">View Notes →</a>
         </div>
-      </div>
 
-      <!-- Viewer Input Area -->
-      <div class="studio-section">
-        <div class="viewer-input-area">
-          <div class="viewer-input-header">
-            <span class="viewer-input-title">Your Opinion</span>
-            <span class="ai-badge">
-              <span>✨</span>
-              AI Curation
-            </span>
-          </div>
-          <textarea
-            class="viewer-textarea lab-textarea"
-            placeholder="Share your thoughts here...
-
-Paste any LLM response, memo, or idea.
-AI will curate it into broadcast-ready format."
-            aria-label="Input text for curation"
-            spellcheck="false"
-          ></textarea>
-
-          <!-- Format Selector -->
-          <div class="format-selector">
-            <button class="format-btn active" data-format="panel">Panel Comment</button>
-            <button class="format-btn" data-format="news">News Style</button>
-            <button class="format-btn" data-format="debate">Debate Point</button>
-            <button class="format-btn" data-format="summary">Summary</button>
-          </div>
-
-          <button class="lab-process-btn" disabled>
-            ↑ Select persona & merit above
-          </button>
-
-          <!-- Curation Output -->
-          <div class="curation-output">
-            <div class="curation-header">
-              <span>🎬</span>
-              <span>Curated Output</span>
+        <!-- KPIs -->
+        <div class="office-card">
+          <h3 class="office-card-title">📊 KPI Dashboard</h3>
+          <div class="kpi-grid">
+            <div class="kpi-item">
+              <span class="kpi-value">8</span>
+              <span class="kpi-label">Channels</span>
             </div>
-            <div class="curation-content lab-output">
-              <p class="curation-empty">Your curated broadcast will appear here...</p>
+            <div class="kpi-item">
+              <span class="kpi-value">∞</span>
+              <span class="kpi-label">Potential</span>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Output Actions -->
-      <div class="lab-actions">
-        <button class="action-btn" data-action="copy" disabled>
-          Copy to Clipboard
-        </button>
-        <button class="action-btn" data-action="download" disabled>
-          Download as HTML
-        </button>
+        <!-- Roadmap -->
+        <div class="office-card full-width">
+          <h3 class="office-card-title">🗺️ Roadmap</h3>
+          <div class="roadmap">
+            <div class="roadmap-item done">Phase 1: Platform Setup ✓</div>
+            <div class="roadmap-item active">Phase 2: Content Engine</div>
+            <div class="roadmap-item">Phase 3: Community Building</div>
+            <div class="roadmap-item">Phase 4: Monetization</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
-
-  <!-- ═══════════════════════════════════════════════════════════════
-       FLOOR B3: Console — Broadcast Control Room
-       ═══════════════════════════════════════════════════════════════ -->
-  <section class="floor floor-hidden" data-floor="3" id="floor-3">
-    <div class="floor-header">
-      <button class="back-to-entrance" aria-label="Back to lobby">↑ Lobby</button>
-      <h2 class="floor-title">B3 · Console</h2>
-    </div>
-
-    <div class="floor-content console">
-      <p class="console-subtitle">Broadcast Control Room</p>
-
-      <!-- Status Dashboard -->
-      <div class="broadcast-status">
-        <div class="status-card">
-          <div class="status-value">8</div>
-          <div class="status-label">Channels</div>
-        </div>
-        <div class="status-card">
-          <div class="status-value">2</div>
-          <div class="status-label">Live Now</div>
-        </div>
-        <div class="status-card">
-          <div class="status-value">∞</div>
-          <div class="status-label">Potential</div>
-        </div>
-      </div>
-
-      <div class="console-grid">
-        <!-- YouTube Studio -->
-        <a href="https://studio.youtube.com" target="_blank" rel="noopener" class="console-card">
-          <span class="console-icon">📺</span>
-          <span class="console-name">YouTube Studio</span>
-          <span class="console-desc">Channel · Analytics</span>
-        </a>
-
-        <!-- OBS / Broadcasting -->
-        <a href="https://obsproject.com" target="_blank" rel="noopener" class="console-card">
-          <span class="console-icon">🎬</span>
-          <span class="console-name">OBS Studio</span>
-          <span class="console-desc">Live · Recording</span>
-        </a>
-
-        <!-- GitHub -->
-        <a href="https://github.com/dtslib1979/parksy.kr" target="_blank" rel="noopener" class="console-card">
-          <span class="console-icon">🔧</span>
-          <span class="console-name">GitHub Repo</span>
-          <span class="console-desc">Code · Deploy</span>
-        </a>
-
-        <!-- Analytics -->
-        <a href="https://analytics.google.com" target="_blank" rel="noopener" class="console-card">
-          <span class="console-icon">📊</span>
-          <span class="console-name">Analytics</span>
-          <span class="console-desc">Traffic · Stats</span>
-        </a>
-
-        <!-- Notion -->
-        <a href="https://notion.so" target="_blank" rel="noopener" class="console-card">
-          <span class="console-icon">📝</span>
-          <span class="console-name">Notion</span>
-          <span class="console-desc">Planning · Docs</span>
-        </a>
-
-        <!-- Spotify -->
-        <a href="https://podcasters.spotify.com" target="_blank" rel="noopener" class="console-card">
-          <span class="console-icon">🎵</span>
-          <span class="console-name">Spotify</span>
-          <span class="console-desc">Podcast · Music</span>
-        </a>
-
-        <!-- Claude -->
-        <a href="https://claude.ai" target="_blank" rel="noopener" class="console-card">
-          <span class="console-icon">🤖</span>
-          <span class="console-name">Claude AI</span>
-          <span class="console-desc">AI Assistant</span>
-        </a>
-
-        <!-- Midjourney -->
-        <a href="https://midjourney.com" target="_blank" rel="noopener" class="console-card">
-          <span class="console-icon">🖼️</span>
-          <span class="console-name">Midjourney</span>
-          <span class="console-desc">Image Generation</span>
-        </a>
-
-        <!-- Canva -->
-        <a href="https://canva.com" target="_blank" rel="noopener" class="console-card">
-          <span class="console-icon">🎨</span>
-          <span class="console-name">Canva</span>
-          <span class="console-desc">Design · Thumbnails</span>
-        </a>
-      </div>
-
-      <div class="console-divider"></div>
-
-      <div class="console-trilogy">
-        <p class="trilogy-label">Trilogy</p>
-        <div class="trilogy-links">
-          <a href="https://parksy.kr" class="trilogy-link active">parksy.kr — Broadcast</a>
-          <a href="https://eae.kr" class="trilogy-link" target="_blank" rel="noopener">eae.kr — Philosophy</a>
-          <a href="https://dtslib.kr" class="trilogy-link" target="_blank" rel="noopener">dtslib.kr — Publishing</a>
-        </div>
-      </div>
-
-      <p class="console-warning">
-        🔒 Admin access only
-      </p>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════════════
-       GATE MODAL: Password Entry
-       ═══════════════════════════════════════════════════════════════ -->
-  <div class="gate-overlay" id="gate-overlay" aria-hidden="true">
-    <div class="gate-modal">
-      <div class="gate-icon">🚪</div>
-      <h3 class="gate-title">Floor <span class="gate-floor-target">B1</span></h3>
-      <p class="gate-hint">Hint: <span class="gate-hint-text"></span></p>
-      <input type="text" class="gate-input" id="gate-input" placeholder="Enter code" autocomplete="off">
-      <p class="gate-error" id="gate-error"></p>
-      <div class="gate-buttons">
-        <button class="gate-btn gate-cancel">Cancel</button>
-        <button class="gate-btn gate-submit">Enter</button>
-      </div>
-    </div>
-  </div>
 
   <!-- ═══════════════════════════════════════════════════════════════
        SCRIPTS
        ═══════════════════════════════════════════════════════════════ -->
-  <script src="/design/floor-system.js"></script>
-
-  <!-- noscript fallback -->
-  <noscript>
-    <style>
-      .floor-hidden { display: block !important; opacity: 1 !important; }
-      .floor-gate .gate-lock { display: none; }
-      .gate-overlay { display: none; }
-    </style>
-    <div style="position:fixed;bottom:0;left:0;right:0;padding:1rem;background:#1a1a1a;color:#888;text-align:center;font-size:0.9rem;z-index:9999;">
-      JavaScript is disabled. Enable JavaScript for full functionality.
-    </div>
-  </noscript>
+  <script src="/design/elevator-system.js"></script>
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -512,7 +582,6 @@ AI will curate it into broadcast-ready format."
     "description": "AI-Powered Media Station — Be a panelist with AI",
     "url": "https://parksy.kr",
     "applicationCategory": "Entertainment",
-    "operatingSystem": "Web Browser",
     "author": {
       "@type": "Person",
       "name": "UncleParksy"
