@@ -1,7 +1,7 @@
 /**
  * ═══════════════════════════════════════════════════════════════
- * FLOOR SYSTEM - 층 기반 네비게이션
- * 입구에서 각 층으로 이동하는 구조
+ * FLOOR SYSTEM - Broadcasting Station Navigation
+ * Navigate from lobby to each floor (channel, studio, console)
  * ═══════════════════════════════════════════════════════════════
  */
 
@@ -9,43 +9,54 @@
   'use strict';
 
   // ─────────────────────────────────────────────────────────────
-  // 설정
+  // Configuration
   // ─────────────────────────────────────────────────────────────
   const FLOORS = {
-    1: { code: '1', name: 'B1 · 쇼룸' },
-    2: { code: '2', name: 'B2 · 실험실' },
-    3: { code: 'parksy', name: 'B3 · 콘솔' }
+    1: { code: '1', name: 'B1 · Channels' },
+    2: { code: '2', name: 'B2 · Studio' },
+    3: { code: 'parksy', name: 'B3 · Console' }
   };
 
   const PERSONAS = [
-    { id: 'philosopher', name: '철학자 박씨', icon: '🤔', desc: '본질을 파고드는 사유', archiveUrl: '/category/Philosopher-Parksy/' },
-    { id: 'blogger', name: '블로거 박씨', icon: '📝', desc: '일상의 기록과 에세이', archiveUrl: '/category/Blogger-Parksy/' },
-    { id: 'visualizer', name: '시각화사 박씨', icon: '🎨', desc: '데이터와 개념의 시각화', archiveUrl: '/category/Visualizer-Parksy/' },
-    { id: 'musician', name: '뮤지션 박씨', icon: '🎵', desc: '음악 큐레이션과 감상', archiveUrl: '/category/Musician-Parksy/' },
-    { id: 'technician', name: '기능인 박씨', icon: '🔧', desc: '기술 튜토리얼과 도구', archiveUrl: '/category/Technician-Parksy/' }
+    { id: 'philosopher', name: 'Philosopher', icon: '🤔', desc: 'Deep thinking & insight', archiveUrl: '/category/Philosopher-Parksy/' },
+    { id: 'blogger', name: 'Blogger', icon: '📝', desc: 'Daily essays & stories', archiveUrl: '/category/Blogger-Parksy/' },
+    { id: 'visualizer', name: 'Visualizer', icon: '🎨', desc: 'Data & concept visuals', archiveUrl: '/category/Visualizer-Parksy/' },
+    { id: 'musician', name: 'Musician', icon: '🎵', desc: 'Music curation & experience', archiveUrl: '/category/Musician-Parksy/' },
+    { id: 'technician', name: 'Technician', icon: '🔧', desc: 'Tech tutorials & tools', archiveUrl: '/category/Technician-Parksy/' },
+    { id: 'tester', name: 'Tester', icon: '🧪', desc: 'Testing & experiments', archiveUrl: '/category/Tester-Parksy/' },
+    { id: 'protocol', name: 'Protocol', icon: '📋', desc: 'Systems & frameworks', archiveUrl: '/category/Protocol-Parksy/' },
+    { id: 'orbit', name: 'Orbit-Log', icon: '🌌', desc: 'Analytics & tracking', archiveUrl: '/category/Orbit-Log/' }
   ];
 
   const MERITS = [
-    { id: 'bluff', name: 'Bluff', desc: '허세와 과장의 미학' },
-    { id: 'halfblood', name: 'Halfblood', desc: '경계인의 관점' },
-    { id: 'aggro', name: 'Aggro', desc: '공격적 직설화법' },
-    { id: 'shaman', name: 'Shaman', desc: '영적이고 신비로운' }
+    { id: 'bluff', name: 'Bluff', desc: 'Bold overstatement style' },
+    { id: 'halfblood', name: 'Halfblood', desc: 'Borderline perspective' },
+    { id: 'aggro', name: 'Aggro', desc: 'Aggressive directness' },
+    { id: 'shaman', name: 'Shaman', desc: 'Mystical & spiritual' }
+  ];
+
+  const FORMATS = [
+    { id: 'panel', name: 'Panel Comment', desc: 'TV panel discussion style' },
+    { id: 'news', name: 'News Style', desc: 'Broadcast news format' },
+    { id: 'debate', name: 'Debate Point', desc: 'Structured argument' },
+    { id: 'summary', name: 'Summary', desc: 'Concise key points' }
   ];
 
   const STORAGE_KEY = 'parksy-unlocked-floors';
 
   // ─────────────────────────────────────────────────────────────
-  // 상태
+  // State
   // ─────────────────────────────────────────────────────────────
   let unlockedFloors = new Set();
   let currentFloor = null;
   let pendingFloor = null;
   let selectedPersona = null;
   let selectedMerit = null;
+  let selectedFormat = 'panel';
   let lastOutput = '';
 
   // ─────────────────────────────────────────────────────────────
-  // DOM 요소
+  // DOM Elements
   // ─────────────────────────────────────────────────────────────
   const entrance = document.getElementById('entrance');
   const floors = document.querySelectorAll('.floor');
@@ -61,7 +72,7 @@
   const particles = document.querySelector('.particles');
 
   // ─────────────────────────────────────────────────────────────
-  // 초기화
+  // Initialization
   // ─────────────────────────────────────────────────────────────
   function init() {
     loadUnlockedFloors();
@@ -70,10 +81,11 @@
     setupGateModal();
     setupBackButtons();
     createParticles();
-    setupLaboratory();
+    setupStudio();
+    setupFormatSelector();
     initAmbientAudio();
 
-    // URL hash 체크
+    // Check URL hash
     const hash = window.location.hash;
     if (hash && hash.startsWith('#floor-')) {
       const floorNum = parseInt(hash.replace('#floor-', ''));
@@ -84,7 +96,7 @@
   }
 
   // ─────────────────────────────────────────────────────────────
-  // 잠금 상태 관리
+  // Unlock State Management
   // ─────────────────────────────────────────────────────────────
   function loadUnlockedFloors() {
     try {
@@ -124,7 +136,7 @@
   }
 
   // ─────────────────────────────────────────────────────────────
-  // 층 게이트 설정
+  // Floor Gate Setup
   // ─────────────────────────────────────────────────────────────
   function setupFloorGates() {
     floorGates.forEach(gate => {
@@ -132,10 +144,10 @@
         const floorNum = parseInt(gate.dataset.floor);
 
         if (unlockedFloors.has(floorNum)) {
-          // 이미 해제됨 - 바로 이동
+          // Already unlocked - navigate directly
           navigateToFloor(floorNum);
         } else {
-          // 게이트 모달 표시
+          // Show gate modal
           showGateModal(floorNum, gate.dataset.hint);
         }
       });
@@ -143,7 +155,7 @@
   }
 
   // ─────────────────────────────────────────────────────────────
-  // 게이트 모달
+  // Gate Modal
   // ─────────────────────────────────────────────────────────────
   function setupGateModal() {
     gateSubmit.addEventListener('click', submitGate);
@@ -189,31 +201,31 @@
     const input = gateInput.value.toLowerCase().trim();
 
     if (input === floor.code.toLowerCase()) {
-      // 정답
+      // Correct
       unlockFloor(pendingFloor);
       hideGateModal();
       navigateToFloor(pendingFloor);
     } else {
-      // 오답
-      gateError.textContent = '잘못된 암호입니다';
+      // Wrong
+      gateError.textContent = 'Invalid code';
       gateInput.classList.add('shake');
       setTimeout(() => gateInput.classList.remove('shake'), 500);
     }
   }
 
   // ─────────────────────────────────────────────────────────────
-  // 층 네비게이션
+  // Floor Navigation
   // ─────────────────────────────────────────────────────────────
   function navigateToFloor(floorNum) {
     currentFloor = floorNum;
 
-    // 입구 숨기기
+    // Hide entrance
     entrance.classList.add('hidden');
 
-    // 모든 층 숨기기
+    // Hide all floors
     floors.forEach(f => f.classList.add('floor-hidden'));
 
-    // 해당 층 표시
+    // Show target floor
     const floor = document.getElementById(`floor-${floorNum}`);
     if (floor) {
       floor.classList.remove('floor-hidden');
@@ -225,10 +237,10 @@
   function navigateToEntrance() {
     currentFloor = null;
 
-    // 모든 층 숨기기
+    // Hide all floors
     floors.forEach(f => f.classList.add('floor-hidden'));
 
-    // 입구 표시
+    // Show entrance
     entrance.classList.remove('hidden');
     window.scrollTo(0, 0);
     history.pushState(null, '', '/');
@@ -239,7 +251,7 @@
       btn.addEventListener('click', navigateToEntrance);
     });
 
-    // 브라우저 뒤로가기 처리
+    // Browser back button handling
     window.addEventListener('popstate', () => {
       const hash = window.location.hash;
       if (hash && hash.startsWith('#floor-')) {
@@ -256,7 +268,7 @@
   }
 
   // ─────────────────────────────────────────────────────────────
-  // 파티클 효과
+  // Particle Effects
   // ─────────────────────────────────────────────────────────────
   function createParticles() {
     if (!particles) return;
@@ -273,22 +285,34 @@
   }
 
   // ─────────────────────────────────────────────────────────────
-  // 실험실 기능
+  // Format Selector
   // ─────────────────────────────────────────────────────────────
-  function setupLaboratory() {
+  function setupFormatSelector() {
+    const formatBtns = document.querySelectorAll('.format-btn');
+    formatBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        formatBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedFormat = btn.dataset.format;
+      });
+    });
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // Studio (B2) - Viewer Curation
+  // ─────────────────────────────────────────────────────────────
+  function setupStudio() {
     const personasGrid = document.querySelector('.selector-grid.personas');
     const meritsGrid = document.querySelector('.selector-grid.merits');
     const textarea = document.querySelector('.lab-textarea');
     const processBtn = document.querySelector('.lab-process-btn');
-    const outputArea = document.querySelector('.lab-output-area');
     const output = document.querySelector('.lab-output');
-    const outputMeta = document.querySelector('.lab-output-meta');
     const copyBtn = document.querySelector('[data-action="copy"]');
     const downloadBtn = document.querySelector('[data-action="download"]');
 
     if (!personasGrid || !meritsGrid) return;
 
-    // Persona 버튼 생성
+    // Create Persona buttons
     PERSONAS.forEach(p => {
       const btn = document.createElement('button');
       btn.className = 'selector-btn';
@@ -313,7 +337,7 @@
       personasGrid.appendChild(btn);
     });
 
-    // Merit 버튼 생성
+    // Create Merit buttons
     MERITS.forEach(m => {
       const btn = document.createElement('button');
       btn.className = 'selector-btn';
@@ -336,45 +360,42 @@
     function updateProcessButton() {
       if (selectedPersona && selectedMerit) {
         processBtn.disabled = false;
-        processBtn.textContent = `${selectedPersona.name} × ${selectedMerit.name}로 변환`;
+        processBtn.textContent = `Curate as ${selectedPersona.name} × ${selectedMerit.name}`;
       }
     }
 
-    // 변환 처리
+    // Process transformation
     if (processBtn) {
       processBtn.addEventListener('click', () => {
         if (!selectedPersona || !selectedMerit || !textarea) return;
 
         const inputText = textarea.value.trim();
         if (!inputText) {
-          output.textContent = '변환할 텍스트를 입력하세요.';
-          outputArea.classList.add('has-content');
+          output.innerHTML = '<p class="curation-empty">Enter text to curate.</p>';
           return;
         }
 
-        // 간단한 변환 로직 (실제로는 더 정교한 변환이 필요)
-        const transformed = transformText(inputText, selectedPersona, selectedMerit);
+        // Transform text
+        const transformed = transformText(inputText, selectedPersona, selectedMerit, selectedFormat);
 
         lastOutput = transformed;
-        output.textContent = transformed;
-        outputMeta.textContent = `${selectedPersona.name} × ${selectedMerit.name} | ${new Date().toLocaleTimeString()}`;
-        outputArea.classList.add('has-content');
+        output.innerHTML = `<p>${transformed.replace(/\n/g, '</p><p>')}</p>`;
 
-        // 액션 버튼 활성화
+        // Enable action buttons
         if (copyBtn) copyBtn.disabled = false;
         if (downloadBtn) downloadBtn.disabled = false;
       });
     }
 
-    // 복사 버튼
+    // Copy button
     if (copyBtn) {
       copyBtn.addEventListener('click', async () => {
         if (!lastOutput) return;
         try {
           await navigator.clipboard.writeText(lastOutput);
-          copyBtn.textContent = '복사됨!';
+          copyBtn.textContent = 'Copied!';
           setTimeout(() => {
-            copyBtn.textContent = '클립보드에 복사';
+            copyBtn.textContent = 'Copy to Clipboard';
           }, 2000);
         } catch (e) {
           console.error('Copy failed:', e);
@@ -382,12 +403,12 @@
       });
     }
 
-    // 다운로드 버튼
+    // Download button
     if (downloadBtn) {
       downloadBtn.addEventListener('click', () => {
         if (!lastOutput) return;
 
-        const html = generateHTML(lastOutput, selectedPersona, selectedMerit);
+        const html = generateHTML(lastOutput, selectedPersona, selectedMerit, selectedFormat);
         const blob = new Blob([html], { type: 'text/html' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -399,49 +420,62 @@
     }
   }
 
-  function transformText(text, persona, merit) {
-    // 간단한 변환 예시
+  function transformText(text, persona, merit, format) {
     let transformed = text;
 
-    // Merit에 따른 스타일 변환
+    // Format-based transformation
+    switch (format) {
+      case 'panel':
+        transformed = `[${persona.name}]: "${text}"`;
+        break;
+      case 'news':
+        transformed = `BREAKING: ${text.split('.')[0]}. According to ${persona.name}, ${text.substring(text.indexOf('.') + 1).trim() || text}`;
+        break;
+      case 'debate':
+        transformed = `POINT: ${text}\n\nCONTEXT: As ${persona.name} would argue, this perspective represents...`;
+        break;
+      case 'summary':
+        const sentences = text.split('.').filter(s => s.trim());
+        transformed = `KEY POINTS:\n${sentences.slice(0, 3).map((s, i) => `${i + 1}. ${s.trim()}`).join('\n')}`;
+        break;
+    }
+
+    // Merit-based style transformation
     switch (merit.id) {
       case 'bluff':
-        transformed = text.split('.').map(s => s.trim()).filter(s => s)
-          .map(s => `${s}... 그렇다.`).join(' ');
+        transformed = transformed.replace(/\./g, '... obviously.');
         break;
       case 'halfblood':
-        transformed = `[${persona.name}의 시선으로]\n\n${text}\n\n— 경계에서 바라보며`;
+        transformed = `[From the borderline]\n\n${transformed}\n\n— watching from the edge`;
         break;
       case 'aggro':
-        transformed = text.toUpperCase().replace(/\./g, '!');
+        transformed = transformed.toUpperCase().replace(/\./g, '!');
         break;
       case 'shaman':
-        transformed = `✦ ${text.split('.').join('.\n✦ ')}`;
+        transformed = `✦ ${transformed.split('.').join('.\n✦ ')}`;
         break;
-      default:
-        transformed = text;
     }
 
     return transformed;
   }
 
-  function generateHTML(content, persona, merit) {
+  function generateHTML(content, persona, merit, format) {
     return `<!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${persona.name} × ${merit.name} | Parksy Engine</title>
+  <title>${persona.name} × ${merit.name} | PARKSY Broadcasting</title>
   <style>
     :root {
       --bg: #0a0a0a;
       --text: #e8e4dc;
-      --accent: #ff6b35;
+      --accent: #e63946;
     }
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'Noto Serif KR', serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       max-width: 800px;
       margin: 0 auto;
       padding: 2rem;
@@ -452,6 +486,15 @@
       color: var(--accent);
       margin-bottom: 2rem;
       font-family: monospace;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .badge {
+      background: var(--accent);
+      color: white;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.7rem;
     }
     .content {
       white-space: pre-wrap;
@@ -459,20 +502,23 @@
   </style>
 </head>
 <body>
-  <div class="meta">${persona.name} × ${merit.name} | Generated by Parksy Engine</div>
+  <div class="meta">
+    <span class="badge">${format.toUpperCase()}</span>
+    ${persona.name} × ${merit.name} | Generated by PARKSY Broadcasting
+  </div>
   <div class="content">${content}</div>
 </body>
 </html>`;
   }
 
   // ─────────────────────────────────────────────────────────────
-  // 앰비언트 오디오
+  // Ambient Audio
   // ─────────────────────────────────────────────────────────────
   let audioContext = null;
   let isAudioStarted = false;
 
   function initAmbientAudio() {
-    // 사용자 인터랙션 시 시작
+    // Start on user interaction
     document.addEventListener('click', startAudio, { once: true });
     document.addEventListener('touchstart', startAudio, { once: true });
   }
@@ -483,7 +529,7 @@
     try {
       audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
-      // 저주파 드론
+      // Low frequency drone
       const drone = audioContext.createOscillator();
       drone.type = 'sine';
       drone.frequency.value = 55; // A1
@@ -512,7 +558,7 @@
   }
 
   // ─────────────────────────────────────────────────────────────
-  // 실행
+  // Run
   // ─────────────────────────────────────────────────────────────
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
