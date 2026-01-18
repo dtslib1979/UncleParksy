@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2025-01-18T00:00:00Z",
+  "target_repo": "dtslib1979/studio-engine",
+  "status": {
+    "connection": "pending",
+    "last_dispatch": null,
+    "queue_count": 0
+  },
+  "queue": [],
+  "history": [],
+  "stats": {
+    "total_dispatched": 0,
+    "total_completed": 0,
+    "total_failed": 0
+  }
+}

@@ -422,6 +422,98 @@
   }
 
   // ─────────────────────────────────────────────────────────────
+  // PO Dispatch System (Flag/Placeholder)
+  // ─────────────────────────────────────────────────────────────
+  function setupPODispatch() {
+    const openPOBtn = document.querySelector('[data-action="open-po"]');
+    const poPanel = document.getElementById('po-panel');
+    const poTypeBtns = document.querySelectorAll('.po-type-btn');
+    const poPriorityBtns = document.querySelectorAll('.po-priority-btn');
+    const dispatchBtn = document.querySelector('[data-action="dispatch"]');
+    const saveDraftBtn = document.querySelector('[data-action="save-draft"]');
+
+    let selectedType = null;
+    let selectedPriority = 'normal';
+
+    if (!poPanel) return;
+
+    // Open PO Panel
+    if (openPOBtn) {
+      openPOBtn.addEventListener('click', () => {
+        poPanel.scrollIntoView({ behavior: 'smooth' });
+      });
+    }
+
+    // Type Selection
+    poTypeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        poTypeBtns.forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        selectedType = btn.dataset.type;
+        updateDispatchButton();
+      });
+    });
+
+    // Priority Selection
+    poPriorityBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        poPriorityBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedPriority = btn.dataset.priority;
+      });
+    });
+
+    function updateDispatchButton() {
+      if (dispatchBtn) {
+        // For now, keep disabled as system is pending
+        // In future: dispatchBtn.disabled = !selectedType;
+        dispatchBtn.disabled = true;
+      }
+    }
+
+    // Save Draft (placeholder)
+    if (saveDraftBtn) {
+      saveDraftBtn.addEventListener('click', () => {
+        const poData = collectPOData();
+        console.log('PO Draft:', poData);
+        alert('Draft saved locally. Full dispatch requires studio-engine setup.');
+      });
+    }
+
+    // Dispatch (placeholder)
+    if (dispatchBtn) {
+      dispatchBtn.addEventListener('click', () => {
+        const poData = collectPOData();
+        console.log('PO Dispatch Request:', poData);
+        alert('Dispatch pending. Connect studio-engine repository to enable.');
+      });
+    }
+
+    function collectPOData() {
+      const now = new Date();
+      const dateStr = now.toISOString().slice(0, 10).replace(/-/g, '');
+      const seq = String(Math.floor(Math.random() * 10000)).padStart(4, '0');
+
+      return {
+        id: `PO-${dateStr}-${seq}`,
+        type: selectedType,
+        priority: selectedPriority,
+        channel: document.getElementById('po-channel')?.value || 'all',
+        status: 'draft',
+        created_at: now.toISOString(),
+        payload: {
+          title: document.getElementById('po-title')?.value || '',
+          description: document.getElementById('po-payload')?.value || ''
+        },
+        target_repo: 'dtslib1979/studio-engine'
+      };
+    }
+  }
+
+  // Initialize PO System
+  setupPODispatch();
+
+  // ─────────────────────────────────────────────────────────────
   // Handle Browser Navigation
   // ─────────────────────────────────────────────────────────────
   window.addEventListener('popstate', () => {

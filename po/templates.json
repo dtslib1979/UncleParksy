@@ -1,0 +1,136 @@
+{
+  "templates": {
+    "content_transform": {
+      "name": "Content Transform",
+      "description": "Transform raw content using persona × merit engine",
+      "icon": "⚡",
+      "default_payload": {
+        "title": "Content Transform Order",
+        "input": {
+          "source_type": "text",
+          "content": ""
+        },
+        "output": {
+          "format": "html",
+          "destination": "/output/transformed/"
+        },
+        "params": {
+          "persona": null,
+          "merit": null,
+          "format_style": "panel"
+        }
+      }
+    },
+    "video_render": {
+      "name": "Video Render",
+      "description": "Render video content for YouTube upload",
+      "icon": "🎬",
+      "default_payload": {
+        "title": "Video Render Order",
+        "input": {
+          "source_type": "script",
+          "content": ""
+        },
+        "output": {
+          "format": "mp4",
+          "destination": "/output/videos/"
+        },
+        "params": {
+          "resolution": "1080p",
+          "duration": null,
+          "thumbnail": true
+        }
+      }
+    },
+    "image_generate": {
+      "name": "Image Generate",
+      "description": "Generate images via Midjourney or DALL-E",
+      "icon": "🖼️",
+      "default_payload": {
+        "title": "Image Generation Order",
+        "input": {
+          "source_type": "prompt",
+          "content": ""
+        },
+        "output": {
+          "format": "png",
+          "destination": "/output/images/"
+        },
+        "params": {
+          "engine": "midjourney",
+          "style": null,
+          "count": 4
+        }
+      }
+    },
+    "batch_publish": {
+      "name": "Batch Publish",
+      "description": "Publish multiple content items across channels",
+      "icon": "📤",
+      "default_payload": {
+        "title": "Batch Publish Order",
+        "input": {
+          "source_type": "manifest",
+          "items": []
+        },
+        "output": {
+          "format": "json",
+          "destination": "/output/published/"
+        },
+        "params": {
+          "platforms": ["youtube", "github", "notion"],
+          "schedule": null
+        }
+      }
+    },
+    "data_sync": {
+      "name": "Data Sync",
+      "description": "Synchronize data between platforms",
+      "icon": "🔄",
+      "default_payload": {
+        "title": "Data Sync Order",
+        "input": {
+          "source_type": "api",
+          "endpoints": []
+        },
+        "output": {
+          "format": "json",
+          "destination": "/data/"
+        },
+        "params": {
+          "direction": "pull",
+          "merge_strategy": "overwrite"
+        }
+      }
+    }
+  },
+  "quick_orders": [
+    {
+      "id": "transform_blog",
+      "template": "content_transform",
+      "name": "Quick Blog Transform",
+      "preset": {
+        "persona": "blogger",
+        "merit": "halfblood"
+      }
+    },
+    {
+      "id": "transform_philosophy",
+      "template": "content_transform",
+      "name": "Quick Philosophy Transform",
+      "preset": {
+        "persona": "philosopher",
+        "merit": "shaman"
+      }
+    },
+    {
+      "id": "youtube_sync",
+      "template": "data_sync",
+      "name": "YouTube Sync",
+      "preset": {
+        "endpoints": ["youtube"],
+        "direction": "pull"
+      }
+    }
+  ]
+}
