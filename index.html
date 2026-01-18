@@ -368,6 +368,119 @@
           <a href="/FACTORY.json" class="engine-btn">Config</a>
         </div>
       </div>
+
+      <!-- PO Dispatch Engine -->
+      <div class="engine-card po-engine">
+        <div class="engine-header">
+          <span class="engine-icon">📦</span>
+          <span class="engine-status pending">Pending</span>
+        </div>
+        <h3 class="engine-name">PO Dispatch</h3>
+        <p class="engine-desc">Send production orders to Studio Engine for batch processing on local PC.</p>
+        <div class="engine-actions">
+          <button class="engine-btn" data-action="open-po">Create Order</button>
+          <a href="/po/" class="engine-btn secondary">Queue (0)</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PO Dispatch Panel -->
+    <div class="po-dispatch-panel" id="po-panel">
+      <div class="po-header">
+        <h3 class="po-title">📦 Production Order Dispatch</h3>
+        <div class="po-status">
+          <span class="po-status-dot pending"></span>
+          <span class="po-status-text">Target: studio-engine</span>
+        </div>
+      </div>
+
+      <div class="po-body">
+        <!-- Order Type Selection -->
+        <div class="po-section">
+          <label class="po-label">Order Type</label>
+          <div class="po-type-grid">
+            <button class="po-type-btn" data-type="content_transform">
+              <span class="po-type-icon">⚡</span>
+              <span class="po-type-name">Transform</span>
+            </button>
+            <button class="po-type-btn" data-type="video_render">
+              <span class="po-type-icon">🎬</span>
+              <span class="po-type-name">Video</span>
+            </button>
+            <button class="po-type-btn" data-type="image_generate">
+              <span class="po-type-icon">🖼️</span>
+              <span class="po-type-name">Image</span>
+            </button>
+            <button class="po-type-btn" data-type="batch_publish">
+              <span class="po-type-icon">📤</span>
+              <span class="po-type-name">Publish</span>
+            </button>
+            <button class="po-type-btn" data-type="data_sync">
+              <span class="po-type-icon">🔄</span>
+              <span class="po-type-name">Sync</span>
+            </button>
+            <button class="po-type-btn" data-type="custom">
+              <span class="po-type-icon">⚙️</span>
+              <span class="po-type-name">Custom</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Channel Selection -->
+        <div class="po-section">
+          <label class="po-label">Target Channel</label>
+          <select class="po-select" id="po-channel">
+            <option value="all">All Channels</option>
+            <option value="philosopher">CH.01 Philosopher</option>
+            <option value="blogger">CH.02 Blogger</option>
+            <option value="visualizer">CH.03 Visualizer</option>
+            <option value="musician">CH.04 Musician</option>
+            <option value="technician">CH.05 Technician</option>
+            <option value="tester">CH.06 Tester</option>
+            <option value="protocol">CH.07 Protocol</option>
+            <option value="orbit">CH.08 Orbit-Log</option>
+          </select>
+        </div>
+
+        <!-- Order Details -->
+        <div class="po-section">
+          <label class="po-label">Order Title</label>
+          <input type="text" class="po-input" id="po-title" placeholder="Brief description of the order">
+        </div>
+
+        <div class="po-section">
+          <label class="po-label">Payload / Instructions</label>
+          <textarea class="po-textarea" id="po-payload" placeholder="Detailed instructions or content for the order..."></textarea>
+        </div>
+
+        <!-- Priority -->
+        <div class="po-section">
+          <label class="po-label">Priority</label>
+          <div class="po-priority-grid">
+            <button class="po-priority-btn" data-priority="low">Low</button>
+            <button class="po-priority-btn active" data-priority="normal">Normal</button>
+            <button class="po-priority-btn" data-priority="high">High</button>
+            <button class="po-priority-btn" data-priority="urgent">Urgent</button>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="po-actions">
+          <button class="po-btn secondary" data-action="save-draft">Save Draft</button>
+          <button class="po-btn primary" data-action="dispatch" disabled>
+            <span class="po-btn-icon">📤</span>
+            Dispatch to Engine
+          </button>
+        </div>
+
+        <!-- Status Info -->
+        <div class="po-info">
+          <p class="po-info-text">
+            🚧 <strong>System Status:</strong> Pending setup.
+            Connect <code>studio-engine</code> repository to enable dispatch.
+          </p>
+        </div>
+      </div>
     </div>
 
     <!-- Transform Workspace -->

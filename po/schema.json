@@ -1,0 +1,106 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PARKSY Production Order",
+  "description": "Schema for dispatching production orders to Studio Engine repository",
+  "type": "object",
+  "required": ["id", "type", "status", "created_at", "payload"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^PO-[0-9]{8}-[0-9]{4}$",
+      "description": "Unique PO ID (PO-YYYYMMDD-XXXX)"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "content_transform",
+        "video_render",
+        "image_generate",
+        "audio_process",
+        "document_compile",
+        "batch_publish",
+        "data_sync",
+        "custom"
+      ],
+      "description": "Type of production order"
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["low", "normal", "high", "urgent"],
+      "default": "normal"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "queued", "dispatched", "processing", "completed", "failed", "cancelled"],
+      "default": "draft"
+    },
+    "channel": {
+      "type": "string",
+      "enum": ["philosopher", "blogger", "visualizer", "musician", "technician", "tester", "protocol", "orbit", "all"],
+      "description": "Target channel for the order"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "dispatched_at": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "payload": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Brief title for the order"
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed description of what to produce"
+        },
+        "input": {
+          "type": "object",
+          "description": "Input data or references"
+        },
+        "output": {
+          "type": "object",
+          "properties": {
+            "format": {
+              "type": "string",
+              "enum": ["html", "md", "json", "mp4", "mp3", "png", "pdf", "custom"]
+            },
+            "destination": {
+              "type": "string",
+              "description": "Target path or location"
+            }
+          }
+        },
+        "params": {
+          "type": "object",
+          "description": "Additional parameters for processing"
+        }
+      }
+    },
+    "target_repo": {
+      "type": "string",
+      "default": "dtslib1979/studio-engine",
+      "description": "Target repository to dispatch the order"
+    },
+    "callback_url": {
+      "type": ["string", "null"],
+      "description": "Webhook URL for completion notification"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "created_by": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}
