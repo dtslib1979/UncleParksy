@@ -1,33 +1,33 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Parksy Engine — Executable Thought</title>
+  <title>PARKSY Broadcasting — AI-Powered Media Station</title>
 
   <!-- SEO -->
-  <meta name="description" content="YouTube는 입구, GitHub는 세계, 프로그램은 생각의 서식이다. 사고를 실행 파일로 배포하는 1인 출판 시스템.">
+  <meta name="description" content="Be a panelist with AI. PARKSY Broadcasting offers what YouTube cannot — a multi-channel media platform where everyone becomes a voice.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://parksy.kr/">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Parksy Engine — Executable Thought">
-  <meta property="og:description" content="사고를 실행 파일로 배포하는 1인 출판 시스템">
+  <meta property="og:title" content="PARKSY Broadcasting — AI-Powered Media Station">
+  <meta property="og:description" content="Be a panelist with AI. Multi-channel broadcasting platform.">
   <meta property="og:url" content="https://parksy.kr/">
   <meta property="og:image" content="https://parksy.kr/assets/og/cover.png">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Parksy Engine">
-  <meta name="twitter:description" content="Executable Thought — 사고를 실행 파일로 배포">
+  <meta name="twitter:title" content="PARKSY Broadcasting">
+  <meta name="twitter:description" content="AI-Powered Media Station — Be a panelist with AI">
 
   <!-- Favicon & Shortcut Icon -->
   <link rel="icon" href="/assets/parksy-logo.png" type="image/png">
   <link rel="apple-touch-icon" href="/assets/parksy-logo.png">
   <link rel="manifest" href="/manifest.webmanifest">
   <meta name="theme-color" content="#0a0a0a">
-  <meta name="application-name" content="Parksy with AI">
+  <meta name="application-name" content="PARKSY Broadcasting">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,9 +37,10 @@
   <!-- Styles -->
   <link rel="stylesheet" href="/design/cave-ui.css">
   <link rel="stylesheet" href="/design/floor-system.css">
+  <link rel="stylesheet" href="/design/broadcast-ui.css">
 
   <style>
-    /* Pretendard 로컬 폴백 */
+    /* Pretendard local fallback */
     @font-face {
       font-family: 'Pretendard';
       src: local('Pretendard'), local('Apple SD Gothic Neo'), local('Malgun Gothic');
@@ -50,47 +51,55 @@
 <body>
 
   <!-- ═══════════════════════════════════════════════════════════════
-       ENTRANCE: 지하실 입구 - 층 선택 게이트
+       ENTRANCE: Broadcasting Station Lobby
        ═══════════════════════════════════════════════════════════════ -->
   <main class="entrance" id="entrance">
     <div class="entrance-inner">
-      <!-- 타이틀 -->
+      <!-- Station Header -->
+      <div class="station-header">
+        <span class="station-logo">PARKSY</span>
+        <span class="on-air-badge">
+          <span class="on-air-dot"></span>
+          ON AIR
+        </span>
+      </div>
+
+      <!-- Title -->
       <h1 class="entrance-monument">
-        생각을<br>
-        실행 파일로<br>
-        배포한다
+        Be a Panelist<br>
+        with AI
       </h1>
 
       <p class="entrance-statement">
-        YouTube는 입구,<br>
-        GitHub는 세계,<br>
-        프로그램은 생각의 서식이다.
+        What YouTube cannot offer —<br>
+        Your voice, curated by AI,<br>
+        broadcast to the world.
       </p>
 
       <div class="cave-crack"></div>
 
-      <!-- 층 선택 게이트 -->
+      <!-- Floor Selection Gates -->
       <div class="floor-gates">
-        <p class="gates-label">지하로 내려가기</p>
+        <p class="gates-label">Enter the Station</p>
 
-        <button class="floor-gate" data-floor="1" data-code="1" data-hint="첫 번째">
+        <button class="floor-gate" data-floor="1" data-code="1" data-hint="first">
           <span class="gate-floor-num">B1</span>
-          <span class="gate-floor-name">쇼룸 · Gallery</span>
-          <span class="gate-floor-desc">작업물 전시</span>
+          <span class="gate-floor-name">Channels</span>
+          <span class="gate-floor-desc">8 Broadcasting Channels</span>
           <span class="gate-lock">🔒</span>
         </button>
 
-        <button class="floor-gate" data-floor="2" data-code="2" data-hint="두 번째">
+        <button class="floor-gate" data-floor="2" data-code="2" data-hint="second">
           <span class="gate-floor-num">B2</span>
-          <span class="gate-floor-name">실험실 · Laboratory</span>
-          <span class="gate-floor-desc">페르소나 × 메리트 변환</span>
+          <span class="gate-floor-name">Studio</span>
+          <span class="gate-floor-desc">AI Panel · Viewer Curation</span>
           <span class="gate-lock">🔒</span>
         </button>
 
-        <button class="floor-gate" data-floor="3" data-code="parksy" data-hint="주인장 이름">
+        <button class="floor-gate" data-floor="3" data-code="parksy" data-hint="host name">
           <span class="gate-floor-num">B3</span>
-          <span class="gate-floor-name">콘솔 · Console</span>
-          <span class="gate-floor-desc">미디어 작업실</span>
+          <span class="gate-floor-name">Console</span>
+          <span class="gate-floor-desc">Broadcast Control Room</span>
           <span class="gate-lock">🔒</span>
         </button>
       </div>
@@ -104,8 +113,8 @@
       </nav>
 
       <footer class="entrance-footer">
-        <p>© 2025 UncleParksy · DTSLIB Media Empire</p>
-        <p class="footer-philosophy">Beyond AI — 영성·지성·감성의 라이브러리</p>
+        <p>© 2025 PARKSY Broadcasting · DTSLIB Media Empire</p>
+        <p class="footer-philosophy">Beyond AI — Spirit · Intellect · Emotion</p>
       </footer>
     </div>
 
@@ -114,209 +123,332 @@
   </main>
 
   <!-- ═══════════════════════════════════════════════════════════════
-       FLOOR B1: 쇼룸 - 작업물 전시
+       FLOOR B1: Channels — 8 Broadcasting Channels
        ═══════════════════════════════════════════════════════════════ -->
   <section class="floor floor-hidden" data-floor="1" id="floor-1">
     <div class="floor-header">
-      <button class="back-to-entrance" aria-label="입구로 돌아가기">↑ 입구</button>
-      <h2 class="floor-title">B1 · 쇼룸</h2>
+      <button class="back-to-entrance" aria-label="Back to lobby">↑ Lobby</button>
+      <h2 class="floor-title">B1 · Channels</h2>
     </div>
 
     <div class="floor-content showroom">
-      <p class="showroom-intro">Parksy의 작업물들</p>
+      <p class="showroom-intro">Select a Channel</p>
 
-      <!-- 페르소나별 섹션 -->
-      <div class="showroom-section">
-        <h3 class="section-title">🤔 철학자 Parksy</h3>
-        <div class="showroom-grid">
-          <a href="/category/Philosopher-Parksy/Independent-finger.html" class="showroom-item">
-            <span class="item-title">Independent Finger</span>
-            <span class="item-desc">독립된 손가락의 철학</span>
-          </a>
-        </div>
-        <a href="/category/Philosopher-Parksy/" class="section-more">더 보기 →</a>
+      <!-- Channel Grid -->
+      <div class="channel-grid">
+        <a href="/category/Philosopher-Parksy/" class="channel-card" data-channel="1">
+          <span class="channel-number">CH.01</span>
+          <span class="channel-name">Philosopher TV</span>
+          <span class="channel-desc">Deep thinking & philosophical perspectives</span>
+          <span class="channel-status">
+            <span class="status-dot ready"></span>
+            <span>Ready</span>
+          </span>
+        </a>
+
+        <a href="/category/Blogger-Parksy/" class="channel-card" data-channel="2">
+          <span class="channel-number">CH.02</span>
+          <span class="channel-name">Blogger TV</span>
+          <span class="channel-desc">Daily essays & personal stories</span>
+          <span class="channel-status">
+            <span class="status-dot ready"></span>
+            <span>Ready</span>
+          </span>
+        </a>
+
+        <a href="/category/Visualizer-Parksy/" class="channel-card" data-channel="3">
+          <span class="channel-number">CH.03</span>
+          <span class="channel-name">Visualizer TV</span>
+          <span class="channel-desc">Data visualization & infographics</span>
+          <span class="channel-status">
+            <span class="status-dot live"></span>
+            <span>LIVE</span>
+          </span>
+        </a>
+
+        <a href="/category/Musician-Parksy/" class="channel-card" data-channel="4">
+          <span class="channel-number">CH.04</span>
+          <span class="channel-name">Musician TV</span>
+          <span class="channel-desc">Music curation & audio experience</span>
+          <span class="channel-status">
+            <span class="status-dot ready"></span>
+            <span>Ready</span>
+          </span>
+        </a>
+
+        <a href="/category/Technician-Parksy/" class="channel-card" data-channel="5">
+          <span class="channel-number">CH.05</span>
+          <span class="channel-name">Technician TV</span>
+          <span class="channel-desc">Technical tutorials & how-to guides</span>
+          <span class="channel-status">
+            <span class="status-dot ready"></span>
+            <span>Ready</span>
+          </span>
+        </a>
+
+        <a href="/category/Tester-Parksy/" class="channel-card" data-channel="6">
+          <span class="channel-number">CH.06</span>
+          <span class="channel-name">Tester TV</span>
+          <span class="channel-desc">Testing protocols & experiments</span>
+          <span class="channel-status">
+            <span class="status-dot"></span>
+            <span>Offline</span>
+          </span>
+        </a>
+
+        <a href="/category/Protocol-Parksy/" class="channel-card" data-channel="7">
+          <span class="channel-number">CH.07</span>
+          <span class="channel-name">Protocol TV</span>
+          <span class="channel-desc">Structured systems & frameworks</span>
+          <span class="channel-status">
+            <span class="status-dot ready"></span>
+            <span>Ready</span>
+          </span>
+        </a>
+
+        <a href="/category/Orbit-Log/" class="channel-card" data-channel="8">
+          <span class="channel-number">CH.08</span>
+          <span class="channel-name">Orbit-Log TV</span>
+          <span class="channel-desc">Analytics & tracking insights</span>
+          <span class="channel-status">
+            <span class="status-dot live"></span>
+            <span>LIVE</span>
+          </span>
+        </a>
       </div>
 
-      <div class="showroom-section">
-        <h3 class="section-title">📝 블로거 Parksy</h3>
-        <div class="showroom-grid">
-          <a href="/archive/2025-12-12-봄길.html" class="showroom-item">
-            <span class="item-title">봄길</span>
-            <span class="item-desc">새로운 시작</span>
-          </a>
+      <!-- Today's Schedule -->
+      <div class="schedule-section">
+        <h3 class="schedule-title">Today's Schedule</h3>
+        <div class="schedule-item">
+          <span class="schedule-time">09:00</span>
+          <span class="schedule-program">Morning Philosophy</span>
+          <span class="schedule-channel">CH.01</span>
         </div>
-        <a href="/category/Blogger-Parksy/" class="section-more">더 보기 →</a>
-      </div>
-
-      <div class="showroom-section">
-        <h3 class="section-title">🎨 시각화사 Parksy</h3>
-        <div class="showroom-grid">
-          <a href="/category/Visualizer-Parksy/MeEvalModel.html" class="showroom-item">
-            <span class="item-title">MeEval Model</span>
-            <span class="item-desc">자기 평가 시스템</span>
-          </a>
+        <div class="schedule-item">
+          <span class="schedule-time">12:00</span>
+          <span class="schedule-program">Daily Blog</span>
+          <span class="schedule-channel">CH.02</span>
         </div>
-        <a href="/category/Visualizer-Parksy/" class="section-more">더 보기 →</a>
-      </div>
-
-      <div class="showroom-section">
-        <h3 class="section-title">🎵 뮤지션 Parksy</h3>
-        <div class="showroom-grid">
-          <a href="/archive/" class="showroom-item">
-            <span class="item-title">Listening Room</span>
-            <span class="item-desc">음악 감상실</span>
-          </a>
+        <div class="schedule-item">
+          <span class="schedule-time">15:00</span>
+          <span class="schedule-program">Data Dive</span>
+          <span class="schedule-channel">CH.03</span>
         </div>
-        <a href="/category/Musician-Parksy/" class="section-more">더 보기 →</a>
-      </div>
-
-      <div class="showroom-section">
-        <h3 class="section-title">🔧 기능인 Parksy</h3>
-        <div class="showroom-grid">
-          <a href="/category/Technician-Parksy/Github-publising.html" class="showroom-item">
-            <span class="item-title">GitHub Publishing</span>
-            <span class="item-desc">배포 가이드</span>
-          </a>
+        <div class="schedule-item">
+          <span class="schedule-time">18:00</span>
+          <span class="schedule-program">Tech Talk</span>
+          <span class="schedule-channel">CH.05</span>
         </div>
-        <a href="/category/Technician-Parksy/" class="section-more">더 보기 →</a>
+        <div class="schedule-item">
+          <span class="schedule-time">21:00</span>
+          <span class="schedule-program">Night Session</span>
+          <span class="schedule-channel">CH.08</span>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════
-       FLOOR B2: 실험실 - 변환 시스템
+       FLOOR B2: Studio — AI Panel & Viewer Curation
        ═══════════════════════════════════════════════════════════════ -->
   <section class="floor floor-hidden" data-floor="2" id="floor-2">
     <div class="floor-header">
-      <button class="back-to-entrance" aria-label="입구로 돌아가기">↑ 입구</button>
-      <h2 class="floor-title">B2 · 실험실</h2>
+      <button class="back-to-entrance" aria-label="Back to lobby">↑ Lobby</button>
+      <h2 class="floor-title">B2 · Studio</h2>
     </div>
 
     <div class="floor-content laboratory">
+      <!-- Panel Stage -->
+      <div class="studio-section">
+        <p class="studio-label">Panel Stage</p>
+        <div class="panel-stage">
+          <div class="panelist active">
+            <div class="panelist-avatar">🎙️</div>
+            <span class="panelist-name">PARKSY</span>
+            <span class="panelist-role">HOST</span>
+          </div>
+          <div class="panelist ai">
+            <div class="panelist-avatar">🤖</div>
+            <span class="panelist-name">Claude AI</span>
+            <span class="panelist-role">ANALYST</span>
+          </div>
+          <div class="panelist ai">
+            <div class="panelist-avatar">🧠</div>
+            <span class="panelist-name">GPT</span>
+            <span class="panelist-role">DEBATER</span>
+          </div>
+          <div class="panelist">
+            <div class="panelist-avatar">👤</div>
+            <span class="panelist-name">YOU</span>
+            <span class="panelist-role">VIEWER</span>
+          </div>
+        </div>
+      </div>
+
       <!-- Persona Selector -->
       <div class="lab-section">
-        <p class="lab-label">Persona — 누구로 변환할 것인가</p>
+        <p class="lab-label">Voice Persona — Who do you want to sound like?</p>
         <div class="selector-grid personas" role="group" aria-label="Select persona">
-          <!-- JS에서 동적 생성 -->
+          <!-- Generated by JS -->
         </div>
       </div>
 
       <!-- Merit Selector -->
       <div class="lab-section">
-        <p class="lab-label">Merit — 어떤 색을 입힐 것인가</p>
+        <p class="lab-label">Merit Style — What flavor to add?</p>
         <div class="selector-grid merits" role="group" aria-label="Select merit">
-          <!-- JS에서 동적 생성 -->
+          <!-- Generated by JS -->
         </div>
       </div>
 
-      <!-- Transformation Area -->
-      <div class="lab-transform">
-        <textarea
-          class="lab-textarea"
-          placeholder="LLM 답변, 메모, 아이디어를 붙여넣으세요...
+      <!-- Viewer Input Area -->
+      <div class="studio-section">
+        <div class="viewer-input-area">
+          <div class="viewer-input-header">
+            <span class="viewer-input-title">Your Opinion</span>
+            <span class="ai-badge">
+              <span>✨</span>
+              AI Curation
+            </span>
+          </div>
+          <textarea
+            class="viewer-textarea lab-textarea"
+            placeholder="Share your thoughts here...
 
-ChatGPT, Claude, Gemini...
-어디서든 복사해서 여기에 붙여넣기"
-          aria-label="Input text for transformation"
-          spellcheck="false"
-        ></textarea>
+Paste any LLM response, memo, or idea.
+AI will curate it into broadcast-ready format."
+            aria-label="Input text for curation"
+            spellcheck="false"
+          ></textarea>
 
-        <button class="lab-process-btn" disabled>
-          ↑ 먼저 위에서 선택하세요
-        </button>
+          <!-- Format Selector -->
+          <div class="format-selector">
+            <button class="format-btn active" data-format="panel">Panel Comment</button>
+            <button class="format-btn" data-format="news">News Style</button>
+            <button class="format-btn" data-format="debate">Debate Point</button>
+            <button class="format-btn" data-format="summary">Summary</button>
+          </div>
 
-        <div class="lab-output-area" aria-live="polite">
-          <div class="lab-output"></div>
-          <div class="lab-output-meta"></div>
+          <button class="lab-process-btn" disabled>
+            ↑ Select persona & merit above
+          </button>
+
+          <!-- Curation Output -->
+          <div class="curation-output">
+            <div class="curation-header">
+              <span>🎬</span>
+              <span>Curated Output</span>
+            </div>
+            <div class="curation-content lab-output">
+              <p class="curation-empty">Your curated broadcast will appear here...</p>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- Output Actions -->
       <div class="lab-actions">
         <button class="action-btn" data-action="copy" disabled>
-          클립보드에 복사
+          Copy to Clipboard
         </button>
         <button class="action-btn" data-action="download" disabled>
-          HTML로 다운로드
+          Download as HTML
         </button>
       </div>
     </div>
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════
-       FLOOR B3: 콘솔 - 미디어 작업실
+       FLOOR B3: Console — Broadcast Control Room
        ═══════════════════════════════════════════════════════════════ -->
   <section class="floor floor-hidden" data-floor="3" id="floor-3">
     <div class="floor-header">
-      <button class="back-to-entrance" aria-label="입구로 돌아가기">↑ 입구</button>
-      <h2 class="floor-title">B3 · 콘솔</h2>
+      <button class="back-to-entrance" aria-label="Back to lobby">↑ Lobby</button>
+      <h2 class="floor-title">B3 · Console</h2>
     </div>
 
     <div class="floor-content console">
-      <p class="console-subtitle">미디어 방송 콘솔</p>
+      <p class="console-subtitle">Broadcast Control Room</p>
+
+      <!-- Status Dashboard -->
+      <div class="broadcast-status">
+        <div class="status-card">
+          <div class="status-value">8</div>
+          <div class="status-label">Channels</div>
+        </div>
+        <div class="status-card">
+          <div class="status-value">2</div>
+          <div class="status-label">Live Now</div>
+        </div>
+        <div class="status-card">
+          <div class="status-value">∞</div>
+          <div class="status-label">Potential</div>
+        </div>
+      </div>
 
       <div class="console-grid">
         <!-- YouTube Studio -->
         <a href="https://studio.youtube.com" target="_blank" rel="noopener" class="console-card">
           <span class="console-icon">📺</span>
           <span class="console-name">YouTube Studio</span>
-          <span class="console-desc">채널 관리 · 분석</span>
+          <span class="console-desc">Channel · Analytics</span>
         </a>
 
-        <!-- OBS / 방송 -->
+        <!-- OBS / Broadcasting -->
         <a href="https://obsproject.com" target="_blank" rel="noopener" class="console-card">
           <span class="console-icon">🎬</span>
           <span class="console-name">OBS Studio</span>
-          <span class="console-desc">라이브 · 녹화</span>
+          <span class="console-desc">Live · Recording</span>
         </a>
 
         <!-- GitHub -->
         <a href="https://github.com/dtslib1979/parksy.kr" target="_blank" rel="noopener" class="console-card">
           <span class="console-icon">🔧</span>
           <span class="console-name">GitHub Repo</span>
-          <span class="console-desc">코드 · 배포</span>
+          <span class="console-desc">Code · Deploy</span>
         </a>
 
         <!-- Analytics -->
         <a href="https://analytics.google.com" target="_blank" rel="noopener" class="console-card">
           <span class="console-icon">📊</span>
           <span class="console-name">Analytics</span>
-          <span class="console-desc">트래픽 · 통계</span>
+          <span class="console-desc">Traffic · Stats</span>
         </a>
 
         <!-- Notion -->
         <a href="https://notion.so" target="_blank" rel="noopener" class="console-card">
           <span class="console-icon">📝</span>
           <span class="console-name">Notion</span>
-          <span class="console-desc">기획 · 문서</span>
+          <span class="console-desc">Planning · Docs</span>
         </a>
 
         <!-- Spotify -->
         <a href="https://podcasters.spotify.com" target="_blank" rel="noopener" class="console-card">
           <span class="console-icon">🎵</span>
           <span class="console-name">Spotify</span>
-          <span class="console-desc">팟캐스트 · 음악</span>
+          <span class="console-desc">Podcast · Music</span>
         </a>
 
         <!-- Claude -->
         <a href="https://claude.ai" target="_blank" rel="noopener" class="console-card">
           <span class="console-icon">🤖</span>
           <span class="console-name">Claude AI</span>
-          <span class="console-desc">AI 어시스턴트</span>
+          <span class="console-desc">AI Assistant</span>
         </a>
 
         <!-- Midjourney -->
         <a href="https://midjourney.com" target="_blank" rel="noopener" class="console-card">
           <span class="console-icon">🖼️</span>
           <span class="console-name">Midjourney</span>
-          <span class="console-desc">이미지 생성</span>
+          <span class="console-desc">Image Generation</span>
         </a>
 
         <!-- Canva -->
         <a href="https://canva.com" target="_blank" rel="noopener" class="console-card">
           <span class="console-icon">🎨</span>
           <span class="console-name">Canva</span>
-          <span class="console-desc">디자인 · 썸네일</span>
+          <span class="console-desc">Design · Thumbnails</span>
         </a>
       </div>
 
@@ -325,31 +457,31 @@ ChatGPT, Claude, Gemini...
       <div class="console-trilogy">
         <p class="trilogy-label">Trilogy</p>
         <div class="trilogy-links">
-          <a href="https://parksy.kr" class="trilogy-link active">parksy.kr — 실험실</a>
-          <a href="https://eae.kr" class="trilogy-link" target="_blank" rel="noopener">eae.kr — 철학</a>
-          <a href="https://dtslib.kr" class="trilogy-link" target="_blank" rel="noopener">dtslib.kr — 출판</a>
+          <a href="https://parksy.kr" class="trilogy-link active">parksy.kr — Broadcast</a>
+          <a href="https://eae.kr" class="trilogy-link" target="_blank" rel="noopener">eae.kr — Philosophy</a>
+          <a href="https://dtslib.kr" class="trilogy-link" target="_blank" rel="noopener">dtslib.kr — Publishing</a>
         </div>
       </div>
 
       <p class="console-warning">
-        🔒 이 영역은 관리자 전용입니다
+        🔒 Admin access only
       </p>
     </div>
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════
-       GATE MODAL: 비밀번호 입력
+       GATE MODAL: Password Entry
        ═══════════════════════════════════════════════════════════════ -->
   <div class="gate-overlay" id="gate-overlay" aria-hidden="true">
     <div class="gate-modal">
       <div class="gate-icon">🚪</div>
       <h3 class="gate-title">Floor <span class="gate-floor-target">B1</span></h3>
-      <p class="gate-hint">힌트: <span class="gate-hint-text"></span></p>
-      <input type="text" class="gate-input" id="gate-input" placeholder="암호 입력" autocomplete="off">
+      <p class="gate-hint">Hint: <span class="gate-hint-text"></span></p>
+      <input type="text" class="gate-input" id="gate-input" placeholder="Enter code" autocomplete="off">
       <p class="gate-error" id="gate-error"></p>
       <div class="gate-buttons">
-        <button class="gate-btn gate-cancel">취소</button>
-        <button class="gate-btn gate-submit">입장</button>
+        <button class="gate-btn gate-cancel">Cancel</button>
+        <button class="gate-btn gate-submit">Enter</button>
       </div>
     </div>
   </div>
@@ -367,19 +499,19 @@ ChatGPT, Claude, Gemini...
       .gate-overlay { display: none; }
     </style>
     <div style="position:fixed;bottom:0;left:0;right:0;padding:1rem;background:#1a1a1a;color:#888;text-align:center;font-size:0.9rem;z-index:9999;">
-      JavaScript가 비활성화되어 있습니다. 전체 기능을 사용하려면 JavaScript를 활성화하세요.
+      JavaScript is disabled. Enable JavaScript for full functionality.
     </div>
   </noscript>
 
-  <!-- 구조화된 데이터 -->
+  <!-- Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "Parksy Engine",
-    "description": "사고를 실행 파일로 배포하는 1인 출판 시스템",
+    "name": "PARKSY Broadcasting",
+    "description": "AI-Powered Media Station — Be a panelist with AI",
     "url": "https://parksy.kr",
-    "applicationCategory": "Productivity",
+    "applicationCategory": "Entertainment",
     "operatingSystem": "Web Browser",
     "author": {
       "@type": "Person",
