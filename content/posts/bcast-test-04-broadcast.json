@@ -1,0 +1,12 @@
+{
+  "id": "test-04-broadcast",
+  "ts": "2026-02-06T00:00:00.000Z",
+  "title": "[broadcast] 유튜브 영상 업로드: Repo-OS 사용법",
+  "body": "Repo-OS 사용법 튜토리얼 영상 촬영 완료. 유튜브 채널에 업로드 예정. 썸네일 제작 필요.",
+  "tags": [
+    "youtube",
+    "content"
+  ],
+  "owner": "parksy",
+  "source_event": "test-04-broadcast"
+}
