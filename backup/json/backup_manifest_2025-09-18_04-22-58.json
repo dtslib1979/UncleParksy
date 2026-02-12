@@ -1,0 +1,23 @@
+{
+  "timestamp": "2025-09-18_04-22-58",
+  "backup_type": "full_obsidian_backup",
+  "source_vault": "C:\\ObsidianVault\\UncleParksy",
+  "directories": {
+    "raw": "/home/runner/work/UncleParksy/UncleParksy/backup/raw",
+    "md": "/home/runner/work/UncleParksy/UncleParksy/_obsidian/_imports/html_md",
+    "html": "/home/runner/work/UncleParksy/UncleParksy/_obsidian/_imports/html_raw",
+    "json": "/home/runner/work/UncleParksy/UncleParksy/backup/json",
+    "snapshots": "/home/runner/work/UncleParksy/UncleParksy/backup/snapshots"
+  },
+  "files_backed_up": {},
+  "checksum_verification": {},
+  "status": "completed",
+  "operations_summary": {
+    "tistory_backup": "success",
+    "mirror_to_archive": "success",
+    "clean_and_mobilize": "success",
+    "obsidian_config": "success",
+    "vault_snapshot": "success",
+    "integrity_verification": "success"
+  }
+}

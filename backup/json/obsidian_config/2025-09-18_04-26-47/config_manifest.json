@@ -1,0 +1,14 @@
+{
+  "vault_path": "C:\\ObsidianVault\\UncleParksy",
+  "backup_timestamp": "2025-09-18_04-26-47",
+  "config_files": [
+    ".obsidian/workspace.json",
+    ".obsidian/app.json",
+    ".obsidian/appearance.json",
+    ".obsidian/core-plugins.json",
+    ".obsidian/community-plugins.json",
+    ".obsidian/plugins/",
+    ".obsidian/themes/"
+  ],
+  "note": "This is a simulation since we are not on Windows. In production, this would copy actual Obsidian config files."
+}
